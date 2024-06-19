@@ -1,0 +1,1 @@
+ ../libtfhe/libtfhe-nayuki-portable.a googletest/googlemock/gtest/libgtest.a googletest/googlemock/gtest/libgtest_main.a -lpthread googletest/googlemock/gtest/libgtest.a 
