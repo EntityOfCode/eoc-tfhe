@@ -815,6 +815,21 @@ test/CMakeFiles/eocLweTest-nayuki-portable.dir/eocLweTest.cpp.o: /tfhe/src/test/
   /emsdk/upstream/emscripten/cache/sysroot/include/c++/v1/__format/formatter_tuple.h \
   /emsdk/upstream/emscripten/cache/sysroot/include/c++/v1/print \
   /emsdk/upstream/emscripten/cache/sysroot/include/unistd.h \
+  /tfhe/src/libtfhe/cereal/include/cereal/archives/portable_binary.hpp \
+  /tfhe/src/libtfhe/cereal/include/cereal/cereal.hpp \
+  /emsdk/upstream/emscripten/cache/sysroot/include/c++/v1/unordered_set \
+  /tfhe/src/libtfhe/cereal/include/cereal/macros.hpp \
+  /tfhe/src/libtfhe/cereal/include/cereal/details/traits.hpp \
+  /emsdk/upstream/emscripten/cache/sysroot/include/c++/v1/typeindex \
+  /tfhe/src/libtfhe/cereal/include/cereal/access.hpp \
+  /tfhe/src/libtfhe/cereal/include/cereal/specialize.hpp \
+  /tfhe/src/libtfhe/cereal/include/cereal/details/helpers.hpp \
+  /tfhe/src/libtfhe/cereal/include/cereal/details/static_object.hpp \
+  /tfhe/src/libtfhe/cereal/include/cereal/types/base_class.hpp \
+  /tfhe/src/libtfhe/cereal/include/cereal/details/polymorphic_impl_fwd.hpp \
+  /tfhe/src/libtfhe/cereal/include/cereal/types/common.hpp \
+  /emsdk/upstream/emscripten/cache/sysroot/include/c++/v1/sstream \
+  /tfhe/src/libtfhe/cereal/include/cereal/types/vector.hpp \
   /tfhe/src/include/tfhe_gate_bootstrapping_functions.h \
   /tfhe/src/include/tfhe_gate_bootstrapping_structures.h \
   /tfhe/src/include/tfhe_core.h \
@@ -941,6 +956,14 @@ test/CMakeFiles/eocLweTest-nayuki-portable.dir/eocLweTest.cpp.o: /tfhe/src/test/
 
 /tfhe/src/include/tfhe_gate_bootstrapping_functions.h:
 
+/tfhe/src/libtfhe/cereal/include/cereal/types/common.hpp:
+
+/tfhe/src/libtfhe/cereal/include/cereal/details/polymorphic_impl_fwd.hpp:
+
+/tfhe/src/libtfhe/cereal/include/cereal/details/static_object.hpp:
+
+/tfhe/src/libtfhe/cereal/include/cereal/access.hpp:
+
 /emsdk/upstream/emscripten/cache/sysroot/include/unistd.h:
 
 /emsdk/upstream/emscripten/cache/sysroot/include/c++/v1/print:
@@ -954,6 +977,8 @@ test/CMakeFiles/eocLweTest-nayuki-portable.dir/eocLweTest.cpp.o: /tfhe/src/test/
 /emsdk/upstream/emscripten/cache/sysroot/include/c++/v1/__format/write_escaped.h:
 
 /emsdk/upstream/emscripten/cache/sysroot/include/c++/v1/__format/format_functions.h:
+
+/tfhe/src/libtfhe/cereal/include/cereal/types/vector.hpp:
 
 /emsdk/upstream/emscripten/cache/sysroot/include/c++/v1/__functional/pointer_to_unary_function.h:
 
@@ -974,6 +999,8 @@ test/CMakeFiles/eocLweTest-nayuki-portable.dir/eocLweTest.cpp.o: /tfhe/src/test/
 /emsdk/upstream/emscripten/cache/sysroot/include/c++/v1/__charconv/traits.h:
 
 /emsdk/upstream/emscripten/cache/sysroot/include/c++/v1/__charconv/to_chars_integral.h:
+
+/emsdk/upstream/emscripten/cache/sysroot/include/c++/v1/sstream:
 
 /emsdk/upstream/emscripten/cache/sysroot/include/c++/v1/__format/formatter_integral.h:
 
@@ -1195,6 +1222,8 @@ test/CMakeFiles/eocLweTest-nayuki-portable.dir/eocLweTest.cpp.o: /tfhe/src/test/
 
 /emsdk/upstream/emscripten/cache/sysroot/include/c++/v1/__algorithm/ranges_for_each.h:
 
+/tfhe/src/libtfhe/cereal/include/cereal/cereal.hpp:
+
 /emsdk/upstream/emscripten/cache/sysroot/include/c++/v1/__algorithm/ranges_find_if_not.h:
 
 /emsdk/upstream/emscripten/cache/sysroot/include/c++/v1/__algorithm/ranges_find_first_of.h:
@@ -1258,6 +1287,8 @@ test/CMakeFiles/eocLweTest-nayuki-portable.dir/eocLweTest.cpp.o: /tfhe/src/test/
 /emsdk/upstream/emscripten/cache/sysroot/include/c++/v1/__algorithm/pstl_fill.h:
 
 /emsdk/upstream/emscripten/cache/sysroot/include/c++/v1/__numeric/pstl_transform_reduce.h:
+
+/emsdk/upstream/emscripten/cache/sysroot/include/c++/v1/unordered_set:
 
 /emsdk/upstream/emscripten/cache/sysroot/include/c++/v1/__algorithm/pstl_for_each.h:
 
@@ -1521,6 +1552,8 @@ test/CMakeFiles/eocLweTest-nayuki-portable.dir/eocLweTest.cpp.o: /tfhe/src/test/
 
 /emsdk/upstream/emscripten/cache/sysroot/include/c++/v1/__atomic/atomic_flag.h:
 
+/tfhe/src/libtfhe/cereal/include/cereal/details/traits.hpp:
+
 /emsdk/upstream/emscripten/cache/sysroot/include/c++/v1/__math/inverse_hyperbolic_functions.h:
 
 /emsdk/upstream/emscripten/cache/sysroot/include/c++/v1/__algorithm/rotate_copy.h:
@@ -1562,6 +1595,8 @@ test/CMakeFiles/eocLweTest-nayuki-portable.dir/eocLweTest.cpp.o: /tfhe/src/test/
 /emsdk/upstream/emscripten/cache/sysroot/include/c++/v1/__type_traits/is_compound.h:
 
 /emsdk/upstream/emscripten/cache/sysroot/include/c++/v1/__type_traits/is_callable.h:
+
+/emsdk/upstream/emscripten/cache/sysroot/include/c++/v1/typeindex:
 
 /emsdk/upstream/emscripten/cache/sysroot/include/c++/v1/__type_traits/is_allocator.h:
 
@@ -1677,6 +1712,8 @@ test/CMakeFiles/eocLweTest-nayuki-portable.dir/eocLweTest.cpp.o: /tfhe/src/test/
 
 /emsdk/upstream/emscripten/cache/sysroot/include/c++/v1/__type_traits/add_cv.h:
 
+/tfhe/src/libtfhe/cereal/include/cereal/specialize.hpp:
+
 /emsdk/upstream/emscripten/cache/sysroot/include/c++/v1/__algorithm/fold.h:
 
 /emsdk/upstream/emscripten/cache/sysroot/include/c++/v1/concepts:
@@ -1697,7 +1734,11 @@ test/CMakeFiles/eocLweTest-nayuki-portable.dir/eocLweTest.cpp.o: /tfhe/src/test/
 
 /emsdk/upstream/emscripten/cache/sysroot/include/c++/v1/__type_traits/is_bounded_array.h:
 
+/tfhe/src/libtfhe/cereal/include/cereal/types/base_class.hpp:
+
 /emsdk/upstream/emscripten/cache/sysroot/include/c++/v1/__assertion_handler:
+
+/tfhe/src/libtfhe/cereal/include/cereal/archives/portable_binary.hpp:
 
 /emsdk/upstream/emscripten/cache/sysroot/include/c++/v1/__tuple/tuple_element.h:
 
@@ -1892,6 +1933,8 @@ test/CMakeFiles/eocLweTest-nayuki-portable.dir/eocLweTest.cpp.o: /tfhe/src/test/
 /emsdk/upstream/emscripten/cache/sysroot/include/c++/v1/__utility/swap.h:
 
 /emsdk/upstream/emscripten/cache/sysroot/include/c++/v1/__type_traits/is_default_constructible.h:
+
+/tfhe/src/libtfhe/cereal/include/cereal/macros.hpp:
 
 /emsdk/upstream/emscripten/cache/sysroot/include/c++/v1/__type_traits/is_equality_comparable.h:
 
@@ -2338,6 +2381,8 @@ test/CMakeFiles/eocLweTest-nayuki-portable.dir/eocLweTest.cpp.o: /tfhe/src/test/
 /emsdk/upstream/emscripten/cache/sysroot/include/c++/v1/__algorithm/remove_if.h:
 
 /emsdk/upstream/emscripten/cache/sysroot/include/c++/v1/__numeric/iota.h:
+
+/tfhe/src/libtfhe/cereal/include/cereal/details/helpers.hpp:
 
 /emsdk/upstream/emscripten/cache/sysroot/include/c++/v1/__memory_resource/polymorphic_allocator.h:
 

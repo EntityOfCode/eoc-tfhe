@@ -27,7 +27,7 @@ BUILD_SHARED_LIBS:BOOL=OFF
 CMAKE_ADDR2LINE:FILEPATH=/usr/bin/addr2line
 
 //ASM compiler
-CMAKE_ASM_COMPILER:FILEPATH=/emsdk/upstream/emscripten/emcc
+CMAKE_ASM_COMPILER:STRING=/emsdk/upstream/emscripten/emcc
 
 //Flags used by the ASM compiler during all build types.
 CMAKE_ASM_FLAGS:STRING=
@@ -60,7 +60,7 @@ CMAKE_CONFIGURATION_TYPES:STRING=Debug;Optim
 CMAKE_CROSSCOMPILING_EMULATOR:UNINITIALIZED=/emsdk/node/16.20.0_64bit/bin/node
 
 //Flags used by the CXX compiler during all build types.
-CMAKE_CXX_FLAGS:STRING=-s MEMORY64=1 -g0 -flto=full -s EXPORT_ALL=1 -s INITIAL_MEMORY=800MB -s MAXIMUM_MEMORY=4GB -s ALLOW_MEMORY_GROWTH -s FORCE_FILESYSTEM=1 -s EXPORTED_FUNCTIONS=_main -s EXPORTED_RUNTIME_METHODS=callMain -s NO_EXIT_RUNTIME=1 -Wno-unused-command-line-argument -Wno-experimental
+CMAKE_CXX_FLAGS:STRING=-s MEMORY64=1 -O3 -g0 -msimd128 -flto=full -s EXPORT_ALL=1 -s EXPORT_ES6=1 -s MODULARIZE=1 -s INITIAL_MEMORY=800MB -s MAXIMUM_MEMORY=4GB -s ALLOW_MEMORY_GROWTH -s FORCE_FILESYSTEM=1 -s EXPORTED_FUNCTIONS=_main -s EXPORTED_RUNTIME_METHODS=callMain -s NO_EXIT_RUNTIME=1 -Wno-unused-command-line-argument -Wno-experimental
 
 //Flags used by the CXX compiler during DEBUG builds.
 CMAKE_CXX_FLAGS_DEBUG:STRING=-g
@@ -228,8 +228,8 @@ CMAKE_STATIC_LINKER_FLAGS_RELWITHDEBINFO:STRING=
 //Path to a program.
 CMAKE_STRIP:FILEPATH=/usr/bin/strip
 
-//The CMake toolchain file
-CMAKE_TOOLCHAIN_FILE:FILEPATH=/emsdk/upstream/emscripten/cmake/Modules/Platform/Emscripten.cmake
+//No help, variable specified on the command line.
+CMAKE_TOOLCHAIN_FILE:UNINITIALIZED=/emsdk/upstream/emscripten/cmake/Modules/Platform/Emscripten.cmake
 
 //If this value is on, makefiles will be generated without the
 // .SILENT directive, and all commands will be echoed to the console
@@ -433,7 +433,7 @@ CMAKE_MODULE_LINKER_FLAGS_RELEASE-ADVANCED:INTERNAL=1
 //ADVANCED property for variable: CMAKE_MODULE_LINKER_FLAGS_RELWITHDEBINFO
 CMAKE_MODULE_LINKER_FLAGS_RELWITHDEBINFO-ADVANCED:INTERNAL=1
 //number of local generators
-CMAKE_NUMBER_OF_MAKEFILES:INTERNAL=8
+CMAKE_NUMBER_OF_MAKEFILES:INTERNAL=9
 //ADVANCED property for variable: CMAKE_OBJCOPY
 CMAKE_OBJCOPY-ADVANCED:INTERNAL=1
 //ADVANCED property for variable: CMAKE_OBJDUMP

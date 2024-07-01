@@ -1,0 +1,1 @@
+/usr/bin/c++  -std=gnu++11 -g0 -m64 -O2 -funroll-loops -Wall -Werror -rdynamic "CMakeFiles/test-decomp-tgsw-nayuki-portable.dir/test-decomp-tgsw.cpp.o" -o test-decomp-tgsw-nayuki-portable  ../libtfhe/libtfhe-nayuki-portable.a 

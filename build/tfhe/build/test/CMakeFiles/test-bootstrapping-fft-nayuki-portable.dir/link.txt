@@ -1,0 +1,1 @@
+/usr/bin/c++  -std=gnu++11 -g0 -m64 -O2 -funroll-loops -Wall -Werror -rdynamic "CMakeFiles/test-bootstrapping-fft-nayuki-portable.dir/test-bootstrapping-fft.cpp.o" -o test-bootstrapping-fft-nayuki-portable  ../libtfhe/libtfhe-nayuki-portable.a 

@@ -8,8 +8,8 @@ LABEL maintainer "tom wilson <tom@hyper.io>"
 # 
 # https://github.com/emscripten-core/emsdk/blob/9b0db91883452051aca8deddc932363aab29060b/docker/Dockerfile#L120
 
-RUN apt-get update -qq -y
-RUN apt-get install -y curl vim make gcc libreadline6-dev libssl-dev zlib1g-dev zip unzip ccache libgtest-dev
+RUN apt-get update -qq -y && apt-get upgrade -y
+RUN apt-get install -y curl vim make gcc libreadline6-dev libssl-dev zlib1g-dev zip unzip ccache libgtest-dev build-essential g++ libomp-dev cmake git libgoogle-perftools-dev
 
 ENV LUA_VERSION 5.3.4
 ENV LUAROCKS_VERSION 2.4.4
@@ -97,8 +97,7 @@ COPY container/src/sqlite3.h /opt/sqlite3.h
 COPY container/src/main.lua /opt/main.lua
 
 # Copy eoc myTest
-COPY container/src/myTest.cpp /opt/myTest.cpp
-COPY container/src/tfhe.h /opt/tfhe.h
+COPY container/src/tfhe++.hpp /opt/tfhe++.hpp
 
 # Copy fast Base64 files to the container
 COPY container/src/cbase64/b64enc.c /opt/b64enc.c

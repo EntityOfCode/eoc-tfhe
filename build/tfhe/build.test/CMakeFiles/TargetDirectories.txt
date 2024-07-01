@@ -29,6 +29,14 @@
 /tfhe/build.test/libtfhe/fft_processors/nayuki/CMakeFiles/install.dir
 /tfhe/build.test/libtfhe/fft_processors/nayuki/CMakeFiles/install/local.dir
 /tfhe/build.test/libtfhe/fft_processors/nayuki/CMakeFiles/install/strip.dir
+/tfhe/build.test/eoc/CMakeFiles/eoc-tfhe-run.dir
+/tfhe/build.test/eoc/CMakeFiles/test.dir
+/tfhe/build.test/eoc/CMakeFiles/edit_cache.dir
+/tfhe/build.test/eoc/CMakeFiles/rebuild_cache.dir
+/tfhe/build.test/eoc/CMakeFiles/list_install_components.dir
+/tfhe/build.test/eoc/CMakeFiles/install.dir
+/tfhe/build.test/eoc/CMakeFiles/install/local.dir
+/tfhe/build.test/eoc/CMakeFiles/install/strip.dir
 /tfhe/build.test/test/CMakeFiles/unittests-nayuki-portable.dir
 /tfhe/build.test/test/CMakeFiles/test-bootstrapping-fft-nayuki-portable.dir
 /tfhe/build.test/test/CMakeFiles/test-decomp-tgsw-nayuki-portable.dir

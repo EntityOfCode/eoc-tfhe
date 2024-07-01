@@ -10,12 +10,13 @@ EMXX_CFLAGS=-s MEMORY64=1 -O3 -g0 -msimd128 -fno-rtti  \
 	-s EXPORTED_FUNCTIONS=_main -s EXPORTED_RUNTIME_METHODS=callMain -s \
 	NO_EXIT_RUNTIME=1 -Wno-unused-command-line-argument -Wno-experimental
 
-EMXX_EOC_FLAGS=-s MEMORY64=1 -g0\
+EMXX_EOC_FLAGS=-s MEMORY64=1 -O3 -g0 -msimd128  \
 	-flto=full -s EXPORT_ALL=1 \
-	-s INITIAL_MEMORY=800MB \
+	-s EXPORT_ES6=1 -s MODULARIZE=1 -s INITIAL_MEMORY=800MB \
 	-s MAXIMUM_MEMORY=4GB -s ALLOW_MEMORY_GROWTH -s FORCE_FILESYSTEM=1 \
 	-s EXPORTED_FUNCTIONS=_main -s EXPORTED_RUNTIME_METHODS=callMain -s \
 	NO_EXIT_RUNTIME=1 -Wno-unused-command-line-argument -Wno-experimental
+
 
 ARCH=$(shell uname -m | sed -e 's/x86_64//' -e 's/aarch64/arm64/')
 
@@ -54,17 +55,21 @@ build:
 
 .PHONY: clean
 clean:
-	rm -rf build
-	rm -f AOS.wasm libllama.a test/AOS.wasm build/aos/process/AOS.wasm
-	rm -f package-lock.json
+	# rm -rf build
+	rm -f AOS.wasm libllama.a libtfhe++.a libtfhe.a test/AOS.wasm build/aos/process/AOS.wasm
+	rm -f package-lock.json build/tfhe/libtfhe.a build/tfhe/tfhe-run.o
 	rm -rf node_modules
-	# docker rmi -f p3rmaw3b/ao || true
+	rm -rf build/TFHEpp/build.test
+	mkdir build/TFHEpp/build.test
+	rm -rf build/tfhe/build.test
+	mkdir build/tfhe/build.test
+	docker rmi -f p3rmaw3b/ao || true
 
 build/aos/package.json: build
 	cd build; git submodule init; git submodule update --remote
 
-build/aos/process/AOS.wasm: libllama.a build/llama.cpp/llama-run.o build/aos/package.json container 
-	docker run -v $(PWD)/build/aos/process:/src -v $(PWD)/build/llama.cpp:/llama.cpp p3rmaw3b/ao emcc-lua $(if $(DEBUG),-e DEBUG=TRUE)
+build/aos/process/AOS.wasm: libtfhe.a libllama.a build/llama.cpp/llama-run.o build/aos/package.json container 
+	docker run -v $(PWD)/build/aos/process:/src -v $(PWD)/build/llama.cpp:/llama.cpp -v $(PWD)/build/tfhe:/tfhe p3rmaw3b/ao emcc-lua $(if $(DEBUG),-e DEBUG=TRUE)
 
 build/llama.cpp: build
 	if [ ! -d "build/llama.cpp" ]; then \
@@ -84,8 +89,22 @@ libtfhe.a: container
 	docker run -v $(PWD)/build/tfhe:/tfhe p3rmaw3b/ao sh -c \
 		"cd /tfhe/build.test && emcmake cmake -DCMAKE_CXX_FLAGS='$(EMXX_EOC_FLAGS)' ../src"
 	docker run -v $(PWD)/build/tfhe:/tfhe p3rmaw3b/ao sh -c \
-		"cd /tfhe/build.test && emmake make EMCC_CFLAGS='$(EMXX_EOC_FLAGS)' && emmake make install"
-	cp build/tfhe/build.test/libtfhe/libtfhe-nayuki-portable.a libtfhe_test.a
+		"cd /tfhe/build.test && emmake make EMCC_CFLAGS='$(EMXX_EOC_FLAGS)'"
+	cp build/tfhe/build.test/libtfhe/libtfhe-nayuki-portable.a build/tfhe/libtfhe.a
+	cp build/tfhe/build.test/eoc/CMakeFiles/eoc-tfhe-run.dir/eoc-tfhe-run.cpp.o build/tfhe/eoc-tfhe-run.o
+
+libtfhe++.a: container
+	@echo "Building eoc.fhe..."
+	docker run -v $(PWD)/build/TFHEpp:/TFHEpp p3rmaw3b/ao sh -c \
+		"cd /TFHEpp/build.test && emcmake cmake -DCMAKE_CXX_FLAGS='$(EMXX_EOC_FLAGS)' .."
+	docker run -v $(PWD)/build/TFHEpp:/TFHEpp p3rmaw3b/ao sh -c \
+		"cd /TFHEpp/build.test && emmake make EMCC_CFLAGS='$(EMXX_EOC_FLAGS)'"
+	cp build/TFHEpp/build.test/src/libtfhe++.a build/TFHEpp/libtfhe++.a
+
+# build/tfhe/src/eoc-tfhe-run.o: libtfhe.a container
+# 	@echo "Building build/tfhe/src/eoc-tfhe-run.o..."
+# 	@docker run -v $(PWD)/build/tfhe:/tfhe p3rmaw3b/ao \
+# 		sh -c "cd /opt && em++ -s MEMORY64=1 -Wno-experimental -c eoc-tfhe-run.cpp -o /tfhe/eoc-tfhe-run.o -I ../tfhe/src/libtfhe/cereal/include/cereal"
 
 tfhe/unittest.js: libtfhe.a container
 	@echo "Building eoc.fhe.unittest.js..."
