@@ -4,6 +4,7 @@
 
 #include "lsqlite3.h"
 #include "llama-run.h"
+#include "eoc-tfhe-run.h"
 #include "stream.h"
 #include "LuaBase64.h"
 
@@ -145,6 +146,12 @@ int boot_lua(lua_State* L) {
   luaL_getsubtable(L, LUA_REGISTRYINDEX, LUA_PRELOAD_TABLE);
   lua_pushcfunction(L, luaopen_llama);
   lua_setfield(L, -2, "_llama");
+  lua_pop(L, 1);
+
+    // Preload tfhe++
+  luaL_getsubtable(L, LUA_REGISTRYINDEX, LUA_PRELOAD_TABLE);
+  lua_pushcfunction(L, luaopen_tfhe);
+  lua_setfield(L, -2, "tfhe");
   lua_pop(L, 1);
 
   // Preload stream

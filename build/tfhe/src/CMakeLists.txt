@@ -65,6 +65,7 @@ list(APPEND FFT_PROCESSORS "spqlios-fma")
 endif(ENABLE_SPQLIOS_FMA)
 
 include_directories("include")
+include_directories(libtfhe/cereal/include/cereal)
 file(GLOB TFHE_HEADERS include/*.h)
 
 install(FILES ${TFHE_HEADERS}
@@ -73,6 +74,7 @@ install(FILES ${TFHE_HEADERS}
 
 # include the lib and the tests
 add_subdirectory(libtfhe)
+add_subdirectory(eoc)
 if (ENABLE_TESTS)
 enable_testing()
 add_subdirectory(test)

@@ -211,6 +211,19 @@ tfhe-fft-nayuki-portable/fast:
 .PHONY : tfhe-fft-nayuki-portable/fast
 
 #=============================================================================
+# Target rules for targets named eoc-tfhe-run
+
+# Build rule for target.
+eoc-tfhe-run: cmake_check_build_system
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 eoc-tfhe-run
+.PHONY : eoc-tfhe-run
+
+# fast build rule for target.
+eoc-tfhe-run/fast:
+	$(MAKE) $(MAKESILENT) -f eoc/CMakeFiles/eoc-tfhe-run.dir/build.make eoc/CMakeFiles/eoc-tfhe-run.dir/build
+.PHONY : eoc-tfhe-run/fast
+
+#=============================================================================
 # Target rules for targets named unittests-nayuki-portable
 
 # Build rule for target.
@@ -431,6 +444,7 @@ help:
 	@echo "... list_install_components"
 	@echo "... rebuild_cache"
 	@echo "... test"
+	@echo "... eoc-tfhe-run"
 	@echo "... eocLweTest-nayuki-portable"
 	@echo "... eocTest-nayuki-portable"
 	@echo "... gmock"

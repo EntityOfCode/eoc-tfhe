@@ -1,0 +1,1 @@
+/usr/bin/c++  -std=gnu++11 -g0 -m64 -O2 -funroll-loops -Wall -Werror -rdynamic "CMakeFiles/eocTest-nayuki-portable.dir/eocTest.cpp.o" -o eocTest-nayuki-portable  ../libtfhe/libtfhe-nayuki-portable.a 

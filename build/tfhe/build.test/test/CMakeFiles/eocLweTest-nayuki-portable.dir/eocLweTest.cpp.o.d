@@ -813,6 +813,21 @@ test/CMakeFiles/eocLweTest-nayuki-portable.dir/eocLweTest.cpp.o: \
   /emsdk/upstream/emscripten/cache/sysroot/include/c++/v1/__format/formatter_tuple.h \
   /emsdk/upstream/emscripten/cache/sysroot/include/c++/v1/print \
   /emsdk/upstream/emscripten/cache/sysroot/include/unistd.h \
+  /tfhe/src/test/../libtfhe/cereal/include/cereal/archives/portable_binary.hpp \
+  /tfhe/src/test/../libtfhe/cereal/include/cereal/cereal.hpp \
+  /emsdk/upstream/emscripten/cache/sysroot/include/c++/v1/unordered_set \
+  /tfhe/src/test/../libtfhe/cereal/include/cereal/macros.hpp \
+  /tfhe/src/test/../libtfhe/cereal/include/cereal/details/traits.hpp \
+  /emsdk/upstream/emscripten/cache/sysroot/include/c++/v1/typeindex \
+  /tfhe/src/test/../libtfhe/cereal/include/cereal/access.hpp \
+  /tfhe/src/test/../libtfhe/cereal/include/cereal/specialize.hpp \
+  /tfhe/src/test/../libtfhe/cereal/include/cereal/details/helpers.hpp \
+  /tfhe/src/test/../libtfhe/cereal/include/cereal/details/static_object.hpp \
+  /tfhe/src/test/../libtfhe/cereal/include/cereal/types/base_class.hpp \
+  /tfhe/src/test/../libtfhe/cereal/include/cereal/details/polymorphic_impl_fwd.hpp \
+  /tfhe/src/test/../libtfhe/cereal/include/cereal/types/common.hpp \
+  /emsdk/upstream/emscripten/cache/sysroot/include/c++/v1/sstream \
+  /tfhe/src/test/../libtfhe/cereal/include/cereal/types/vector.hpp \
   /tfhe/src/include/tfhe_gate_bootstrapping_functions.h \
   /tfhe/src/include/tfhe_gate_bootstrapping_structures.h \
   /tfhe/src/include/tfhe_core.h \

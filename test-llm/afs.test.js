@@ -111,7 +111,7 @@ end`), getEnv())
     assert.ok(result.response.Output.data.output.length == 10)
   })
 
-  it.skip('Llama Lua library loads', async () => {
+  it('Llama Lua library loads', async () => {
     const result = await handle(getEval(`
 local Llama = require("llama")
 --llama.load("/data/ggml-tiny.en.bin")
@@ -120,7 +120,15 @@ return Llama.info()
     assert.ok(result.response.Output.data.output == "Decentralized llama.cpp.")
   })
 
-  it('AOS runs GPT-2 117m model', async () => {
+  it('EOC tfhe Lua library test', async () => {
+    const result = await handle(getEval(`
+local Tfhe = require("tfhe")
+return Tfhe.test()
+`), getEnv())
+    assert.ok(result.response.Output.data.output == "Decentralized llama.cpp.")
+  })
+
+  it.skip('AOS runs GPT-2 117m model', async () => {
     const result = await handle(getEval(`
   local Llama = require("llama")
   io.stderr:write([[Loading model...\n]])

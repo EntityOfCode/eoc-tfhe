@@ -32,3 +32,5 @@ if (ENABLE_NAYUKI_AVX)
     add_library(tfhe-fft-nayuki-avx OBJECT ${SRCS_AVX} ${HEADERS})
     set_property(TARGET tfhe-fft-nayuki-avx PROPERTY POSITION_INDEPENDENT_CODE ON)
 endif (ENABLE_NAYUKI_AVX) 
+
+

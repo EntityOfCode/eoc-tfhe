@@ -1,5 +1,7 @@
 #include <iostream>
 #include <time.h>
+#include <cereal/archives/portable_binary.hpp>
+#include <cereal/types/vector.hpp>
 #include <tfhe_gate_bootstrapping_functions.h>
 #include <numeric_functions.h>
 #include <lwe-functions.h>
