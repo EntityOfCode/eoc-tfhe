@@ -148,7 +148,6 @@ libtfhe/fft_processors/nayuki/clean: libtfhe/fft_processors/nayuki/CMakeFiles/tf
 # Directory level rules for directory test
 
 # Recursive "all" directory target.
-test/all: test/CMakeFiles/unittests-nayuki-portable.dir/all
 test/all: test/CMakeFiles/test-bootstrapping-fft-nayuki-portable.dir/all
 test/all: test/CMakeFiles/test-decomp-tgsw-nayuki-portable.dir/all
 test/all: test/CMakeFiles/test-lwe-nayuki-portable.dir/all
@@ -167,7 +166,6 @@ test/preinstall:
 .PHONY : test/preinstall
 
 # Recursive "clean" directory target.
-test/clean: test/CMakeFiles/unittests-nayuki-portable.dir/clean
 test/clean: test/CMakeFiles/test-bootstrapping-fft-nayuki-portable.dir/clean
 test/clean: test/CMakeFiles/test-decomp-tgsw-nayuki-portable.dir/clean
 test/clean: test/CMakeFiles/test-lwe-nayuki-portable.dir/clean
@@ -337,34 +335,6 @@ eoc-tfhe-run: eoc/CMakeFiles/eoc-tfhe-run.dir/rule
 eoc/CMakeFiles/eoc-tfhe-run.dir/clean:
 	$(MAKE) $(MAKESILENT) -f eoc/CMakeFiles/eoc-tfhe-run.dir/build.make eoc/CMakeFiles/eoc-tfhe-run.dir/clean
 .PHONY : eoc/CMakeFiles/eoc-tfhe-run.dir/clean
-
-#=============================================================================
-# Target rules for target test/CMakeFiles/unittests-nayuki-portable.dir
-
-# All Build rule for target.
-test/CMakeFiles/unittests-nayuki-portable.dir/all: libtfhe/CMakeFiles/tfhe-nayuki-portable.dir/all
-test/CMakeFiles/unittests-nayuki-portable.dir/all: test/googletest/googlemock/gtest/CMakeFiles/gtest.dir/all
-test/CMakeFiles/unittests-nayuki-portable.dir/all: test/googletest/googlemock/gtest/CMakeFiles/gtest_main.dir/all
-	$(MAKE) $(MAKESILENT) -f test/CMakeFiles/unittests-nayuki-portable.dir/build.make test/CMakeFiles/unittests-nayuki-portable.dir/depend
-	$(MAKE) $(MAKESILENT) -f test/CMakeFiles/unittests-nayuki-portable.dir/build.make test/CMakeFiles/unittests-nayuki-portable.dir/build
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --progress-dir=/tfhe/build.test/CMakeFiles --progress-num=67,68,69,70,71,72,73,74,75,76,77,78,79,80 "Built target unittests-nayuki-portable"
-.PHONY : test/CMakeFiles/unittests-nayuki-portable.dir/all
-
-# Build rule for subdir invocation for target.
-test/CMakeFiles/unittests-nayuki-portable.dir/rule: cmake_check_build_system
-	$(CMAKE_COMMAND) -E cmake_progress_start /tfhe/build.test/CMakeFiles 50
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 test/CMakeFiles/unittests-nayuki-portable.dir/all
-	$(CMAKE_COMMAND) -E cmake_progress_start /tfhe/build.test/CMakeFiles 0
-.PHONY : test/CMakeFiles/unittests-nayuki-portable.dir/rule
-
-# Convenience name for target.
-unittests-nayuki-portable: test/CMakeFiles/unittests-nayuki-portable.dir/rule
-.PHONY : unittests-nayuki-portable
-
-# clean rule for target.
-test/CMakeFiles/unittests-nayuki-portable.dir/clean:
-	$(MAKE) $(MAKESILENT) -f test/CMakeFiles/unittests-nayuki-portable.dir/build.make test/CMakeFiles/unittests-nayuki-portable.dir/clean
-.PHONY : test/CMakeFiles/unittests-nayuki-portable.dir/clean
 
 #=============================================================================
 # Target rules for target test/CMakeFiles/test-bootstrapping-fft-nayuki-portable.dir

@@ -1,5 +1,13 @@
 cmake_minimum_required(VERSION 3.0)
 
+include_directories(/home/claoo/vcpkg/installed/x64-linux/include)
+
+# Set the path to vcpkg toolchain file
+set(-DCMAKE_TOOLCHAIN_FILE=/home/claoo/vcpkg/scripts/buildsystems/vcpkg.cmake CACHE STRING "")
+
+# Find nlohmann_json package
+find_package(nlohmann_json REQUIRED)
+
 set(CMAKE_ARCHIVE_OUTPUT_DIRECTORY ${CMAKE_SOURCE_DIR}/../)
 
 include_directories(../libtfhe/cereal/include)

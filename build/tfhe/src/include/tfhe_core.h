@@ -1,5 +1,7 @@
 #ifndef TFHE_CORE_H
 #define TFHE_CORE_H
+#include <nlohmann/json.hpp>
+using json = nlohmann::json;
 
 ///@file
 ///@brief This file declares only the structures names

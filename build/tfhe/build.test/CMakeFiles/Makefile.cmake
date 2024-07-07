@@ -77,7 +77,6 @@ set(CMAKE_DEPEND_INFO_FILES
   "libtfhe/CMakeFiles/tfhe-nayuki-portable.dir/DependInfo.cmake"
   "libtfhe/fft_processors/nayuki/CMakeFiles/tfhe-fft-nayuki-portable.dir/DependInfo.cmake"
   "eoc/CMakeFiles/eoc-tfhe-run.dir/DependInfo.cmake"
-  "test/CMakeFiles/unittests-nayuki-portable.dir/DependInfo.cmake"
   "test/CMakeFiles/test-bootstrapping-fft-nayuki-portable.dir/DependInfo.cmake"
   "test/CMakeFiles/test-decomp-tgsw-nayuki-portable.dir/DependInfo.cmake"
   "test/CMakeFiles/test-lwe-nayuki-portable.dir/DependInfo.cmake"

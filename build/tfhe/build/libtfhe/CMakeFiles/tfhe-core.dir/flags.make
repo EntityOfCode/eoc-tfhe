@@ -4,7 +4,7 @@
 # compile CXX with /usr/bin/c++
 CXX_DEFINES = 
 
-CXX_INCLUDES = -I/home/claoo/Documents/eoc-tfhe/aos-llama/build/tfhe/src/include -I/home/claoo/Documents/eoc-tfhe/aos-llama/build/tfhe/src/libtfhe/cereal/include/cereal
+CXX_INCLUDES = -I/home/claoo/Documents/eoc-tfhe/aos-llama/build/tfhe/src/include -I/home/claoo/Documents/eoc-tfhe/aos-llama/build/tfhe/src/libtfhe/cereal/include/cereal -I/home/claoo/vcpkg/installed/x64-linux/include
 
-CXX_FLAGS =  -std=gnu++11 -g0 -m64 -O2 -funroll-loops -Wall -Werror -fPIC
+CXX_FLAGS =  -std=gnu++11 -g -O0 -Wall -Werror -fPIC
 

@@ -7,6 +7,7 @@
 #include <numeric_functions.h>
 #include <lwe-functions.h>
 #include <string.h>
+#include <memory>
 
 using namespace std;
 
@@ -68,6 +69,8 @@ bool compareCiphertexts(LweSample *ciphertext1, LweSample *ciphertext2, const in
     return true;
 }
 
+
+
 extern "C" int tfhe_test();
 int tfhe_test()
 {
@@ -78,11 +81,11 @@ int tfhe_test()
     TFheGateBootstrappingParameterSet *params = new_default_gate_bootstrapping_parameters(minimum_lambda);
     // const LweParams *lweParams = params->in_out_params;
     // generate the secret keyset
-    TFheGateBootstrappingSecretKeySet *keyset = new_random_gate_bootstrapping_secret_keyset(params);
+    std::unique_ptr<TFheGateBootstrappingSecretKeySet> keyset(new_random_gate_bootstrapping_secret_keyset(params));
+    // TFheGateBootstrappingSecretKeySet *keyset = new_random_gate_bootstrapping_secret_keyset(params);
     // generate the cloud keyset
     TFheGateBootstrappingCloudKeySet *cloud_keyset = const_cast<TFheGateBootstrappingCloudKeySet *>(&keyset->cloud);
-     // export the secret key to file for later use
-    // export the ciphertexts to a file
+    //  export the secret key to file for later use
     // {
     //     std::ofstream ofs{"keyset.data", std::ios::binary};
     //     cereal::PortableBinaryOutputArchive ar(ofs);
@@ -110,9 +113,9 @@ int tfhe_test()
     LweSample *ciphertextMsg = new_gate_bootstrapping_ciphertext_array(msg.length(), params);
     LweSample *str1Cipher = new_gate_bootstrapping_ciphertext_array(str1.length(), params);
     LweSample *str2Cipher = new_gate_bootstrapping_ciphertext_array(str2.length(), params);
-    str1Cipher = encrypt8BitASCIIString(str1, str1.length(), keyset);
-    str2Cipher = encrypt8BitASCIIString(str2, str2.length(), keyset);
-    ciphertextMsg = encrypt8BitASCIIString(msg, msg.length(), keyset);
+    str1Cipher = encrypt8BitASCIIString(str1, str1.length(), keyset.get());
+    str2Cipher = encrypt8BitASCIIString(str2, str2.length(), keyset.get());
+    ciphertextMsg = encrypt8BitASCIIString(msg, msg.length(), keyset.get());
     lweSymEncrypt(ciphertext1, secret1T, alpha, keyset->lwe_key);
     lweSymEncrypt(ciphertext2, secret2T, alpha, keyset->lwe_key);
     secret1T = lwePhase(ciphertext1, keyset->lwe_key);
@@ -125,7 +128,7 @@ int tfhe_test()
     start = clock();
     lweAddTo(ciphertextSum, ciphertext2, cloud_keyset->params->in_out_params);
     lweSubTo(ciphertextDiff, ciphertext2, cloud_keyset->params->in_out_params);
-    if (compareCiphertexts(str1Cipher, str2Cipher, str1.length(), keyset))
+    if (compareCiphertexts(str1Cipher, str2Cipher, str1.length(), keyset.get()))
         cout << "Ciphertexts are equal" << endl;
     else
         cout << "Ciphertexts are not equal" << endl;
@@ -139,7 +142,7 @@ int tfhe_test()
     int32_t decryptedSecret1 = modSwitchFromTorus32(decrypted1, Msize);
     int32_t decryptedSecret2 = modSwitchFromTorus32(decrypted2, Msize);
 
-    string decryptedMsg = decrypt8BitASCIIString(ciphertextMsg, msg.length(), keyset);
+    string decryptedMsg = decrypt8BitASCIIString(ciphertextMsg, msg.length(), keyset.get());
 
     end = clock();
     cout << "Sum is " << decryptedSecret1 << endl;

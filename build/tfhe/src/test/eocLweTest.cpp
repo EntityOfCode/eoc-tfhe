@@ -1,4 +1,5 @@
 #include <iostream>
+#include <fstream>
 #include <time.h>
 #include <cereal/archives/portable_binary.hpp>
 #include <cereal/types/vector.hpp>
@@ -6,6 +7,9 @@
 #include <numeric_functions.h>
 #include <lwe-functions.h>
 #include <string.h>
+#include <tgsw.h>
+#include <tfhe_core.h>
+#include <polynomials.h>
 
 using namespace std;
 
@@ -67,6 +71,198 @@ bool compareCiphertexts(LweSample *ciphertext1, LweSample *ciphertext2, const in
     return true;
 }
 
+struct GateBootstrappingSecretKeySetDeleter {
+    void operator()(TFheGateBootstrappingSecretKeySet* keyset) const {
+        delete_gate_bootstrapping_secret_keyset(keyset);
+    }
+};
+void serialize_to_json(const std::string &filename, TFheGateBootstrappingSecretKeySet &keyset)
+{
+        json j = keyset.to_json();
+
+    // Scrierea în fișier
+    std::ofstream ofs(filename);
+    if (ofs) {
+        ofs << j.dump(4); // Indentare cu 4 spații pentru lizibilitate
+        ofs.close();
+    } else {
+        std::cerr << "Failed to open file for writing.\n";
+    }
+}
+
+void serialize(const std::string &filename, TFheGateBootstrappingSecretKeySet &keyset)
+{
+    std::ofstream ofs(filename);
+    if (ofs)
+    {
+        ofs << "Secret Key Structure" << "\n";
+        ofs << " - params: " << keyset.params << "\n";
+        ofs << "          ks_t: " << keyset.params->ks_t << "\n";
+        ofs << "    ks_basebit: " << keyset.params->ks_basebit << "\n";
+        ofs << "-in_out_params: " << keyset.params->in_out_params << "\n";
+        ofs << "               n: " << keyset.params->in_out_params->n << "\n";
+        ofs << "       alpha_min: " << keyset.params->in_out_params->alpha_min << "\n";
+        ofs << "       alpha_max: " << keyset.params->in_out_params->alpha_max << "\n";
+        ofs << "- tgsw_params: " << keyset.params->tgsw_params << "\n";
+        ofs << "               l: " << keyset.params->tgsw_params->l << "\n";
+        ofs << "           Bgbit: " << keyset.params->tgsw_params->Bgbit << "\n";
+        ofs << "          halfBg: " << keyset.params->tgsw_params->halfBg << "\n";
+        ofs << "         maskMod: " << keyset.params->tgsw_params->maskMod << "\n";
+        ofs << "             kpl: " << keyset.params->tgsw_params->kpl << "\n";
+        ofs << "        (Torus)h: " << *keyset.params->tgsw_params->h << "\n";
+        ofs << "          offset: " << keyset.params->tgsw_params->offset << "\n";
+        ofs << "    -tlwe_params: " << keyset.params->tgsw_params->tlwe_params << "\n";
+        ofs << "                 N: " << keyset.params->tgsw_params->tlwe_params->N << "\n";
+        ofs << "                 k: " << keyset.params->tgsw_params->tlwe_params->k << "\n";
+        ofs << "         alpha_min: " << keyset.params->tgsw_params->tlwe_params->alpha_min << "\n";
+        ofs << "         alpha_max: " << keyset.params->tgsw_params->tlwe_params->alpha_max << "\n";
+        ofs << "extracted_lweparams \n";
+        ofs << "                   n: " << keyset.params->tgsw_params->tlwe_params->extracted_lweparams.n << "\n";
+        ofs << "           alpha_min: " << keyset.params->tgsw_params->tlwe_params->extracted_lweparams.alpha_min << "\n";
+        ofs << "           alpha_max: " << keyset.params->tgsw_params->tlwe_params->extracted_lweparams.alpha_max << "\n";
+        ofs << " - LweKey: " << keyset.lwe_key << "\n";
+        ofs << "    -params: " << keyset.lwe_key->params << "\n";
+        ofs << "               n: " << keyset.lwe_key->params->n << "\n";
+        ofs << "       alpha_min: " << keyset.lwe_key->params->alpha_min << "\n";
+        ofs << "       alpha_max: " << keyset.lwe_key->params->alpha_max << "\n";
+        ofs << "     -key: " << keyset.lwe_key->key << " : ";
+                for (int i = 0; i < keyset.lwe_key->params->n; ++i) {
+                    ofs << keyset.lwe_key->key[i];
+                }
+        ofs << " -TGswKey: " << keyset.tgsw_key << "\n";
+        ofs << "     -params: " << keyset.tgsw_key->params << "\n";
+        ofs << "               l: " << keyset.tgsw_key->params->l << "\n";
+        ofs << "           Bgbit: " << keyset.tgsw_key->params->Bgbit << "\n";
+        ofs << "          halfBg: " << keyset.tgsw_key->params->halfBg << "\n";
+        ofs << "         maskMod: " << keyset.tgsw_key->params->maskMod << "\n";
+        ofs << "             kpl: " << keyset.tgsw_key->params->kpl << "\n";
+        ofs << "        (Torus)h: " << *keyset.tgsw_key->params->h << "\n";
+        ofs << "          offset: " << keyset.tgsw_key->params->offset << "\n";
+        ofs << "    -tlwe_params: " << keyset.tgsw_key->params->tlwe_params << "\n";
+        ofs << "                  N: " << keyset.tgsw_key->params->tlwe_params->N << "\n";
+        ofs << "                  k: " << keyset.tgsw_key->params->tlwe_params->k << "\n";
+        ofs << "          alpha_min: " << keyset.tgsw_key->params->tlwe_params->alpha_min << "\n";
+        ofs << "           alpha_max: " << keyset.tgsw_key->params->tlwe_params->alpha_max << "\n";
+        ofs << "    extracted_lweparams \n";
+        ofs << "                      n: " << keyset.tgsw_key->params->tlwe_params->extracted_lweparams.n << "\n";
+        ofs << "              alpha_min: " << keyset.tgsw_key->params->tlwe_params->extracted_lweparams.alpha_min << "\n";
+        ofs << "              alpha_max: " << keyset.tgsw_key->params->tlwe_params->extracted_lweparams.alpha_max << "\n";
+        ofs << "-tlwe_params: " << keyset.tgsw_key->tlwe_params << "\n";
+        ofs << "              N: " << keyset.tgsw_key->tlwe_params->N << "\n";
+        ofs << "              k: " << keyset.tgsw_key->tlwe_params->k << "\n";
+        ofs << "      alpha_min: " << keyset.tgsw_key->tlwe_params->alpha_min << "\n";
+        ofs << "      alpha_max: " << keyset.tgsw_key->tlwe_params->alpha_max << "\n";
+        ofs << "extracted_lweparams \n";
+        ofs << "                  n: " << keyset.tgsw_key->params->tlwe_params->extracted_lweparams.n << "\n";
+        ofs << "          alpha_min: " << keyset.tgsw_key->params->tlwe_params->extracted_lweparams.alpha_min << "\n";
+        ofs << "          alpha_max: " << keyset.tgsw_key->params->tlwe_params->extracted_lweparams.alpha_max << "\n";
+        ofs << "        -key: " << keyset.tgsw_key->key << "\n";
+        ofs << "             N: " << keyset.tgsw_key->key->N << "\n";
+        ofs << "         coefs: " << keyset.tgsw_key->key->coefs << " : ";
+        for (int i = 0; i < keyset.tgsw_key->key->N; ++i) {
+            ofs << keyset.tgsw_key->key->coefs[i];
+        }
+        ofs << "\n";
+        ofs << " - TLweKey: " << &keyset.tgsw_key->tlwe_key << "\n";
+        ofs << "     -params: " << keyset.tgsw_key->tlwe_key.params << "\n";
+        ofs << "               N: " << keyset.tgsw_key->tlwe_key.params->N << "\n";
+        ofs << "               k: " << keyset.tgsw_key->tlwe_key.params->k << "\n";
+        ofs << "         alpha_min: " << keyset.tgsw_key->tlwe_key.params->alpha_min << "\n";
+        ofs << "         alpha_max: " << keyset.tgsw_key->tlwe_key.params->alpha_max << "\n";
+        ofs << "extracted_lweparams \n";
+        ofs << "                   n: " << keyset.tgsw_key->tlwe_key.params->extracted_lweparams.n << "\n";
+        ofs << "           alpha_min: " << keyset.tgsw_key->tlwe_key.params->extracted_lweparams.alpha_min << "\n";
+        ofs << "           alpha_max: " << keyset.tgsw_key->tlwe_key.params->extracted_lweparams.alpha_max << "\n";
+        ofs << "        -key: " << keyset.tgsw_key->tlwe_key.key << "\n";
+        ofs << "             N: " << keyset.tgsw_key->tlwe_key.key->N << "\n";
+        ofs << "         coefs: " << keyset.tgsw_key->tlwe_key.key->coefs << " : ";
+        for (int i = 0; i < keyset.tgsw_key->key->N; ++i) {
+            ofs << keyset.tgsw_key->tlwe_key.key->coefs[i];
+        }
+        ofs << "\n";
+        ofs << "\n";
+        // Serializarea cloud
+        ofs << " - CloudKeySet: " << &keyset.cloud << "\n";
+        ofs << "    - params: " << keyset.cloud.params << "\n";
+        ofs << "              ks_t: " << keyset.cloud.params->ks_t << "\n";
+        ofs << "        ks_basebit: " << keyset.cloud.params->ks_basebit << "\n";
+        ofs << "     -in_out_params: " << keyset.cloud.params->in_out_params << "\n";
+        ofs << "                   n: " << keyset.cloud.params->in_out_params->n << "\n";
+        ofs << "           alpha_min: " << keyset.cloud.params->in_out_params->alpha_min << "\n";
+        ofs << "           alpha_max: " << keyset.cloud.params->in_out_params->alpha_max << "\n";
+        ofs << "     -tgsw_params: " << keyset.cloud.params->tgsw_params << "\n";
+        ofs << "                 l: " << keyset.cloud.params->tgsw_params->l << "\n";
+        ofs << "             Bgbit: " << keyset.cloud.params->tgsw_params->Bgbit << "\n";
+        ofs << "            halfBg: " << keyset.cloud.params->tgsw_params->halfBg << "\n";
+        ofs << "           maskMod: " << keyset.cloud.params->tgsw_params->maskMod << "\n";
+        ofs << "               kpl: " << keyset.cloud.params->tgsw_params->kpl << "\n";
+        ofs << "          (Torus)h: " << *keyset.cloud.params->tgsw_params->h << "\n";
+        ofs << "            offset: " << keyset.cloud.params->tgsw_params->offset << "\n";
+
+        // Serializarea LweBootstrappingKey
+        ofs << "    - LweBootstrappingKey: " << keyset.cloud.bk << "\n";
+        /*
+        ofs << "        - in_out_params: " << keyset.cloud.bk->in_out_params << "\n";
+        ofs << "                      n: " << keyset.cloud.bk->in_out_params->n << "\n";
+        ofs << "              alpha_min: " << keyset.cloud.bk->in_out_params->alpha_min << "\n";
+        ofs << "              alpha_max: " << keyset.cloud.bk->in_out_params->alpha_max << "\n";
+        ofs << "        - bk_params: " << keyset.cloud.bk->bk_params << "\n";
+        ofs << "                  l: " << keyset.cloud.bk->bk_params->l << "\n";
+        ofs << "              Bgbit: " << keyset.cloud.bk->bk_params->Bgbit << "\n";
+        ofs << "             halfBg: " << keyset.cloud.bk->bk_params->halfBg << "\n";
+        ofs << "            maskMod: " << keyset.cloud.bk->bk_params->maskMod << "\n";
+        ofs << "                kpl: " << keyset.cloud.bk->bk_params->kpl << "\n";
+        ofs << "           (Torus)h: " << *keyset.cloud.bk->bk_params->h << "\n";
+        ofs << "             offset: " << keyset.cloud.bk->bk_params->offset << "\n";
+        ofs << "        - accum_params: " << keyset.cloud.bk->accum_params << "\n";
+        ofs << "                     N: " << keyset.cloud.bk->accum_params->N << "\n";
+        ofs << "                     k: " << keyset.cloud.bk->accum_params->k << "\n";
+        ofs << "             alpha_min: " << keyset.cloud.bk->accum_params->alpha_min << "\n";
+        ofs << "             alpha_max: " << keyset.cloud.bk->accum_params->alpha_max << "\n";
+        ofs << "        - extract_params: " << keyset.cloud.bk->extract_params << "\n";
+        ofs << "                      n: " << keyset.cloud.bk->extract_params->n << "\n";
+        ofs << "              alpha_min: " << keyset.cloud.bk->extract_params->alpha_min << "\n";
+        ofs << "              alpha_max: " << keyset.cloud.bk->extract_params->alpha_max << "\n";
+        // Serializarea `ks` și `bk` va necesita iterare prin elementele lor.
+        ofs << "        - bk: " << keyset.cloud.bk->bk << "\n";
+        // Iterare prin elementele bk și ks nu este detaliată aici pentru simplificare.
+        */
+        // Serializarea LweBootstrappingKeyFFT
+        ofs << "    - LweBootstrappingKeyFFT: " << keyset.cloud.bkFFT << "\n";
+        /*
+        ofs << "        - in_out_params: " << keyset.cloud.bkFFT->in_out_params << "\n";
+        ofs << "                      n: " << keyset.cloud.bkFFT->in_out_params->n << "\n";
+        ofs << "              alpha_min: " << keyset.cloud.bkFFT->in_out_params->alpha_min << "\n";
+        ofs << "              alpha_max: " << keyset.cloud.bkFFT->in_out_params->alpha_max << "\n";
+        ofs << "        - bk_params: " << keyset.cloud.bkFFT->bk_params << "\n";
+        ofs << "                  l: " << keyset.cloud.bkFFT->bk_params->l << "\n";
+        ofs << "              Bgbit: " << keyset.cloud.bkFFT->bk_params->Bgbit << "\n";
+        ofs << "             halfBg: " << keyset.cloud.bkFFT->bk_params->halfBg << "\n";
+        ofs << "            maskMod: " << keyset.cloud.bkFFT->bk_params->maskMod << "\n";
+        ofs << "                kpl: " << keyset.cloud.bkFFT->bk_params->kpl << "\n";
+        ofs << "           (Torus)h: " << *keyset.cloud.bkFFT->bk_params->h << "\n";
+        ofs << "             offset: " << keyset.cloud.bkFFT->bk_params->offset << "\n";
+        ofs << "        - accum_params: " << keyset.cloud.bkFFT->accum_params << "\n";
+        ofs << "                     N: " << keyset.cloud.bkFFT->accum_params->N << "\n";
+        ofs << "                     k: " << keyset.cloud.bkFFT->accum_params->k << "\n";
+        ofs << "             alpha_min: " << keyset.cloud.bkFFT->accum_params->alpha_min << "\n";
+        ofs << "             alpha_max: " << keyset.cloud.bkFFT->accum_params->alpha_max << "\n";
+        ofs << "        - extract_params: " << keyset.cloud.bkFFT->extract_params << "\n";
+        ofs << "                      n: " << keyset.cloud.bkFFT->extract_params->n << "\n";
+        ofs << "              alpha_min: " << keyset.cloud.bkFFT->extract_params->alpha_min << "\n";
+        ofs << "              alpha_max: " << keyset.cloud.bkFFT->extract_params->alpha_max << "\n";
+        // Serializarea `bkFFT` și `ks` va necesita iterare prin elementele lor.
+        ofs << "        - bkFFT: " << keyset.cloud.bkFFT->bkFFT << "\n";
+        // Iterare prin elementele bkFFT și ks nu este detaliată aici pentru simplificare.
+ */
+        ofs << "\n";
+    }
+    else
+    {
+        std::cerr << "Failed to open file for writing.\n";
+    }
+}
+
 int main()
 {
     std::cout << "********** EOC TFHE App Started **************" << std::endl;
@@ -76,7 +272,10 @@ int main()
     TFheGateBootstrappingParameterSet *params = new_default_gate_bootstrapping_parameters(minimum_lambda);
     // const LweParams *lweParams = params->in_out_params;
     // generate the secret keyset
+    std::unique_ptr<TFheGateBootstrappingSecretKeySet, GateBootstrappingSecretKeySetDeleter> ks(new_random_gate_bootstrapping_secret_keyset(params));
     TFheGateBootstrappingSecretKeySet *keyset = new_random_gate_bootstrapping_secret_keyset(params);
+    serialize("key.txt", *keyset);
+    serialize_to_json("key.json", *keyset);
     // generate the cloud keyset
     TFheGateBootstrappingCloudKeySet *cloud_keyset = const_cast<TFheGateBootstrappingCloudKeySet *>(&keyset->cloud);
     clock_t end = clock();

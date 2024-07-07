@@ -69,24 +69,10 @@ include eoc/CMakeFiles/eoc-tfhe-run.dir/progress.make
 # Include the compile flags for this target's objects.
 include eoc/CMakeFiles/eoc-tfhe-run.dir/flags.make
 
-eoc/CMakeFiles/eoc-tfhe-run.dir/eoc-tfhe-bindings.c.o: eoc/CMakeFiles/eoc-tfhe-run.dir/flags.make
-eoc/CMakeFiles/eoc-tfhe-run.dir/eoc-tfhe-bindings.c.o: /home/claoo/Documents/eoc-tfhe/aos-llama/build/tfhe/src/eoc/eoc-tfhe-bindings.c
-eoc/CMakeFiles/eoc-tfhe-run.dir/eoc-tfhe-bindings.c.o: eoc/CMakeFiles/eoc-tfhe-run.dir/compiler_depend.ts
-	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --progress-dir=/home/claoo/Documents/eoc-tfhe/aos-llama/build/tfhe/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_1) "Building C object eoc/CMakeFiles/eoc-tfhe-run.dir/eoc-tfhe-bindings.c.o"
-	cd /home/claoo/Documents/eoc-tfhe/aos-llama/build/tfhe/build/eoc && /usr/bin/cc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -MD -MT eoc/CMakeFiles/eoc-tfhe-run.dir/eoc-tfhe-bindings.c.o -MF CMakeFiles/eoc-tfhe-run.dir/eoc-tfhe-bindings.c.o.d -o CMakeFiles/eoc-tfhe-run.dir/eoc-tfhe-bindings.c.o -c /home/claoo/Documents/eoc-tfhe/aos-llama/build/tfhe/src/eoc/eoc-tfhe-bindings.c
-
-eoc/CMakeFiles/eoc-tfhe-run.dir/eoc-tfhe-bindings.c.i: cmake_force
-	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green "Preprocessing C source to CMakeFiles/eoc-tfhe-run.dir/eoc-tfhe-bindings.c.i"
-	cd /home/claoo/Documents/eoc-tfhe/aos-llama/build/tfhe/build/eoc && /usr/bin/cc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -E /home/claoo/Documents/eoc-tfhe/aos-llama/build/tfhe/src/eoc/eoc-tfhe-bindings.c > CMakeFiles/eoc-tfhe-run.dir/eoc-tfhe-bindings.c.i
-
-eoc/CMakeFiles/eoc-tfhe-run.dir/eoc-tfhe-bindings.c.s: cmake_force
-	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green "Compiling C source to assembly CMakeFiles/eoc-tfhe-run.dir/eoc-tfhe-bindings.c.s"
-	cd /home/claoo/Documents/eoc-tfhe/aos-llama/build/tfhe/build/eoc && /usr/bin/cc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -S /home/claoo/Documents/eoc-tfhe/aos-llama/build/tfhe/src/eoc/eoc-tfhe-bindings.c -o CMakeFiles/eoc-tfhe-run.dir/eoc-tfhe-bindings.c.s
-
 eoc/CMakeFiles/eoc-tfhe-run.dir/eoc-tfhe-run.cpp.o: eoc/CMakeFiles/eoc-tfhe-run.dir/flags.make
 eoc/CMakeFiles/eoc-tfhe-run.dir/eoc-tfhe-run.cpp.o: /home/claoo/Documents/eoc-tfhe/aos-llama/build/tfhe/src/eoc/eoc-tfhe-run.cpp
 eoc/CMakeFiles/eoc-tfhe-run.dir/eoc-tfhe-run.cpp.o: eoc/CMakeFiles/eoc-tfhe-run.dir/compiler_depend.ts
-	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --progress-dir=/home/claoo/Documents/eoc-tfhe/aos-llama/build/tfhe/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_2) "Building CXX object eoc/CMakeFiles/eoc-tfhe-run.dir/eoc-tfhe-run.cpp.o"
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --progress-dir=/home/claoo/Documents/eoc-tfhe/aos-llama/build/tfhe/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_1) "Building CXX object eoc/CMakeFiles/eoc-tfhe-run.dir/eoc-tfhe-run.cpp.o"
 	cd /home/claoo/Documents/eoc-tfhe/aos-llama/build/tfhe/build/eoc && /usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -MD -MT eoc/CMakeFiles/eoc-tfhe-run.dir/eoc-tfhe-run.cpp.o -MF CMakeFiles/eoc-tfhe-run.dir/eoc-tfhe-run.cpp.o.d -o CMakeFiles/eoc-tfhe-run.dir/eoc-tfhe-run.cpp.o -c /home/claoo/Documents/eoc-tfhe/aos-llama/build/tfhe/src/eoc/eoc-tfhe-run.cpp
 
 eoc/CMakeFiles/eoc-tfhe-run.dir/eoc-tfhe-run.cpp.i: cmake_force
@@ -97,7 +83,6 @@ eoc/CMakeFiles/eoc-tfhe-run.dir/eoc-tfhe-run.cpp.s: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green "Compiling CXX source to assembly CMakeFiles/eoc-tfhe-run.dir/eoc-tfhe-run.cpp.s"
 	cd /home/claoo/Documents/eoc-tfhe/aos-llama/build/tfhe/build/eoc && /usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /home/claoo/Documents/eoc-tfhe/aos-llama/build/tfhe/src/eoc/eoc-tfhe-run.cpp -o CMakeFiles/eoc-tfhe-run.dir/eoc-tfhe-run.cpp.s
 
-eoc-tfhe-run: eoc/CMakeFiles/eoc-tfhe-run.dir/eoc-tfhe-bindings.c.o
 eoc-tfhe-run: eoc/CMakeFiles/eoc-tfhe-run.dir/eoc-tfhe-run.cpp.o
 eoc-tfhe-run: eoc/CMakeFiles/eoc-tfhe-run.dir/build.make
 .PHONY : eoc-tfhe-run

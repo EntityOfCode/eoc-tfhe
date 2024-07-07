@@ -172,20 +172,6 @@ depend:
 .PHONY : depend
 
 # Convenience name for target.
-test/CMakeFiles/unittests-nayuki-portable.dir/rule:
-	cd /home/claoo/Documents/eoc-tfhe/aos-llama/build/tfhe/build && $(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 test/CMakeFiles/unittests-nayuki-portable.dir/rule
-.PHONY : test/CMakeFiles/unittests-nayuki-portable.dir/rule
-
-# Convenience name for target.
-unittests-nayuki-portable: test/CMakeFiles/unittests-nayuki-portable.dir/rule
-.PHONY : unittests-nayuki-portable
-
-# fast build rule for target.
-unittests-nayuki-portable/fast:
-	cd /home/claoo/Documents/eoc-tfhe/aos-llama/build/tfhe/build && $(MAKE) $(MAKESILENT) -f test/CMakeFiles/unittests-nayuki-portable.dir/build.make test/CMakeFiles/unittests-nayuki-portable.dir/build
-.PHONY : unittests-nayuki-portable/fast
-
-# Convenience name for target.
 test/CMakeFiles/test-bootstrapping-fft-nayuki-portable.dir/rule:
 	cd /home/claoo/Documents/eoc-tfhe/aos-llama/build/tfhe/build && $(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 test/CMakeFiles/test-bootstrapping-fft-nayuki-portable.dir/rule
 .PHONY : test/CMakeFiles/test-bootstrapping-fft-nayuki-portable.dir/rule
@@ -325,116 +311,6 @@ eocLweTest-nayuki-portable/fast:
 	cd /home/claoo/Documents/eoc-tfhe/aos-llama/build/tfhe/build && $(MAKE) $(MAKESILENT) -f test/CMakeFiles/eocLweTest-nayuki-portable.dir/build.make test/CMakeFiles/eocLweTest-nayuki-portable.dir/build
 .PHONY : eocLweTest-nayuki-portable/fast
 
-# Convenience name for target.
-test/CMakeFiles/test-c-binding-nayuki-portable.dir/rule:
-	cd /home/claoo/Documents/eoc-tfhe/aos-llama/build/tfhe/build && $(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 test/CMakeFiles/test-c-binding-nayuki-portable.dir/rule
-.PHONY : test/CMakeFiles/test-c-binding-nayuki-portable.dir/rule
-
-# Convenience name for target.
-test-c-binding-nayuki-portable: test/CMakeFiles/test-c-binding-nayuki-portable.dir/rule
-.PHONY : test-c-binding-nayuki-portable
-
-# fast build rule for target.
-test-c-binding-nayuki-portable/fast:
-	cd /home/claoo/Documents/eoc-tfhe/aos-llama/build/tfhe/build && $(MAKE) $(MAKESILENT) -f test/CMakeFiles/test-c-binding-nayuki-portable.dir/build.make test/CMakeFiles/test-c-binding-nayuki-portable.dir/build
-.PHONY : test-c-binding-nayuki-portable/fast
-
-arithmetic_test.o: arithmetic_test.cpp.o
-.PHONY : arithmetic_test.o
-
-# target to build an object file
-arithmetic_test.cpp.o:
-	cd /home/claoo/Documents/eoc-tfhe/aos-llama/build/tfhe/build && $(MAKE) $(MAKESILENT) -f test/CMakeFiles/unittests-nayuki-portable.dir/build.make test/CMakeFiles/unittests-nayuki-portable.dir/arithmetic_test.cpp.o
-.PHONY : arithmetic_test.cpp.o
-
-arithmetic_test.i: arithmetic_test.cpp.i
-.PHONY : arithmetic_test.i
-
-# target to preprocess a source file
-arithmetic_test.cpp.i:
-	cd /home/claoo/Documents/eoc-tfhe/aos-llama/build/tfhe/build && $(MAKE) $(MAKESILENT) -f test/CMakeFiles/unittests-nayuki-portable.dir/build.make test/CMakeFiles/unittests-nayuki-portable.dir/arithmetic_test.cpp.i
-.PHONY : arithmetic_test.cpp.i
-
-arithmetic_test.s: arithmetic_test.cpp.s
-.PHONY : arithmetic_test.s
-
-# target to generate assembly for a file
-arithmetic_test.cpp.s:
-	cd /home/claoo/Documents/eoc-tfhe/aos-llama/build/tfhe/build && $(MAKE) $(MAKESILENT) -f test/CMakeFiles/unittests-nayuki-portable.dir/build.make test/CMakeFiles/unittests-nayuki-portable.dir/arithmetic_test.cpp.s
-.PHONY : arithmetic_test.cpp.s
-
-boots_gates_test.o: boots_gates_test.cpp.o
-.PHONY : boots_gates_test.o
-
-# target to build an object file
-boots_gates_test.cpp.o:
-	cd /home/claoo/Documents/eoc-tfhe/aos-llama/build/tfhe/build && $(MAKE) $(MAKESILENT) -f test/CMakeFiles/unittests-nayuki-portable.dir/build.make test/CMakeFiles/unittests-nayuki-portable.dir/boots_gates_test.cpp.o
-.PHONY : boots_gates_test.cpp.o
-
-boots_gates_test.i: boots_gates_test.cpp.i
-.PHONY : boots_gates_test.i
-
-# target to preprocess a source file
-boots_gates_test.cpp.i:
-	cd /home/claoo/Documents/eoc-tfhe/aos-llama/build/tfhe/build && $(MAKE) $(MAKESILENT) -f test/CMakeFiles/unittests-nayuki-portable.dir/build.make test/CMakeFiles/unittests-nayuki-portable.dir/boots_gates_test.cpp.i
-.PHONY : boots_gates_test.cpp.i
-
-boots_gates_test.s: boots_gates_test.cpp.s
-.PHONY : boots_gates_test.s
-
-# target to generate assembly for a file
-boots_gates_test.cpp.s:
-	cd /home/claoo/Documents/eoc-tfhe/aos-llama/build/tfhe/build && $(MAKE) $(MAKESILENT) -f test/CMakeFiles/unittests-nayuki-portable.dir/build.make test/CMakeFiles/unittests-nayuki-portable.dir/boots_gates_test.cpp.s
-.PHONY : boots_gates_test.cpp.s
-
-bootstrapping_test.o: bootstrapping_test.cpp.o
-.PHONY : bootstrapping_test.o
-
-# target to build an object file
-bootstrapping_test.cpp.o:
-	cd /home/claoo/Documents/eoc-tfhe/aos-llama/build/tfhe/build && $(MAKE) $(MAKESILENT) -f test/CMakeFiles/unittests-nayuki-portable.dir/build.make test/CMakeFiles/unittests-nayuki-portable.dir/bootstrapping_test.cpp.o
-.PHONY : bootstrapping_test.cpp.o
-
-bootstrapping_test.i: bootstrapping_test.cpp.i
-.PHONY : bootstrapping_test.i
-
-# target to preprocess a source file
-bootstrapping_test.cpp.i:
-	cd /home/claoo/Documents/eoc-tfhe/aos-llama/build/tfhe/build && $(MAKE) $(MAKESILENT) -f test/CMakeFiles/unittests-nayuki-portable.dir/build.make test/CMakeFiles/unittests-nayuki-portable.dir/bootstrapping_test.cpp.i
-.PHONY : bootstrapping_test.cpp.i
-
-bootstrapping_test.s: bootstrapping_test.cpp.s
-.PHONY : bootstrapping_test.s
-
-# target to generate assembly for a file
-bootstrapping_test.cpp.s:
-	cd /home/claoo/Documents/eoc-tfhe/aos-llama/build/tfhe/build && $(MAKE) $(MAKESILENT) -f test/CMakeFiles/unittests-nayuki-portable.dir/build.make test/CMakeFiles/unittests-nayuki-portable.dir/bootstrapping_test.cpp.s
-.PHONY : bootstrapping_test.cpp.s
-
-bootstrapping_test_fft.o: bootstrapping_test_fft.cpp.o
-.PHONY : bootstrapping_test_fft.o
-
-# target to build an object file
-bootstrapping_test_fft.cpp.o:
-	cd /home/claoo/Documents/eoc-tfhe/aos-llama/build/tfhe/build && $(MAKE) $(MAKESILENT) -f test/CMakeFiles/unittests-nayuki-portable.dir/build.make test/CMakeFiles/unittests-nayuki-portable.dir/bootstrapping_test_fft.cpp.o
-.PHONY : bootstrapping_test_fft.cpp.o
-
-bootstrapping_test_fft.i: bootstrapping_test_fft.cpp.i
-.PHONY : bootstrapping_test_fft.i
-
-# target to preprocess a source file
-bootstrapping_test_fft.cpp.i:
-	cd /home/claoo/Documents/eoc-tfhe/aos-llama/build/tfhe/build && $(MAKE) $(MAKESILENT) -f test/CMakeFiles/unittests-nayuki-portable.dir/build.make test/CMakeFiles/unittests-nayuki-portable.dir/bootstrapping_test_fft.cpp.i
-.PHONY : bootstrapping_test_fft.cpp.i
-
-bootstrapping_test_fft.s: bootstrapping_test_fft.cpp.s
-.PHONY : bootstrapping_test_fft.s
-
-# target to generate assembly for a file
-bootstrapping_test_fft.cpp.s:
-	cd /home/claoo/Documents/eoc-tfhe/aos-llama/build/tfhe/build && $(MAKE) $(MAKESILENT) -f test/CMakeFiles/unittests-nayuki-portable.dir/build.make test/CMakeFiles/unittests-nayuki-portable.dir/bootstrapping_test_fft.cpp.s
-.PHONY : bootstrapping_test_fft.cpp.s
-
 eocLweTest.o: eocLweTest.cpp.o
 .PHONY : eocLweTest.o
 
@@ -483,126 +359,6 @@ eocTest.cpp.s:
 	cd /home/claoo/Documents/eoc-tfhe/aos-llama/build/tfhe/build && $(MAKE) $(MAKESILENT) -f test/CMakeFiles/eocTest-nayuki-portable.dir/build.make test/CMakeFiles/eocTest-nayuki-portable.dir/eocTest.cpp.s
 .PHONY : eocTest.cpp.s
 
-io_test.o: io_test.cpp.o
-.PHONY : io_test.o
-
-# target to build an object file
-io_test.cpp.o:
-	cd /home/claoo/Documents/eoc-tfhe/aos-llama/build/tfhe/build && $(MAKE) $(MAKESILENT) -f test/CMakeFiles/unittests-nayuki-portable.dir/build.make test/CMakeFiles/unittests-nayuki-portable.dir/io_test.cpp.o
-.PHONY : io_test.cpp.o
-
-io_test.i: io_test.cpp.i
-.PHONY : io_test.i
-
-# target to preprocess a source file
-io_test.cpp.i:
-	cd /home/claoo/Documents/eoc-tfhe/aos-llama/build/tfhe/build && $(MAKE) $(MAKESILENT) -f test/CMakeFiles/unittests-nayuki-portable.dir/build.make test/CMakeFiles/unittests-nayuki-portable.dir/io_test.cpp.i
-.PHONY : io_test.cpp.i
-
-io_test.s: io_test.cpp.s
-.PHONY : io_test.s
-
-# target to generate assembly for a file
-io_test.cpp.s:
-	cd /home/claoo/Documents/eoc-tfhe/aos-llama/build/tfhe/build && $(MAKE) $(MAKESILENT) -f test/CMakeFiles/unittests-nayuki-portable.dir/build.make test/CMakeFiles/unittests-nayuki-portable.dir/io_test.cpp.s
-.PHONY : io_test.cpp.s
-
-lagrangehalfc_test.o: lagrangehalfc_test.cpp.o
-.PHONY : lagrangehalfc_test.o
-
-# target to build an object file
-lagrangehalfc_test.cpp.o:
-	cd /home/claoo/Documents/eoc-tfhe/aos-llama/build/tfhe/build && $(MAKE) $(MAKESILENT) -f test/CMakeFiles/unittests-nayuki-portable.dir/build.make test/CMakeFiles/unittests-nayuki-portable.dir/lagrangehalfc_test.cpp.o
-.PHONY : lagrangehalfc_test.cpp.o
-
-lagrangehalfc_test.i: lagrangehalfc_test.cpp.i
-.PHONY : lagrangehalfc_test.i
-
-# target to preprocess a source file
-lagrangehalfc_test.cpp.i:
-	cd /home/claoo/Documents/eoc-tfhe/aos-llama/build/tfhe/build && $(MAKE) $(MAKESILENT) -f test/CMakeFiles/unittests-nayuki-portable.dir/build.make test/CMakeFiles/unittests-nayuki-portable.dir/lagrangehalfc_test.cpp.i
-.PHONY : lagrangehalfc_test.cpp.i
-
-lagrangehalfc_test.s: lagrangehalfc_test.cpp.s
-.PHONY : lagrangehalfc_test.s
-
-# target to generate assembly for a file
-lagrangehalfc_test.cpp.s:
-	cd /home/claoo/Documents/eoc-tfhe/aos-llama/build/tfhe/build && $(MAKE) $(MAKESILENT) -f test/CMakeFiles/unittests-nayuki-portable.dir/build.make test/CMakeFiles/unittests-nayuki-portable.dir/lagrangehalfc_test.cpp.s
-.PHONY : lagrangehalfc_test.cpp.s
-
-lwe_test.o: lwe_test.cpp.o
-.PHONY : lwe_test.o
-
-# target to build an object file
-lwe_test.cpp.o:
-	cd /home/claoo/Documents/eoc-tfhe/aos-llama/build/tfhe/build && $(MAKE) $(MAKESILENT) -f test/CMakeFiles/unittests-nayuki-portable.dir/build.make test/CMakeFiles/unittests-nayuki-portable.dir/lwe_test.cpp.o
-.PHONY : lwe_test.cpp.o
-
-lwe_test.i: lwe_test.cpp.i
-.PHONY : lwe_test.i
-
-# target to preprocess a source file
-lwe_test.cpp.i:
-	cd /home/claoo/Documents/eoc-tfhe/aos-llama/build/tfhe/build && $(MAKE) $(MAKESILENT) -f test/CMakeFiles/unittests-nayuki-portable.dir/build.make test/CMakeFiles/unittests-nayuki-portable.dir/lwe_test.cpp.i
-.PHONY : lwe_test.cpp.i
-
-lwe_test.s: lwe_test.cpp.s
-.PHONY : lwe_test.s
-
-# target to generate assembly for a file
-lwe_test.cpp.s:
-	cd /home/claoo/Documents/eoc-tfhe/aos-llama/build/tfhe/build && $(MAKE) $(MAKESILENT) -f test/CMakeFiles/unittests-nayuki-portable.dir/build.make test/CMakeFiles/unittests-nayuki-portable.dir/lwe_test.cpp.s
-.PHONY : lwe_test.cpp.s
-
-lwekeyswitch_test.o: lwekeyswitch_test.cpp.o
-.PHONY : lwekeyswitch_test.o
-
-# target to build an object file
-lwekeyswitch_test.cpp.o:
-	cd /home/claoo/Documents/eoc-tfhe/aos-llama/build/tfhe/build && $(MAKE) $(MAKESILENT) -f test/CMakeFiles/unittests-nayuki-portable.dir/build.make test/CMakeFiles/unittests-nayuki-portable.dir/lwekeyswitch_test.cpp.o
-.PHONY : lwekeyswitch_test.cpp.o
-
-lwekeyswitch_test.i: lwekeyswitch_test.cpp.i
-.PHONY : lwekeyswitch_test.i
-
-# target to preprocess a source file
-lwekeyswitch_test.cpp.i:
-	cd /home/claoo/Documents/eoc-tfhe/aos-llama/build/tfhe/build && $(MAKE) $(MAKESILENT) -f test/CMakeFiles/unittests-nayuki-portable.dir/build.make test/CMakeFiles/unittests-nayuki-portable.dir/lwekeyswitch_test.cpp.i
-.PHONY : lwekeyswitch_test.cpp.i
-
-lwekeyswitch_test.s: lwekeyswitch_test.cpp.s
-.PHONY : lwekeyswitch_test.s
-
-# target to generate assembly for a file
-lwekeyswitch_test.cpp.s:
-	cd /home/claoo/Documents/eoc-tfhe/aos-llama/build/tfhe/build && $(MAKE) $(MAKESILENT) -f test/CMakeFiles/unittests-nayuki-portable.dir/build.make test/CMakeFiles/unittests-nayuki-portable.dir/lwekeyswitch_test.cpp.s
-.PHONY : lwekeyswitch_test.cpp.s
-
-polynomial_test.o: polynomial_test.cpp.o
-.PHONY : polynomial_test.o
-
-# target to build an object file
-polynomial_test.cpp.o:
-	cd /home/claoo/Documents/eoc-tfhe/aos-llama/build/tfhe/build && $(MAKE) $(MAKESILENT) -f test/CMakeFiles/unittests-nayuki-portable.dir/build.make test/CMakeFiles/unittests-nayuki-portable.dir/polynomial_test.cpp.o
-.PHONY : polynomial_test.cpp.o
-
-polynomial_test.i: polynomial_test.cpp.i
-.PHONY : polynomial_test.i
-
-# target to preprocess a source file
-polynomial_test.cpp.i:
-	cd /home/claoo/Documents/eoc-tfhe/aos-llama/build/tfhe/build && $(MAKE) $(MAKESILENT) -f test/CMakeFiles/unittests-nayuki-portable.dir/build.make test/CMakeFiles/unittests-nayuki-portable.dir/polynomial_test.cpp.i
-.PHONY : polynomial_test.cpp.i
-
-polynomial_test.s: polynomial_test.cpp.s
-.PHONY : polynomial_test.s
-
-# target to generate assembly for a file
-polynomial_test.cpp.s:
-	cd /home/claoo/Documents/eoc-tfhe/aos-llama/build/tfhe/build && $(MAKE) $(MAKESILENT) -f test/CMakeFiles/unittests-nayuki-portable.dir/build.make test/CMakeFiles/unittests-nayuki-portable.dir/polynomial_test.cpp.s
-.PHONY : polynomial_test.cpp.s
-
 test-addition-boot.o: test-addition-boot.cpp.o
 .PHONY : test-addition-boot.o
 
@@ -650,30 +406,6 @@ test-bootstrapping-fft.s: test-bootstrapping-fft.cpp.s
 test-bootstrapping-fft.cpp.s:
 	cd /home/claoo/Documents/eoc-tfhe/aos-llama/build/tfhe/build && $(MAKE) $(MAKESILENT) -f test/CMakeFiles/test-bootstrapping-fft-nayuki-portable.dir/build.make test/CMakeFiles/test-bootstrapping-fft-nayuki-portable.dir/test-bootstrapping-fft.cpp.s
 .PHONY : test-bootstrapping-fft.cpp.s
-
-test-c-binding.o: test-c-binding.c.o
-.PHONY : test-c-binding.o
-
-# target to build an object file
-test-c-binding.c.o:
-	cd /home/claoo/Documents/eoc-tfhe/aos-llama/build/tfhe/build && $(MAKE) $(MAKESILENT) -f test/CMakeFiles/test-c-binding-nayuki-portable.dir/build.make test/CMakeFiles/test-c-binding-nayuki-portable.dir/test-c-binding.c.o
-.PHONY : test-c-binding.c.o
-
-test-c-binding.i: test-c-binding.c.i
-.PHONY : test-c-binding.i
-
-# target to preprocess a source file
-test-c-binding.c.i:
-	cd /home/claoo/Documents/eoc-tfhe/aos-llama/build/tfhe/build && $(MAKE) $(MAKESILENT) -f test/CMakeFiles/test-c-binding-nayuki-portable.dir/build.make test/CMakeFiles/test-c-binding-nayuki-portable.dir/test-c-binding.c.i
-.PHONY : test-c-binding.c.i
-
-test-c-binding.s: test-c-binding.c.s
-.PHONY : test-c-binding.s
-
-# target to generate assembly for a file
-test-c-binding.c.s:
-	cd /home/claoo/Documents/eoc-tfhe/aos-llama/build/tfhe/build && $(MAKE) $(MAKESILENT) -f test/CMakeFiles/test-c-binding-nayuki-portable.dir/build.make test/CMakeFiles/test-c-binding-nayuki-portable.dir/test-c-binding.c.s
-.PHONY : test-c-binding.c.s
 
 test-decomp-tgsw.o: test-decomp-tgsw.cpp.o
 .PHONY : test-decomp-tgsw.o
@@ -819,102 +551,6 @@ test-tlwe.cpp.s:
 	cd /home/claoo/Documents/eoc-tfhe/aos-llama/build/tfhe/build && $(MAKE) $(MAKESILENT) -f test/CMakeFiles/test-tlwe-nayuki-portable.dir/build.make test/CMakeFiles/test-tlwe-nayuki-portable.dir/test-tlwe.cpp.s
 .PHONY : test-tlwe.cpp.s
 
-tgsw_fft_test.o: tgsw_fft_test.cpp.o
-.PHONY : tgsw_fft_test.o
-
-# target to build an object file
-tgsw_fft_test.cpp.o:
-	cd /home/claoo/Documents/eoc-tfhe/aos-llama/build/tfhe/build && $(MAKE) $(MAKESILENT) -f test/CMakeFiles/unittests-nayuki-portable.dir/build.make test/CMakeFiles/unittests-nayuki-portable.dir/tgsw_fft_test.cpp.o
-.PHONY : tgsw_fft_test.cpp.o
-
-tgsw_fft_test.i: tgsw_fft_test.cpp.i
-.PHONY : tgsw_fft_test.i
-
-# target to preprocess a source file
-tgsw_fft_test.cpp.i:
-	cd /home/claoo/Documents/eoc-tfhe/aos-llama/build/tfhe/build && $(MAKE) $(MAKESILENT) -f test/CMakeFiles/unittests-nayuki-portable.dir/build.make test/CMakeFiles/unittests-nayuki-portable.dir/tgsw_fft_test.cpp.i
-.PHONY : tgsw_fft_test.cpp.i
-
-tgsw_fft_test.s: tgsw_fft_test.cpp.s
-.PHONY : tgsw_fft_test.s
-
-# target to generate assembly for a file
-tgsw_fft_test.cpp.s:
-	cd /home/claoo/Documents/eoc-tfhe/aos-llama/build/tfhe/build && $(MAKE) $(MAKESILENT) -f test/CMakeFiles/unittests-nayuki-portable.dir/build.make test/CMakeFiles/unittests-nayuki-portable.dir/tgsw_fft_test.cpp.s
-.PHONY : tgsw_fft_test.cpp.s
-
-tgsw_test.o: tgsw_test.cpp.o
-.PHONY : tgsw_test.o
-
-# target to build an object file
-tgsw_test.cpp.o:
-	cd /home/claoo/Documents/eoc-tfhe/aos-llama/build/tfhe/build && $(MAKE) $(MAKESILENT) -f test/CMakeFiles/unittests-nayuki-portable.dir/build.make test/CMakeFiles/unittests-nayuki-portable.dir/tgsw_test.cpp.o
-.PHONY : tgsw_test.cpp.o
-
-tgsw_test.i: tgsw_test.cpp.i
-.PHONY : tgsw_test.i
-
-# target to preprocess a source file
-tgsw_test.cpp.i:
-	cd /home/claoo/Documents/eoc-tfhe/aos-llama/build/tfhe/build && $(MAKE) $(MAKESILENT) -f test/CMakeFiles/unittests-nayuki-portable.dir/build.make test/CMakeFiles/unittests-nayuki-portable.dir/tgsw_test.cpp.i
-.PHONY : tgsw_test.cpp.i
-
-tgsw_test.s: tgsw_test.cpp.s
-.PHONY : tgsw_test.s
-
-# target to generate assembly for a file
-tgsw_test.cpp.s:
-	cd /home/claoo/Documents/eoc-tfhe/aos-llama/build/tfhe/build && $(MAKE) $(MAKESILENT) -f test/CMakeFiles/unittests-nayuki-portable.dir/build.make test/CMakeFiles/unittests-nayuki-portable.dir/tgsw_test.cpp.s
-.PHONY : tgsw_test.cpp.s
-
-tlwe_fft_test.o: tlwe_fft_test.cpp.o
-.PHONY : tlwe_fft_test.o
-
-# target to build an object file
-tlwe_fft_test.cpp.o:
-	cd /home/claoo/Documents/eoc-tfhe/aos-llama/build/tfhe/build && $(MAKE) $(MAKESILENT) -f test/CMakeFiles/unittests-nayuki-portable.dir/build.make test/CMakeFiles/unittests-nayuki-portable.dir/tlwe_fft_test.cpp.o
-.PHONY : tlwe_fft_test.cpp.o
-
-tlwe_fft_test.i: tlwe_fft_test.cpp.i
-.PHONY : tlwe_fft_test.i
-
-# target to preprocess a source file
-tlwe_fft_test.cpp.i:
-	cd /home/claoo/Documents/eoc-tfhe/aos-llama/build/tfhe/build && $(MAKE) $(MAKESILENT) -f test/CMakeFiles/unittests-nayuki-portable.dir/build.make test/CMakeFiles/unittests-nayuki-portable.dir/tlwe_fft_test.cpp.i
-.PHONY : tlwe_fft_test.cpp.i
-
-tlwe_fft_test.s: tlwe_fft_test.cpp.s
-.PHONY : tlwe_fft_test.s
-
-# target to generate assembly for a file
-tlwe_fft_test.cpp.s:
-	cd /home/claoo/Documents/eoc-tfhe/aos-llama/build/tfhe/build && $(MAKE) $(MAKESILENT) -f test/CMakeFiles/unittests-nayuki-portable.dir/build.make test/CMakeFiles/unittests-nayuki-portable.dir/tlwe_fft_test.cpp.s
-.PHONY : tlwe_fft_test.cpp.s
-
-tlwe_test.o: tlwe_test.cpp.o
-.PHONY : tlwe_test.o
-
-# target to build an object file
-tlwe_test.cpp.o:
-	cd /home/claoo/Documents/eoc-tfhe/aos-llama/build/tfhe/build && $(MAKE) $(MAKESILENT) -f test/CMakeFiles/unittests-nayuki-portable.dir/build.make test/CMakeFiles/unittests-nayuki-portable.dir/tlwe_test.cpp.o
-.PHONY : tlwe_test.cpp.o
-
-tlwe_test.i: tlwe_test.cpp.i
-.PHONY : tlwe_test.i
-
-# target to preprocess a source file
-tlwe_test.cpp.i:
-	cd /home/claoo/Documents/eoc-tfhe/aos-llama/build/tfhe/build && $(MAKE) $(MAKESILENT) -f test/CMakeFiles/unittests-nayuki-portable.dir/build.make test/CMakeFiles/unittests-nayuki-portable.dir/tlwe_test.cpp.i
-.PHONY : tlwe_test.cpp.i
-
-tlwe_test.s: tlwe_test.cpp.s
-.PHONY : tlwe_test.s
-
-# target to generate assembly for a file
-tlwe_test.cpp.s:
-	cd /home/claoo/Documents/eoc-tfhe/aos-llama/build/tfhe/build && $(MAKE) $(MAKESILENT) -f test/CMakeFiles/unittests-nayuki-portable.dir/build.make test/CMakeFiles/unittests-nayuki-portable.dir/tlwe_test.cpp.s
-.PHONY : tlwe_test.cpp.s
-
 # Help Target
 help:
 	@echo "The following are some of the valid targets for this Makefile:"
@@ -932,56 +568,24 @@ help:
 	@echo "... eocTest-nayuki-portable"
 	@echo "... test-addition-boot-nayuki-portable"
 	@echo "... test-bootstrapping-fft-nayuki-portable"
-	@echo "... test-c-binding-nayuki-portable"
 	@echo "... test-decomp-tgsw-nayuki-portable"
 	@echo "... test-gate-bootstrapping-nayuki-portable"
 	@echo "... test-long-run-nayuki-portable"
 	@echo "... test-lwe-nayuki-portable"
 	@echo "... test-multiplication-nayuki-portable"
 	@echo "... test-tlwe-nayuki-portable"
-	@echo "... unittests-nayuki-portable"
-	@echo "... arithmetic_test.o"
-	@echo "... arithmetic_test.i"
-	@echo "... arithmetic_test.s"
-	@echo "... boots_gates_test.o"
-	@echo "... boots_gates_test.i"
-	@echo "... boots_gates_test.s"
-	@echo "... bootstrapping_test.o"
-	@echo "... bootstrapping_test.i"
-	@echo "... bootstrapping_test.s"
-	@echo "... bootstrapping_test_fft.o"
-	@echo "... bootstrapping_test_fft.i"
-	@echo "... bootstrapping_test_fft.s"
 	@echo "... eocLweTest.o"
 	@echo "... eocLweTest.i"
 	@echo "... eocLweTest.s"
 	@echo "... eocTest.o"
 	@echo "... eocTest.i"
 	@echo "... eocTest.s"
-	@echo "... io_test.o"
-	@echo "... io_test.i"
-	@echo "... io_test.s"
-	@echo "... lagrangehalfc_test.o"
-	@echo "... lagrangehalfc_test.i"
-	@echo "... lagrangehalfc_test.s"
-	@echo "... lwe_test.o"
-	@echo "... lwe_test.i"
-	@echo "... lwe_test.s"
-	@echo "... lwekeyswitch_test.o"
-	@echo "... lwekeyswitch_test.i"
-	@echo "... lwekeyswitch_test.s"
-	@echo "... polynomial_test.o"
-	@echo "... polynomial_test.i"
-	@echo "... polynomial_test.s"
 	@echo "... test-addition-boot.o"
 	@echo "... test-addition-boot.i"
 	@echo "... test-addition-boot.s"
 	@echo "... test-bootstrapping-fft.o"
 	@echo "... test-bootstrapping-fft.i"
 	@echo "... test-bootstrapping-fft.s"
-	@echo "... test-c-binding.o"
-	@echo "... test-c-binding.i"
-	@echo "... test-c-binding.s"
 	@echo "... test-decomp-tgsw.o"
 	@echo "... test-decomp-tgsw.i"
 	@echo "... test-decomp-tgsw.s"
@@ -1000,18 +604,6 @@ help:
 	@echo "... test-tlwe.o"
 	@echo "... test-tlwe.i"
 	@echo "... test-tlwe.s"
-	@echo "... tgsw_fft_test.o"
-	@echo "... tgsw_fft_test.i"
-	@echo "... tgsw_fft_test.s"
-	@echo "... tgsw_test.o"
-	@echo "... tgsw_test.i"
-	@echo "... tgsw_test.s"
-	@echo "... tlwe_fft_test.o"
-	@echo "... tlwe_fft_test.i"
-	@echo "... tlwe_fft_test.s"
-	@echo "... tlwe_test.o"
-	@echo "... tlwe_test.i"
-	@echo "... tlwe_test.s"
 .PHONY : help
 
 

@@ -37,7 +37,6 @@
 /tfhe/build.test/eoc/CMakeFiles/install.dir
 /tfhe/build.test/eoc/CMakeFiles/install/local.dir
 /tfhe/build.test/eoc/CMakeFiles/install/strip.dir
-/tfhe/build.test/test/CMakeFiles/unittests-nayuki-portable.dir
 /tfhe/build.test/test/CMakeFiles/test-bootstrapping-fft-nayuki-portable.dir
 /tfhe/build.test/test/CMakeFiles/test-decomp-tgsw-nayuki-portable.dir
 /tfhe/build.test/test/CMakeFiles/test-lwe-nayuki-portable.dir

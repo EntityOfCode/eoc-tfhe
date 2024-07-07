@@ -148,7 +148,6 @@ libtfhe/fft_processors/nayuki/clean: libtfhe/fft_processors/nayuki/CMakeFiles/tf
 # Directory level rules for directory test
 
 # Recursive "all" directory target.
-test/all: test/CMakeFiles/unittests-nayuki-portable.dir/all
 test/all: test/CMakeFiles/test-bootstrapping-fft-nayuki-portable.dir/all
 test/all: test/CMakeFiles/test-decomp-tgsw-nayuki-portable.dir/all
 test/all: test/CMakeFiles/test-lwe-nayuki-portable.dir/all
@@ -159,7 +158,6 @@ test/all: test/CMakeFiles/test-addition-boot-nayuki-portable.dir/all
 test/all: test/CMakeFiles/test-long-run-nayuki-portable.dir/all
 test/all: test/CMakeFiles/eocTest-nayuki-portable.dir/all
 test/all: test/CMakeFiles/eocLweTest-nayuki-portable.dir/all
-test/all: test/CMakeFiles/test-c-binding-nayuki-portable.dir/all
 .PHONY : test/all
 
 # Recursive "preinstall" directory target.
@@ -167,7 +165,6 @@ test/preinstall:
 .PHONY : test/preinstall
 
 # Recursive "clean" directory target.
-test/clean: test/CMakeFiles/unittests-nayuki-portable.dir/clean
 test/clean: test/CMakeFiles/test-bootstrapping-fft-nayuki-portable.dir/clean
 test/clean: test/CMakeFiles/test-decomp-tgsw-nayuki-portable.dir/clean
 test/clean: test/CMakeFiles/test-lwe-nayuki-portable.dir/clean
@@ -178,7 +175,6 @@ test/clean: test/CMakeFiles/test-addition-boot-nayuki-portable.dir/clean
 test/clean: test/CMakeFiles/test-long-run-nayuki-portable.dir/clean
 test/clean: test/CMakeFiles/eocTest-nayuki-portable.dir/clean
 test/clean: test/CMakeFiles/eocLweTest-nayuki-portable.dir/clean
-test/clean: test/CMakeFiles/test-c-binding-nayuki-portable.dir/clean
 test/clean: test/googletest/clean
 .PHONY : test/clean
 
@@ -240,7 +236,7 @@ test/googletest/googlemock/gtest/clean: test/googletest/googlemock/gtest/CMakeFi
 libtfhe/CMakeFiles/tfhe-core.dir/all:
 	$(MAKE) $(MAKESILENT) -f libtfhe/CMakeFiles/tfhe-core.dir/build.make libtfhe/CMakeFiles/tfhe-core.dir/depend
 	$(MAKE) $(MAKESILENT) -f libtfhe/CMakeFiles/tfhe-core.dir/build.make libtfhe/CMakeFiles/tfhe-core.dir/build
-	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --progress-dir=/home/claoo/Documents/eoc-tfhe/aos-llama/build/tfhe/build/CMakeFiles --progress-num=36,37,38,39,40,41,42,43,44,45,46,47,48,49,50,51,52,53,54,55,56,57,58,59,60,61,62 "Built target tfhe-core"
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --progress-dir=/home/claoo/Documents/eoc-tfhe/aos-llama/build/tfhe/build/CMakeFiles --progress-num=33,34,35,36,37,38,39,40,41,42,43,44,45,46,47,48,49,50,51,52,53,54,55,56,57,58,59 "Built target tfhe-core"
 .PHONY : libtfhe/CMakeFiles/tfhe-core.dir/all
 
 # Build rule for subdir invocation for target.
@@ -267,7 +263,7 @@ libtfhe/CMakeFiles/tfhe-nayuki-portable.dir/all: libtfhe/CMakeFiles/tfhe-core.di
 libtfhe/CMakeFiles/tfhe-nayuki-portable.dir/all: libtfhe/fft_processors/nayuki/CMakeFiles/tfhe-fft-nayuki-portable.dir/all
 	$(MAKE) $(MAKESILENT) -f libtfhe/CMakeFiles/tfhe-nayuki-portable.dir/build.make libtfhe/CMakeFiles/tfhe-nayuki-portable.dir/depend
 	$(MAKE) $(MAKESILENT) -f libtfhe/CMakeFiles/tfhe-nayuki-portable.dir/build.make libtfhe/CMakeFiles/tfhe-nayuki-portable.dir/build
-	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --progress-dir=/home/claoo/Documents/eoc-tfhe/aos-llama/build/tfhe/build/CMakeFiles --progress-num=67 "Built target tfhe-nayuki-portable"
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --progress-dir=/home/claoo/Documents/eoc-tfhe/aos-llama/build/tfhe/build/CMakeFiles --progress-num=64 "Built target tfhe-nayuki-portable"
 .PHONY : libtfhe/CMakeFiles/tfhe-nayuki-portable.dir/all
 
 # Build rule for subdir invocation for target.
@@ -293,7 +289,7 @@ libtfhe/CMakeFiles/tfhe-nayuki-portable.dir/clean:
 libtfhe/fft_processors/nayuki/CMakeFiles/tfhe-fft-nayuki-portable.dir/all:
 	$(MAKE) $(MAKESILENT) -f libtfhe/fft_processors/nayuki/CMakeFiles/tfhe-fft-nayuki-portable.dir/build.make libtfhe/fft_processors/nayuki/CMakeFiles/tfhe-fft-nayuki-portable.dir/depend
 	$(MAKE) $(MAKESILENT) -f libtfhe/fft_processors/nayuki/CMakeFiles/tfhe-fft-nayuki-portable.dir/build.make libtfhe/fft_processors/nayuki/CMakeFiles/tfhe-fft-nayuki-portable.dir/build
-	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --progress-dir=/home/claoo/Documents/eoc-tfhe/aos-llama/build/tfhe/build/CMakeFiles --progress-num=63,64,65,66 "Built target tfhe-fft-nayuki-portable"
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --progress-dir=/home/claoo/Documents/eoc-tfhe/aos-llama/build/tfhe/build/CMakeFiles --progress-num=60,61,62,63 "Built target tfhe-fft-nayuki-portable"
 .PHONY : libtfhe/fft_processors/nayuki/CMakeFiles/tfhe-fft-nayuki-portable.dir/all
 
 # Build rule for subdir invocation for target.
@@ -319,12 +315,12 @@ libtfhe/fft_processors/nayuki/CMakeFiles/tfhe-fft-nayuki-portable.dir/clean:
 eoc/CMakeFiles/eoc-tfhe-run.dir/all: libtfhe/CMakeFiles/tfhe-nayuki-portable.dir/all
 	$(MAKE) $(MAKESILENT) -f eoc/CMakeFiles/eoc-tfhe-run.dir/build.make eoc/CMakeFiles/eoc-tfhe-run.dir/depend
 	$(MAKE) $(MAKESILENT) -f eoc/CMakeFiles/eoc-tfhe-run.dir/build.make eoc/CMakeFiles/eoc-tfhe-run.dir/build
-	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --progress-dir=/home/claoo/Documents/eoc-tfhe/aos-llama/build/tfhe/build/CMakeFiles --progress-num=1,2 "Built target eoc-tfhe-run"
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --progress-dir=/home/claoo/Documents/eoc-tfhe/aos-llama/build/tfhe/build/CMakeFiles --progress-num=1 "Built target eoc-tfhe-run"
 .PHONY : eoc/CMakeFiles/eoc-tfhe-run.dir/all
 
 # Build rule for subdir invocation for target.
 eoc/CMakeFiles/eoc-tfhe-run.dir/rule: cmake_check_build_system
-	$(CMAKE_COMMAND) -E cmake_progress_start /home/claoo/Documents/eoc-tfhe/aos-llama/build/tfhe/build/CMakeFiles 34
+	$(CMAKE_COMMAND) -E cmake_progress_start /home/claoo/Documents/eoc-tfhe/aos-llama/build/tfhe/build/CMakeFiles 33
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 eoc/CMakeFiles/eoc-tfhe-run.dir/all
 	$(CMAKE_COMMAND) -E cmake_progress_start /home/claoo/Documents/eoc-tfhe/aos-llama/build/tfhe/build/CMakeFiles 0
 .PHONY : eoc/CMakeFiles/eoc-tfhe-run.dir/rule
@@ -339,41 +335,13 @@ eoc/CMakeFiles/eoc-tfhe-run.dir/clean:
 .PHONY : eoc/CMakeFiles/eoc-tfhe-run.dir/clean
 
 #=============================================================================
-# Target rules for target test/CMakeFiles/unittests-nayuki-portable.dir
-
-# All Build rule for target.
-test/CMakeFiles/unittests-nayuki-portable.dir/all: libtfhe/CMakeFiles/tfhe-nayuki-portable.dir/all
-test/CMakeFiles/unittests-nayuki-portable.dir/all: test/googletest/googlemock/gtest/CMakeFiles/gtest.dir/all
-test/CMakeFiles/unittests-nayuki-portable.dir/all: test/googletest/googlemock/gtest/CMakeFiles/gtest_main.dir/all
-	$(MAKE) $(MAKESILENT) -f test/CMakeFiles/unittests-nayuki-portable.dir/build.make test/CMakeFiles/unittests-nayuki-portable.dir/depend
-	$(MAKE) $(MAKESILENT) -f test/CMakeFiles/unittests-nayuki-portable.dir/build.make test/CMakeFiles/unittests-nayuki-portable.dir/build
-	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --progress-dir=/home/claoo/Documents/eoc-tfhe/aos-llama/build/tfhe/build/CMakeFiles --progress-num=68,69,70,71,72,73,74,75,76,77,78,79,80,81 "Built target unittests-nayuki-portable"
-.PHONY : test/CMakeFiles/unittests-nayuki-portable.dir/all
-
-# Build rule for subdir invocation for target.
-test/CMakeFiles/unittests-nayuki-portable.dir/rule: cmake_check_build_system
-	$(CMAKE_COMMAND) -E cmake_progress_start /home/claoo/Documents/eoc-tfhe/aos-llama/build/tfhe/build/CMakeFiles 50
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 test/CMakeFiles/unittests-nayuki-portable.dir/all
-	$(CMAKE_COMMAND) -E cmake_progress_start /home/claoo/Documents/eoc-tfhe/aos-llama/build/tfhe/build/CMakeFiles 0
-.PHONY : test/CMakeFiles/unittests-nayuki-portable.dir/rule
-
-# Convenience name for target.
-unittests-nayuki-portable: test/CMakeFiles/unittests-nayuki-portable.dir/rule
-.PHONY : unittests-nayuki-portable
-
-# clean rule for target.
-test/CMakeFiles/unittests-nayuki-portable.dir/clean:
-	$(MAKE) $(MAKESILENT) -f test/CMakeFiles/unittests-nayuki-portable.dir/build.make test/CMakeFiles/unittests-nayuki-portable.dir/clean
-.PHONY : test/CMakeFiles/unittests-nayuki-portable.dir/clean
-
-#=============================================================================
 # Target rules for target test/CMakeFiles/test-bootstrapping-fft-nayuki-portable.dir
 
 # All Build rule for target.
 test/CMakeFiles/test-bootstrapping-fft-nayuki-portable.dir/all: libtfhe/CMakeFiles/tfhe-nayuki-portable.dir/all
 	$(MAKE) $(MAKESILENT) -f test/CMakeFiles/test-bootstrapping-fft-nayuki-portable.dir/build.make test/CMakeFiles/test-bootstrapping-fft-nayuki-portable.dir/depend
 	$(MAKE) $(MAKESILENT) -f test/CMakeFiles/test-bootstrapping-fft-nayuki-portable.dir/build.make test/CMakeFiles/test-bootstrapping-fft-nayuki-portable.dir/build
-	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --progress-dir=/home/claoo/Documents/eoc-tfhe/aos-llama/build/tfhe/build/CMakeFiles --progress-num=20,21 "Built target test-bootstrapping-fft-nayuki-portable"
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --progress-dir=/home/claoo/Documents/eoc-tfhe/aos-llama/build/tfhe/build/CMakeFiles --progress-num=19,20 "Built target test-bootstrapping-fft-nayuki-portable"
 .PHONY : test/CMakeFiles/test-bootstrapping-fft-nayuki-portable.dir/all
 
 # Build rule for subdir invocation for target.
@@ -399,7 +367,7 @@ test/CMakeFiles/test-bootstrapping-fft-nayuki-portable.dir/clean:
 test/CMakeFiles/test-decomp-tgsw-nayuki-portable.dir/all: libtfhe/CMakeFiles/tfhe-nayuki-portable.dir/all
 	$(MAKE) $(MAKESILENT) -f test/CMakeFiles/test-decomp-tgsw-nayuki-portable.dir/build.make test/CMakeFiles/test-decomp-tgsw-nayuki-portable.dir/depend
 	$(MAKE) $(MAKESILENT) -f test/CMakeFiles/test-decomp-tgsw-nayuki-portable.dir/build.make test/CMakeFiles/test-decomp-tgsw-nayuki-portable.dir/build
-	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --progress-dir=/home/claoo/Documents/eoc-tfhe/aos-llama/build/tfhe/build/CMakeFiles --progress-num=24,25 "Built target test-decomp-tgsw-nayuki-portable"
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --progress-dir=/home/claoo/Documents/eoc-tfhe/aos-llama/build/tfhe/build/CMakeFiles --progress-num=21,22 "Built target test-decomp-tgsw-nayuki-portable"
 .PHONY : test/CMakeFiles/test-decomp-tgsw-nayuki-portable.dir/all
 
 # Build rule for subdir invocation for target.
@@ -425,7 +393,7 @@ test/CMakeFiles/test-decomp-tgsw-nayuki-portable.dir/clean:
 test/CMakeFiles/test-lwe-nayuki-portable.dir/all: libtfhe/CMakeFiles/tfhe-nayuki-portable.dir/all
 	$(MAKE) $(MAKESILENT) -f test/CMakeFiles/test-lwe-nayuki-portable.dir/build.make test/CMakeFiles/test-lwe-nayuki-portable.dir/depend
 	$(MAKE) $(MAKESILENT) -f test/CMakeFiles/test-lwe-nayuki-portable.dir/build.make test/CMakeFiles/test-lwe-nayuki-portable.dir/build
-	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --progress-dir=/home/claoo/Documents/eoc-tfhe/aos-llama/build/tfhe/build/CMakeFiles --progress-num=30,31 "Built target test-lwe-nayuki-portable"
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --progress-dir=/home/claoo/Documents/eoc-tfhe/aos-llama/build/tfhe/build/CMakeFiles --progress-num=27,28 "Built target test-lwe-nayuki-portable"
 .PHONY : test/CMakeFiles/test-lwe-nayuki-portable.dir/all
 
 # Build rule for subdir invocation for target.
@@ -451,7 +419,7 @@ test/CMakeFiles/test-lwe-nayuki-portable.dir/clean:
 test/CMakeFiles/test-multiplication-nayuki-portable.dir/all: libtfhe/CMakeFiles/tfhe-nayuki-portable.dir/all
 	$(MAKE) $(MAKESILENT) -f test/CMakeFiles/test-multiplication-nayuki-portable.dir/build.make test/CMakeFiles/test-multiplication-nayuki-portable.dir/depend
 	$(MAKE) $(MAKESILENT) -f test/CMakeFiles/test-multiplication-nayuki-portable.dir/build.make test/CMakeFiles/test-multiplication-nayuki-portable.dir/build
-	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --progress-dir=/home/claoo/Documents/eoc-tfhe/aos-llama/build/tfhe/build/CMakeFiles --progress-num=32,33 "Built target test-multiplication-nayuki-portable"
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --progress-dir=/home/claoo/Documents/eoc-tfhe/aos-llama/build/tfhe/build/CMakeFiles --progress-num=29,30 "Built target test-multiplication-nayuki-portable"
 .PHONY : test/CMakeFiles/test-multiplication-nayuki-portable.dir/all
 
 # Build rule for subdir invocation for target.
@@ -477,7 +445,7 @@ test/CMakeFiles/test-multiplication-nayuki-portable.dir/clean:
 test/CMakeFiles/test-tlwe-nayuki-portable.dir/all: libtfhe/CMakeFiles/tfhe-nayuki-portable.dir/all
 	$(MAKE) $(MAKESILENT) -f test/CMakeFiles/test-tlwe-nayuki-portable.dir/build.make test/CMakeFiles/test-tlwe-nayuki-portable.dir/depend
 	$(MAKE) $(MAKESILENT) -f test/CMakeFiles/test-tlwe-nayuki-portable.dir/build.make test/CMakeFiles/test-tlwe-nayuki-portable.dir/build
-	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --progress-dir=/home/claoo/Documents/eoc-tfhe/aos-llama/build/tfhe/build/CMakeFiles --progress-num=34,35 "Built target test-tlwe-nayuki-portable"
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --progress-dir=/home/claoo/Documents/eoc-tfhe/aos-llama/build/tfhe/build/CMakeFiles --progress-num=31,32 "Built target test-tlwe-nayuki-portable"
 .PHONY : test/CMakeFiles/test-tlwe-nayuki-portable.dir/all
 
 # Build rule for subdir invocation for target.
@@ -503,7 +471,7 @@ test/CMakeFiles/test-tlwe-nayuki-portable.dir/clean:
 test/CMakeFiles/test-gate-bootstrapping-nayuki-portable.dir/all: libtfhe/CMakeFiles/tfhe-nayuki-portable.dir/all
 	$(MAKE) $(MAKESILENT) -f test/CMakeFiles/test-gate-bootstrapping-nayuki-portable.dir/build.make test/CMakeFiles/test-gate-bootstrapping-nayuki-portable.dir/depend
 	$(MAKE) $(MAKESILENT) -f test/CMakeFiles/test-gate-bootstrapping-nayuki-portable.dir/build.make test/CMakeFiles/test-gate-bootstrapping-nayuki-portable.dir/build
-	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --progress-dir=/home/claoo/Documents/eoc-tfhe/aos-llama/build/tfhe/build/CMakeFiles --progress-num=26,27 "Built target test-gate-bootstrapping-nayuki-portable"
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --progress-dir=/home/claoo/Documents/eoc-tfhe/aos-llama/build/tfhe/build/CMakeFiles --progress-num=23,24 "Built target test-gate-bootstrapping-nayuki-portable"
 .PHONY : test/CMakeFiles/test-gate-bootstrapping-nayuki-portable.dir/all
 
 # Build rule for subdir invocation for target.
@@ -529,7 +497,7 @@ test/CMakeFiles/test-gate-bootstrapping-nayuki-portable.dir/clean:
 test/CMakeFiles/test-addition-boot-nayuki-portable.dir/all: libtfhe/CMakeFiles/tfhe-nayuki-portable.dir/all
 	$(MAKE) $(MAKESILENT) -f test/CMakeFiles/test-addition-boot-nayuki-portable.dir/build.make test/CMakeFiles/test-addition-boot-nayuki-portable.dir/depend
 	$(MAKE) $(MAKESILENT) -f test/CMakeFiles/test-addition-boot-nayuki-portable.dir/build.make test/CMakeFiles/test-addition-boot-nayuki-portable.dir/build
-	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --progress-dir=/home/claoo/Documents/eoc-tfhe/aos-llama/build/tfhe/build/CMakeFiles --progress-num=18,19 "Built target test-addition-boot-nayuki-portable"
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --progress-dir=/home/claoo/Documents/eoc-tfhe/aos-llama/build/tfhe/build/CMakeFiles --progress-num=17,18 "Built target test-addition-boot-nayuki-portable"
 .PHONY : test/CMakeFiles/test-addition-boot-nayuki-portable.dir/all
 
 # Build rule for subdir invocation for target.
@@ -555,7 +523,7 @@ test/CMakeFiles/test-addition-boot-nayuki-portable.dir/clean:
 test/CMakeFiles/test-long-run-nayuki-portable.dir/all: libtfhe/CMakeFiles/tfhe-nayuki-portable.dir/all
 	$(MAKE) $(MAKESILENT) -f test/CMakeFiles/test-long-run-nayuki-portable.dir/build.make test/CMakeFiles/test-long-run-nayuki-portable.dir/depend
 	$(MAKE) $(MAKESILENT) -f test/CMakeFiles/test-long-run-nayuki-portable.dir/build.make test/CMakeFiles/test-long-run-nayuki-portable.dir/build
-	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --progress-dir=/home/claoo/Documents/eoc-tfhe/aos-llama/build/tfhe/build/CMakeFiles --progress-num=28,29 "Built target test-long-run-nayuki-portable"
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --progress-dir=/home/claoo/Documents/eoc-tfhe/aos-llama/build/tfhe/build/CMakeFiles --progress-num=25,26 "Built target test-long-run-nayuki-portable"
 .PHONY : test/CMakeFiles/test-long-run-nayuki-portable.dir/all
 
 # Build rule for subdir invocation for target.
@@ -581,7 +549,7 @@ test/CMakeFiles/test-long-run-nayuki-portable.dir/clean:
 test/CMakeFiles/eocTest-nayuki-portable.dir/all: libtfhe/CMakeFiles/tfhe-nayuki-portable.dir/all
 	$(MAKE) $(MAKESILENT) -f test/CMakeFiles/eocTest-nayuki-portable.dir/build.make test/CMakeFiles/eocTest-nayuki-portable.dir/depend
 	$(MAKE) $(MAKESILENT) -f test/CMakeFiles/eocTest-nayuki-portable.dir/build.make test/CMakeFiles/eocTest-nayuki-portable.dir/build
-	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --progress-dir=/home/claoo/Documents/eoc-tfhe/aos-llama/build/tfhe/build/CMakeFiles --progress-num=5,6 "Built target eocTest-nayuki-portable"
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --progress-dir=/home/claoo/Documents/eoc-tfhe/aos-llama/build/tfhe/build/CMakeFiles --progress-num=4,5 "Built target eocTest-nayuki-portable"
 .PHONY : test/CMakeFiles/eocTest-nayuki-portable.dir/all
 
 # Build rule for subdir invocation for target.
@@ -607,7 +575,7 @@ test/CMakeFiles/eocTest-nayuki-portable.dir/clean:
 test/CMakeFiles/eocLweTest-nayuki-portable.dir/all: libtfhe/CMakeFiles/tfhe-nayuki-portable.dir/all
 	$(MAKE) $(MAKESILENT) -f test/CMakeFiles/eocLweTest-nayuki-portable.dir/build.make test/CMakeFiles/eocLweTest-nayuki-portable.dir/depend
 	$(MAKE) $(MAKESILENT) -f test/CMakeFiles/eocLweTest-nayuki-portable.dir/build.make test/CMakeFiles/eocLweTest-nayuki-portable.dir/build
-	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --progress-dir=/home/claoo/Documents/eoc-tfhe/aos-llama/build/tfhe/build/CMakeFiles --progress-num=3,4 "Built target eocLweTest-nayuki-portable"
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --progress-dir=/home/claoo/Documents/eoc-tfhe/aos-llama/build/tfhe/build/CMakeFiles --progress-num=2,3 "Built target eocLweTest-nayuki-portable"
 .PHONY : test/CMakeFiles/eocLweTest-nayuki-portable.dir/all
 
 # Build rule for subdir invocation for target.
@@ -627,39 +595,13 @@ test/CMakeFiles/eocLweTest-nayuki-portable.dir/clean:
 .PHONY : test/CMakeFiles/eocLweTest-nayuki-portable.dir/clean
 
 #=============================================================================
-# Target rules for target test/CMakeFiles/test-c-binding-nayuki-portable.dir
-
-# All Build rule for target.
-test/CMakeFiles/test-c-binding-nayuki-portable.dir/all: libtfhe/CMakeFiles/tfhe-nayuki-portable.dir/all
-	$(MAKE) $(MAKESILENT) -f test/CMakeFiles/test-c-binding-nayuki-portable.dir/build.make test/CMakeFiles/test-c-binding-nayuki-portable.dir/depend
-	$(MAKE) $(MAKESILENT) -f test/CMakeFiles/test-c-binding-nayuki-portable.dir/build.make test/CMakeFiles/test-c-binding-nayuki-portable.dir/build
-	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --progress-dir=/home/claoo/Documents/eoc-tfhe/aos-llama/build/tfhe/build/CMakeFiles --progress-num=22,23 "Built target test-c-binding-nayuki-portable"
-.PHONY : test/CMakeFiles/test-c-binding-nayuki-portable.dir/all
-
-# Build rule for subdir invocation for target.
-test/CMakeFiles/test-c-binding-nayuki-portable.dir/rule: cmake_check_build_system
-	$(CMAKE_COMMAND) -E cmake_progress_start /home/claoo/Documents/eoc-tfhe/aos-llama/build/tfhe/build/CMakeFiles 34
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 test/CMakeFiles/test-c-binding-nayuki-portable.dir/all
-	$(CMAKE_COMMAND) -E cmake_progress_start /home/claoo/Documents/eoc-tfhe/aos-llama/build/tfhe/build/CMakeFiles 0
-.PHONY : test/CMakeFiles/test-c-binding-nayuki-portable.dir/rule
-
-# Convenience name for target.
-test-c-binding-nayuki-portable: test/CMakeFiles/test-c-binding-nayuki-portable.dir/rule
-.PHONY : test-c-binding-nayuki-portable
-
-# clean rule for target.
-test/CMakeFiles/test-c-binding-nayuki-portable.dir/clean:
-	$(MAKE) $(MAKESILENT) -f test/CMakeFiles/test-c-binding-nayuki-portable.dir/build.make test/CMakeFiles/test-c-binding-nayuki-portable.dir/clean
-.PHONY : test/CMakeFiles/test-c-binding-nayuki-portable.dir/clean
-
-#=============================================================================
 # Target rules for target test/googletest/googlemock/CMakeFiles/gmock.dir
 
 # All Build rule for target.
 test/googletest/googlemock/CMakeFiles/gmock.dir/all:
 	$(MAKE) $(MAKESILENT) -f test/googletest/googlemock/CMakeFiles/gmock.dir/build.make test/googletest/googlemock/CMakeFiles/gmock.dir/depend
 	$(MAKE) $(MAKESILENT) -f test/googletest/googlemock/CMakeFiles/gmock.dir/build.make test/googletest/googlemock/CMakeFiles/gmock.dir/build
-	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --progress-dir=/home/claoo/Documents/eoc-tfhe/aos-llama/build/tfhe/build/CMakeFiles --progress-num=7,8,9 "Built target gmock"
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --progress-dir=/home/claoo/Documents/eoc-tfhe/aos-llama/build/tfhe/build/CMakeFiles --progress-num=6,7,8 "Built target gmock"
 .PHONY : test/googletest/googlemock/CMakeFiles/gmock.dir/all
 
 # Build rule for subdir invocation for target.
@@ -685,7 +627,7 @@ test/googletest/googlemock/CMakeFiles/gmock.dir/clean:
 test/googletest/googlemock/CMakeFiles/gmock_main.dir/all:
 	$(MAKE) $(MAKESILENT) -f test/googletest/googlemock/CMakeFiles/gmock_main.dir/build.make test/googletest/googlemock/CMakeFiles/gmock_main.dir/depend
 	$(MAKE) $(MAKESILENT) -f test/googletest/googlemock/CMakeFiles/gmock_main.dir/build.make test/googletest/googlemock/CMakeFiles/gmock_main.dir/build
-	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --progress-dir=/home/claoo/Documents/eoc-tfhe/aos-llama/build/tfhe/build/CMakeFiles --progress-num=10,11,12,13 "Built target gmock_main"
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --progress-dir=/home/claoo/Documents/eoc-tfhe/aos-llama/build/tfhe/build/CMakeFiles --progress-num=9,10,11,12 "Built target gmock_main"
 .PHONY : test/googletest/googlemock/CMakeFiles/gmock_main.dir/all
 
 # Build rule for subdir invocation for target.
@@ -711,7 +653,7 @@ test/googletest/googlemock/CMakeFiles/gmock_main.dir/clean:
 test/googletest/googlemock/gtest/CMakeFiles/gtest.dir/all:
 	$(MAKE) $(MAKESILENT) -f test/googletest/googlemock/gtest/CMakeFiles/gtest.dir/build.make test/googletest/googlemock/gtest/CMakeFiles/gtest.dir/depend
 	$(MAKE) $(MAKESILENT) -f test/googletest/googlemock/gtest/CMakeFiles/gtest.dir/build.make test/googletest/googlemock/gtest/CMakeFiles/gtest.dir/build
-	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --progress-dir=/home/claoo/Documents/eoc-tfhe/aos-llama/build/tfhe/build/CMakeFiles --progress-num=14,15 "Built target gtest"
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --progress-dir=/home/claoo/Documents/eoc-tfhe/aos-llama/build/tfhe/build/CMakeFiles --progress-num=13,14 "Built target gtest"
 .PHONY : test/googletest/googlemock/gtest/CMakeFiles/gtest.dir/all
 
 # Build rule for subdir invocation for target.
@@ -737,7 +679,7 @@ test/googletest/googlemock/gtest/CMakeFiles/gtest.dir/clean:
 test/googletest/googlemock/gtest/CMakeFiles/gtest_main.dir/all: test/googletest/googlemock/gtest/CMakeFiles/gtest.dir/all
 	$(MAKE) $(MAKESILENT) -f test/googletest/googlemock/gtest/CMakeFiles/gtest_main.dir/build.make test/googletest/googlemock/gtest/CMakeFiles/gtest_main.dir/depend
 	$(MAKE) $(MAKESILENT) -f test/googletest/googlemock/gtest/CMakeFiles/gtest_main.dir/build.make test/googletest/googlemock/gtest/CMakeFiles/gtest_main.dir/build
-	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --progress-dir=/home/claoo/Documents/eoc-tfhe/aos-llama/build/tfhe/build/CMakeFiles --progress-num=16,17 "Built target gtest_main"
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --progress-dir=/home/claoo/Documents/eoc-tfhe/aos-llama/build/tfhe/build/CMakeFiles --progress-num=15,16 "Built target gtest_main"
 .PHONY : test/googletest/googlemock/gtest/CMakeFiles/gtest_main.dir/all
 
 # Build rule for subdir invocation for target.
