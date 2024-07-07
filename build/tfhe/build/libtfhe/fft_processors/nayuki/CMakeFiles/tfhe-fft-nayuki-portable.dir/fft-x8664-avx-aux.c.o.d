@@ -27,8 +27,5 @@ libtfhe/fft_processors/nayuki/CMakeFiles/tfhe-fft-nayuki-portable.dir/fft-x8664-
  /usr/include/x86_64-linux-gnu/bits/stdint-uintn.h \
  /usr/include/x86_64-linux-gnu/bits/stdint-least.h /usr/include/stdlib.h \
  /usr/lib/gcc/x86_64-linux-gnu/13/include/stddef.h \
- /usr/include/x86_64-linux-gnu/bits/stdlib-bsearch.h \
- /usr/include/x86_64-linux-gnu/bits/stdlib-float.h \
- /usr/include/x86_64-linux-gnu/bits/stdlib.h /usr/include/string.h \
- /usr/include/x86_64-linux-gnu/bits/string_fortified.h \
+ /usr/include/x86_64-linux-gnu/bits/stdlib-float.h /usr/include/string.h \
  /home/claoo/Documents/eoc-tfhe/aos-llama/build/tfhe/src/libtfhe/fft_processors/nayuki/fft.h

@@ -7,6 +7,8 @@
 #include "tfhe_core.h"
 #include "tlwe.h"
 
+using json = nlohmann::json;
+
 struct TGswParams {
     const int32_t l; ///< decomp length
     const int32_t Bgbit;///< log_2(Bg)
@@ -17,6 +19,19 @@ struct TGswParams {
     const int32_t kpl; ///< number of rows = (k+1)*l
     Torus32 *h; ///< powers of Bgbit
     uint32_t offset; ///< offset = Bg/2 * (2^(32-Bgbit) + 2^(32-2*Bgbit) + ... + 2^(32-l*Bgbit))
+
+    json to_json() const {
+        json j;
+        j["l"] = l;
+        j["Bgbit"] = Bgbit;
+        j["halfBg"] = halfBg;
+        j["maskMod"] = maskMod;
+        j["kpl"] = kpl;
+        j["h"] = std::vector<int>(h, h + kpl);
+        j["offset"] = offset;
+        j["tlwe_params"] = tlwe_params->to_json();
+        return j;
+    }
 
 #ifdef __cplusplus
 
@@ -38,6 +53,15 @@ struct TGswKey {
     IntPolynomial *key; ///< the key (array of k polynomials)
     TLweKey tlwe_key;
 
+        json to_json() const {
+        json j;
+        j["params"] = params->to_json();
+        j["tlwe_params"] = tlwe_params->to_json();
+        j["key"] = key->to_json();
+        j["tlwe_key"] = tlwe_key.to_json();
+        return j;
+    }
+
 #ifdef __cplusplus
 
     TGswKey(const TGswParams *params);
@@ -58,6 +82,15 @@ struct TGswSample {
     // double current_variance;
     const int32_t k;
     const int32_t l;
+
+        json to_json() const {
+        json j;
+        j["k"] = k;
+        j["l"] = l;
+        j["all_sample"] = all_sample->to_json();
+
+        return j;
+    }
 
 #ifdef __cplusplus
 
@@ -81,6 +114,28 @@ struct TGswSampleFFT {
     //double current_variance;
     const int32_t k;
     const int32_t l;
+
+        json to_json() const {
+        json j;
+        j["k"] = k;
+        j["l"] = l;
+
+        // Serialize all_samples
+        json all_samples_json;
+        for (int i = 0; i < (k + 1) * l; ++i) {
+            all_samples_json.push_back(all_samples[i].to_json());
+        }
+        j["all_samples"] = all_samples_json;
+
+        // Serialize sample
+        json sample_json;
+        for (int i = 0; i < k+1; ++i) {
+            sample_json.push_back(sample[i]->to_json());
+        }
+        j["sample"] = sample_json;
+
+        return j;
+    }
 
 #ifdef __cplusplus
 

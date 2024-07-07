@@ -37,7 +37,6 @@
 /home/claoo/Documents/eoc-tfhe/aos-llama/build/tfhe/build/eoc/CMakeFiles/install.dir
 /home/claoo/Documents/eoc-tfhe/aos-llama/build/tfhe/build/eoc/CMakeFiles/install/local.dir
 /home/claoo/Documents/eoc-tfhe/aos-llama/build/tfhe/build/eoc/CMakeFiles/install/strip.dir
-/home/claoo/Documents/eoc-tfhe/aos-llama/build/tfhe/build/test/CMakeFiles/unittests-nayuki-portable.dir
 /home/claoo/Documents/eoc-tfhe/aos-llama/build/tfhe/build/test/CMakeFiles/test-bootstrapping-fft-nayuki-portable.dir
 /home/claoo/Documents/eoc-tfhe/aos-llama/build/tfhe/build/test/CMakeFiles/test-decomp-tgsw-nayuki-portable.dir
 /home/claoo/Documents/eoc-tfhe/aos-llama/build/tfhe/build/test/CMakeFiles/test-lwe-nayuki-portable.dir
@@ -48,7 +47,6 @@
 /home/claoo/Documents/eoc-tfhe/aos-llama/build/tfhe/build/test/CMakeFiles/test-long-run-nayuki-portable.dir
 /home/claoo/Documents/eoc-tfhe/aos-llama/build/tfhe/build/test/CMakeFiles/eocTest-nayuki-portable.dir
 /home/claoo/Documents/eoc-tfhe/aos-llama/build/tfhe/build/test/CMakeFiles/eocLweTest-nayuki-portable.dir
-/home/claoo/Documents/eoc-tfhe/aos-llama/build/tfhe/build/test/CMakeFiles/test-c-binding-nayuki-portable.dir
 /home/claoo/Documents/eoc-tfhe/aos-llama/build/tfhe/build/test/CMakeFiles/test.dir
 /home/claoo/Documents/eoc-tfhe/aos-llama/build/tfhe/build/test/CMakeFiles/edit_cache.dir
 /home/claoo/Documents/eoc-tfhe/aos-llama/build/tfhe/build/test/CMakeFiles/rebuild_cache.dir

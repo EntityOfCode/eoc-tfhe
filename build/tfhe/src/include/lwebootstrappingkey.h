@@ -5,6 +5,10 @@
 ///@brief This file contains the declaration of bootstrapping key structures
 
 #include "tfhe_core.h"
+#include "tlwe.h"
+#include "lweparams.h"
+#include "tgsw.h"
+#include "lwekeyswitch.h"
 
 
 struct LweBootstrappingKey{
@@ -14,6 +18,18 @@ struct LweBootstrappingKey{
     const LweParams* extract_params; ///< params after extraction: key: s' 
     TGswSample* bk; ///< the bootstrapping key (s->s")
     LweKeySwitchKey* ks; ///< the keyswitch key (s'->s)
+
+        json to_json() const {
+        json j;
+        j["in_out_params"] = in_out_params->to_json();
+        j["bk_params"] = bk_params->to_json();
+        j["accum_params"] = accum_params->to_json();
+        j["extract_params"] = extract_params->to_json();
+        // bk și ks necesită serializare mai detaliată în funcție de implementare
+        j["bk"] = bk->to_json(); // Implementați această funcție
+        j["ks"] = ks->to_json(); // Implementați metoda to_json pentru LweKeySwitchKey
+        return j;
+    }
 
 
 #ifdef __cplusplus
@@ -41,7 +57,17 @@ struct LweBootstrappingKeyFFT {
     const TGswSampleFFT* bkFFT; ///< the bootstrapping key (s->s")
     const LweKeySwitchKey* ks; ///< the keyswitch key (s'->s)
 
-
+    json to_json() const {
+        json j;
+        j["in_out_params"] = in_out_params->to_json();
+        j["bk_params"] = bk_params->to_json();
+        j["accum_params"] = accum_params->to_json();
+        j["extract_params"] = extract_params->to_json();
+        // bkFFT și ks necesită serializare mai detaliată în funcție de implementare
+        j["bkFFT"] = bkFFT->to_json(); // Implementați această funcție
+        j["ks"] = ks->to_json(); // Implementați metoda to_json pentru LweKeySwitchKey
+        return j;
+    }
 #ifdef __cplusplus
    LweBootstrappingKeyFFT(const LweParams* in_out_params, 
     const TGswParams* bk_params,

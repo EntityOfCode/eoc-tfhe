@@ -4,7 +4,7 @@ cmake_minimum_required(VERSION 3.0)
 #set(CMAKE_RULE_MESSAGES ON)
 
 set(CMAKE_CONFIGURATION_TYPES Debug Optim CACHE TYPE INTERNAL FORCE)
-set(CMAKE_BUILD_TYPE "optim" CACHE STRING "Build Type: Debug or Optim")
+set(CMAKE_BUILD_TYPE "debug" CACHE STRING "Build Type: Debug or Optim")
 set(ENABLE_FFTW OFF CACHE BOOL "Enable the FFTW FFT processor (GPL)")
 set(ENABLE_NAYUKI_PORTABLE ON CACHE BOOL "Enable the Nayuki portable FFT processor (MIT)")
 set(ENABLE_NAYUKI_AVX OFF CACHE BOOL "Enable the Nayuki AVX assembly FFT processor (MIT)")
@@ -22,8 +22,8 @@ endif()
 # -std=c99 seems to be required in Travis tests for whatever reason
 set(CMAKE_C_FLAGS  "${CMAKE_C_FLAGS} -std=c99")
 
-set(CMAKE_CXX_FLAGS_DEBUG "${CLANG_FLAGS} -std=gnu++11 -g0 -O0 -Wall -Werror")
-set(CMAKE_C_FLAGS_DEBUG "-g0 -O0 -Wall -Werror")
+set(CMAKE_CXX_FLAGS_DEBUG "${CLANG_FLAGS} -std=gnu++11 -g -O0 -Wall -Werror")
+set(CMAKE_C_FLAGS_DEBUG "-g -O0 -Wall -Werror")
 
 set(CMAKE_CXX_FLAGS_OPTIM "${CLANG_FLAGS} -std=gnu++11 -g0 -m64 -O2 -funroll-loops -Wall -Werror")
 set(CMAKE_C_FLAGS_OPTIM "-g0 -m64 -O3 -DNDEBUG -funroll-loops -Wall -Werror")
@@ -34,6 +34,7 @@ set(CMAKE_C_FLAGS_RELEASE "-g0 -m64 -O3 -DNDEBUG -funroll-loops -Wall -Werror")
 if (ENABLE_NAYUKI_PORTABLE)
 list(APPEND FFT_PROCESSORS "nayuki-portable")
 endif(ENABLE_NAYUKI_PORTABLE)
+
 
 if (ENABLE_FFTW)
 list(APPEND FFT_PROCESSORS "fftw")

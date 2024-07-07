@@ -6,7 +6,6 @@ function Tfhe.info()
 end
 
 function Tfhe.test()
-
     return Tfhe.backend.test()
 end
 

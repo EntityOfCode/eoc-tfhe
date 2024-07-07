@@ -5,6 +5,9 @@
 ///@brief This file contains the declaration of lwe parameters structures
 
 #include "tfhe_core.h"
+#include <nlohmann/json.hpp>
+
+using json = nlohmann::json;
 
 //this structure contains Lwe parameters
 //this structure is constant (cannot be modified once initialized): 
@@ -15,7 +18,21 @@ struct LweParams {
 	const double alpha_min;//le plus petit bruit tq sur
 	const double alpha_max;//le plus gd bruit qui permet le déchiffrement
 
+    json to_json() const {
+        json j;
+        j["n"] = n;
+        j["alpha_min"] = alpha_min;
+        j["alpha_max"] = alpha_max;
+        return j;
+    }
 
+     // Funcția from_json
+    static LweParams from_json(const json& j) {
+        int32_t n = j.at("n").get<int32_t>();
+        double alpha_min = j.at("alpha_min").get<double>();
+        double alpha_max = j.at("alpha_max").get<double>();
+        return LweParams(n, alpha_min, alpha_max);
+    }
 
 //since all members are declared constant, a constructor is 
 //required in the structure.

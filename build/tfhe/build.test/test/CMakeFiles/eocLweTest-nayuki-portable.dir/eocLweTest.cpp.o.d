@@ -813,6 +813,26 @@ test/CMakeFiles/eocLweTest-nayuki-portable.dir/eocLweTest.cpp.o: \
   /emsdk/upstream/emscripten/cache/sysroot/include/c++/v1/__format/formatter_tuple.h \
   /emsdk/upstream/emscripten/cache/sysroot/include/c++/v1/print \
   /emsdk/upstream/emscripten/cache/sysroot/include/unistd.h \
+  /emsdk/upstream/emscripten/cache/sysroot/include/c++/v1/fstream \
+  /emsdk/upstream/emscripten/cache/sysroot/include/c++/v1/filesystem \
+  /emsdk/upstream/emscripten/cache/sysroot/include/c++/v1/__filesystem/copy_options.h \
+  /emsdk/upstream/emscripten/cache/sysroot/include/c++/v1/__filesystem/directory_entry.h \
+  /emsdk/upstream/emscripten/cache/sysroot/include/c++/v1/__filesystem/file_status.h \
+  /emsdk/upstream/emscripten/cache/sysroot/include/c++/v1/__filesystem/file_type.h \
+  /emsdk/upstream/emscripten/cache/sysroot/include/c++/v1/__filesystem/perms.h \
+  /emsdk/upstream/emscripten/cache/sysroot/include/c++/v1/__filesystem/file_time_type.h \
+  /emsdk/upstream/emscripten/cache/sysroot/include/c++/v1/__chrono/file_clock.h \
+  /emsdk/upstream/emscripten/cache/sysroot/include/c++/v1/__filesystem/filesystem_error.h \
+  /emsdk/upstream/emscripten/cache/sysroot/include/c++/v1/__filesystem/path.h \
+  /emsdk/upstream/emscripten/cache/sysroot/include/c++/v1/iomanip \
+  /emsdk/upstream/emscripten/cache/sysroot/include/c++/v1/__filesystem/operations.h \
+  /emsdk/upstream/emscripten/cache/sysroot/include/c++/v1/__filesystem/perm_options.h \
+  /emsdk/upstream/emscripten/cache/sysroot/include/c++/v1/__filesystem/space_info.h \
+  /emsdk/upstream/emscripten/cache/sysroot/include/c++/v1/__filesystem/directory_iterator.h \
+  /emsdk/upstream/emscripten/cache/sysroot/include/c++/v1/__filesystem/directory_options.h \
+  /emsdk/upstream/emscripten/cache/sysroot/include/c++/v1/__filesystem/path_iterator.h \
+  /emsdk/upstream/emscripten/cache/sysroot/include/c++/v1/__filesystem/recursive_directory_iterator.h \
+  /emsdk/upstream/emscripten/cache/sysroot/include/c++/v1/__filesystem/u8path.h \
   /tfhe/src/test/../libtfhe/cereal/include/cereal/archives/portable_binary.hpp \
   /tfhe/src/test/../libtfhe/cereal/include/cereal/cereal.hpp \
   /emsdk/upstream/emscripten/cache/sysroot/include/c++/v1/unordered_set \
@@ -883,4 +903,6 @@ test/CMakeFiles/eocLweTest-nayuki-portable.dir/eocLweTest.cpp.o: \
   /emsdk/upstream/emscripten/cache/sysroot/include/c++/v1/__random/student_t_distribution.h \
   /emsdk/upstream/emscripten/cache/sysroot/include/c++/v1/__random/weibull_distribution.h \
   /tfhe/src/include/lwe-functions.h /tfhe/src/include/lwekey.h \
-  /tfhe/src/include/lweparams.h /tfhe/src/include/lwesamples.h
+  /tfhe/src/include/lweparams.h /tfhe/src/include/lwesamples.h \
+  /tfhe/src/include/tgsw.h /tfhe/src/include/tlwe.h \
+  /tfhe/src/include/polynomials.h

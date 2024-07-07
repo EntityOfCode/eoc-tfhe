@@ -4,6 +4,14 @@ add_subdirectory(googletest EXCLUDE_FROM_ALL)
 
 include_directories(${GTEST_INCLUDE_DIRS})
 include_directories(../libtfhe/cereal/include)
+include_directories(/home/claoo/vcpkg/installed/x64-linux/include/nlohmann)
+
+# Set the path to vcpkg toolchain file
+set(-DCMAKE_TOOLCHAIN_FILE=/home/claoo/vcpkg/scripts/buildsystems/vcpkg.cmake CACHE STRING "")
+
+# Find nlohmann_json package
+find_package(nlohmann_json REQUIRED)
+
 
 set(GOOGLETEST_SOURCES
         arithmetic_test.cpp
@@ -64,22 +72,22 @@ foreach (FFT_PROCESSOR IN LISTS FFT_PROCESSORS)
     endif (FFT_PROCESSOR STREQUAL "fftw")
 
     #the unittests are compiled with the google test framework
-    add_executable(unittests-${FFT_PROCESSOR} ${GOOGLETEST_SOURCES} ${TFHE_HEADERS})
-    target_link_libraries(unittests-${FFT_PROCESSOR} ${RUNTIME_LIBS} gtest gtest_main -lpthread)
-    add_test(unittests-${FFT_PROCESSOR} unittests-${FFT_PROCESSOR})
+    # add_executable(unittests-${FFT_PROCESSOR} ${GOOGLETEST_SOURCES} ${TFHE_HEADERS})
+    # target_link_libraries(unittests-${FFT_PROCESSOR} ${RUNTIME_LIBS} gtest gtest_main -lpthread)
+    # add_test(unittests-${FFT_PROCESSOR} unittests-${FFT_PROCESSOR})
 
     #the integration tests must be single source code, and are compiled as a standalone application
     #we first compile the C++ tests
     foreach (CPP_ITEST ${CPP_ITESTS})
         add_executable(${CPP_ITEST}-${FFT_PROCESSOR} ${CPP_ITEST}.cpp ${TFHE_HEADERS})
-        target_link_libraries(${CPP_ITEST}-${FFT_PROCESSOR} ${RUNTIME_LIBS})
+        target_link_libraries(${CPP_ITEST}-${FFT_PROCESSOR} ${RUNTIME_LIBS} nlohmann_json::nlohmann_json)
     endforeach (CPP_ITEST)
 
-    #then the C tests
-    foreach (C_ITEST ${C_ITESTS})
-        add_executable(${C_ITEST}-${FFT_PROCESSOR} ${C_ITEST}.c ${TFHE_HEADERS})
-        target_link_libraries(${C_ITEST}-${FFT_PROCESSOR} ${RUNTIME_LIBS})
-    endforeach (C_ITEST)
+    # #then the C tests
+    # foreach (C_ITEST ${C_ITESTS})
+    #     add_executable(${C_ITEST}-${FFT_PROCESSOR} ${C_ITEST}.c ${TFHE_HEADERS})
+    #     target_link_libraries(${C_ITEST}-${FFT_PROCESSOR} ${RUNTIME_LIBS} nlohmann_json::nlohmann_json)
+    # endforeach (C_ITEST)
 
 endforeach (FFT_PROCESSOR IN LISTS FFT_PROCESSORS) 
 

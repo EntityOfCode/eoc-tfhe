@@ -12,7 +12,7 @@ if(NOT DEFINED CMAKE_INSTALL_CONFIG_NAME)
     string(REGEX REPLACE "^[^A-Za-z0-9_]+" ""
            CMAKE_INSTALL_CONFIG_NAME "${BUILD_TYPE}")
   else()
-    set(CMAKE_INSTALL_CONFIG_NAME "optim")
+    set(CMAKE_INSTALL_CONFIG_NAME "debug")
   endif()
   message(STATUS "Install configuration: \"${CMAKE_INSTALL_CONFIG_NAME}\"")
 endif()
@@ -47,7 +47,7 @@ if(CMAKE_INSTALL_COMPONENT STREQUAL "Unspecified" OR NOT CMAKE_INSTALL_COMPONENT
 endif()
 
 if(CMAKE_INSTALL_COMPONENT STREQUAL "Unspecified" OR NOT CMAKE_INSTALL_COMPONENT)
-  include("/home/claoo/Documents/eoc-tfhe/aos-llama/build/tfhe/build/test/googletest/googlemock/gtest/CMakeFiles/gtest.dir/install-cxx-module-bmi-optim.cmake" OPTIONAL)
+  include("/home/claoo/Documents/eoc-tfhe/aos-llama/build/tfhe/build/test/googletest/googlemock/gtest/CMakeFiles/gtest.dir/install-cxx-module-bmi-debug.cmake" OPTIONAL)
 endif()
 
 if(CMAKE_INSTALL_COMPONENT STREQUAL "Unspecified" OR NOT CMAKE_INSTALL_COMPONENT)
@@ -55,7 +55,7 @@ if(CMAKE_INSTALL_COMPONENT STREQUAL "Unspecified" OR NOT CMAKE_INSTALL_COMPONENT
 endif()
 
 if(CMAKE_INSTALL_COMPONENT STREQUAL "Unspecified" OR NOT CMAKE_INSTALL_COMPONENT)
-  include("/home/claoo/Documents/eoc-tfhe/aos-llama/build/tfhe/build/test/googletest/googlemock/gtest/CMakeFiles/gtest_main.dir/install-cxx-module-bmi-optim.cmake" OPTIONAL)
+  include("/home/claoo/Documents/eoc-tfhe/aos-llama/build/tfhe/build/test/googletest/googlemock/gtest/CMakeFiles/gtest_main.dir/install-cxx-module-bmi-debug.cmake" OPTIONAL)
 endif()
 
 if(CMAKE_INSTALL_COMPONENT STREQUAL "Unspecified" OR NOT CMAKE_INSTALL_COMPONENT)

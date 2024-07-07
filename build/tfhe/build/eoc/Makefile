@@ -185,30 +185,6 @@ eoc-tfhe-run/fast:
 	cd /home/claoo/Documents/eoc-tfhe/aos-llama/build/tfhe/build && $(MAKE) $(MAKESILENT) -f eoc/CMakeFiles/eoc-tfhe-run.dir/build.make eoc/CMakeFiles/eoc-tfhe-run.dir/build
 .PHONY : eoc-tfhe-run/fast
 
-eoc-tfhe-bindings.o: eoc-tfhe-bindings.c.o
-.PHONY : eoc-tfhe-bindings.o
-
-# target to build an object file
-eoc-tfhe-bindings.c.o:
-	cd /home/claoo/Documents/eoc-tfhe/aos-llama/build/tfhe/build && $(MAKE) $(MAKESILENT) -f eoc/CMakeFiles/eoc-tfhe-run.dir/build.make eoc/CMakeFiles/eoc-tfhe-run.dir/eoc-tfhe-bindings.c.o
-.PHONY : eoc-tfhe-bindings.c.o
-
-eoc-tfhe-bindings.i: eoc-tfhe-bindings.c.i
-.PHONY : eoc-tfhe-bindings.i
-
-# target to preprocess a source file
-eoc-tfhe-bindings.c.i:
-	cd /home/claoo/Documents/eoc-tfhe/aos-llama/build/tfhe/build && $(MAKE) $(MAKESILENT) -f eoc/CMakeFiles/eoc-tfhe-run.dir/build.make eoc/CMakeFiles/eoc-tfhe-run.dir/eoc-tfhe-bindings.c.i
-.PHONY : eoc-tfhe-bindings.c.i
-
-eoc-tfhe-bindings.s: eoc-tfhe-bindings.c.s
-.PHONY : eoc-tfhe-bindings.s
-
-# target to generate assembly for a file
-eoc-tfhe-bindings.c.s:
-	cd /home/claoo/Documents/eoc-tfhe/aos-llama/build/tfhe/build && $(MAKE) $(MAKESILENT) -f eoc/CMakeFiles/eoc-tfhe-run.dir/build.make eoc/CMakeFiles/eoc-tfhe-run.dir/eoc-tfhe-bindings.c.s
-.PHONY : eoc-tfhe-bindings.c.s
-
 eoc-tfhe-run.o: eoc-tfhe-run.cpp.o
 .PHONY : eoc-tfhe-run.o
 
@@ -247,9 +223,6 @@ help:
 	@echo "... rebuild_cache"
 	@echo "... test"
 	@echo "... eoc-tfhe-run"
-	@echo "... eoc-tfhe-bindings.o"
-	@echo "... eoc-tfhe-bindings.i"
-	@echo "... eoc-tfhe-bindings.s"
 	@echo "... eoc-tfhe-run.o"
 	@echo "... eoc-tfhe-run.i"
 	@echo "... eoc-tfhe-run.s"

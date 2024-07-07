@@ -29,8 +29,6 @@ libtfhe/CMakeFiles/tfhe-core.dir/tfhe_generic_streams.cpp.o: \
  /usr/include/x86_64-linux-gnu/bits/types/FILE.h \
  /usr/include/x86_64-linux-gnu/bits/types/locale_t.h \
  /usr/include/x86_64-linux-gnu/bits/types/__locale_t.h \
- /usr/include/x86_64-linux-gnu/bits/wchar2-decl.h \
- /usr/include/x86_64-linux-gnu/bits/wchar2.h \
  /usr/include/c++/13/exception /usr/include/c++/13/bits/exception.h \
  /usr/include/c++/13/bits/exception_ptr.h \
  /usr/include/c++/13/bits/exception_defines.h \
@@ -117,22 +115,16 @@ libtfhe/CMakeFiles/tfhe-core.dir/tfhe_generic_streams.cpp.o: \
  /usr/include/x86_64-linux-gnu/sys/select.h \
  /usr/include/x86_64-linux-gnu/bits/select.h \
  /usr/include/x86_64-linux-gnu/bits/types/sigset_t.h \
- /usr/include/x86_64-linux-gnu/bits/select2.h \
- /usr/include/x86_64-linux-gnu/bits/select-decl.h /usr/include/alloca.h \
- /usr/include/x86_64-linux-gnu/bits/stdlib-bsearch.h \
- /usr/include/x86_64-linux-gnu/bits/stdlib-float.h \
- /usr/include/x86_64-linux-gnu/bits/stdlib.h \
+ /usr/include/alloca.h /usr/include/x86_64-linux-gnu/bits/stdlib-float.h \
  /usr/include/c++/13/bits/std_abs.h /usr/include/c++/13/cstdio \
  /usr/include/stdio.h /usr/include/x86_64-linux-gnu/bits/types/__fpos_t.h \
  /usr/include/x86_64-linux-gnu/bits/types/__fpos64_t.h \
  /usr/include/x86_64-linux-gnu/bits/types/struct_FILE.h \
  /usr/include/x86_64-linux-gnu/bits/types/cookie_io_functions_t.h \
  /usr/include/x86_64-linux-gnu/bits/stdio_lim.h \
- /usr/include/x86_64-linux-gnu/bits/stdio2-decl.h \
- /usr/include/x86_64-linux-gnu/bits/stdio.h \
- /usr/include/x86_64-linux-gnu/bits/stdio2.h /usr/include/c++/13/cerrno \
- /usr/include/errno.h /usr/include/x86_64-linux-gnu/bits/errno.h \
- /usr/include/linux/errno.h /usr/include/x86_64-linux-gnu/asm/errno.h \
+ /usr/include/c++/13/cerrno /usr/include/errno.h \
+ /usr/include/x86_64-linux-gnu/bits/errno.h /usr/include/linux/errno.h \
+ /usr/include/x86_64-linux-gnu/asm/errno.h \
  /usr/include/asm-generic/errno.h /usr/include/asm-generic/errno-base.h \
  /usr/include/x86_64-linux-gnu/bits/types/error_t.h \
  /usr/include/c++/13/bits/charconv.h \
@@ -155,15 +147,122 @@ libtfhe/CMakeFiles/tfhe-core.dir/tfhe_generic_streams.cpp.o: \
  /usr/include/c++/13/bits/istream.tcc \
  /home/claoo/Documents/eoc-tfhe/aos-llama/build/tfhe/src/include/tfhe_io.h \
  /home/claoo/Documents/eoc-tfhe/aos-llama/build/tfhe/src/include/tfhe_core.h \
+ /home/claoo/vcpkg/installed/x64-linux/include/nlohmann/json.hpp \
+ /usr/include/c++/13/algorithm /usr/include/c++/13/bits/stl_algo.h \
+ /usr/include/c++/13/bits/algorithmfwd.h \
+ /usr/include/c++/13/bits/stl_heap.h \
+ /usr/include/c++/13/bits/uniform_int_dist.h \
+ /usr/include/c++/13/bits/stl_tempbuf.h /usr/include/c++/13/cstddef \
+ /usr/include/c++/13/functional /usr/include/c++/13/tuple \
+ /usr/include/c++/13/bits/uses_allocator.h \
+ /usr/include/c++/13/bits/std_function.h /usr/include/c++/13/iterator \
+ /usr/include/c++/13/bits/stream_iterator.h /usr/include/c++/13/memory \
+ /usr/include/c++/13/bits/stl_uninitialized.h \
+ /usr/include/c++/13/bits/stl_raw_storage_iter.h \
+ /usr/include/c++/13/bits/align.h /usr/include/c++/13/bit \
  /usr/lib/gcc/x86_64-linux-gnu/13/include/stdint.h /usr/include/stdint.h \
  /usr/include/x86_64-linux-gnu/bits/stdint-uintn.h \
  /usr/include/x86_64-linux-gnu/bits/stdint-least.h \
- /home/claoo/Documents/eoc-tfhe/aos-llama/build/tfhe/src/include/tfhe_generic_templates.h \
- /usr/include/c++/13/map /usr/include/c++/13/bits/stl_tree.h \
+ /usr/include/c++/13/bits/unique_ptr.h \
+ /usr/include/c++/13/bits/shared_ptr.h \
+ /usr/include/c++/13/bits/shared_ptr_base.h \
+ /usr/include/c++/13/bits/allocated_ptr.h \
  /usr/include/c++/13/ext/aligned_buffer.h \
- /usr/include/c++/13/bits/stl_map.h /usr/include/c++/13/tuple \
- /usr/include/c++/13/bits/uses_allocator.h \
+ /usr/include/c++/13/ext/concurrence.h \
+ /usr/include/c++/13/bits/shared_ptr_atomic.h \
+ /usr/include/c++/13/bits/atomic_base.h \
+ /usr/include/c++/13/bits/atomic_lockfree_defines.h \
+ /usr/include/c++/13/backward/auto_ptr.h /usr/include/c++/13/utility \
+ /usr/include/c++/13/bits/stl_relops.h /usr/include/c++/13/vector \
+ /usr/include/c++/13/bits/stl_vector.h \
+ /usr/include/c++/13/bits/stl_bvector.h \
+ /usr/include/c++/13/bits/vector.tcc \
+ /home/claoo/vcpkg/installed/x64-linux/include/nlohmann/adl_serializer.hpp \
+ /home/claoo/vcpkg/installed/x64-linux/include/nlohmann/detail/abi_macros.hpp \
+ /home/claoo/vcpkg/installed/x64-linux/include/nlohmann/detail/conversions/from_json.hpp \
+ /usr/include/c++/13/array /usr/include/c++/13/compare \
+ /usr/include/c++/13/forward_list /usr/include/c++/13/bits/forward_list.h \
+ /usr/include/c++/13/bits/forward_list.tcc /usr/include/c++/13/map \
+ /usr/include/c++/13/bits/stl_tree.h /usr/include/c++/13/bits/stl_map.h \
  /usr/include/c++/13/bits/stl_multimap.h \
- /usr/include/c++/13/bits/erase_if.h /usr/include/c++/13/cstdint \
+ /usr/include/c++/13/bits/erase_if.h /usr/include/c++/13/unordered_map \
+ /usr/include/c++/13/bits/unordered_map.h \
+ /usr/include/c++/13/bits/hashtable.h \
+ /usr/include/c++/13/bits/hashtable_policy.h \
+ /usr/include/c++/13/bits/enable_special_members.h \
+ /usr/include/c++/13/valarray /usr/include/c++/13/cmath \
+ /usr/include/math.h /usr/include/x86_64-linux-gnu/bits/math-vector.h \
+ /usr/include/x86_64-linux-gnu/bits/libm-simd-decl-stubs.h \
+ /usr/include/x86_64-linux-gnu/bits/flt-eval-method.h \
+ /usr/include/x86_64-linux-gnu/bits/fp-logb.h \
+ /usr/include/x86_64-linux-gnu/bits/fp-fast.h \
+ /usr/include/x86_64-linux-gnu/bits/mathcalls-helper-functions.h \
+ /usr/include/x86_64-linux-gnu/bits/mathcalls.h \
+ /usr/include/x86_64-linux-gnu/bits/mathcalls-narrow.h \
+ /usr/include/x86_64-linux-gnu/bits/iscanonical.h \
+ /usr/include/c++/13/bits/valarray_array.h \
+ /usr/include/c++/13/bits/valarray_array.tcc \
+ /usr/include/c++/13/bits/valarray_before.h \
+ /usr/include/c++/13/bits/slice_array.h \
+ /usr/include/c++/13/bits/valarray_after.h \
+ /usr/include/c++/13/bits/gslice.h \
+ /usr/include/c++/13/bits/gslice_array.h \
+ /usr/include/c++/13/bits/mask_array.h \
+ /usr/include/c++/13/bits/indirect_array.h \
+ /home/claoo/vcpkg/installed/x64-linux/include/nlohmann/detail/exceptions.hpp \
+ /home/claoo/vcpkg/installed/x64-linux/include/nlohmann/detail/value_t.hpp \
+ /usr/include/c++/13/cstdint \
+ /home/claoo/vcpkg/installed/x64-linux/include/nlohmann/detail/macro_scope.hpp \
+ /home/claoo/vcpkg/installed/x64-linux/include/nlohmann/detail/meta/detected.hpp \
+ /home/claoo/vcpkg/installed/x64-linux/include/nlohmann/detail/meta/void_t.hpp \
+ /home/claoo/vcpkg/installed/x64-linux/include/nlohmann/thirdparty/hedley/hedley.hpp \
+ /usr/include/c++/13/version /usr/include/c++/13/cassert \
+ /usr/include/assert.h \
+ /home/claoo/vcpkg/installed/x64-linux/include/nlohmann/detail/string_escape.hpp \
+ /home/claoo/vcpkg/installed/x64-linux/include/nlohmann/detail/input/position_t.hpp \
+ /home/claoo/vcpkg/installed/x64-linux/include/nlohmann/detail/meta/cpp_future.hpp \
+ /home/claoo/vcpkg/installed/x64-linux/include/nlohmann/detail/meta/type_traits.hpp \
+ /usr/include/c++/13/limits \
+ /home/claoo/vcpkg/installed/x64-linux/include/nlohmann/detail/iterators/iterator_traits.hpp \
+ /home/claoo/vcpkg/installed/x64-linux/include/nlohmann/detail/meta/call_std/begin.hpp \
+ /home/claoo/vcpkg/installed/x64-linux/include/nlohmann/detail/meta/call_std/end.hpp \
+ /home/claoo/vcpkg/installed/x64-linux/include/nlohmann/json_fwd.hpp \
+ /home/claoo/vcpkg/installed/x64-linux/include/nlohmann/detail/string_concat.hpp \
+ /usr/include/c++/13/cstring /usr/include/string.h /usr/include/strings.h \
+ /home/claoo/vcpkg/installed/x64-linux/include/nlohmann/detail/meta/identity_tag.hpp \
+ /home/claoo/vcpkg/installed/x64-linux/include/nlohmann/detail/meta/std_fs.hpp \
+ /home/claoo/vcpkg/installed/x64-linux/include/nlohmann/detail/conversions/to_json.hpp \
+ /home/claoo/vcpkg/installed/x64-linux/include/nlohmann/detail/iterators/iteration_proxy.hpp \
+ /home/claoo/vcpkg/installed/x64-linux/include/nlohmann/byte_container_with_subtype.hpp \
+ /home/claoo/vcpkg/installed/x64-linux/include/nlohmann/detail/hash.hpp \
+ /home/claoo/vcpkg/installed/x64-linux/include/nlohmann/detail/input/binary_reader.hpp \
+ /home/claoo/vcpkg/installed/x64-linux/include/nlohmann/detail/input/input_adapters.hpp \
+ /usr/include/c++/13/numeric /usr/include/c++/13/bits/stl_numeric.h \
+ /home/claoo/vcpkg/installed/x64-linux/include/nlohmann/detail/input/json_sax.hpp \
+ /home/claoo/vcpkg/installed/x64-linux/include/nlohmann/detail/input/lexer.hpp \
+ /home/claoo/vcpkg/installed/x64-linux/include/nlohmann/detail/meta/is_sax.hpp \
+ /home/claoo/vcpkg/installed/x64-linux/include/nlohmann/detail/input/parser.hpp \
+ /home/claoo/vcpkg/installed/x64-linux/include/nlohmann/detail/iterators/internal_iterator.hpp \
+ /home/claoo/vcpkg/installed/x64-linux/include/nlohmann/detail/iterators/primitive_iterator.hpp \
+ /home/claoo/vcpkg/installed/x64-linux/include/nlohmann/detail/iterators/iter_impl.hpp \
+ /home/claoo/vcpkg/installed/x64-linux/include/nlohmann/detail/iterators/json_reverse_iterator.hpp \
+ /home/claoo/vcpkg/installed/x64-linux/include/nlohmann/detail/json_custom_base_class.hpp \
+ /home/claoo/vcpkg/installed/x64-linux/include/nlohmann/detail/json_pointer.hpp \
+ /home/claoo/vcpkg/installed/x64-linux/include/nlohmann/detail/json_ref.hpp \
+ /home/claoo/vcpkg/installed/x64-linux/include/nlohmann/detail/output/binary_writer.hpp \
+ /home/claoo/vcpkg/installed/x64-linux/include/nlohmann/detail/output/output_adapters.hpp \
+ /home/claoo/vcpkg/installed/x64-linux/include/nlohmann/detail/output/serializer.hpp \
+ /usr/include/c++/13/iomanip /usr/include/c++/13/locale \
+ /usr/include/c++/13/bits/locale_facets_nonio.h /usr/include/c++/13/ctime \
+ /usr/include/x86_64-linux-gnu/c++/13/bits/time_members.h \
+ /usr/include/x86_64-linux-gnu/c++/13/bits/messages_members.h \
+ /usr/include/libintl.h /usr/include/c++/13/bits/codecvt.h \
+ /usr/include/c++/13/bits/locale_facets_nonio.tcc \
+ /usr/include/c++/13/bits/locale_conv.h \
+ /home/claoo/vcpkg/installed/x64-linux/include/nlohmann/detail/conversions/to_chars.hpp \
+ /home/claoo/vcpkg/installed/x64-linux/include/nlohmann/ordered_map.hpp \
+ /home/claoo/vcpkg/installed/x64-linux/include/nlohmann/detail/macro_unscope.hpp \
+ /home/claoo/vcpkg/installed/x64-linux/include/nlohmann/thirdparty/hedley/hedley_undef.hpp \
+ /home/claoo/Documents/eoc-tfhe/aos-llama/build/tfhe/src/include/tfhe_generic_templates.h \
  /usr/include/c++/13/cinttypes /usr/include/inttypes.h \
  /home/claoo/Documents/eoc-tfhe/aos-llama/build/tfhe/src/include/tfhe_generic_streams.h

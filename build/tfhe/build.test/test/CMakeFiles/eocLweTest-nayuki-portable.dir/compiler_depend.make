@@ -815,6 +815,26 @@ test/CMakeFiles/eocLweTest-nayuki-portable.dir/eocLweTest.cpp.o: /tfhe/src/test/
   /emsdk/upstream/emscripten/cache/sysroot/include/c++/v1/__format/formatter_tuple.h \
   /emsdk/upstream/emscripten/cache/sysroot/include/c++/v1/print \
   /emsdk/upstream/emscripten/cache/sysroot/include/unistd.h \
+  /emsdk/upstream/emscripten/cache/sysroot/include/c++/v1/fstream \
+  /emsdk/upstream/emscripten/cache/sysroot/include/c++/v1/filesystem \
+  /emsdk/upstream/emscripten/cache/sysroot/include/c++/v1/__filesystem/copy_options.h \
+  /emsdk/upstream/emscripten/cache/sysroot/include/c++/v1/__filesystem/directory_entry.h \
+  /emsdk/upstream/emscripten/cache/sysroot/include/c++/v1/__filesystem/file_status.h \
+  /emsdk/upstream/emscripten/cache/sysroot/include/c++/v1/__filesystem/file_type.h \
+  /emsdk/upstream/emscripten/cache/sysroot/include/c++/v1/__filesystem/perms.h \
+  /emsdk/upstream/emscripten/cache/sysroot/include/c++/v1/__filesystem/file_time_type.h \
+  /emsdk/upstream/emscripten/cache/sysroot/include/c++/v1/__chrono/file_clock.h \
+  /emsdk/upstream/emscripten/cache/sysroot/include/c++/v1/__filesystem/filesystem_error.h \
+  /emsdk/upstream/emscripten/cache/sysroot/include/c++/v1/__filesystem/path.h \
+  /emsdk/upstream/emscripten/cache/sysroot/include/c++/v1/iomanip \
+  /emsdk/upstream/emscripten/cache/sysroot/include/c++/v1/__filesystem/operations.h \
+  /emsdk/upstream/emscripten/cache/sysroot/include/c++/v1/__filesystem/perm_options.h \
+  /emsdk/upstream/emscripten/cache/sysroot/include/c++/v1/__filesystem/space_info.h \
+  /emsdk/upstream/emscripten/cache/sysroot/include/c++/v1/__filesystem/directory_iterator.h \
+  /emsdk/upstream/emscripten/cache/sysroot/include/c++/v1/__filesystem/directory_options.h \
+  /emsdk/upstream/emscripten/cache/sysroot/include/c++/v1/__filesystem/path_iterator.h \
+  /emsdk/upstream/emscripten/cache/sysroot/include/c++/v1/__filesystem/recursive_directory_iterator.h \
+  /emsdk/upstream/emscripten/cache/sysroot/include/c++/v1/__filesystem/u8path.h \
   /tfhe/src/libtfhe/cereal/include/cereal/archives/portable_binary.hpp \
   /tfhe/src/libtfhe/cereal/include/cereal/cereal.hpp \
   /emsdk/upstream/emscripten/cache/sysroot/include/c++/v1/unordered_set \
@@ -887,16 +907,18 @@ test/CMakeFiles/eocLweTest-nayuki-portable.dir/eocLweTest.cpp.o: /tfhe/src/test/
   /tfhe/src/include/lwe-functions.h \
   /tfhe/src/include/lwekey.h \
   /tfhe/src/include/lweparams.h \
-  /tfhe/src/include/lwesamples.h
+  /tfhe/src/include/lwesamples.h \
+  /tfhe/src/include/tgsw.h \
+  /tfhe/src/include/tlwe.h
 
+
+/tfhe/src/include/tlwe.h:
 
 /tfhe/src/include/lwesamples.h:
 
 /tfhe/src/include/lwe-functions.h:
 
 /emsdk/upstream/emscripten/cache/sysroot/include/c++/v1/__random/weibull_distribution.h:
-
-/emsdk/upstream/emscripten/cache/sysroot/include/c++/v1/__random/student_t_distribution.h:
 
 /emsdk/upstream/emscripten/cache/sysroot/include/c++/v1/__random/subtract_with_carry_engine.h:
 
@@ -964,11 +986,37 @@ test/CMakeFiles/eocLweTest-nayuki-portable.dir/eocLweTest.cpp.o: /tfhe/src/test/
 
 /tfhe/src/libtfhe/cereal/include/cereal/access.hpp:
 
+/emsdk/upstream/emscripten/cache/sysroot/include/c++/v1/__filesystem/u8path.h:
+
+/emsdk/upstream/emscripten/cache/sysroot/include/c++/v1/__filesystem/recursive_directory_iterator.h:
+
+/emsdk/upstream/emscripten/cache/sysroot/include/c++/v1/__filesystem/path_iterator.h:
+
+/emsdk/upstream/emscripten/cache/sysroot/include/c++/v1/__filesystem/space_info.h:
+
+/emsdk/upstream/emscripten/cache/sysroot/include/c++/v1/__random/student_t_distribution.h:
+
+/emsdk/upstream/emscripten/cache/sysroot/include/c++/v1/__filesystem/operations.h:
+
+/emsdk/upstream/emscripten/cache/sysroot/include/c++/v1/__chrono/file_clock.h:
+
+/emsdk/upstream/emscripten/cache/sysroot/include/c++/v1/__filesystem/file_time_type.h:
+
+/emsdk/upstream/emscripten/cache/sysroot/include/c++/v1/__filesystem/perms.h:
+
+/emsdk/upstream/emscripten/cache/sysroot/include/c++/v1/__filesystem/file_status.h:
+
+/emsdk/upstream/emscripten/cache/sysroot/include/c++/v1/filesystem:
+
+/emsdk/upstream/emscripten/cache/sysroot/include/c++/v1/fstream:
+
 /emsdk/upstream/emscripten/cache/sysroot/include/unistd.h:
 
 /emsdk/upstream/emscripten/cache/sysroot/include/c++/v1/print:
 
 /emsdk/upstream/emscripten/cache/sysroot/include/c++/v1/__charconv/chars_format.h:
+
+/emsdk/upstream/emscripten/cache/sysroot/include/c++/v1/__filesystem/directory_iterator.h:
 
 /emsdk/upstream/emscripten/cache/sysroot/include/c++/v1/__format/formatter_floating_point.h:
 
@@ -1099,6 +1147,8 @@ test/CMakeFiles/eocLweTest-nayuki-portable.dir/eocLweTest.cpp.o: /tfhe/src/test/
 /emsdk/upstream/emscripten/cache/sysroot/include/c++/v1/__bit/bit_width.h:
 
 /emsdk/upstream/emscripten/cache/sysroot/include/c++/v1/__bit/bit_log2.h:
+
+/emsdk/upstream/emscripten/cache/sysroot/include/c++/v1/__filesystem/directory_entry.h:
 
 /emsdk/upstream/emscripten/cache/sysroot/include/c++/v1/__bit/bit_floor.h:
 
@@ -1256,6 +1306,8 @@ test/CMakeFiles/eocLweTest-nayuki-portable.dir/eocLweTest.cpp.o: /tfhe/src/test/
 
 /emsdk/upstream/emscripten/cache/sysroot/include/c++/v1/__algorithm/ranges_copy_if.h:
 
+/emsdk/upstream/emscripten/cache/sysroot/include/c++/v1/__filesystem/path.h:
+
 /emsdk/upstream/emscripten/cache/sysroot/include/c++/v1/__algorithm/ranges_copy_backward.h:
 
 /emsdk/upstream/emscripten/cache/sysroot/include/c++/v1/__algorithm/ranges_clamp.h:
@@ -1378,11 +1430,15 @@ test/CMakeFiles/eocLweTest-nayuki-portable.dir/eocLweTest.cpp.o: /tfhe/src/test/
 
 /emsdk/upstream/emscripten/cache/sysroot/include/c++/v1/__concepts/invocable.h:
 
+/emsdk/upstream/emscripten/cache/sysroot/include/c++/v1/__filesystem/file_type.h:
+
 /emsdk/upstream/emscripten/cache/sysroot/include/c++/v1/__type_traits/is_signed_integer.h:
 
 /emsdk/upstream/emscripten/cache/sysroot/include/c++/v1/__numeric/adjacent_difference.h:
 
 /emsdk/upstream/emscripten/cache/sysroot/include/c++/v1/__utility/exception_guard.h:
+
+/emsdk/upstream/emscripten/cache/sysroot/include/c++/v1/iomanip:
 
 /emsdk/upstream/emscripten/cache/sysroot/include/c++/v1/__concepts/arithmetic.h:
 
@@ -1555,6 +1611,8 @@ test/CMakeFiles/eocLweTest-nayuki-portable.dir/eocLweTest.cpp.o: /tfhe/src/test/
 /tfhe/src/libtfhe/cereal/include/cereal/details/traits.hpp:
 
 /emsdk/upstream/emscripten/cache/sysroot/include/c++/v1/__math/inverse_hyperbolic_functions.h:
+
+/emsdk/upstream/emscripten/cache/sysroot/include/c++/v1/__filesystem/directory_options.h:
 
 /emsdk/upstream/emscripten/cache/sysroot/include/c++/v1/__algorithm/rotate_copy.h:
 
@@ -2034,6 +2092,8 @@ test/CMakeFiles/eocLweTest-nayuki-portable.dir/eocLweTest.cpp.o: /tfhe/src/test/
 
 /emsdk/upstream/emscripten/cache/sysroot/include/c++/v1/__memory/voidify.h:
 
+/emsdk/upstream/emscripten/cache/sysroot/include/c++/v1/__filesystem/perm_options.h:
+
 /emsdk/upstream/emscripten/cache/sysroot/include/c++/v1/__string/char_traits.h:
 
 /emsdk/upstream/emscripten/cache/sysroot/include/c++/v1/stdio.h:
@@ -2158,6 +2218,8 @@ test/CMakeFiles/eocLweTest-nayuki-portable.dir/eocLweTest.cpp.o: /tfhe/src/test/
 
 /emsdk/upstream/emscripten/cache/sysroot/include/c++/v1/__type_traits/is_always_bitcastable.h:
 
+/emsdk/upstream/emscripten/cache/sysroot/include/c++/v1/__filesystem/filesystem_error.h:
+
 /emsdk/upstream/emscripten/cache/sysroot/include/c++/v1/__utility/is_pointer_in_range.h:
 
 /emsdk/upstream/emscripten/cache/sysroot/include/c++/v1/__atomic/atomic_base.h:
@@ -2165,6 +2227,8 @@ test/CMakeFiles/eocLweTest-nayuki-portable.dir/eocLweTest.cpp.o: /tfhe/src/test/
 /emsdk/upstream/emscripten/cache/sysroot/include/c++/v1/__compare/compare_three_way.h:
 
 /emsdk/upstream/emscripten/cache/sysroot/include/c++/v1/__algorithm/for_each_segment.h:
+
+/emsdk/upstream/emscripten/cache/sysroot/include/c++/v1/__filesystem/copy_options.h:
 
 /emsdk/upstream/emscripten/cache/sysroot/include/c++/v1/__algorithm/ranges_find.h:
 
@@ -2373,6 +2437,8 @@ test/CMakeFiles/eocLweTest-nayuki-portable.dir/eocLweTest.cpp.o: /tfhe/src/test/
 /emsdk/upstream/emscripten/cache/sysroot/include/ctype.h:
 
 /emsdk/upstream/emscripten/cache/sysroot/include/wchar.h:
+
+/tfhe/src/include/tgsw.h:
 
 /emsdk/upstream/emscripten/cache/sysroot/include/c++/v1/__algorithm/find_if.h:
 

@@ -11,6 +11,13 @@ struct IntPolynomial {
    const int32_t N;
    int32_t* coefs;
 
+       json to_json() const {
+        json j;
+        j["N"] = N;
+        j["coefs"] = std::vector<int32_t>(coefs, coefs + N);
+        return j;
+    }
+
 #ifdef __cplusplus   
    IntPolynomial(const int32_t N);
    ~IntPolynomial();
@@ -24,6 +31,13 @@ struct IntPolynomial {
 struct TorusPolynomial {
    const int32_t N;
    Torus32* coefsT;
+
+       json to_json() const {
+        json j;
+        j["N"] = N;
+        j["coefsT"] = std::vector<Torus32>(coefsT, coefsT + N);
+        return j;
+    }
 
 #ifdef __cplusplus   
    TorusPolynomial(const int32_t N);
@@ -44,6 +58,14 @@ struct LagrangeHalfCPolynomial
 {
    void* data;
    void* precomp;
+
+    json to_json() const {
+        json j;
+        // Conversie la format lizibil dacă este necesar
+        j["data"] = reinterpret_cast<uintptr_t>(data);
+        j["precomp"] = reinterpret_cast<uintptr_t>(precomp);
+        return j;
+    }
 };
 
 //allocate memory space for a IntPolynomial
