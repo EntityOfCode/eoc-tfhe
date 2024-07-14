@@ -6,7 +6,6 @@
 
 #include "tfhe_core.h"
 #include "lweparams.h"
-#include "polynomials.h"
 
 struct TLweParams {
     const int32_t N; ///< a power of 2: degree of the polynomials
@@ -14,16 +13,6 @@ struct TLweParams {
     const double alpha_min; ///< minimal noise s.t. the sample is secure
     const double alpha_max; ///< maximal noise s.t. we can decrypt
     const LweParams extracted_lweparams; ///< lwe params if one extracts
-
-        json to_json() const {
-        json j;
-        j["N"] = N;
-        j["k"] = k;
-        j["alpha_min"] = alpha_min;
-        j["alpha_max"] = alpha_max;
-        j["extracted_lweparams"] = extracted_lweparams.to_json();
-        return j;
-    }
 
 #ifdef __cplusplus
 
@@ -41,19 +30,6 @@ struct TLweParams {
 struct TLweKey {
     const TLweParams *params; ///< the parameters of the key
     IntPolynomial *key; ///< the key (i.e k binary polynomials)
-
-        json to_json() const {
-        json j;
-        j["params"] = params->to_json();
-
-        json key_json;
-        for (int i = 0; i < params->k; ++i) {
-            key_json.push_back(key[i].to_json());
-        }
-        j["key"] = key_json;
-
-        return j;
-    }
 #ifdef __cplusplus
 
     TLweKey(const TLweParams *params);
@@ -73,15 +49,6 @@ struct TLweSample {
     TorusPolynomial *b; ///< alias of a[k] to get the right term
     double current_variance; ///< avg variance of the sample
     const int32_t k;
-
-        json to_json() const {
-        json j;
-        j["a"] = a->to_json();
-        j["b"] = b->to_json();
-        j["current_variance"] = current_variance;
-        j["k"] = k;
-        return j;
-    }
 #ifdef __cplusplus
 
     TLweSample(const TLweParams *params);
@@ -100,18 +67,6 @@ struct TLweSampleFFT {
     LagrangeHalfCPolynomial *b; ///< alias of a[k] to get the right term
     double current_variance; ///< avg variance of the sample
     const int32_t k; //required during the destructor call...
-        json to_json() const {
-        json j;
-        json a_json;
-        for (int i = 0; i < k + 1; ++i) {
-            a_json.push_back(a[i].to_json());
-        }
-        j["a"] = a_json;
-        j["b"] = b->to_json();
-        j["current_variance"] = current_variance;
-        j["k"] = k;
-        return j;
-    }
 #ifdef __cplusplus
 
     TLweSampleFFT(const TLweParams *params, LagrangeHalfCPolynomial *a, double current_variance);

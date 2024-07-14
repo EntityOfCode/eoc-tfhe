@@ -11,14 +11,6 @@ struct LweSample {
     Torus32 b;  //
    	double current_variance; //-- average noise of the sample
 
-    json to_json(int32_t n) const {
-        json j;
-        j["a"] = std::vector<Torus32>(a, a + n);
-        j["b"] = b;
-        j["current_variance"] = current_variance;
-        return j;
-    }
-
 #ifdef __cplusplus
    LweSample(const LweParams* params);
    ~LweSample();

@@ -5214,6 +5214,10 @@ var dynCall_vijjjjjji = Module["dynCall_vijjjjjji"] = createExportWrapper("dynCa
 
 var dynCall_vjjjjj = Module["dynCall_vjjjjj"] = createExportWrapper("dynCall_vjjjjj", 6);
 
+var dynCall_djj = Module["dynCall_djj"] = createExportWrapper("dynCall_djj", 3);
+
+var dynCall_vjjd = Module["dynCall_vjjd"] = createExportWrapper("dynCall_vjjd", 4);
+
 var _asyncify_start_unwind = createExportWrapper("asyncify_start_unwind", 1);
 
 var _asyncify_stop_unwind = createExportWrapper("asyncify_stop_unwind", 0);
@@ -5222,9 +5226,9 @@ var _asyncify_start_rewind = createExportWrapper("asyncify_start_rewind", 1);
 
 var _asyncify_stop_rewind = createExportWrapper("asyncify_stop_rewind", 0);
 
-var ___start_em_js = Module["___start_em_js"] = 569548;
+var ___start_em_js = Module["___start_em_js"] = 569948;
 
-var ___stop_em_js = Module["___stop_em_js"] = 569974;
+var ___stop_em_js = Module["___stop_em_js"] = 570374;
 
 function invoke_vjj(index, a1, a2) {
  var sp = stackSave();

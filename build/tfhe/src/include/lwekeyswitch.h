@@ -19,50 +19,6 @@ struct LweKeySwitchKey {
     LweSample*** ks; ///< the keyswitch elements: a n.l.base matrix
     // de taille n pointe vers ks1 un tableau dont les cases sont espaceés de ell positions
 
-json to_json() const {
-        json j;
-        j["n"] = n;
-        j["t"] = t;
-        j["basebit"] = basebit;
-        j["base"] = base;
-        j["out_params"] = out_params->to_json();
-
-        // Serialize ks0_raw
-        json ks0_raw_json;
-        for (int i = 0; i < n * t * base; ++i) {
-            ks0_raw_json.push_back(ks0_raw[i].to_json(out_params->n));
-        }
-        j["ks0_raw"] = ks0_raw_json;
-
-        // Serialize ks1_raw
-        json ks1_raw_json = json::array();
-        for (int32_t i = 0; i < n; ++i) {
-            json ks1_inner_json = json::array();
-            for (int32_t j = 0; j < t; ++j) {
-                ks1_inner_json.push_back(ks1_raw[i][j].to_json(out_params->n));
-            }
-            ks1_raw_json.push_back(ks1_inner_json);
-        }
-        j["ks1_raw"] = ks1_raw_json;
-
-        // Serialize ks
-        json ks_json = json::array();
-        for (int i = 0; i < n; ++i) {
-            json inner_json = json::array();
-            for (int j = 0; j < t; ++j) {
-                json innermost_json = json::array();
-                for (int k = 0; k < base; ++k) {
-                    innermost_json.push_back(ks[i][j][k].to_json(out_params->n));
-                }
-                inner_json.push_back(innermost_json);
-            }
-            ks_json.push_back(inner_json);
-        }
-        j["ks"] = ks_json;
-
-        return j;
-    }
-
 #ifdef __cplusplus
     LweKeySwitchKey(int32_t n, int32_t t, int32_t basebit, const LweParams* out_params, LweSample* ks0_raw);
     ~LweKeySwitchKey();

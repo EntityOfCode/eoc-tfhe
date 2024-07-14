@@ -4,7 +4,7 @@
 # compile CXX with /usr/bin/c++
 CXX_DEFINES = 
 
-CXX_INCLUDES = -I/home/claoo/Documents/eoc-tfhe/aos-llama/build/tfhe/src/include -I/home/claoo/Documents/eoc-tfhe/aos-llama/build/tfhe/src/libtfhe/cereal/include/cereal -I/home/claoo/Documents/eoc-tfhe/aos-llama/build/tfhe/src/test/googletest/googlemock/include -I/home/claoo/Documents/eoc-tfhe/aos-llama/build/tfhe/src/test/googletest/googlemock -I/home/claoo/Documents/eoc-tfhe/aos-llama/build/tfhe/src/test/googletest/googletest/include -I/home/claoo/Documents/eoc-tfhe/aos-llama/build/tfhe/src/test/googletest/googletest
+CXX_INCLUDES = -I/home/claoo/Documents/eoc-tfhe/aos-llama/build/tfhe/src/include -I/home/claoo/Documents/eoc-tfhe/aos-llama/build/tfhe/src/test/googletest/googlemock/include -I/home/claoo/Documents/eoc-tfhe/aos-llama/build/tfhe/src/test/googletest/googlemock -I/home/claoo/Documents/eoc-tfhe/aos-llama/build/tfhe/src/test/googletest/googletest/include -I/home/claoo/Documents/eoc-tfhe/aos-llama/build/tfhe/src/test/googletest/googletest
 
 CXX_FLAGS =  -std=gnu++11 -g -O0 -Wall -Werror  -Wall -Wshadow -DGTEST_HAS_PTHREAD=1 -fexceptions -Wextra -Wno-unused-parameter -Wno-missing-field-initializers
 

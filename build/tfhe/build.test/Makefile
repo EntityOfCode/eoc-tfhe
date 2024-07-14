@@ -354,19 +354,6 @@ eocLweTest-nayuki-portable/fast:
 .PHONY : eocLweTest-nayuki-portable/fast
 
 #=============================================================================
-# Target rules for targets named test-c-binding-nayuki-portable
-
-# Build rule for target.
-test-c-binding-nayuki-portable: cmake_check_build_system
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 test-c-binding-nayuki-portable
-.PHONY : test-c-binding-nayuki-portable
-
-# fast build rule for target.
-test-c-binding-nayuki-portable/fast:
-	$(MAKE) $(MAKESILENT) -f test/CMakeFiles/test-c-binding-nayuki-portable.dir/build.make test/CMakeFiles/test-c-binding-nayuki-portable.dir/build
-.PHONY : test-c-binding-nayuki-portable/fast
-
-#=============================================================================
 # Target rules for targets named gmock
 
 # Build rule for target.
@@ -440,7 +427,6 @@ help:
 	@echo "... gtest_main"
 	@echo "... test-addition-boot-nayuki-portable"
 	@echo "... test-bootstrapping-fft-nayuki-portable"
-	@echo "... test-c-binding-nayuki-portable"
 	@echo "... test-decomp-tgsw-nayuki-portable"
 	@echo "... test-gate-bootstrapping-nayuki-portable"
 	@echo "... test-long-run-nayuki-portable"

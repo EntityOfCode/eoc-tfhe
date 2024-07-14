@@ -10,7 +10,7 @@
             "request": "launch",
             "program": "${workspaceFolder}/build/tfhe/build/test/eocLweTest-nayuki-portable",
             "args": [],
-            "stopAtEntry": false,
+            "stopAtEntry": true,
             "cwd": "${workspaceFolder}/build/tfhe/src/test",
             "environment": [],
             "externalConsole": false,

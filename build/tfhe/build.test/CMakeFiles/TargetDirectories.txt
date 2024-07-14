@@ -47,7 +47,6 @@
 /tfhe/build.test/test/CMakeFiles/test-long-run-nayuki-portable.dir
 /tfhe/build.test/test/CMakeFiles/eocTest-nayuki-portable.dir
 /tfhe/build.test/test/CMakeFiles/eocLweTest-nayuki-portable.dir
-/tfhe/build.test/test/CMakeFiles/test-c-binding-nayuki-portable.dir
 /tfhe/build.test/test/CMakeFiles/test.dir
 /tfhe/build.test/test/CMakeFiles/edit_cache.dir
 /tfhe/build.test/test/CMakeFiles/rebuild_cache.dir

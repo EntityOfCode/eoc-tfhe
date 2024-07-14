@@ -1,8 +1,8 @@
-# Install script for directory: /tfhe/src/libtfhe
+# Install script for directory: /home/claoo/Documents/eoc-tfhe/aos-llama/build/tfhe/src/libtfhe
 
 # Set the install prefix
 if(NOT DEFINED CMAKE_INSTALL_PREFIX)
-  set(CMAKE_INSTALL_PREFIX "/emsdk/upstream/emscripten/cache/sysroot")
+  set(CMAKE_INSTALL_PREFIX "/home/claoo/Documents/dev/aos-llama/build/emsdk/upstream/emscripten/cache/sysroot")
 endif()
 string(REGEX REPLACE "/$" "" CMAKE_INSTALL_PREFIX "${CMAKE_INSTALL_PREFIX}")
 
@@ -37,13 +37,13 @@ if(NOT DEFINED CMAKE_OBJDUMP)
   set(CMAKE_OBJDUMP "/usr/bin/objdump")
 endif()
 
-if("x${CMAKE_INSTALL_COMPONENT}x" STREQUAL "xUnspecifiedx" OR NOT CMAKE_INSTALL_COMPONENT)
-  file(INSTALL DESTINATION "${CMAKE_INSTALL_PREFIX}/lib" TYPE STATIC_LIBRARY FILES "/tfhe/em.build/libtfhe/libtfhe-nayuki-portable.a")
+if(CMAKE_INSTALL_COMPONENT STREQUAL "Unspecified" OR NOT CMAKE_INSTALL_COMPONENT)
+  file(INSTALL DESTINATION "${CMAKE_INSTALL_PREFIX}/lib" TYPE STATIC_LIBRARY FILES "/home/claoo/Documents/eoc-tfhe/aos-llama/build/tfhe/em.build/libtfhe/libtfhe-nayuki-portable.a")
 endif()
 
 if(NOT CMAKE_INSTALL_LOCAL_ONLY)
   # Include the install script for each subdirectory.
-  include("/tfhe/em.build/libtfhe/fft_processors/cmake_install.cmake")
+  include("/home/claoo/Documents/eoc-tfhe/aos-llama/build/tfhe/em.build/libtfhe/fft_processors/cmake_install.cmake")
 
 endif()
 

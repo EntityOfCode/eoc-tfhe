@@ -5,21 +5,12 @@
 ///@brief This file contains the declaration of LWE key structures
 
 #include "tfhe_core.h"
-#include "lweparams.h"
-// #include <nlohmann/json.hpp>
 
-// using json = nlohmann::json;
 
 struct LweKey {
    const LweParams* params;
    int32_t* key;
 
-    json to_json() const {
-        json j;
-        j["params"] = params->to_json();
-        j["key"] = std::vector<int>(key, key + params->n);
-        return j;
-    }
 #ifdef __cplusplus   
    LweKey(const LweParams* params);
    ~LweKey();

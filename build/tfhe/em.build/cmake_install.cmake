@@ -1,8 +1,8 @@
-# Install script for directory: /tfhe/src
+# Install script for directory: /home/claoo/Documents/eoc-tfhe/aos-llama/build/tfhe/src
 
 # Set the install prefix
 if(NOT DEFINED CMAKE_INSTALL_PREFIX)
-  set(CMAKE_INSTALL_PREFIX "/emsdk/upstream/emscripten/cache/sysroot")
+  set(CMAKE_INSTALL_PREFIX "/home/claoo/Documents/dev/aos-llama/build/emsdk/upstream/emscripten/cache/sysroot")
 endif()
 string(REGEX REPLACE "/$" "" CMAKE_INSTALL_PREFIX "${CMAKE_INSTALL_PREFIX}")
 
@@ -37,36 +37,37 @@ if(NOT DEFINED CMAKE_OBJDUMP)
   set(CMAKE_OBJDUMP "/usr/bin/objdump")
 endif()
 
-if("x${CMAKE_INSTALL_COMPONENT}x" STREQUAL "xUnspecifiedx" OR NOT CMAKE_INSTALL_COMPONENT)
+if(CMAKE_INSTALL_COMPONENT STREQUAL "Unspecified" OR NOT CMAKE_INSTALL_COMPONENT)
   file(INSTALL DESTINATION "${CMAKE_INSTALL_PREFIX}/include/tfhe" TYPE FILE PERMISSIONS OWNER_READ OWNER_WRITE GROUP_READ WORLD_READ FILES
-    "/tfhe/src/include/lagrangehalfc_arithmetic.h"
-    "/tfhe/src/include/lwe-functions.h"
-    "/tfhe/src/include/lwebootstrappingkey.h"
-    "/tfhe/src/include/lwekey.h"
-    "/tfhe/src/include/lwekeyswitch.h"
-    "/tfhe/src/include/lweparams.h"
-    "/tfhe/src/include/lwesamples.h"
-    "/tfhe/src/include/numeric_functions.h"
-    "/tfhe/src/include/polynomials.h"
-    "/tfhe/src/include/polynomials_arithmetic.h"
-    "/tfhe/src/include/tfhe.h"
-    "/tfhe/src/include/tfhe_core.h"
-    "/tfhe/src/include/tfhe_garbage_collector.h"
-    "/tfhe/src/include/tfhe_gate_bootstrapping_functions.h"
-    "/tfhe/src/include/tfhe_gate_bootstrapping_structures.h"
-    "/tfhe/src/include/tfhe_generic_streams.h"
-    "/tfhe/src/include/tfhe_generic_templates.h"
-    "/tfhe/src/include/tfhe_io.h"
-    "/tfhe/src/include/tgsw.h"
-    "/tfhe/src/include/tgsw_functions.h"
-    "/tfhe/src/include/tlwe.h"
-    "/tfhe/src/include/tlwe_functions.h"
+    "/home/claoo/Documents/eoc-tfhe/aos-llama/build/tfhe/src/include/lagrangehalfc_arithmetic.h"
+    "/home/claoo/Documents/eoc-tfhe/aos-llama/build/tfhe/src/include/lwe-functions.h"
+    "/home/claoo/Documents/eoc-tfhe/aos-llama/build/tfhe/src/include/lwebootstrappingkey.h"
+    "/home/claoo/Documents/eoc-tfhe/aos-llama/build/tfhe/src/include/lwekey.h"
+    "/home/claoo/Documents/eoc-tfhe/aos-llama/build/tfhe/src/include/lwekeyswitch.h"
+    "/home/claoo/Documents/eoc-tfhe/aos-llama/build/tfhe/src/include/lweparams.h"
+    "/home/claoo/Documents/eoc-tfhe/aos-llama/build/tfhe/src/include/lwesamples.h"
+    "/home/claoo/Documents/eoc-tfhe/aos-llama/build/tfhe/src/include/numeric_functions.h"
+    "/home/claoo/Documents/eoc-tfhe/aos-llama/build/tfhe/src/include/polynomials.h"
+    "/home/claoo/Documents/eoc-tfhe/aos-llama/build/tfhe/src/include/polynomials_arithmetic.h"
+    "/home/claoo/Documents/eoc-tfhe/aos-llama/build/tfhe/src/include/tfhe.h"
+    "/home/claoo/Documents/eoc-tfhe/aos-llama/build/tfhe/src/include/tfhe_core.h"
+    "/home/claoo/Documents/eoc-tfhe/aos-llama/build/tfhe/src/include/tfhe_garbage_collector.h"
+    "/home/claoo/Documents/eoc-tfhe/aos-llama/build/tfhe/src/include/tfhe_gate_bootstrapping_functions.h"
+    "/home/claoo/Documents/eoc-tfhe/aos-llama/build/tfhe/src/include/tfhe_gate_bootstrapping_structures.h"
+    "/home/claoo/Documents/eoc-tfhe/aos-llama/build/tfhe/src/include/tfhe_generic_streams.h"
+    "/home/claoo/Documents/eoc-tfhe/aos-llama/build/tfhe/src/include/tfhe_generic_templates.h"
+    "/home/claoo/Documents/eoc-tfhe/aos-llama/build/tfhe/src/include/tfhe_io.h"
+    "/home/claoo/Documents/eoc-tfhe/aos-llama/build/tfhe/src/include/tgsw.h"
+    "/home/claoo/Documents/eoc-tfhe/aos-llama/build/tfhe/src/include/tgsw_functions.h"
+    "/home/claoo/Documents/eoc-tfhe/aos-llama/build/tfhe/src/include/tlwe.h"
+    "/home/claoo/Documents/eoc-tfhe/aos-llama/build/tfhe/src/include/tlwe_functions.h"
     )
 endif()
 
 if(NOT CMAKE_INSTALL_LOCAL_ONLY)
   # Include the install script for each subdirectory.
-  include("/tfhe/em.build/libtfhe/cmake_install.cmake")
+  include("/home/claoo/Documents/eoc-tfhe/aos-llama/build/tfhe/em.build/libtfhe/cmake_install.cmake")
+  include("/home/claoo/Documents/eoc-tfhe/aos-llama/build/tfhe/em.build/eoc/cmake_install.cmake")
 
 endif()
 
@@ -78,5 +79,5 @@ endif()
 
 string(REPLACE ";" "\n" CMAKE_INSTALL_MANIFEST_CONTENT
        "${CMAKE_INSTALL_MANIFEST_FILES}")
-file(WRITE "/tfhe/em.build/${CMAKE_INSTALL_MANIFEST}"
+file(WRITE "/home/claoo/Documents/eoc-tfhe/aos-llama/build/tfhe/em.build/${CMAKE_INSTALL_MANIFEST}"
      "${CMAKE_INSTALL_MANIFEST_CONTENT}")

@@ -1,8 +1,8 @@
-# Install script for directory: /tfhe/src/libtfhe/fft_processors
+# Install script for directory: /home/claoo/Documents/eoc-tfhe/aos-llama/build/tfhe/src/libtfhe/fft_processors
 
 # Set the install prefix
 if(NOT DEFINED CMAKE_INSTALL_PREFIX)
-  set(CMAKE_INSTALL_PREFIX "/emsdk/upstream/emscripten/cache/sysroot")
+  set(CMAKE_INSTALL_PREFIX "/home/claoo/Documents/dev/aos-llama/build/emsdk/upstream/emscripten/cache/sysroot")
 endif()
 string(REGEX REPLACE "/$" "" CMAKE_INSTALL_PREFIX "${CMAKE_INSTALL_PREFIX}")
 
@@ -39,7 +39,7 @@ endif()
 
 if(NOT CMAKE_INSTALL_LOCAL_ONLY)
   # Include the install script for each subdirectory.
-  include("/tfhe/em.build/libtfhe/fft_processors/nayuki/cmake_install.cmake")
+  include("/home/claoo/Documents/eoc-tfhe/aos-llama/build/tfhe/em.build/libtfhe/fft_processors/nayuki/cmake_install.cmake")
 
 endif()
 

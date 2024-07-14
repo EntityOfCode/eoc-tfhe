@@ -3,13 +3,13 @@ cmake_minimum_required(VERSION 3.0)
 # This is the nayuki fft processor for the tfhe library
 enable_language(ASM)
 
-include_directories(/home/claoo/vcpkg/installed/x64-linux/include)
+# include_directories(/home/claoo/vcpkg/installed/x64-linux/include)
 
 # Set the path to vcpkg toolchain file
-set(-DCMAKE_TOOLCHAIN_FILE=/home/claoo/vcpkg/scripts/buildsystems/vcpkg.cmake CACHE STRING "")
+# set(-DCMAKE_TOOLCHAIN_FILE=/home/claoo/vcpkg/scripts/buildsystems/vcpkg.cmake CACHE STRING "")
 
 # Find nlohmann_json package
-find_package(nlohmann_json REQUIRED)
+# find_package(nlohmann_json REQUIRED)
 
 set(SRCS_PORTABLE
     fft-x8664-avx-aux.c

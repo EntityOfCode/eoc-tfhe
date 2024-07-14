@@ -3,14 +3,14 @@ cmake_minimum_required(VERSION 3.0)
 add_subdirectory(googletest EXCLUDE_FROM_ALL)
 
 include_directories(${GTEST_INCLUDE_DIRS})
-include_directories(../libtfhe/cereal/include)
-include_directories(/home/claoo/vcpkg/installed/x64-linux/include/nlohmann)
+# include_directories(../libtfhe/cereal/include)
+# include_directories(/home/claoo/vcpkg/installed/x64-linux/include/nlohmann)
 
 # Set the path to vcpkg toolchain file
-set(-DCMAKE_TOOLCHAIN_FILE=/home/claoo/vcpkg/scripts/buildsystems/vcpkg.cmake CACHE STRING "")
+# set(-DCMAKE_TOOLCHAIN_FILE=/home/claoo/vcpkg/scripts/buildsystems/vcpkg.cmake CACHE STRING "")
 
 # Find nlohmann_json package
-find_package(nlohmann_json REQUIRED)
+# find_package(nlohmann_json REQUIRED)
 
 
 set(GOOGLETEST_SOURCES
@@ -80,7 +80,7 @@ foreach (FFT_PROCESSOR IN LISTS FFT_PROCESSORS)
     #we first compile the C++ tests
     foreach (CPP_ITEST ${CPP_ITESTS})
         add_executable(${CPP_ITEST}-${FFT_PROCESSOR} ${CPP_ITEST}.cpp ${TFHE_HEADERS})
-        target_link_libraries(${CPP_ITEST}-${FFT_PROCESSOR} ${RUNTIME_LIBS} nlohmann_json::nlohmann_json)
+        target_link_libraries(${CPP_ITEST}-${FFT_PROCESSOR} ${RUNTIME_LIBS})
     endforeach (CPP_ITEST)
 
     # #then the C tests

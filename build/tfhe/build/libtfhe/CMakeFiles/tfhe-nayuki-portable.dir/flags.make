@@ -5,13 +5,13 @@
 # compile CXX with /usr/bin/c++
 C_DEFINES = 
 
-C_INCLUDES = -I/home/claoo/Documents/eoc-tfhe/aos-llama/build/tfhe/src/include -I/home/claoo/Documents/eoc-tfhe/aos-llama/build/tfhe/src/libtfhe/cereal/include/cereal -isystem /home/claoo/vcpkg/installed/x64-linux/include
+C_INCLUDES = -I/home/claoo/Documents/eoc-tfhe/aos-llama/build/tfhe/src/include
 
-C_FLAGS =  -std=c99 -g -O0 -Wall -Werror -fPIC
+C_FLAGS =  -std=c99  -g -O0 -Wall -Werror -fPIC
 
 CXX_DEFINES = 
 
-CXX_INCLUDES = -I/home/claoo/Documents/eoc-tfhe/aos-llama/build/tfhe/src/include -I/home/claoo/Documents/eoc-tfhe/aos-llama/build/tfhe/src/libtfhe/cereal/include/cereal -isystem /home/claoo/vcpkg/installed/x64-linux/include
+CXX_INCLUDES = -I/home/claoo/Documents/eoc-tfhe/aos-llama/build/tfhe/src/include
 
 CXX_FLAGS =  -std=gnu++11 -g -O0 -Wall -Werror -fPIC
 

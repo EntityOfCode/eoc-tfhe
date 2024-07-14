@@ -1,8 +1,7 @@
+#include <sstream>
 #include <iostream>
 #include <fstream>
 #include <time.h>
-#include <cereal/archives/portable_binary.hpp>
-#include <cereal/types/vector.hpp>
 #include <tfhe_gate_bootstrapping_functions.h>
 #include <numeric_functions.h>
 #include <lwe-functions.h>
@@ -10,6 +9,8 @@
 #include <tgsw.h>
 #include <tfhe_core.h>
 #include <polynomials.h>
+#include <set>
+#include <tfhe_io.h>
 
 using namespace std;
 
@@ -78,129 +79,164 @@ struct GateBootstrappingSecretKeySetDeleter {
 };
 void serialize_to_json(const std::string &filename, TFheGateBootstrappingSecretKeySet &keyset)
 {
-        json j = keyset.to_json();
+    //     json j = keyset.to_json();
 
-    // Scrierea în fișier
-    std::ofstream ofs(filename);
-    if (ofs) {
-        ofs << j.dump(4); // Indentare cu 4 spații pentru lizibilitate
-        ofs.close();
-    } else {
-        std::cerr << "Failed to open file for writing.\n";
-    }
+    // // Scrierea în fișier
+    // std::ofstream ofs(filename);
+    // if (ofs) {
+    //     ofs << j.dump(4); // Indentare cu 4 spații pentru lizibilitate
+    //     ofs.close();
+    // } else {
+    //     std::cerr << "Failed to open file for writing.\n";
+    // }
 }
 
-void serialize(const std::string &filename, TFheGateBootstrappingSecretKeySet &keyset)
+void serializeSecretKey(TFheGateBootstrappingSecretKeySet &keyset)
+{
+    cout << "Saving secret key to secretkeyset_export.dat" << endl;
+    FILE *F = fopen("secretkeyset_export.dat", "wb");
+    if (!F)
+    {
+        perror("Failed to open file for writing");
+        return;
+    }
+    // const set<const TFheGateBootstrappingSecretKeySet *> allgbsk = {&keyset};
+    // for (const TFheGateBootstrappingSecretKeySet *gbsk : allgbsk)
+    // {
+        export_tfheGateBootstrappingSecretKeySet_toFile(F, &keyset);
+    // }
+    fclose(F);
+}
+
+void serializePublicKey(TFheGateBootstrappingCloudKeySet &keyset)
+{
+    cout << "Saving public key to publickeyset_export.dat" << endl;
+    FILE *F = fopen("publickeyset_export.dat", "wb");
+    if (!F)
+    {
+        perror("Failed to open file for writing");
+        return;
+    }
+    // const set<const TFheGateBootstrappingCloudKeySet *> allgbsk = {&keyset};
+    // for (const TFheGateBootstrappingCloudKeySet *gbsk : allgbsk)
+    // {
+        export_tfheGateBootstrappingCloudKeySet_toFile(F, &keyset);
+    // }
+    fclose(F);
+}
+
+
+void serialize(const std::string &filename,TFheGateBootstrappingSecretKeySet &keyset)
 {
     std::ofstream ofs(filename);
     if (ofs)
     {
-        ofs << "Secret Key Structure" << "\n";
-        ofs << " - params: " << keyset.params << "\n";
-        ofs << "          ks_t: " << keyset.params->ks_t << "\n";
-        ofs << "    ks_basebit: " << keyset.params->ks_basebit << "\n";
-        ofs << "-in_out_params: " << keyset.params->in_out_params << "\n";
-        ofs << "               n: " << keyset.params->in_out_params->n << "\n";
-        ofs << "       alpha_min: " << keyset.params->in_out_params->alpha_min << "\n";
-        ofs << "       alpha_max: " << keyset.params->in_out_params->alpha_max << "\n";
-        ofs << "- tgsw_params: " << keyset.params->tgsw_params << "\n";
-        ofs << "               l: " << keyset.params->tgsw_params->l << "\n";
-        ofs << "           Bgbit: " << keyset.params->tgsw_params->Bgbit << "\n";
-        ofs << "          halfBg: " << keyset.params->tgsw_params->halfBg << "\n";
-        ofs << "         maskMod: " << keyset.params->tgsw_params->maskMod << "\n";
-        ofs << "             kpl: " << keyset.params->tgsw_params->kpl << "\n";
-        ofs << "        (Torus)h: " << *keyset.params->tgsw_params->h << "\n";
-        ofs << "          offset: " << keyset.params->tgsw_params->offset << "\n";
-        ofs << "    -tlwe_params: " << keyset.params->tgsw_params->tlwe_params << "\n";
-        ofs << "                 N: " << keyset.params->tgsw_params->tlwe_params->N << "\n";
-        ofs << "                 k: " << keyset.params->tgsw_params->tlwe_params->k << "\n";
-        ofs << "         alpha_min: " << keyset.params->tgsw_params->tlwe_params->alpha_min << "\n";
-        ofs << "         alpha_max: " << keyset.params->tgsw_params->tlwe_params->alpha_max << "\n";
-        ofs << "extracted_lweparams \n";
-        ofs << "                   n: " << keyset.params->tgsw_params->tlwe_params->extracted_lweparams.n << "\n";
-        ofs << "           alpha_min: " << keyset.params->tgsw_params->tlwe_params->extracted_lweparams.alpha_min << "\n";
-        ofs << "           alpha_max: " << keyset.params->tgsw_params->tlwe_params->extracted_lweparams.alpha_max << "\n";
-        ofs << " - LweKey: " << keyset.lwe_key << "\n";
-        ofs << "    -params: " << keyset.lwe_key->params << "\n";
-        ofs << "               n: " << keyset.lwe_key->params->n << "\n";
-        ofs << "       alpha_min: " << keyset.lwe_key->params->alpha_min << "\n";
-        ofs << "       alpha_max: " << keyset.lwe_key->params->alpha_max << "\n";
-        ofs << "     -key: " << keyset.lwe_key->key << " : ";
-                for (int i = 0; i < keyset.lwe_key->params->n; ++i) {
-                    ofs << keyset.lwe_key->key[i];
-                }
-        ofs << " -TGswKey: " << keyset.tgsw_key << "\n";
-        ofs << "     -params: " << keyset.tgsw_key->params << "\n";
-        ofs << "               l: " << keyset.tgsw_key->params->l << "\n";
-        ofs << "           Bgbit: " << keyset.tgsw_key->params->Bgbit << "\n";
-        ofs << "          halfBg: " << keyset.tgsw_key->params->halfBg << "\n";
-        ofs << "         maskMod: " << keyset.tgsw_key->params->maskMod << "\n";
-        ofs << "             kpl: " << keyset.tgsw_key->params->kpl << "\n";
-        ofs << "        (Torus)h: " << *keyset.tgsw_key->params->h << "\n";
-        ofs << "          offset: " << keyset.tgsw_key->params->offset << "\n";
-        ofs << "    -tlwe_params: " << keyset.tgsw_key->params->tlwe_params << "\n";
-        ofs << "                  N: " << keyset.tgsw_key->params->tlwe_params->N << "\n";
-        ofs << "                  k: " << keyset.tgsw_key->params->tlwe_params->k << "\n";
-        ofs << "          alpha_min: " << keyset.tgsw_key->params->tlwe_params->alpha_min << "\n";
-        ofs << "           alpha_max: " << keyset.tgsw_key->params->tlwe_params->alpha_max << "\n";
-        ofs << "    extracted_lweparams \n";
-        ofs << "                      n: " << keyset.tgsw_key->params->tlwe_params->extracted_lweparams.n << "\n";
-        ofs << "              alpha_min: " << keyset.tgsw_key->params->tlwe_params->extracted_lweparams.alpha_min << "\n";
-        ofs << "              alpha_max: " << keyset.tgsw_key->params->tlwe_params->extracted_lweparams.alpha_max << "\n";
-        ofs << "-tlwe_params: " << keyset.tgsw_key->tlwe_params << "\n";
-        ofs << "              N: " << keyset.tgsw_key->tlwe_params->N << "\n";
-        ofs << "              k: " << keyset.tgsw_key->tlwe_params->k << "\n";
-        ofs << "      alpha_min: " << keyset.tgsw_key->tlwe_params->alpha_min << "\n";
-        ofs << "      alpha_max: " << keyset.tgsw_key->tlwe_params->alpha_max << "\n";
-        ofs << "extracted_lweparams \n";
-        ofs << "                  n: " << keyset.tgsw_key->params->tlwe_params->extracted_lweparams.n << "\n";
-        ofs << "          alpha_min: " << keyset.tgsw_key->params->tlwe_params->extracted_lweparams.alpha_min << "\n";
-        ofs << "          alpha_max: " << keyset.tgsw_key->params->tlwe_params->extracted_lweparams.alpha_max << "\n";
-        ofs << "        -key: " << keyset.tgsw_key->key << "\n";
-        ofs << "             N: " << keyset.tgsw_key->key->N << "\n";
-        ofs << "         coefs: " << keyset.tgsw_key->key->coefs << " : ";
-        for (int i = 0; i < keyset.tgsw_key->key->N; ++i) {
-            ofs << keyset.tgsw_key->key->coefs[i];
-        }
-        ofs << "\n";
-        ofs << " - TLweKey: " << &keyset.tgsw_key->tlwe_key << "\n";
-        ofs << "     -params: " << keyset.tgsw_key->tlwe_key.params << "\n";
-        ofs << "               N: " << keyset.tgsw_key->tlwe_key.params->N << "\n";
-        ofs << "               k: " << keyset.tgsw_key->tlwe_key.params->k << "\n";
-        ofs << "         alpha_min: " << keyset.tgsw_key->tlwe_key.params->alpha_min << "\n";
-        ofs << "         alpha_max: " << keyset.tgsw_key->tlwe_key.params->alpha_max << "\n";
-        ofs << "extracted_lweparams \n";
-        ofs << "                   n: " << keyset.tgsw_key->tlwe_key.params->extracted_lweparams.n << "\n";
-        ofs << "           alpha_min: " << keyset.tgsw_key->tlwe_key.params->extracted_lweparams.alpha_min << "\n";
-        ofs << "           alpha_max: " << keyset.tgsw_key->tlwe_key.params->extracted_lweparams.alpha_max << "\n";
-        ofs << "        -key: " << keyset.tgsw_key->tlwe_key.key << "\n";
-        ofs << "             N: " << keyset.tgsw_key->tlwe_key.key->N << "\n";
-        ofs << "         coefs: " << keyset.tgsw_key->tlwe_key.key->coefs << " : ";
-        for (int i = 0; i < keyset.tgsw_key->key->N; ++i) {
-            ofs << keyset.tgsw_key->tlwe_key.key->coefs[i];
-        }
-        ofs << "\n";
-        ofs << "\n";
-        // Serializarea cloud
-        ofs << " - CloudKeySet: " << &keyset.cloud << "\n";
-        ofs << "    - params: " << keyset.cloud.params << "\n";
-        ofs << "              ks_t: " << keyset.cloud.params->ks_t << "\n";
-        ofs << "        ks_basebit: " << keyset.cloud.params->ks_basebit << "\n";
-        ofs << "     -in_out_params: " << keyset.cloud.params->in_out_params << "\n";
-        ofs << "                   n: " << keyset.cloud.params->in_out_params->n << "\n";
-        ofs << "           alpha_min: " << keyset.cloud.params->in_out_params->alpha_min << "\n";
-        ofs << "           alpha_max: " << keyset.cloud.params->in_out_params->alpha_max << "\n";
-        ofs << "     -tgsw_params: " << keyset.cloud.params->tgsw_params << "\n";
-        ofs << "                 l: " << keyset.cloud.params->tgsw_params->l << "\n";
-        ofs << "             Bgbit: " << keyset.cloud.params->tgsw_params->Bgbit << "\n";
-        ofs << "            halfBg: " << keyset.cloud.params->tgsw_params->halfBg << "\n";
-        ofs << "           maskMod: " << keyset.cloud.params->tgsw_params->maskMod << "\n";
-        ofs << "               kpl: " << keyset.cloud.params->tgsw_params->kpl << "\n";
-        ofs << "          (Torus)h: " << *keyset.cloud.params->tgsw_params->h << "\n";
-        ofs << "            offset: " << keyset.cloud.params->tgsw_params->offset << "\n";
+    //     ofs << "Secret Key Structure" << "\n";
+    //     ofs << " - params: " << keyset.params << "\n";
+    //     ofs << "          ks_t: " << keyset.params->ks_t << "\n";
+    //     ofs << "    ks_basebit: " << keyset.params->ks_basebit << "\n";
+    //     ofs << "-in_out_params: " << keyset.params->in_out_params << "\n";
+    //     ofs << "               n: " << keyset.params->in_out_params->n << "\n";
+    //     ofs << "       alpha_min: " << keyset.params->in_out_params->alpha_min << "\n";
+    //     ofs << "       alpha_max: " << keyset.params->in_out_params->alpha_max << "\n";
+    //     ofs << "- tgsw_params: " << keyset.params->tgsw_params << "\n";
+    //     ofs << "               l: " << keyset.params->tgsw_params->l << "\n";
+    //     ofs << "           Bgbit: " << keyset.params->tgsw_params->Bgbit << "\n";
+    //     ofs << "          halfBg: " << keyset.params->tgsw_params->halfBg << "\n";
+    //     ofs << "         maskMod: " << keyset.params->tgsw_params->maskMod << "\n";
+    //     ofs << "             kpl: " << keyset.params->tgsw_params->kpl << "\n";
+    //     ofs << "        (Torus)h: " << *keyset.params->tgsw_params->h << "\n";
+    //     ofs << "          offset: " << keyset.params->tgsw_params->offset << "\n";
+    //     ofs << "    -tlwe_params: " << keyset.params->tgsw_params->tlwe_params << "\n";
+    //     ofs << "                 N: " << keyset.params->tgsw_params->tlwe_params->N << "\n";
+    //     ofs << "                 k: " << keyset.params->tgsw_params->tlwe_params->k << "\n";
+    //     ofs << "         alpha_min: " << keyset.params->tgsw_params->tlwe_params->alpha_min << "\n";
+    //     ofs << "         alpha_max: " << keyset.params->tgsw_params->tlwe_params->alpha_max << "\n";
+    //     ofs << "extracted_lweparams \n";
+    //     ofs << "                   n: " << keyset.params->tgsw_params->tlwe_params->extracted_lweparams.n << "\n";
+    //     ofs << "           alpha_min: " << keyset.params->tgsw_params->tlwe_params->extracted_lweparams.alpha_min << "\n";
+    //     ofs << "           alpha_max: " << keyset.params->tgsw_params->tlwe_params->extracted_lweparams.alpha_max << "\n";
+    //     ofs << " - LweKey: " << keyset.lwe_key << "\n";
+    //     ofs << "    -params: " << keyset.lwe_key->params << "\n";
+    //     ofs << "               n: " << keyset.lwe_key->params->n << "\n";
+    //     ofs << "       alpha_min: " << keyset.lwe_key->params->alpha_min << "\n";
+    //     ofs << "       alpha_max: " << keyset.lwe_key->params->alpha_max << "\n";
+    //     ofs << "     -key: " << keyset.lwe_key->key << " : ";
+    //             for (int i = 0; i < keyset.lwe_key->params->n; ++i) {
+    //                 ofs << keyset.lwe_key->key[i];
+    //             }
+    //     ofs << " -TGswKey: " << keyset.tgsw_key << "\n";
+    //     ofs << "     -params: " << keyset.tgsw_key->params << "\n";
+    //     ofs << "               l: " << keyset.tgsw_key->params->l << "\n";
+    //     ofs << "           Bgbit: " << keyset.tgsw_key->params->Bgbit << "\n";
+    //     ofs << "          halfBg: " << keyset.tgsw_key->params->halfBg << "\n";
+    //     ofs << "         maskMod: " << keyset.tgsw_key->params->maskMod << "\n";
+    //     ofs << "             kpl: " << keyset.tgsw_key->params->kpl << "\n";
+    //     ofs << "        (Torus)h: " << *keyset.tgsw_key->params->h << "\n";
+    //     ofs << "          offset: " << keyset.tgsw_key->params->offset << "\n";
+    //     ofs << "    -tlwe_params: " << keyset.tgsw_key->params->tlwe_params << "\n";
+    //     ofs << "                  N: " << keyset.tgsw_key->params->tlwe_params->N << "\n";
+    //     ofs << "                  k: " << keyset.tgsw_key->params->tlwe_params->k << "\n";
+    //     ofs << "          alpha_min: " << keyset.tgsw_key->params->tlwe_params->alpha_min << "\n";
+    //     ofs << "           alpha_max: " << keyset.tgsw_key->params->tlwe_params->alpha_max << "\n";
+    //     ofs << "    extracted_lweparams \n";
+    //     ofs << "                      n: " << keyset.tgsw_key->params->tlwe_params->extracted_lweparams.n << "\n";
+    //     ofs << "              alpha_min: " << keyset.tgsw_key->params->tlwe_params->extracted_lweparams.alpha_min << "\n";
+    //     ofs << "              alpha_max: " << keyset.tgsw_key->params->tlwe_params->extracted_lweparams.alpha_max << "\n";
+    //     ofs << "-tlwe_params: " << keyset.tgsw_key->tlwe_params << "\n";
+    //     ofs << "              N: " << keyset.tgsw_key->tlwe_params->N << "\n";
+    //     ofs << "              k: " << keyset.tgsw_key->tlwe_params->k << "\n";
+    //     ofs << "      alpha_min: " << keyset.tgsw_key->tlwe_params->alpha_min << "\n";
+    //     ofs << "      alpha_max: " << keyset.tgsw_key->tlwe_params->alpha_max << "\n";
+    //     ofs << "extracted_lweparams \n";
+    //     ofs << "                  n: " << keyset.tgsw_key->params->tlwe_params->extracted_lweparams.n << "\n";
+    //     ofs << "          alpha_min: " << keyset.tgsw_key->params->tlwe_params->extracted_lweparams.alpha_min << "\n";
+    //     ofs << "          alpha_max: " << keyset.tgsw_key->params->tlwe_params->extracted_lweparams.alpha_max << "\n";
+    //     ofs << "        -key: " << keyset.tgsw_key->key << "\n";
+    //     ofs << "             N: " << keyset.tgsw_key->key->N << "\n";
+    //     ofs << "         coefs: " << keyset.tgsw_key->key->coefs << " : ";
+    //     for (int i = 0; i < keyset.tgsw_key->key->N; ++i) {
+    //         ofs << keyset.tgsw_key->key->coefs[i];
+    //     }
+    //     ofs << "\n";
+    //     ofs << " - TLweKey: " << &keyset.tgsw_key->tlwe_key << "\n";
+    //     ofs << "     -params: " << keyset.tgsw_key->tlwe_key.params << "\n";
+    //     ofs << "               N: " << keyset.tgsw_key->tlwe_key.params->N << "\n";
+    //     ofs << "               k: " << keyset.tgsw_key->tlwe_key.params->k << "\n";
+    //     ofs << "         alpha_min: " << keyset.tgsw_key->tlwe_key.params->alpha_min << "\n";
+    //     ofs << "         alpha_max: " << keyset.tgsw_key->tlwe_key.params->alpha_max << "\n";
+    //     ofs << "extracted_lweparams \n";
+    //     ofs << "                   n: " << keyset.tgsw_key->tlwe_key.params->extracted_lweparams.n << "\n";
+    //     ofs << "           alpha_min: " << keyset.tgsw_key->tlwe_key.params->extracted_lweparams.alpha_min << "\n";
+    //     ofs << "           alpha_max: " << keyset.tgsw_key->tlwe_key.params->extracted_lweparams.alpha_max << "\n";
+    //     ofs << "        -key: " << keyset.tgsw_key->tlwe_key.key << "\n";
+    //     ofs << "             N: " << keyset.tgsw_key->tlwe_key.key->N << "\n";
+    //     ofs << "         coefs: " << keyset.tgsw_key->tlwe_key.key->coefs << " : ";
+    //     for (int i = 0; i < keyset.tgsw_key->key->N; ++i) {
+    //         ofs << keyset.tgsw_key->tlwe_key.key->coefs[i];
+    //     }
+    //     ofs << "\n";
+    //     ofs << "\n";
+    //     // Serializarea cloud
+    //     ofs << " - CloudKeySet: " << &keyset.cloud << "\n";
+    //     ofs << "    - params: " << keyset.cloud.params << "\n";
+    //     ofs << "              ks_t: " << keyset.cloud.params->ks_t << "\n";
+    //     ofs << "        ks_basebit: " << keyset.cloud.params->ks_basebit << "\n";
+    //     ofs << "     -in_out_params: " << keyset.cloud.params->in_out_params << "\n";
+    //     ofs << "                   n: " << keyset.cloud.params->in_out_params->n << "\n";
+    //     ofs << "           alpha_min: " << keyset.cloud.params->in_out_params->alpha_min << "\n";
+    //     ofs << "           alpha_max: " << keyset.cloud.params->in_out_params->alpha_max << "\n";
+    //     ofs << "     -tgsw_params: " << keyset.cloud.params->tgsw_params << "\n";
+    //     ofs << "                 l: " << keyset.cloud.params->tgsw_params->l << "\n";
+    //     ofs << "             Bgbit: " << keyset.cloud.params->tgsw_params->Bgbit << "\n";
+    //     ofs << "            halfBg: " << keyset.cloud.params->tgsw_params->halfBg << "\n";
+    //     ofs << "           maskMod: " << keyset.cloud.params->tgsw_params->maskMod << "\n";
+    //     ofs << "               kpl: " << keyset.cloud.params->tgsw_params->kpl << "\n";
+    //     ofs << "          (Torus)h: " << *keyset.cloud.params->tgsw_params->h << "\n";
+    //     ofs << "            offset: " << keyset.cloud.params->tgsw_params->offset << "\n";
 
-        // Serializarea LweBootstrappingKey
-        ofs << "    - LweBootstrappingKey: " << keyset.cloud.bk << "\n";
+    //     // Serializarea LweBootstrappingKey
+    //     ofs << "    - LweBootstrappingKey: " << keyset.cloud.bk << "\n";
         /*
         ofs << "        - in_out_params: " << keyset.cloud.bk->in_out_params << "\n";
         ofs << "                      n: " << keyset.cloud.bk->in_out_params->n << "\n";
@@ -272,12 +308,23 @@ int main()
     TFheGateBootstrappingParameterSet *params = new_default_gate_bootstrapping_parameters(minimum_lambda);
     // const LweParams *lweParams = params->in_out_params;
     // generate the secret keyset
-    std::unique_ptr<TFheGateBootstrappingSecretKeySet, GateBootstrappingSecretKeySetDeleter> ks(new_random_gate_bootstrapping_secret_keyset(params));
     TFheGateBootstrappingSecretKeySet *keyset = new_random_gate_bootstrapping_secret_keyset(params);
-    serialize("key.txt", *keyset);
-    serialize_to_json("key.json", *keyset);
+    // cout << "Reading secret key from secretkeyset_export.dat";
+    // FILE *Fsecret = fopen("secretkeyset_export.dat", "rb");
+    // TFheGateBootstrappingSecretKeySet *keyset = new_tfheGateBootstrappingSecretKeySet_fromFile(Fsecret);
+    // fclose(Fsecret);
+    // serialize("key.txt", *keyset);
+    // serialize_to_json("key.json", *keyset);
     // generate the cloud keyset
+    // FILE *F = fopen("publickeyset_export.dat", "rb");
+    // TFheGateBootstrappingCloudKeySet *cloud_keyset = new_tfheGateBootstrappingCloudKeySet_fromFile(F);
     TFheGateBootstrappingCloudKeySet *cloud_keyset = const_cast<TFheGateBootstrappingCloudKeySet *>(&keyset->cloud);
+    // serializeSecretKey(*keyset);
+    // serializePublicKey(*cloud_keyset);
+    std::ostringstream oss;
+    export_tfheGateBootstrappingSecretKeySet_toStream(oss, keyset);
+    std::string str = oss.str();
+    cout << str << endl;
     clock_t end = clock();
     cout << "Keyset generated in: " << end - start << " microseconds" << endl;
     int32_t secret1 = 420;
@@ -313,6 +360,8 @@ int main()
     cout << "Secrets encrypted in " << end - start << " microseconds" << endl;
     cout << "Start computations..." << endl;
     start = clock();
+    // FILE *F = fopen("publickeyset_export.dat", "wb");
+    // TFheGateBootstrappingCloudKeySet *new_cloud_keyset = new_tfheGateBootstrappingCloudKeySet_fromFile(F);
     lweAddTo(ciphertextSum, ciphertext2, cloud_keyset->params->in_out_params);
     lweSubTo(ciphertextDiff, ciphertext2, cloud_keyset->params->in_out_params);
     if (compareCiphertexts(str1Cipher, str2Cipher, str1.length(), keyset))
@@ -323,6 +372,8 @@ int main()
     cout << "Computations finished in " << end - start << " microseconds" << endl;
     start = clock();
     cout << "Decrypting results..." << endl;
+    // FILE *Fsecret = fopen("secretkeyset_export.dat", "wb");
+    // TFheGateBootstrappingSecretKeySet *new_keyset = new_tfheGateBootstrappingSecretKeySet_fromFile(Fsecret);
     Torus32 decrypted1 = lweSymDecrypt(ciphertextSum, keyset->lwe_key, Msize);
     Torus32 decrypted2 = lweSymDecrypt(ciphertextDiff, keyset->lwe_key, Msize);
 

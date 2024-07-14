@@ -20,7 +20,7 @@ if ("${CMAKE_CXX_COMPILER_ID}" MATCHES "AppleClang")
 endif()
 
 # -std=c99 seems to be required in Travis tests for whatever reason
-set(CMAKE_C_FLAGS  "${CMAKE_C_FLAGS} -std=c99")
+set(CMAKE_C_FLAGS  "${CMAKE_C_FLAGS} -std=c99 ")
 
 set(CMAKE_CXX_FLAGS_DEBUG "${CLANG_FLAGS} -std=gnu++11 -g -O0 -Wall -Werror")
 set(CMAKE_C_FLAGS_DEBUG "-g -O0 -Wall -Werror")
@@ -66,7 +66,7 @@ list(APPEND FFT_PROCESSORS "spqlios-fma")
 endif(ENABLE_SPQLIOS_FMA)
 
 include_directories("include")
-include_directories(libtfhe/cereal/include/cereal)
+# include_directories(libtfhe/cereal/include/cereal)
 file(GLOB TFHE_HEADERS include/*.h)
 
 install(FILES ${TFHE_HEADERS}

@@ -311,20 +311,6 @@ eocLweTest-nayuki-portable/fast:
 	cd /tfhe/build.test && $(MAKE) $(MAKESILENT) -f test/CMakeFiles/eocLweTest-nayuki-portable.dir/build.make test/CMakeFiles/eocLweTest-nayuki-portable.dir/build
 .PHONY : eocLweTest-nayuki-portable/fast
 
-# Convenience name for target.
-test/CMakeFiles/test-c-binding-nayuki-portable.dir/rule:
-	cd /tfhe/build.test && $(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 test/CMakeFiles/test-c-binding-nayuki-portable.dir/rule
-.PHONY : test/CMakeFiles/test-c-binding-nayuki-portable.dir/rule
-
-# Convenience name for target.
-test-c-binding-nayuki-portable: test/CMakeFiles/test-c-binding-nayuki-portable.dir/rule
-.PHONY : test-c-binding-nayuki-portable
-
-# fast build rule for target.
-test-c-binding-nayuki-portable/fast:
-	cd /tfhe/build.test && $(MAKE) $(MAKESILENT) -f test/CMakeFiles/test-c-binding-nayuki-portable.dir/build.make test/CMakeFiles/test-c-binding-nayuki-portable.dir/build
-.PHONY : test-c-binding-nayuki-portable/fast
-
 eocLweTest.o: eocLweTest.cpp.o
 .PHONY : eocLweTest.o
 
@@ -420,30 +406,6 @@ test-bootstrapping-fft.s: test-bootstrapping-fft.cpp.s
 test-bootstrapping-fft.cpp.s:
 	cd /tfhe/build.test && $(MAKE) $(MAKESILENT) -f test/CMakeFiles/test-bootstrapping-fft-nayuki-portable.dir/build.make test/CMakeFiles/test-bootstrapping-fft-nayuki-portable.dir/test-bootstrapping-fft.cpp.s
 .PHONY : test-bootstrapping-fft.cpp.s
-
-test-c-binding.o: test-c-binding.c.o
-.PHONY : test-c-binding.o
-
-# target to build an object file
-test-c-binding.c.o:
-	cd /tfhe/build.test && $(MAKE) $(MAKESILENT) -f test/CMakeFiles/test-c-binding-nayuki-portable.dir/build.make test/CMakeFiles/test-c-binding-nayuki-portable.dir/test-c-binding.c.o
-.PHONY : test-c-binding.c.o
-
-test-c-binding.i: test-c-binding.c.i
-.PHONY : test-c-binding.i
-
-# target to preprocess a source file
-test-c-binding.c.i:
-	cd /tfhe/build.test && $(MAKE) $(MAKESILENT) -f test/CMakeFiles/test-c-binding-nayuki-portable.dir/build.make test/CMakeFiles/test-c-binding-nayuki-portable.dir/test-c-binding.c.i
-.PHONY : test-c-binding.c.i
-
-test-c-binding.s: test-c-binding.c.s
-.PHONY : test-c-binding.s
-
-# target to generate assembly for a file
-test-c-binding.c.s:
-	cd /tfhe/build.test && $(MAKE) $(MAKESILENT) -f test/CMakeFiles/test-c-binding-nayuki-portable.dir/build.make test/CMakeFiles/test-c-binding-nayuki-portable.dir/test-c-binding.c.s
-.PHONY : test-c-binding.c.s
 
 test-decomp-tgsw.o: test-decomp-tgsw.cpp.o
 .PHONY : test-decomp-tgsw.o
@@ -606,7 +568,6 @@ help:
 	@echo "... eocTest-nayuki-portable"
 	@echo "... test-addition-boot-nayuki-portable"
 	@echo "... test-bootstrapping-fft-nayuki-portable"
-	@echo "... test-c-binding-nayuki-portable"
 	@echo "... test-decomp-tgsw-nayuki-portable"
 	@echo "... test-gate-bootstrapping-nayuki-portable"
 	@echo "... test-long-run-nayuki-portable"
@@ -625,9 +586,6 @@ help:
 	@echo "... test-bootstrapping-fft.o"
 	@echo "... test-bootstrapping-fft.i"
 	@echo "... test-bootstrapping-fft.s"
-	@echo "... test-c-binding.o"
-	@echo "... test-c-binding.i"
-	@echo "... test-c-binding.s"
 	@echo "... test-decomp-tgsw.o"
 	@echo "... test-decomp-tgsw.i"
 	@echo "... test-decomp-tgsw.s"
