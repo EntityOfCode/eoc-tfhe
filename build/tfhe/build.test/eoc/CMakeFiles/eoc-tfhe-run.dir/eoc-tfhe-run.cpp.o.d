@@ -894,11 +894,4 @@ eoc/CMakeFiles/eoc-tfhe-run.dir/eoc-tfhe-run.cpp.o: \
   /tfhe/src/include/polynomials.h \
   /emsdk/upstream/emscripten/cache/sysroot/include/c++/v1/set \
   /emsdk/upstream/emscripten/cache/sysroot/include/c++/v1/__tree \
-  /tfhe/src/include/tfhe_io.h \
-  /emsdk/upstream/emscripten/cache/sysroot/include/emscripten/bind.h \
-  /emsdk/upstream/emscripten/cache/sysroot/include/c++/v1/cassert \
-  /emsdk/upstream/emscripten/cache/sysroot/include/assert.h \
-  /emsdk/upstream/emscripten/cache/sysroot/include/c++/v1/map \
-  /emsdk/upstream/emscripten/cache/sysroot/include/emscripten/em_macros.h \
-  /emsdk/upstream/emscripten/cache/sysroot/include/emscripten/val.h \
-  /emsdk/upstream/emscripten/cache/sysroot/include/emscripten/wire.h
+  /tfhe/src/include/tfhe_io.h

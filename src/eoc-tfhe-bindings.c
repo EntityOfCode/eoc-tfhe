@@ -1,31 +1,53 @@
-// tfhe lua wrappers
-
-#include <stdlib.h>
 #include <lua.h>
-#include <lualib.h>
 #include <lauxlib.h>
+#include <lualib.h>
+#include <emscripten.h>
 #include "eoc-tfhe-run.h"
 
-extern lua_State *wasm_lua_state;
+// Add a Lua binding for the add function
+static int l_addCiphertexts(lua_State *L)
+{
+  const char *ciphertext1 = luaL_checkstring(L, 1);
+  const char *ciphertext2 = luaL_checkstring(L, 2);
+  const char *public_key = luaL_checkstring(L, 3);
 
-static int l_tfhe_test(lua_State *L){
-    int result = tfhe_test();
-    lua_pushinteger(L, result);
-    return 1;
+  const char *result = addCiphertexts(ciphertext1, ciphertext2, public_key);
+  lua_pushstring(L, result);
+  free((void *)result);
+
+  return 1; // Number of return values
 }
 
-int luaopen_tfhe(lua_State *L)
+// Add a Lua binding for the subtract function
+static int l_subtractCiphertexts(lua_State *L)
 {
-    static const luaL_Reg tfhe_funcs[] = {
-	  {"test", l_tfhe_test},
-    //   {"set_prompt", l_llama_set_prompt},
-    //   {"add", l_llama_add},
-    //   {"run", l_llama_run},
-    //   {"next", l_llama_next},
-    //   {"stop", l_llama_stop},
-      {NULL, NULL}  // Sentinel to indicate end of array
+  const char *ciphertext1 = luaL_checkstring(L, 1);
+  const char *ciphertext2 = luaL_checkstring(L, 2);
+  const char *public_key = luaL_checkstring(L, 3);
+
+  const char *result = subtractCiphertexts(ciphertext1, ciphertext2, public_key);
+  lua_pushstring(L, result);
+  free((void *)result);
+
+  return 1; // Number of return values
+}
+
+static int l_info(lua_State *L)
+{
+  eocTfheInfo();
+  return 0;
+}
+
+int luaopen_eoc_tfhe(lua_State *L)
+{
+  static const luaL_Reg eoc_tfhe_funcs[] =
+  {
+    {"addCiphertexts", l_addCiphertexts},
+    {"subtractCiphertexts", l_subtractCiphertexts},
+    {"eocTfheInfo", l_info},
+    {NULL, NULL}
   };
 
-  luaL_newlib(L, tfhe_funcs); // Create a new table and push the library function
+  luaL_newlib(L, eoc_tfhe_funcs); // Create a new table and push the library function
   return 1;
 }

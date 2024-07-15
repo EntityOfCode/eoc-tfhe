@@ -83,7 +83,7 @@ describe('AOS-Llama+VFS Tests', async () => {
     assert.ok(result.response.Output.data.output == "OK")
   })
 
-  it.skip('Read data from the VFS', async () => {
+  it('Read data from the VFS', async () => {
     const result = await handle(getEval(`
 local file = io.open("/data/1", "r")
 if file then
@@ -98,7 +98,7 @@ return output`), getEnv())
     assert.ok(result.response.Output.data.output == "HELLO WORLD")
   })
 
-  it.skip('Read data from Arweave', async () => {
+  it('Read data from Arweave', async () => {
     const result = await handle(getEval(`
 local file = io.open("/data/dx3GrOQPV5Mwc1c-4HTsyq0s1TNugMf7XfIKJkyVQt8", "r")
 if file then
@@ -122,8 +122,8 @@ return Llama.info()
 
   it('EOC tfhe Lua library test', async () => {
     const result = await handle(getEval(`
-local Tfhe = require("tfhe")
-return Tfhe.test()
+local Tfhe = require("eoc_tfhe")
+return Tfhe.eocTfheInfo()
 `), getEnv())
     assert.ok(result.response.Output.data.output == "Decentralized llama.cpp.")
   })

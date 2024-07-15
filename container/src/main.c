@@ -150,8 +150,8 @@ int boot_lua(lua_State* L) {
 
     // Preload tfhe++
   luaL_getsubtable(L, LUA_REGISTRYINDEX, LUA_PRELOAD_TABLE);
-  lua_pushcfunction(L, luaopen_tfhe);
-  lua_setfield(L, -2, "tfhe");
+  lua_pushcfunction(L, luaopen_eoc_tfhe);
+  lua_setfield(L, -2, "eoc_tfhe");
   lua_pop(L, 1);
 
   // Preload stream

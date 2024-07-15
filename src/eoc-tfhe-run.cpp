@@ -1,151 +1,142 @@
+#include <sstream>
 #include <iostream>
 #include <fstream>
-#include "cereal/archives/portable_binary.hpp"
-#include <cereal/types/vector.hpp>
 #include <time.h>
+#include <string>
+#include <vector>
 #include <tfhe_gate_bootstrapping_functions.h>
 #include <numeric_functions.h>
 #include <lwe-functions.h>
 #include <string.h>
+#include <tgsw.h>
+#include <tfhe_core.h>
+#include <polynomials.h>
+#include <set>
+#include <tfhe_io.h>
+#include <emscripten/bind.h>
 
 using namespace std;
 
-static const int32_t Msize = (1LL << 31) - 1; // taille de l'espace des coeffs du polynome du message
-// static const int8_t Msize8 = (1<<8)-1;
-static const double alpha = 1. / (10. * Msize);
-// static const double alpha8 = 1. / (10. * Msize8);
-int32_t minimum_lambda = 100;
+// int32_t minimum_lambda = 100;
+// static const int32_t Msize = (1LL << 31) - 1;
+// static const double alpha = 1. / (10. * Msize);
 
-LweSample *encrypt8BitASCIIString(string &msg, const int16_t msgLength, TFheGateBootstrappingSecretKeySet *key)
-{
-    LweSample *ciphertext = new_gate_bootstrapping_ciphertext_array(msg.length(), key->params);
-    // LweSample *temp = new_gate_bootstrapping_ciphertext_array(8 * messageLength, key->params);
-    Torus32 msgT = modSwitchToTorus32(static_cast<int32_t>(msg.at(0)), Msize);
-    for (int16_t i = 0; i < msgLength; i++)
-    {
-        msgT = modSwitchToTorus32(static_cast<int32_t>(msg.at(i)), Msize);
-        lweSymEncrypt(ciphertext + i, msgT, alpha, key->lwe_key);
+// Base64 encoding function
+static const std::string base64_chars =
+    "ABCDEFGHIJKLMNOPQRSTUVWXYZ"
+    "abcdefghijklmnopqrstuvwxyz"
+    "0123456789+/";
+
+std::string base64_encode(const unsigned char* data, size_t len) {
+    std::string ret;
+    int val = 0;
+    int valb = -6;
+    for (size_t i = 0; i < len; i++) {
+        val = (val << 8) + data[i];
+        valb += 8;
+        while (valb >= 0) {
+            ret.push_back(base64_chars[(val >> valb) & 0x3F]);
+            valb -= 6;
+        }
     }
-    return ciphertext;
+    if (valb > -6) ret.push_back(base64_chars[((val << 8) >> (valb + 8)) & 0x3F]);
+    while (ret.size() % 4) ret.push_back('=');
+    return ret;
 }
 
-string decrypt8BitASCIIString(LweSample *ciphertext, const int16_t msgLength, const TFheGateBootstrappingSecretKeySet *key)
-{
-    Torus32 decryptedT;
-    string decrypted;
-    for (int16_t i = 0; i < msgLength; i++)
-    {
-        decryptedT = lweSymDecrypt(ciphertext + i, key->lwe_key, Msize);
-        decryptedT = lwePhase(ciphertext + i, key->lwe_key);
-        decrypted.push_back(static_cast<char>(modSwitchFromTorus32(decryptedT, Msize)));
+std::string base64_decode(const std::string &in) {
+    std::string out;
+    std::vector<int> T(256, -1);
+    for (int i = 0; i < 64; i++) T["ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789+/"[i]] = i;
+    int val = 0, valb = -8;
+    for (unsigned char c : in) {
+        if (T[c] == -1) break;
+        val = (val << 6) + T[c];
+        valb += 6;
+        if (valb >= 0) {
+            out.push_back(char((val >> valb) & 0xFF));
+            valb -= 8;
+        }
     }
-    return decrypted;
+    return out;
 }
 
-bool compareStrings(string &msg1, string &msg2)
-{
-    if (msg1.length() != msg2.length())
-        return false;
-    for (int i = 0; i < static_cast<int>(msg1.length()); i++)
-    {
-        if (msg1.at(i) != msg2.at(i))
-            return false;
-    }
-    return true;
-}
+extern "C" const char* addCiphertexts(const char* base64_ciphertext1, const char* base64_ciphertext2, const char* base64_public_key);
+const char* addCiphertexts(const char* base64_ciphertext1, const char* base64_ciphertext2, const char* base64_public_key) {
+    std::string decodedCiphertext1 = base64_decode(base64_ciphertext1);
+    std::string decodedCiphertext2 = base64_decode(base64_ciphertext2);
+    std::string decodedPublicKey = base64_decode(base64_public_key);
 
-bool compareCiphertexts(LweSample *ciphertext1, LweSample *ciphertext2, const int16_t msgLength, const TFheGateBootstrappingSecretKeySet *key)
-{
-    Torus32 decryptedT1;
-    Torus32 decryptedT2;
-    for (int16_t i = 0; i < msgLength; i++)
-    {
-        decryptedT1 = lweSymDecrypt(ciphertext1 + i, key->lwe_key, Msize);
-        decryptedT2 = lweSymDecrypt(ciphertext2 + i, key->lwe_key, Msize);
-        if (decryptedT1 != decryptedT2)
-            return false;
-    }
-    return true;
-}
+    std::istringstream iss1(decodedCiphertext1);
+    std::istringstream iss2(decodedCiphertext2);
+    std::istringstream issPublicKey(decodedPublicKey);
 
-extern "C" int tfhe_test();
-int tfhe_test()
-{
-    std::cout << "********** EOC TFHE App Started **************" << std::endl;
-    clock_t start = clock();
-    cout << "Generating keyset..." << endl;
+    TFheGateBootstrappingCloudKeySet* cloud_keyset = new_tfheGateBootstrappingCloudKeySet_fromStream(issPublicKey);
 
-    TFheGateBootstrappingParameterSet *params = new_default_gate_bootstrapping_parameters(minimum_lambda);
-    // const LweParams *lweParams = params->in_out_params;
-    // generate the secret keyset
-    TFheGateBootstrappingSecretKeySet *keyset = new_random_gate_bootstrapping_secret_keyset(params);
-    // generate the cloud keyset
-    TFheGateBootstrappingCloudKeySet *cloud_keyset = const_cast<TFheGateBootstrappingCloudKeySet *>(&keyset->cloud);
-     // export the secret key to file for later use
-    // export the ciphertexts to a file
-    {
-        std::ofstream ofs{"keyset.data", std::ios::binary};
-        cereal::PortableBinaryOutputArchive ar(ofs);
-        ar(keyset);
-    };
-    clock_t end = clock();
-    cout << "Keyset generated in: " << end - start << " microseconds" << endl;
-    int32_t secret1 = 420;
-    int32_t secret2 = 69;
-    string str1 = "Hello Weavers, I've been FHE decrypted for you to see me!";
-    string str2 = "Hello Weavers, I've been FHE decrypted for you to see me!";
-    if (compareStrings(str1, str2))
-        cout << "Strings should be equal" << endl;
-    else
-        cout << "Strings shouldn't be equal" << endl;
-    string msg = "Hello Weavers, I've been FHE decrypted for you to see me!";
-    cout << "Encrypting secrets: " << secret1 << " and " << secret2 << endl;
-    start = clock();
-    Torus32 secret1T = modSwitchToTorus32(secret1, Msize); // dtot32(secret1);//
-    Torus32 secret2T = modSwitchToTorus32(secret2, Msize);
-    LweSample *ciphertext1 = new_gate_bootstrapping_ciphertext(params);
-    LweSample *ciphertext2 = new_gate_bootstrapping_ciphertext(params);
-    LweSample *ciphertextSum = new_gate_bootstrapping_ciphertext(params);
-    LweSample *ciphertextDiff = new_gate_bootstrapping_ciphertext(params);
-    LweSample *ciphertextMsg = new_gate_bootstrapping_ciphertext_array(msg.length(), params);
-    LweSample *str1Cipher = new_gate_bootstrapping_ciphertext_array(str1.length(), params);
-    LweSample *str2Cipher = new_gate_bootstrapping_ciphertext_array(str2.length(), params);
-    str1Cipher = encrypt8BitASCIIString(str1, str1.length(), keyset);
-    str2Cipher = encrypt8BitASCIIString(str2, str2.length(), keyset);
-    ciphertextMsg = encrypt8BitASCIIString(msg, msg.length(), keyset);
-    lweSymEncrypt(ciphertext1, secret1T, alpha, keyset->lwe_key);
-    lweSymEncrypt(ciphertext2, secret2T, alpha, keyset->lwe_key);
-    secret1T = lwePhase(ciphertext1, keyset->lwe_key);
-    secret2T = lwePhase(ciphertext2, keyset->lwe_key);
-    lweCopy(ciphertextSum, ciphertext1, params->in_out_params);
-    lweCopy(ciphertextDiff, ciphertext1, params->in_out_params);
-    end = clock();
-    cout << "Secrets encrypted in " << end - start << " microseconds" << endl;
-    cout << "Start computations..." << endl;
-    start = clock();
+    LweSample *ciphertext1 = new_gate_bootstrapping_ciphertext(cloud_keyset->params);
+    LweSample *ciphertext2 = new_gate_bootstrapping_ciphertext(cloud_keyset->params);
+    LweSample *ciphertextSum = new_gate_bootstrapping_ciphertext(cloud_keyset->params);
+
+    import_lweSample_fromStream(iss1, ciphertext1, cloud_keyset->params->in_out_params);
+    import_lweSample_fromStream(iss2, ciphertext2, cloud_keyset->params->in_out_params);
+
+    lweCopy(ciphertextSum, ciphertext1, cloud_keyset->params->in_out_params);
     lweAddTo(ciphertextSum, ciphertext2, cloud_keyset->params->in_out_params);
+
+    std::ostringstream oss;
+    export_lweSample_toStream(oss, ciphertextSum, cloud_keyset->params->in_out_params);
+
+    std::string encodedCiphertextSum = base64_encode(reinterpret_cast<const unsigned char*>(oss.str().data()), oss.str().size());
+
+    delete_gate_bootstrapping_ciphertext(ciphertext1);
+    delete_gate_bootstrapping_ciphertext(ciphertext2);
+    delete_gate_bootstrapping_ciphertext(ciphertextSum);
+    delete_gate_bootstrapping_cloud_keyset(cloud_keyset);
+
+    char* result = (char*)malloc(encodedCiphertextSum.size() + 1);
+    strcpy(result, encodedCiphertextSum.c_str());
+    return result;
+}
+
+extern "C" const char* subtractCiphertexts(const char* base64_ciphertext1, const char* base64_ciphertext2, const char* base64_public_key);
+const char* subtractCiphertexts(const char* base64_ciphertext1, const char* base64_ciphertext2, const char* base64_public_key) {
+    std::string decodedCiphertext1 = base64_decode(base64_ciphertext1);
+    std::string decodedCiphertext2 = base64_decode(base64_ciphertext2);
+    std::string decodedPublicKey = base64_decode(base64_public_key);
+
+    std::istringstream iss1(decodedCiphertext1);
+    std::istringstream iss2(decodedCiphertext2);
+    std::istringstream issPublicKey(decodedPublicKey);
+
+    TFheGateBootstrappingCloudKeySet* cloud_keyset = new_tfheGateBootstrappingCloudKeySet_fromStream(issPublicKey);
+
+    LweSample *ciphertext1 = new_gate_bootstrapping_ciphertext(cloud_keyset->params);
+    LweSample *ciphertext2 = new_gate_bootstrapping_ciphertext(cloud_keyset->params);
+    LweSample *ciphertextDiff = new_gate_bootstrapping_ciphertext(cloud_keyset->params);
+
+    import_lweSample_fromStream(iss1, ciphertext1, cloud_keyset->params->in_out_params);
+    import_lweSample_fromStream(iss2, ciphertext2, cloud_keyset->params->in_out_params);
+
+    lweCopy(ciphertextDiff, ciphertext1, cloud_keyset->params->in_out_params);
     lweSubTo(ciphertextDiff, ciphertext2, cloud_keyset->params->in_out_params);
-    if (compareCiphertexts(str1Cipher, str2Cipher, str1.length(), keyset))
-        cout << "Ciphertexts are equal" << endl;
-    else
-        cout << "Ciphertexts are not equal" << endl;
-    end = clock();
-    cout << "Computations finished in " << end - start << " microseconds" << endl;
-    start = clock();
-    cout << "Decrypting results..." << endl;
-    Torus32 decrypted1 = lweSymDecrypt(ciphertextSum, keyset->lwe_key, Msize);
-    Torus32 decrypted2 = lweSymDecrypt(ciphertextDiff, keyset->lwe_key, Msize);
 
-    int32_t decryptedSecret1 = modSwitchFromTorus32(decrypted1, Msize);
-    int32_t decryptedSecret2 = modSwitchFromTorus32(decrypted2, Msize);
+    std::ostringstream oss;
+    export_lweSample_toStream(oss, ciphertextDiff, cloud_keyset->params->in_out_params);
 
-    string decryptedMsg = decrypt8BitASCIIString(ciphertextMsg, msg.length(), keyset);
+    std::string encodedCiphertextDiff = base64_encode(reinterpret_cast<const unsigned char*>(oss.str().data()), oss.str().size());
 
-    end = clock();
-    cout << "Sum is " << decryptedSecret1 << endl;
-    cout << "Diff is " << decryptedSecret2 << endl;
-    cout << "Decrypted message is: " << decryptedMsg << endl;
-    cout << "Decryption finished in " << end - start << " microseconds" << endl;
-    cout << "********** EOC TFHE App Finished **************" << endl;
-    return 0;
+    delete_gate_bootstrapping_ciphertext(ciphertext1);
+    delete_gate_bootstrapping_ciphertext(ciphertext2);
+    delete_gate_bootstrapping_ciphertext(ciphertextDiff);
+    delete_gate_bootstrapping_cloud_keyset(cloud_keyset);
+
+    char* result = (char*)malloc(encodedCiphertextDiff.size() + 1);
+    strcpy(result, encodedCiphertextDiff.c_str());
+    return result;
+}
+
+// Bind the functions using EMSCRIPTEN_BINDINGS
+EMSCRIPTEN_BINDINGS(tfhe_module) {
+    emscripten::function("addCiphertexts", &addCiphertexts);
+    emscripten::function("subtractCiphertexts", &subtractCiphertexts);
 }

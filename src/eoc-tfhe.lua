@@ -1,12 +1,16 @@
 local Tfhe = {}
-Tfhe.backend = require("tfhe")
+Tfhe.backend = require("eoc_tfhe")
 
-function Tfhe.info()
-    return "A Fully Homomorphic Library over Torus."
+function Tfhe.eocTfheInfo()
+    return Tfhe.backend.eocTfheInfo();
 end
 
-function Tfhe.test()
-    return Tfhe.backend.test()
+function Tfhe.addCiphertexts(cipher1, cipher2, public_key)
+    return Tfhe.backend.addCiphertexts(cipher1, cipher2, public_key);
+end
+
+function Tfhe.subtractCiphertexts(cipher1, cipher2, public_key)
+    return Tfhe.backend.addCiphertexts(cipher1, cipher2, public_key);
 end
 
 _G.Tfhe = Tfhe

@@ -207,7 +207,7 @@ def main():
     # cmd.extend(['-I', '/TFHEpp/include', '-I', '/TFHEpp/thirdparties/spqlios', '-I','/TFHEpp/thirdparties/cereal/include'])
     # cmd.extend(['/TFHEpp/libtfhe++.a', '/TFHEpp/eoc-tfhe-run.o'])
     # Append tfhe library to the command
-    cmd.extend(['-I', '/tfhe/src/include', '-I', '/tfhe/src/libtfhe/fft_processors/nayuki', '-I', '/tfhe/src/libtfhe/cereal/include/cereal'])
+    cmd.extend(['-I', '/tfhe/src/include', '-I', '/tfhe/src/libtfhe/fft_processors/nayuki'])
     cmd.extend(['/tfhe/libtfhe.a', '/tfhe/eoc-tfhe-run.o'])
     cmd.extend(['-s', 'EXPORTED_FUNCTIONS=["_malloc"]'])
     cmd.extend(['-lm', '-ldl', '-o', definition.get_output_file(), '-s', 'EXPORTED_RUNTIME_METHODS=["cwrap"]'])
