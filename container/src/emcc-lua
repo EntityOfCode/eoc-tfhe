@@ -199,10 +199,10 @@ def main():
     # cmd.extend(['-I', '/opt'])
     cmd.extend([quote(v.filepath) for v in link_libraries])
     # Append Llama2.c modules to linked libraries
-    cmd.extend(['-I', '/llama.cpp', '-I', '/llama.cpp/common'])
-    cmd.extend(['/opt/llama-bindings.c', '/opt/stream.c', '/opt/stream-bindings.c', '/opt/eoc-tfhe-bindings.c'])
+    # cmd.extend(['-I', '/llama.cpp', '-I', '/llama.cpp/common'])'/opt/llama-bindings.c', 
+    cmd.extend(['/opt/stream.c', '/opt/stream-bindings.c', '/opt/eoc-tfhe-bindings.c'])
     # Append llama.cpp library to the command
-    cmd.extend(['/llama.cpp/libllama.a', '/llama.cpp/common/libcommon.a', '/llama.cpp/llama-run.o'])
+    # cmd.extend(['/llama.cpp/libllama.a', '/llama.cpp/common/libcommon.a', '/llama.cpp/llama-run.o'])
     # # Append tfhe++ library to the command
     # cmd.extend(['-I', '/TFHEpp/include', '-I', '/TFHEpp/thirdparties/spqlios', '-I','/TFHEpp/thirdparties/cereal/include'])
     # cmd.extend(['/TFHEpp/libtfhe++.a', '/TFHEpp/eoc-tfhe-run.o'])

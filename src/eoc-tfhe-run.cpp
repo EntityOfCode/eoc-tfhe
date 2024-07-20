@@ -17,9 +17,12 @@
 
 using namespace std;
 
-// int32_t minimum_lambda = 100;
-// static const int32_t Msize = (1LL << 31) - 1;
-// static const double alpha = 1. / (10. * Msize);
+int32_t minimum_lambda = 100;
+static const int32_t Msize = (1LL << 31) - 1;
+static const double alpha = 1. / (10. * Msize);
+
+TFheGateBootstrappingSecretKeySet* globalSecretKey = nullptr;
+TFheGateBootstrappingCloudKeySet* globalPublicKey = nullptr;
 
 // Base64 encoding function
 static const std::string base64_chars =
@@ -61,82 +64,159 @@ std::string base64_decode(const std::string &in) {
     return out;
 }
 
-extern "C" const char* addCiphertexts(const char* base64_ciphertext1, const char* base64_ciphertext2, const char* base64_public_key);
-const char* addCiphertexts(const char* base64_ciphertext1, const char* base64_ciphertext2, const char* base64_public_key) {
-    std::string decodedCiphertext1 = base64_decode(base64_ciphertext1);
-    std::string decodedCiphertext2 = base64_decode(base64_ciphertext2);
-    std::string decodedPublicKey = base64_decode(base64_public_key);
-
-    std::istringstream iss1(decodedCiphertext1);
-    std::istringstream iss2(decodedCiphertext2);
-    std::istringstream issPublicKey(decodedPublicKey);
-
-    TFheGateBootstrappingCloudKeySet* cloud_keyset = new_tfheGateBootstrappingCloudKeySet_fromStream(issPublicKey);
-
-    LweSample *ciphertext1 = new_gate_bootstrapping_ciphertext(cloud_keyset->params);
-    LweSample *ciphertext2 = new_gate_bootstrapping_ciphertext(cloud_keyset->params);
-    LweSample *ciphertextSum = new_gate_bootstrapping_ciphertext(cloud_keyset->params);
-
-    import_lweSample_fromStream(iss1, ciphertext1, cloud_keyset->params->in_out_params);
-    import_lweSample_fromStream(iss2, ciphertext2, cloud_keyset->params->in_out_params);
-
-    lweCopy(ciphertextSum, ciphertext1, cloud_keyset->params->in_out_params);
-    lweAddTo(ciphertextSum, ciphertext2, cloud_keyset->params->in_out_params);
-
+extern "C" char* generateSecretKey() {
+    TFheGateBootstrappingParameterSet* params = new_default_gate_bootstrapping_parameters(minimum_lambda);
+    globalSecretKey = new_random_gate_bootstrapping_secret_keyset(params);
     std::ostringstream oss;
-    export_lweSample_toStream(oss, ciphertextSum, cloud_keyset->params->in_out_params);
+    export_tfheGateBootstrappingSecretKeySet_toStream(oss, globalSecretKey);
 
-    std::string encodedCiphertextSum = base64_encode(reinterpret_cast<const unsigned char*>(oss.str().data()), oss.str().size());
-
-    delete_gate_bootstrapping_ciphertext(ciphertext1);
-    delete_gate_bootstrapping_ciphertext(ciphertext2);
-    delete_gate_bootstrapping_ciphertext(ciphertextSum);
-    delete_gate_bootstrapping_cloud_keyset(cloud_keyset);
-
-    char* result = (char*)malloc(encodedCiphertextSum.size() + 1);
-    strcpy(result, encodedCiphertextSum.c_str());
-    return result;
+    std::string encoded = base64_encode(reinterpret_cast<const unsigned char*>(oss.str().data()), oss.str().size());
+    char* msg = (char*)malloc(encoded.size() + 1);
+    if (msg == nullptr) {
+        return nullptr;
+    }
+    strcpy(msg, encoded.c_str());
+    return msg;
 }
 
-extern "C" const char* subtractCiphertexts(const char* base64_ciphertext1, const char* base64_ciphertext2, const char* base64_public_key);
-const char* subtractCiphertexts(const char* base64_ciphertext1, const char* base64_ciphertext2, const char* base64_public_key) {
-    std::string decodedCiphertext1 = base64_decode(base64_ciphertext1);
-    std::string decodedCiphertext2 = base64_decode(base64_ciphertext2);
-    std::string decodedPublicKey = base64_decode(base64_public_key);
+extern "C" char* generatePublicKey(const char* base64SecretKey) {
+    std::string decodedKey = base64_decode(base64SecretKey);
+    std::istringstream iss(decodedKey);
+    TFheGateBootstrappingSecretKeySet* secretKey = new_tfheGateBootstrappingSecretKeySet_fromStream(iss);
+    globalPublicKey = const_cast<TFheGateBootstrappingCloudKeySet*>(&secretKey->cloud);
+
+    std::ostringstream oss;
+    export_tfheGateBootstrappingCloudKeySet_toStream(oss, globalPublicKey);
+
+    std::string encoded = base64_encode(reinterpret_cast<const unsigned char*>(oss.str().data()), oss.str().size());
+    char* msg = (char*)malloc(encoded.size() + 1);
+    if (msg == nullptr) {
+        return nullptr;
+    }
+    strcpy(msg, encoded.c_str());
+    return msg;
+}
+
+extern "C" char* encryptInteger(int32_t value, const char* base64SecretKey = nullptr) {
+    if (base64SecretKey != nullptr) {
+        std::string decodedKey = base64_decode(base64SecretKey);
+        std::istringstream iss(decodedKey);
+        globalSecretKey = new_tfheGateBootstrappingSecretKeySet_fromStream(iss);
+    }
+    Torus32 valueT = modSwitchToTorus32(value, Msize);
+    LweSample* ciphertext = new_gate_bootstrapping_ciphertext(globalSecretKey->params);
+    lweSymEncrypt(ciphertext, valueT, alpha, globalSecretKey->lwe_key);
+
+    std::ostringstream oss;
+    export_lweSample_toStream(oss, ciphertext, globalSecretKey->params->in_out_params);
+
+    std::string encodedCiphertext = base64_encode(reinterpret_cast<const unsigned char*>(oss.str().data()), oss.str().size());
+    char* msg = (char*)malloc(encodedCiphertext.size() + 1);
+    if (msg == nullptr) {
+        return nullptr;
+    }
+    strcpy(msg, encodedCiphertext.c_str());
+    return msg;
+}
+
+extern "C" int32_t decryptInteger(const char* base64Ciphertext, const char* base64SecretKey = nullptr) {
+    if (base64SecretKey != nullptr) {
+        std::string decodedKey = base64_decode(base64SecretKey);
+        std::istringstream iss(decodedKey);
+        globalSecretKey = new_tfheGateBootstrappingSecretKeySet_fromStream(iss);
+    }
+
+    std::string decodedCiphertext = base64_decode(base64Ciphertext);
+    std::istringstream iss(decodedCiphertext);
+
+    LweSample* ciphertext = new_gate_bootstrapping_ciphertext(globalSecretKey->params);
+    import_lweSample_fromStream(iss, ciphertext, globalSecretKey->params->in_out_params);
+
+    Torus32 decrypted = lweSymDecrypt(ciphertext, globalSecretKey->lwe_key, Msize);
+    int32_t value = modSwitchFromTorus32(decrypted, Msize);
+    return value;
+}
+
+extern "C" char* addCiphertexts(const char* base64Ciphertext1, const char* base64Ciphertext2, const char* base64PublicKey = nullptr) {
+    if (base64PublicKey != nullptr) {
+        std::string decodedKey = base64_decode(base64PublicKey);
+        std::istringstream iss(decodedKey);
+        globalPublicKey = new_tfheGateBootstrappingCloudKeySet_fromStream(iss);
+    }
+
+    std::string decodedCiphertext1 = base64_decode(base64Ciphertext1);
+    std::string decodedCiphertext2 = base64_decode(base64Ciphertext2);
 
     std::istringstream iss1(decodedCiphertext1);
     std::istringstream iss2(decodedCiphertext2);
-    std::istringstream issPublicKey(decodedPublicKey);
 
-    TFheGateBootstrappingCloudKeySet* cloud_keyset = new_tfheGateBootstrappingCloudKeySet_fromStream(issPublicKey);
+    LweSample* ciphertext1 = new_gate_bootstrapping_ciphertext(globalPublicKey->params);
+    LweSample* ciphertext2 = new_gate_bootstrapping_ciphertext(globalPublicKey->params);
+    LweSample* ciphertextSum = new_gate_bootstrapping_ciphertext(globalPublicKey->params);
 
-    LweSample *ciphertext1 = new_gate_bootstrapping_ciphertext(cloud_keyset->params);
-    LweSample *ciphertext2 = new_gate_bootstrapping_ciphertext(cloud_keyset->params);
-    LweSample *ciphertextDiff = new_gate_bootstrapping_ciphertext(cloud_keyset->params);
+    import_lweSample_fromStream(iss1, ciphertext1, globalPublicKey->params->in_out_params);
+    import_lweSample_fromStream(iss2, ciphertext2, globalPublicKey->params->in_out_params);
 
-    import_lweSample_fromStream(iss1, ciphertext1, cloud_keyset->params->in_out_params);
-    import_lweSample_fromStream(iss2, ciphertext2, cloud_keyset->params->in_out_params);
-
-    lweCopy(ciphertextDiff, ciphertext1, cloud_keyset->params->in_out_params);
-    lweSubTo(ciphertextDiff, ciphertext2, cloud_keyset->params->in_out_params);
+    lweCopy(ciphertextSum, ciphertext1, globalPublicKey->params->in_out_params);
+    lweAddTo(ciphertextSum, ciphertext2, globalPublicKey->params->in_out_params);
 
     std::ostringstream oss;
-    export_lweSample_toStream(oss, ciphertextDiff, cloud_keyset->params->in_out_params);
+    export_lweSample_toStream(oss, ciphertextSum, globalPublicKey->params->in_out_params);
+
+    std::string encodedCiphertextSum = base64_encode(reinterpret_cast<const unsigned char*>(oss.str().data()), oss.str().size());
+    char* msg = (char*)malloc(encodedCiphertextSum.size() + 1);
+    if (msg == nullptr) {
+        return nullptr;
+    }
+    strcpy(msg, encodedCiphertextSum.c_str());
+    return msg;
+}
+
+extern "C" char* subtractCiphertexts(const char* base64Ciphertext1, const char* base64Ciphertext2, const char* base64PublicKey = nullptr) {
+    if (base64PublicKey != nullptr) {
+        std::string decodedKey = base64_decode(base64PublicKey);
+        std::istringstream iss(decodedKey);
+        globalPublicKey = new_tfheGateBootstrappingCloudKeySet_fromStream(iss);
+    }
+
+    std::string decodedCiphertext1 = base64_decode(base64Ciphertext1);
+    std::string decodedCiphertext2 = base64_decode(base64Ciphertext2);
+
+    std::istringstream iss1(decodedCiphertext1);
+    std::istringstream iss2(decodedCiphertext2);
+
+    LweSample* ciphertext1 = new_gate_bootstrapping_ciphertext(globalPublicKey->params);
+    LweSample* ciphertext2 = new_gate_bootstrapping_ciphertext(globalPublicKey->params);
+    LweSample* ciphertextDiff = new_gate_bootstrapping_ciphertext(globalPublicKey->params);
+
+    import_lweSample_fromStream(iss1, ciphertext1, globalPublicKey->params->in_out_params);
+    import_lweSample_fromStream(iss2, ciphertext2, globalPublicKey->params->in_out_params);
+
+    lweCopy(ciphertextDiff, ciphertext1, globalPublicKey->params->in_out_params);
+    lweSubTo(ciphertextDiff, ciphertext2, globalPublicKey->params->in_out_params);
+
+    std::ostringstream oss;
+    export_lweSample_toStream(oss, ciphertextDiff, globalPublicKey->params->in_out_params);
 
     std::string encodedCiphertextDiff = base64_encode(reinterpret_cast<const unsigned char*>(oss.str().data()), oss.str().size());
+    char* msg = (char*)malloc(encodedCiphertextDiff.size() + 1);
+    if (msg == nullptr) {
+        return nullptr;
+    }
+    strcpy(msg, encodedCiphertextDiff.c_str());
+    return msg;
+}
 
-    delete_gate_bootstrapping_ciphertext(ciphertext1);
-    delete_gate_bootstrapping_ciphertext(ciphertext2);
-    delete_gate_bootstrapping_ciphertext(ciphertextDiff);
-    delete_gate_bootstrapping_cloud_keyset(cloud_keyset);
-
-    char* result = (char*)malloc(encodedCiphertextDiff.size() + 1);
-    strcpy(result, encodedCiphertextDiff.c_str());
-    return result;
+extern "C" void info() {
+    std::cout << "TFHE Library: Enabling fully homomorphic encryption computations on encrypted data." << std::endl;
 }
 
 // Bind the functions using EMSCRIPTEN_BINDINGS
 EMSCRIPTEN_BINDINGS(tfhe_module) {
-    emscripten::function("addCiphertexts", &addCiphertexts);
-    emscripten::function("subtractCiphertexts", &subtractCiphertexts);
+    emscripten::function("generateSecretKey", &generateSecretKey);
+    emscripten::function("generatePublicKey", &generatePublicKey);
+    emscripten::function("encryptInteger", emscripten::select_overload<std::string(int)>(&encryptInteger));
+    emscripten::function("decryptInteger", emscripten::select_overload<int(const std::string&)>(&decryptInteger));
+    emscripten::function("addCiphertexts", emscripten::select_overload<std::string(const std::string&, const std::string&)>(&addCiphertexts));
+    emscripten::function("subtractCiphertexts", emscripten::select_overload<std::string(const std::string&, const std::string&)>(&subtractCiphertexts));
 }

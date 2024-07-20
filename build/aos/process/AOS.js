@@ -4051,11 +4051,6 @@ var __tzset_js = function(timezone, daylight, std_name, dst_name) {
 
 var _emscripten_date_now = () => Date.now();
 
-function _emscripten_err(str) {
- str = bigintToI53Checked(str);
- return err(UTF8ToString(str));
-}
-
 var getHeapMax = () => 17179869184;
 
 var _emscripten_get_heap_max = () => BigInt(getHeapMax());
@@ -4958,7 +4953,6 @@ var wasmImports = {
  /** @export */ _munmap_js: __munmap_js,
  /** @export */ _tzset_js: __tzset_js,
  /** @export */ emscripten_date_now: _emscripten_date_now,
- /** @export */ emscripten_err: _emscripten_err,
  /** @export */ emscripten_get_heap_max: _emscripten_get_heap_max,
  /** @export */ emscripten_get_now: _emscripten_get_now,
  /** @export */ emscripten_resize_heap: _emscripten_resize_heap,
@@ -5208,12 +5202,6 @@ var dynCall_vjjjiij = Module["dynCall_vjjjiij"] = createExportWrapper("dynCall_v
 
 var dynCall_vjjjjii = Module["dynCall_vjjjjii"] = createExportWrapper("dynCall_vjjjjii", 7);
 
-var dynCall_ifj = Module["dynCall_ifj"] = createExportWrapper("dynCall_ifj", 3);
-
-var dynCall_vijjjjjji = Module["dynCall_vijjjjjji"] = createExportWrapper("dynCall_vijjjjjji", 9);
-
-var dynCall_vjjjjj = Module["dynCall_vjjjjj"] = createExportWrapper("dynCall_vjjjjj", 6);
-
 var dynCall_djj = Module["dynCall_djj"] = createExportWrapper("dynCall_djj", 3);
 
 var dynCall_vjjd = Module["dynCall_vjjd"] = createExportWrapper("dynCall_vjjd", 4);
@@ -5226,9 +5214,9 @@ var _asyncify_start_rewind = createExportWrapper("asyncify_start_rewind", 1);
 
 var _asyncify_stop_rewind = createExportWrapper("asyncify_stop_rewind", 0);
 
-var ___start_em_js = Module["___start_em_js"] = 570432;
+var ___start_em_js = Module["___start_em_js"] = 466508;
 
-var ___stop_em_js = Module["___stop_em_js"] = 570858;
+var ___stop_em_js = Module["___stop_em_js"] = 466934;
 
 function invoke_vjj(index, a1, a2) {
  var sp = stackSave();

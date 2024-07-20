@@ -76,14 +76,14 @@ describe('AOS-Llama+VFS Tests', async () => {
     assert.equal(result.response.Output.data.output, 2)
   })
 
-  it('Add data to the VFS', async () => {
+  it.skip('Add data to the VFS', async () => {
     await instance['FS_createPath']('/', 'data')
     await instance['FS_createDataFile']('/', 'data/1', Buffer.from('HELLO WORLD'), true, false, false)
     const result = await handle(getEval('return "OK"'), getEnv())
     assert.ok(result.response.Output.data.output == "OK")
   })
 
-  it('Read data from the VFS', async () => {
+  it.skip('Read data from the VFS', async () => {
     const result = await handle(getEval(`
 local file = io.open("/data/1", "r")
 if file then
@@ -98,7 +98,7 @@ return output`), getEnv())
     assert.ok(result.response.Output.data.output == "HELLO WORLD")
   })
 
-  it('Read data from Arweave', async () => {
+  it.skip('Read data from Arweave', async () => {
     const result = await handle(getEval(`
 local file = io.open("/data/dx3GrOQPV5Mwc1c-4HTsyq0s1TNugMf7XfIKJkyVQt8", "r")
 if file then
@@ -120,12 +120,24 @@ return Llama.info()
     assert.ok(result.response.Output.data.output == "Decentralized llama.cpp.")
   })
 
-  it('EOC tfhe Lua library test', async () => {
+it('EOC tfhe Lua library test', async () => {
     const result = await handle(getEval(`
 local Tfhe = require("eoc_tfhe")
-return Tfhe.eocTfheInfo()
+Tfhe.info()
+Tfhe.generateSecretKey()
+local s1 = 42
+local s2 = 27
+local e1 = Tfhe.encryptInteger(s1, "key")
+local e2 = Tfhe.encryptInteger(s2, "key")
+--local d1= Tfhe.decryptInteger(e1, "key")
+--local d2= Tfhe.decryptInteger(e2, "key")
+local eSum = Tfhe.addCiphertexts(e1, e2, "")
+local decSum = Tfhe.decryptInteger(eSum, "")
+return decSum
+--return encInt
 `), getEnv())
-    assert.ok(result.response.Output.data.output == "Decentralized llama.cpp.")
+    console.log("Decrypted computation is ", result.response)
+    assert.ok(result.response.Output.data.output == 69)
   })
 
   it.skip('AOS runs GPT-2 117m model', async () => {

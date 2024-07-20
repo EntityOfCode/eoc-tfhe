@@ -25,11 +25,11 @@ set(CMAKE_C_FLAGS  "${CMAKE_C_FLAGS} -std=c99 ")
 set(CMAKE_CXX_FLAGS_DEBUG "${CLANG_FLAGS} -std=gnu++11 -g -O0 -Wall -Werror")
 set(CMAKE_C_FLAGS_DEBUG "-g -O0 -Wall -Werror")
 
-set(CMAKE_CXX_FLAGS_OPTIM "${CLANG_FLAGS} -std=gnu++11 -g0 -m64 -O2 -funroll-loops -Wall -Werror")
-set(CMAKE_C_FLAGS_OPTIM "-g0 -m64 -O3 -DNDEBUG -funroll-loops -Wall -Werror")
+set(CMAKE_CXX_FLAGS_OPTIM "${CLANG_FLAGS} -std=gnu++11 -g0 -O2 -funroll-loops -Wall -Werror")
+set(CMAKE_C_FLAGS_OPTIM "-g0 -O3 -DNDEBUG -funroll-loops -Wall -Werror")
 
-set(CMAKE_CXX_FLAGS_RELEASE "${CLANG_FLAGS} -std=gnu++11 -g0 -m64 -O2 -funroll-loops -Wall -Werror")
-set(CMAKE_C_FLAGS_RELEASE "-g0 -m64 -O3 -DNDEBUG -funroll-loops -Wall -Werror")
+set(CMAKE_CXX_FLAGS_RELEASE "${CLANG_FLAGS} -std=gnu++11 -g0 -O2 -funroll-loops -Wall -Werror")
+set(CMAKE_C_FLAGS_RELEASE "-g0 -O3 -DNDEBUG -funroll-loops -Wall -Werror")
 
 if (ENABLE_NAYUKI_PORTABLE)
 list(APPEND FFT_PROCESSORS "nayuki-portable")

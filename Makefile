@@ -10,9 +10,9 @@ EMXX_CFLAGS=-s MEMORY64=1 -O3 -g0 -msimd128 -fno-rtti \
 	-s EXPORTED_FUNCTIONS=_main -s EXPORTED_RUNTIME_METHODS=callMain -s \
 	NO_EXIT_RUNTIME=1 -Wno-unused-command-line-argument -Wno-experimental
 
-EMXX_EOC_FLAGS=-s MEMORY64=1 -g0\
+EMXX_EOC_FLAGS= -s MEMORY64=1 -g0\
 	-flto=full -s EXPORT_ALL=1 \
-	-s INITIAL_MEMORY=800MB \
+	-s FORCE_FILESYSTEM=1 -s INITIAL_MEMORY=800MB\
 	-s MAXIMUM_MEMORY=4GB -s ALLOW_MEMORY_GROWTH -s FORCE_FILESYSTEM=1 \
 	-s EXPORTED_FUNCTIONS=_main -s EXPORTED_RUNTIME_METHODS=callMain -s \
 	NO_EXIT_RUNTIME=1 -Wno-unused-command-line-argument -Wno-experimental
@@ -68,9 +68,9 @@ clean:
 
 build/aos/package.json: build
 	cd build; git submodule init; git submodule update --remote
-
-build/aos/process/AOS.wasm: libtfhe.a libllama.a build/llama.cpp/llama-run.o build/aos/package.json container 
-	docker run -v $(PWD)/build/aos/process:/src -v $(PWD)/build/llama.cpp:/llama.cpp -v $(PWD)/build/tfhe:/tfhe p3rmaw3b/ao emcc-lua $(if $(DEBUG),-e DEBUG=TRUE)
+# libllama.a build/llama.cpp/llama-run.o
+build/aos/process/AOS.wasm: libtfhe.a  build/aos/package.json container 
+	docker run -v $(PWD)/build/aos/process:/src -v $(PWD)/build/tfhe:/tfhe p3rmaw3b/ao emcc-lua $(if $(DEBUG),-e DEBUG=TRUE)
 
 build/llama.cpp: build
 	if [ ! -d "build/llama.cpp" ]; then \
@@ -99,9 +99,9 @@ eoc-JStfheLib.js:
 	docker run -v $(PWD)/build/tfhe:/tfhe p3rmaw3b/ao sh -c \
 	"cd /tfhe/src/eoc &&em++ eoc-tfhelib.cpp -o eoc-tfhelib.js -I ../include ../../libtfhe.a \
     -s EXPORTED_RUNTIME_METHODS='["ccall", "cwrap"]' \
-    --bind -s MODULARIZE=1 -s EXPORT_ES6=1 -s WASM=1 -s MEMORY64=1 \
-    -s ALLOW_MEMORY_GROWTH=1 -s INITIAL_MEMORY=800MB -s MAXIMUM_MEMORY=4GB \
-    -s ENVIRONMENT='node' -s SINGLE_FILE=1 -O3"
+    --bind -s MODULARIZE=1 -s EXPORT_ES6=1 -s WASM=1  \
+    -s INITIAL_MEMORY=800MB -s MAXIMUM_MEMORY=4GB -s ALLOW_MEMORY_GROWTH -s FORCE_FILESYSTEM=1 \
+	-s MEMORY64=1 -Wno-experimental"
 
 
 tfhe/unittest.js: libtfhe.a container
