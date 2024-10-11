@@ -14,7 +14,7 @@ set(CMAKE_ARCHIVE_OUTPUT_DIRECTORY ${CMAKE_SOURCE_DIR}/../)
 
 set(SOURCES
         eoc-tfhe-run.cpp
-        eoc-tfhelib.cpp
+        # eoc-tfhelib.cpp
         )
 
 # We build a specific unit and integration test for each fft processor

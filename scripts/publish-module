@@ -1,6 +1,6 @@
 #!/usr/bin/env node
 import fs from "fs";
-import Bundler from "@irys/sdk";
+import { TurboFactory } from '@ardrive/turbo-sdk';
 
 // load Arweave wallet
 const wallet = JSON.parse(
@@ -8,28 +8,34 @@ const wallet = JSON.parse(
 );
 
 const main = async () => {
-  const token = "arweave";
-  const bundler = new Bundler({
-    url: "https://turbo.ardrive.io", // URL of the node you want to connect to, https://turbo.ardrive.io will facilitate upload using ArDrive Turbo.
-    token, // Token used for payment and signing
-    key: wallet, // Arweave wallet
+  const turbo = TurboFactory.authenticated({ privateKey: wallet });
+
+  // prep file for upload
+  const filePath = './AOS.wasm';
+  const fileSize = fs.statSync(filePath).size;
+
+  const tags = [
+    { name: 'Content-Type', value: 'application/wasm' },
+    { name: 'Data-Protocol', value: 'ao' },
+    { name: 'Type', value: 'Module' },
+    { name: 'Variant', value: 'ao.TN.1' },
+    { name: 'Module-Format', value: 'wasm64-unknown-emscripten-draft_2024_02_15' },
+    { name: 'Input-Encoding', value: 'JSON-1' },
+    { name: 'Output-Encoding', value: 'JSON-1' },
+    { name: 'Memory-Limit', value: '1-gb' },
+    { name: 'Compute-Limit', value: '9000000000000' },
+  ]
+
+  const uploadResult = await turbo.uploadFile({
+    fileStreamFactory: () => fs.createReadStream(filePath),
+    fileSizeFactory: () => fileSize,
+    dataItemOpts: {
+      tags,
+    },
   });
 
-  const receipt = await bundler.uploadFile("AOS.wasm", {
-    tags: [
-      { name: 'Content-Type', value: 'application/wasm' },
-      { name: 'Data-Protocol', value: 'ao' },
-      { name: 'Type', value: 'Module' },
-      { name: 'Variant', value: 'ao.TN.1' },
-      { name: 'Module-Format', value: 'wasm64-unknown-emscripten2' },
-      { name: 'Input-Encoding', value: 'JSON-1' },
-      { name: 'Output-Encoding', value: 'JSON-1' },
-      { name: 'Memory-Limit', value: '500-mb' },
-      { name: 'Compute-Limit', value: '9000000000000' },
-    ]
-  });
-  console.log(receipt);
-  console.log('ModuleID: ', receipt.id)
+  console.log(uploadResult)
+  console.log('ModuleID: ', uploadResult.id)
 }
 
 main()

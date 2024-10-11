@@ -10,6 +10,11 @@ function Tfhe.generateSecretKey()
     return Tfhe.backend.generateSecretKey()
 end
 
+function Tfhe.generatePublicKey()
+    -- io.stderr:write("Keys generation process started....\n")
+    return Tfhe.backend.generatePublicKey()
+end
+
 function Tfhe.encryptInteger(value, key)
     -- io.stderr:write("Trying to encrypt" .. value .. "\n")
     return Tfhe.backend.encryptInteger(value, key)

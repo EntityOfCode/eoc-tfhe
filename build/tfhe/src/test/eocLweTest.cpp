@@ -308,7 +308,8 @@ int main()
     TFheGateBootstrappingParameterSet *params = new_default_gate_bootstrapping_parameters(minimum_lambda);
     // const LweParams *lweParams = params->in_out_params;
     // generate the secret keyset
-    TFheGateBootstrappingSecretKeySet *keyset = new_random_gate_bootstrapping_secret_keyset(params);
+    TFheGateBootstrappingSecretKeySet *keyset1 = new_random_gate_bootstrapping_secret_keyset(params);
+    TFheGateBootstrappingSecretKeySet *keyset2 = new_random_gate_bootstrapping_secret_keyset(params);
     // cout << "Reading secret key from secretkeyset_export.dat";
     // FILE *Fsecret = fopen("secretkeyset_export.dat", "rb");
     // TFheGateBootstrappingSecretKeySet *keyset = new_tfheGateBootstrappingSecretKeySet_fromFile(Fsecret);
@@ -318,13 +319,13 @@ int main()
     // generate the cloud keyset
     // FILE *F = fopen("publickeyset_export.dat", "rb");
     // TFheGateBootstrappingCloudKeySet *cloud_keyset = new_tfheGateBootstrappingCloudKeySet_fromFile(F);
-    TFheGateBootstrappingCloudKeySet *cloud_keyset = const_cast<TFheGateBootstrappingCloudKeySet *>(&keyset->cloud);
+    TFheGateBootstrappingCloudKeySet *cloud_keyset1 = const_cast<TFheGateBootstrappingCloudKeySet *>(&keyset1->cloud);
     // serializeSecretKey(*keyset);
     // serializePublicKey(*cloud_keyset);
-    std::ostringstream oss;
-    export_tfheGateBootstrappingSecretKeySet_toStream(oss, keyset);
-    std::string str = oss.str();
-    cout << str << endl;
+    // std::ostringstream oss;
+    // export_tfheGateBootstrappingSecretKeySet_toStream(oss, keyset);
+    // std::string str = oss.str();
+    // cout << str << endl;
     clock_t end = clock();
     cout << "Keyset generated in: " << end - start << " microseconds" << endl;
     int32_t secret1 = 420;
@@ -347,13 +348,13 @@ int main()
     LweSample *ciphertextMsg = new_gate_bootstrapping_ciphertext_array(msg.length(), params);
     LweSample *str1Cipher = new_gate_bootstrapping_ciphertext_array(str1.length(), params);
     LweSample *str2Cipher = new_gate_bootstrapping_ciphertext_array(str2.length(), params);
-    str1Cipher = encrypt8BitASCIIString(str1, str1.length(), keyset);
-    str2Cipher = encrypt8BitASCIIString(str2, str2.length(), keyset);
-    ciphertextMsg = encrypt8BitASCIIString(msg, msg.length(), keyset);
-    lweSymEncrypt(ciphertext1, secret1T, alpha, keyset->lwe_key);
-    lweSymEncrypt(ciphertext2, secret2T, alpha, keyset->lwe_key);
-    secret1T = lwePhase(ciphertext1, keyset->lwe_key);
-    secret2T = lwePhase(ciphertext2, keyset->lwe_key);
+    str1Cipher = encrypt8BitASCIIString(str1, str1.length(), keyset1);
+    str2Cipher = encrypt8BitASCIIString(str2, str2.length(), keyset1);
+    ciphertextMsg = encrypt8BitASCIIString(msg, msg.length(), keyset1);
+    lweSymEncrypt(ciphertext1, secret1T, alpha, keyset1->lwe_key);
+    lweSymEncrypt(ciphertext2, secret2T, alpha, keyset2->lwe_key);
+    secret1T = lwePhase(ciphertext1, keyset1->lwe_key);
+    secret2T = lwePhase(ciphertext2, keyset1->lwe_key);
     lweCopy(ciphertextSum, ciphertext1, params->in_out_params);
     lweCopy(ciphertextDiff, ciphertext1, params->in_out_params);
     end = clock();
@@ -362,27 +363,35 @@ int main()
     start = clock();
     // FILE *F = fopen("publickeyset_export.dat", "wb");
     // TFheGateBootstrappingCloudKeySet *new_cloud_keyset = new_tfheGateBootstrappingCloudKeySet_fromFile(F);
-    lweAddTo(ciphertextSum, ciphertext2, cloud_keyset->params->in_out_params);
-    lweSubTo(ciphertextDiff, ciphertext2, cloud_keyset->params->in_out_params);
-    if (compareCiphertexts(str1Cipher, str2Cipher, str1.length(), keyset))
+    lweAddTo(ciphertextSum, ciphertext2, cloud_keyset1->params->in_out_params);
+    lweSubTo(ciphertextDiff, ciphertext2, cloud_keyset1->params->in_out_params);
+    if (compareCiphertexts(str1Cipher, str2Cipher, str1.length(), keyset1))
         cout << "Ciphertexts are equal" << endl;
     else
-        cout << "Ciphertexts are not equal" << endl;
+        cout << "Ciphertexts eocLweTest-nayuki-portableare not equal" << endl;
     end = clock();
     cout << "Computations finished in " << end - start << " microseconds" << endl;
     start = clock();
     cout << "Decrypting results..." << endl;
     // FILE *Fsecret = fopen("secretkeyset_export.dat", "wb");
     // TFheGateBootstrappingSecretKeySet *new_keyset = new_tfheGateBootstrappingSecretKeySet_fromFile(Fsecret);
-    Torus32 decrypted1 = lweSymDecrypt(ciphertextSum, keyset->lwe_key, Msize);
-    Torus32 decrypted2 = lweSymDecrypt(ciphertextDiff, keyset->lwe_key, Msize);
+    Torus32 decrypted1 = lweSymDecrypt(ciphertextSum, keyset1->lwe_key, Msize);
+    Torus32 decrypted2 = lweSymDecrypt(ciphertextDiff, keyset1->lwe_key, Msize);
+
+    Torus32 decSecret1 = lweSymDecrypt(ciphertext1, keyset1->lwe_key, Msize);
+    Torus32 decSecret2 = lweSymDecrypt(ciphertext2, keyset2->lwe_key, Msize);
+
+    int32_t decIntSecret1 = modSwitchFromTorus32(decSecret1, Msize);
+    int32_t decIntSecret2 = modSwitchFromTorus32(decSecret2, Msize);
 
     int32_t decryptedSecret1 = modSwitchFromTorus32(decrypted1, Msize);
     int32_t decryptedSecret2 = modSwitchFromTorus32(decrypted2, Msize);
 
-    string decryptedMsg = decrypt8BitASCIIString(ciphertextMsg, msg.length(), keyset);
+    string decryptedMsg = decrypt8BitASCIIString(ciphertextMsg, msg.length(), keyset1);
 
     end = clock();
+    cout << "First Secret is " << decIntSecret1 << endl;
+    cout << "Second Secret is " << decIntSecret2 << endl;
     cout << "Sum is " << decryptedSecret1 << endl;
     cout << "Diff is " << decryptedSecret2 << endl;
     cout << "Decrypted message is: " << decryptedMsg << endl;

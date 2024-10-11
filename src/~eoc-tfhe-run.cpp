@@ -21,8 +21,8 @@ int32_t minimum_lambda = 100;
 static const int32_t Msize = (1LL << 31) - 1;
 static const double alpha = 1. / (10. * Msize);
 
-TFheGateBootstrappingSecretKeySet* globalSecretKey = nullptr;
-TFheGateBootstrappingCloudKeySet* globalPublicKey = nullptr;
+unique_ptr<TFheGateBootstrappingSecretKeySet> globalSecretKey = nullptr;
+unique_ptr<TFheGateBootstrappingCloudKeySet> globalPublicKey = nullptr;
 
 // Base64 encoding function
 static const std::string base64_chars =
@@ -208,7 +208,7 @@ extern "C" char* subtractCiphertexts(const char* base64Ciphertext1, const char* 
 }
 
 extern "C" void info() {
-    std::cout << "TFHE Library: Enabling fully homomorphic encryption computations on encrypted data." << std::endl;
+    std::cout << "TFHE Library: Enabling fully homomorphic encryption computations on encrypted data. Test Version" << std::endl;
 }
 
 // Bind the functions using EMSCRIPTEN_BINDINGS

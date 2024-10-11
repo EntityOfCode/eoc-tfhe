@@ -41,6 +41,14 @@ static int l_generateSecretKey(lua_State *L)
   return 1;
 }
 
+static int l_generatePublicKey(lua_State *L)
+{
+  const char *result = generatePublicKey();
+  lua_pushstring(L, result);
+  free((void *)result);
+  return 1;
+}
+
 static int l_encryptInteger(lua_State *L)
 {
   int value = luaL_checkinteger(L,1);
@@ -73,6 +81,7 @@ int luaopen_eoc_tfhe(lua_State *L)
     {"addCiphertexts", l_addCiphertexts},
     {"subtractCiphertexts", l_subtractCiphertexts},
     {"generateSecretKey", l_generateSecretKey},
+    {"generatePublicKey", l_generatePublicKey},
     {"encryptInteger", l_encryptInteger},
     {"decryptInteger", l_decryptInteger},
     {"info", l_info},
