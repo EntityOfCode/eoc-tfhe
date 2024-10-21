@@ -1,0 +1,6 @@
+[submodule "build/jwt-cpp"]
+	path = build/jwt-cpp
+	url = https://github.com/pokowaka/jwt-cpp.git
+[submodule "build/openssl"]
+	path = build/openssl
+	url = https://github.com/openssl/openssl.git
