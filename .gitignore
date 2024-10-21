@@ -4,3 +4,4 @@ build/jwt-cpp/debug-no-test
 build/tfhe/build
 build/tfhe/build.test
 build/tfhe/em.build
+build/tfhe/src/test/secretkeyset_export.dat
