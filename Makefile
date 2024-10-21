@@ -46,6 +46,8 @@ endif
 
 AOS.wasm: build/aos/process/AOS.wasm
 	cp build/aos/process/AOS.wasm AOS.wasm
+	cp build/aos/process/AOS.wasm test-llm/AOS.wasm
+	cp build/aos/process/AOS.js test-llm/AOS.js
 
 .PHONY: node
 node:
@@ -57,8 +59,8 @@ build:
 .PHONY: clean
 clean:
 	# rm -rf build
-	rm -f AOS.wasm libllama.a libtfhe++.a libtfhe.a test/AOS.wasm build/aos/process/AOS.wasm
-	rm -f package-lock.json build/tfhe/libtfhe.a build/tfhe/tfhe-run.o
+	rm -f AOS.wasm libllama.a libtfhe++.a libtfhe.a test/AOS.wasm build/aos/process/AOS.wasm test-llm/AOS.wasm test-llm/AOS.js
+	rm -f package-lock.json build/tfhe/libtfhe.a build/tfhe/eoc-tfhe-run.o
 	rm -rf node_modules
 	rm -rf build/TFHEpp/build.test
 	mkdir build/TFHEpp/build.test
@@ -93,6 +95,24 @@ libtfhe.a: container
 		"cd /tfhe/build.test && emmake make EMCC_CFLAGS='$(EMXX_EOC_FLAGS)'"
 	cp build/tfhe/build.test/libtfhe/libtfhe-nayuki-portable.a build/tfhe/libtfhe.a
 	cp build/tfhe/build.test/eoc/CMakeFiles/eoc-tfhe-run.dir/eoc-tfhe-run.cpp.o build/tfhe/eoc-tfhe-run.o
+
+libOpenSSL: container
+	@echo "Building OpenSSL Library..."
+	docker run -v $(PWD)/build/openssl:/openssl p3rmaw3b/ao sh -c \
+		"cd /openssl && emconfigure ./Configure no-asm no-shared no-async no-dso no-hw no-engine linux-generic32 no-apps --prefix=/usr/local/openssl-wasm"
+	docker run -v $(PWD)/build/openssl:/openssl p3rmaw3b/ao sh -c \
+	"cd /emsdk && . /emsdk/emsdk_env.sh  && cd /openssl && emcc --version && emmake make"
+	#	"cd /emsdk && . /emsdk/emsdk_env.sh && cd /openssl && emmake make" && echo \$(PATH) && which emcc
+
+
+libjwtd.a: container
+	@echo "Building the JWT Library..."
+	docker run -v $(PWD)/build/jwt-cpp:/jwt-cpp p3rmaw3b/ao sh -c \
+		"cd /jwt-cpp/build.em && emcmake cmake -DCMAKE_CXX_FLAGS='$(EMXX_EOC_FLAGS)' .."
+	docker run -v $(PWD)/build/jwt-cpp:/jwt-cpp  p3rmaw3b/ao sh -c \
+		"cd /jwt-cpp/build.em && emmake make EMCC_CFLAGS='$(EMXX_EOC_FLAGS)'"
+	# cp build/tfhe/build.test/libtfhe/libtfhe-nayuki-portable.a build/tfhe/libtfhe.a
+	# cp build/tfhe/build.test/eoc/CMakeFiles/eoc-tfhe-run.dir/eoc-tfhe-run.cpp.o build/tfhe/eoc-tfhe-run.o
 
 eoc-JStfheLib.js:
 	@echo "Building eoc-JStfheLib.js..."
@@ -162,7 +182,7 @@ build/llama.cpp/llama-run.o: libllama.a src/llama-run.cpp container
 container: container/Dockerfile
 	docker build . -f container/Dockerfile -t p3rmaw3b/ao --build-arg ARCH=$(ARCH)
 
-publish-module: AOS.wasm
+publish-module:
 	npm install
 	WALLET=$(WALLET_LOC) scripts/publish-module
 

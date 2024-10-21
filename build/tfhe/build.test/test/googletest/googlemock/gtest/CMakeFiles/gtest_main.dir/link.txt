@@ -1,2 +1,0 @@
-/emsdk/upstream/emscripten/emar qc libgtest_main.a CMakeFiles/gtest_main.dir/src/gtest_main.cc.o
-/emsdk/upstream/emscripten/emranlib libgtest_main.a

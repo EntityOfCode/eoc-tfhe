@@ -86,5 +86,6 @@
         "valarray": "cpp",
         "variant": "cpp",
         "eoc-tfhe-run.h": "c"
-    }
+    },
+    "makefile.configureOnOpen": false
 }
