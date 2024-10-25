@@ -17,7 +17,7 @@ const AdmissableList =
     "jbx-H6aq7b3BbNCHlK50Jz9L-6pz9qmldrYXMwjqQVI"  // Llama3 8B Instruct q8
   ]
 
-describe('AOS-FHE Tests', async () => {
+describe('AOS-Llama+VFS Tests', async () => {
   var instance;
   const handle = async function (msg, env) {
     const res = await instance.cwrap('handle', 'string', ['string', 'string'], { async: true })(JSON.stringify(msg), JSON.stringify(env))
@@ -76,49 +76,49 @@ describe('AOS-FHE Tests', async () => {
     assert.equal(result.response.Output.data.output, 2)
   })
 
-  // it.skip('Add data to the VFS', async () => {
-  //   await instance['FS_createPath']('/', 'data')
-  //   await instance['FS_createDataFile']('/', 'data/1', Buffer.from('HELLO WORLD'), true, false, false)
-  //   const result = await handle(getEval('return "OK"'), getEnv())
-  //   assert.ok(result.response.Output.data.output == "OK")
-  // })
+  it.skip('Add data to the VFS', async () => {
+    await instance['FS_createPath']('/', 'data')
+    await instance['FS_createDataFile']('/', 'data/1', Buffer.from('HELLO WORLD'), true, false, false)
+    const result = await handle(getEval('return "OK"'), getEnv())
+    assert.ok(result.response.Output.data.output == "OK")
+  })
 
-//   it.skip('Read data from the VFS', async () => {
-//     const result = await handle(getEval(`
-// local file = io.open("/data/1", "r")
-// if file then
-//   local content = file:read("*a")
-//   output = content
-//   file:close()
-// else
-//   return "Failed to open the file"
-// end
-// return output`), getEnv())
-//     console.log(result.response.Output)
-//     assert.ok(result.response.Output.data.output == "HELLO WORLD")
-//   })
+  it.skip('Read data from the VFS', async () => {
+    const result = await handle(getEval(`
+local file = io.open("/data/1", "r")
+if file then
+  local content = file:read("*a")
+  output = content
+  file:close()
+else
+  return "Failed to open the file"
+end
+return output`), getEnv())
+    console.log(result.response.Output)
+    assert.ok(result.response.Output.data.output == "HELLO WORLD")
+  })
 
-//   it.skip('Read data from Arweave', async () => {
-//     const result = await handle(getEval(`
-// local file = io.open("/data/dx3GrOQPV5Mwc1c-4HTsyq0s1TNugMf7XfIKJkyVQt8", "r")
-// if file then
-//   local content = file:read("*a")
-//   file:close()
-//   return string.sub(content, 1, 10)
-// else
-//   return "Failed to open the file"
-// end`), getEnv())
-//     assert.ok(result.response.Output.data.output.length == 10)
-//   })
+  it.skip('Read data from Arweave', async () => {
+    const result = await handle(getEval(`
+local file = io.open("/data/dx3GrOQPV5Mwc1c-4HTsyq0s1TNugMf7XfIKJkyVQt8", "r")
+if file then
+  local content = file:read("*a")
+  file:close()
+  return string.sub(content, 1, 10)
+else
+  return "Failed to open the file"
+end`), getEnv())
+    assert.ok(result.response.Output.data.output.length == 10)
+  })
 
-//   it('Llama Lua library loads', async () => {
-//     const result = await handle(getEval(`
-// local Llama = require("llama")
-// --llama.load("/data/ggml-tiny.en.bin")
-// return Llama.info()
-// `), getEnv())
-//     assert.ok(result.response.Output.data.output == "Decentralized llama.cpp.")
-//   })
+  it('Llama Lua library loads', async () => {
+    const result = await handle(getEval(`
+local Llama = require("llama")
+--llama.load("/data/ggml-tiny.en.bin")
+return Llama.info()
+`), getEnv())
+    assert.ok(result.response.Output.data.output == "Decentralized llama.cpp.")
+  })
 
 it('EOC tfhe Lua library test', async () => {
     const result = await handle(getEval(`
@@ -139,113 +139,113 @@ return decSum
     assert.ok(result.response.Output.data.output == 69)
   })
 
-  // it.skip('AOS runs GPT-2 117m model', async () => {
-  //   const result = await handle(getEval(`
-  // local Llama = require("llama")
-  // io.stderr:write([[Loading model...\n]])
-  // local result = Llama.load("/data/M-OzkyjxWhSvWYF87p0kvmkuAEEkvOzIj4nMNoSIydc")
-  // io.stderr:write([[Loaded! Setting prompt 1...\n]])
-  // Llama.setPrompt("Once upon a time")
-  // io.stderr:write([[Prompt set! Running...\n]])
-  // local str = Llama.run(30)
-  // return str
-  // `), getEnv())
-  //   console.log("START SECOND MESSAGE")
-  //   const result2 = await handle(getEval(`
-  //   Llama.setPrompt("How do you feel about rabbits? ")
-  //   io.stderr:write([[Prompt set! Running 2...\n]])
-  //   local str = Llama.run(30)
-  //   return str
-  //   `), getEnv())
-  //   console.log(result.response)
-  //   assert.ok(result.response.Output.data.output.length > 10)
-  // })
+  it.skip('AOS runs GPT-2 117m model', async () => {
+    const result = await handle(getEval(`
+  local Llama = require("llama")
+  io.stderr:write([[Loading model...\n]])
+  local result = Llama.load("/data/M-OzkyjxWhSvWYF87p0kvmkuAEEkvOzIj4nMNoSIydc")
+  io.stderr:write([[Loaded! Setting prompt 1...\n]])
+  Llama.setPrompt("Once upon a time")
+  io.stderr:write([[Prompt set! Running...\n]])
+  local str = Llama.run(30)
+  return str
+  `), getEnv())
+    console.log("START SECOND MESSAGE")
+    const result2 = await handle(getEval(`
+    Llama.setPrompt("How do you feel about rabbits? ")
+    io.stderr:write([[Prompt set! Running 2...\n]])
+    local str = Llama.run(30)
+    return str
+    `), getEnv())
+    console.log(result.response)
+    assert.ok(result.response.Output.data.output.length > 10)
+  })
 
-  // it.skip('AOS runs GPT-2 1.5b model', async () => {
-  //   const result = await handle(
-  //     getLua('M-OzkyjxWhSvWYF87p0kvmkuAEEkvOzIj4nMNoSIydc', 10),
-  //     getEnv())
-  //   console.log(result.response)
-  //   console.log("SIZE:", instance.HEAP8.length)
-  //   assert.ok(result.response.Output.data.output.length > 10)
-  // })
+  it.skip('AOS runs GPT-2 1.5b model', async () => {
+    const result = await handle(
+      getLua('M-OzkyjxWhSvWYF87p0kvmkuAEEkvOzIj4nMNoSIydc', 10),
+      getEnv())
+    console.log(result.response)
+    console.log("SIZE:", instance.HEAP8.length)
+    assert.ok(result.response.Output.data.output.length > 10)
+  })
 
-  // it.skip('AOS loads Phi-2', async () => {
-  //   const result = await handle(getEval(`
-  // local Llama = require("llama")
-  // Llama.load('/data/kd34P4974oqZf2Db-hFTUiCipsU6CzbR6t-iJoQhKIo')
-  // --Llama.setPrompt([[<|user|>Can you write a HelloWorld function in js<|end|><|assistant|>]])
-  // return Llama.run(10)
-  // `), getEnv())
-  //   console.log(result.response)
-  //   assert.ok(result.response.Output.data.output.length > 10)
-  // })
+  it.skip('AOS loads Phi-2', async () => {
+    const result = await handle(getEval(`
+  local Llama = require("llama")
+  Llama.load('/data/kd34P4974oqZf2Db-hFTUiCipsU6CzbR6t-iJoQhKIo')
+  --Llama.setPrompt([[<|user|>Can you write a HelloWorld function in js<|end|><|assistant|>]])
+  return Llama.run(10)
+  `), getEnv())
+    console.log(result.response)
+    assert.ok(result.response.Output.data.output.length > 10)
+  })
 
-  // it.skip('Can add tokens into context', async () => {
-  //   const result = await handle(getEval(`
-  // local Llama = require("llama")
-  // Llama.load('/data/ISrbGzQot05rs_HKC08O_SmkipYQnqgB1yC3mjZZeEo')
-  // Llama.setPrompt([[<|user|>Tell me a great story<|assistant|>]])
-  // local str = ""
-  // for i = 0, 100, 1 do
-  //   str = str .. Llama.next()
-  //   io.stderr:write([[Str: ]] .. str .. [[\n]])
-  //   io.stderr:flush()
-  //   if i % 30 == 0 then
-  //     Llama.add("dog")
-  //     str = str .. "dog"
-  //   end
-  // end
-  // return str
-  // `), getEnv())
-  //   console.log(result.response)
-  //   assert.ok(result.response.Output.data.output.length > 10)
-  // })
+  it.skip('Can add tokens into context', async () => {
+    const result = await handle(getEval(`
+  local Llama = require("llama")
+  Llama.load('/data/ISrbGzQot05rs_HKC08O_SmkipYQnqgB1yC3mjZZeEo')
+  Llama.setPrompt([[<|user|>Tell me a great story<|assistant|>]])
+  local str = ""
+  for i = 0, 100, 1 do
+    str = str .. Llama.next()
+    io.stderr:write([[Str: ]] .. str .. [[\n]])
+    io.stderr:flush()
+    if i % 30 == 0 then
+      Llama.add("dog")
+      str = str .. "dog"
+    end
+  end
+  return str
+  `), getEnv())
+    console.log(result.response)
+    assert.ok(result.response.Output.data.output.length > 10)
+  })
 
-//   it.skip('AOS runs Phi-3 Mini 4k Instruct', async () => {
-//     const result = await handle(getEval(`
-// local Llama = require("llama")
-// Llama.load('/data/ISrbGzQot05rs_HKC08O_SmkipYQnqgB1yC3mjZZeEo')
-// Llama.setPrompt([[<|user|>Tell me a story.<|end|><|assistant|>]])
-// return Llama.run(80) 
-//   `), getEnv())
-//     console.log(result.response)
-//     assert.ok(result.response.Output.data.output.length > 10)
-//   })
+  it.skip('AOS runs Phi-3 Mini 4k Instruct', async () => {
+    const result = await handle(getEval(`
+local Llama = require("llama")
+Llama.load('/data/ISrbGzQot05rs_HKC08O_SmkipYQnqgB1yC3mjZZeEo')
+Llama.setPrompt([[<|user|>Tell me a story.<|end|><|assistant|>]])
+return Llama.run(80) 
+  `), getEnv())
+    console.log(result.response)
+    assert.ok(result.response.Output.data.output.length > 10)
+  })
 
-  // it.skip('AOS runs Llama3 8B Instruct q4', async () => {
-  //   const result =
-  //     await handle(
-  //       getLua('Pr2YVrxd7VwNdg6ekC0NXWNKXxJbfTlHhhlrKbAd1dA',
-  //         100,
-  //         "<|user|>Tell me a story.<|end|><|assistant|>"),
-  //       getEnv()
-  //     )
-  //   console.log(result.response)
-  //   assert.ok(result.response.Output.data.output.length >= 100)
-  // })
+  it.skip('AOS runs Llama3 8B Instruct q4', async () => {
+    const result =
+      await handle(
+        getLua('Pr2YVrxd7VwNdg6ekC0NXWNKXxJbfTlHhhlrKbAd1dA',
+          100,
+          "<|user|>Tell me a story.<|end|><|assistant|>"),
+        getEnv()
+      )
+    console.log(result.response)
+    assert.ok(result.response.Output.data.output.length >= 100)
+  })
 
-  // it.skip('AOS runs Llama3 8B Instruct q8', async () => {
-  //   const result =
-  //     await handle(
-  //       getLua('jbx-H6aq7b3BbNCHlK50Jz9L-6pz9qmldrYXMwjqQVI',
-  //         10,
-  //         "<|user|>Tell me a story.<|end|><|assistant|>"),
-  //       getEnv()
-  //     )
-  //   console.log(result.response)
-  //   assert.ok(result.response.Output.data.output.length > 10)
-  // })
+  it.skip('AOS runs Llama3 8B Instruct q8', async () => {
+    const result =
+      await handle(
+        getLua('jbx-H6aq7b3BbNCHlK50Jz9L-6pz9qmldrYXMwjqQVI',
+          10,
+          "<|user|>Tell me a story.<|end|><|assistant|>"),
+        getEnv()
+      )
+    console.log(result.response)
+    assert.ok(result.response.Output.data.output.length > 10)
+  })
 
-  // it.skip('AOS runs CodeQwen intelligence test', async () => {
-  //   const result =
-  //     await handle(
-  //       getEval(readFileSync("code-test.lua", "utf-8")),
-  //       getEnv()
-  //     )
-  //   console.log(result.response)
-  //   assert.ok(result.response.Output.data.output.includes("<|im_end|>"))
-  // })
+  it.skip('AOS runs CodeQwen intelligence test', async () => {
+    const result =
+      await handle(
+        getEval(readFileSync("code-test.lua", "utf-8")),
+        getEnv()
+      )
+    console.log(result.response)
+    assert.ok(result.response.Output.data.output.includes("<|im_end|>"))
+  })
 })
 
 function getLua(model, len, prompt) {
