@@ -98,11 +98,15 @@ libtfhe.a: container
 
 libOpenSSL: container
 	@echo "Building OpenSSL Library..."
-	docker run -v $(PWD)/build/openssl:/openssl p3rmaw3b/ao sh -c \
-		"cd /openssl && emconfigure ./Configure no-asm no-shared no-async no-dso no-hw no-engine linux-generic32 no-apps --prefix=/usr/local/openssl-wasm"
-	docker run -v $(PWD)/build/openssl:/openssl p3rmaw3b/ao sh -c \
-	"cd /emsdk && . /emsdk/emsdk_env.sh  && cd /openssl && emcc --version && emmake make"
-	#	"cd /emsdk && . /emsdk/emsdk_env.sh && cd /openssl && emmake make" && echo \$(PATH) && which emcc
+	#docker run -v $(PWD)/build/openssl:/openssl p3rmaw3b/ao sh -c \
+	#	"cd /openssl && emconfigure ./Configure no-asm no-shared no-async no-dso no-hw no-engine linux-generic32 no-apps --prefix=/usr/local/openssl-wasm"
+	#docker run -v $(PWD)/build/openssl:/openssl p3rmaw3b/ao sh -c \
+	#	"cd /openssl && emmake make"
+	#docker run -v $(PWD)/build/openssl:/openssl p3rmaw3b/ao sh -c \
+	#	"mkdir -p /emsdk/upstream/emscripten/system/lib && mkdir -p /emsdk/upstream/emscripten/system/include/openssl &&   \
+	#	   cp /src/build/openssl/libcrypto.a /emsdk/upstream/emscripten/system/lib/ && cp /src/build/openssl/libssl.a /emsdk/upstream/emscripten/system/lib/"
+
+############ by GPT ###################
 
 
 libjwtd.a: container
