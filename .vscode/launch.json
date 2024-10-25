@@ -123,7 +123,32 @@
                     "ignoreFailures": true
                 }
             ]
+        },
+        {
+            "name": "test-jwt-validation",
+            "type": "cppdbg",
+            "request": "launch",
+            "program": "${workspaceFolder}/build/TFHEpp/build/thirdparties/nayuki/test-nayuki",
+            "args": [],
+            "stopAtEntry": true,
+            "cwd": "${fileDirname}",
+            "environment": [],
+            "externalConsole": false,
+            "MIMode": "gdb",
+            "setupCommands": [
+                {
+                    "description": "Enable pretty-printing for gdb",
+                    "text": "-enable-pretty-printing",
+                    "ignoreFailures": true
+                },
+                {
+                    "description": "Set Disassembly Flavor to Intel",
+                    "text": "-gdb-set disassembly-flavor intel",
+                    "ignoreFailures": true
+                }
+            ]
         }
+
 
     ]
 }
