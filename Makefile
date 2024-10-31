@@ -11,11 +11,11 @@ EMXX_CFLAGS=-s MEMORY64=1 -O3 -g0 -msimd128 -fno-rtti \
 	NO_EXIT_RUNTIME=1 -Wno-unused-command-line-argument -Wno-experimental
 
 EMXX_EOC_FLAGS= -s MEMORY64=1 -g0\
-	-flto=full -s EXPORT_ALL=1 \
+    -s EXPORT_ALL=1 \
 	-s FORCE_FILESYSTEM=1 -s INITIAL_MEMORY=800MB\
 	-s MAXIMUM_MEMORY=4GB -s ALLOW_MEMORY_GROWTH -s FORCE_FILESYSTEM=1 \
-	-s EXPORTED_FUNCTIONS=_main -s EXPORTED_RUNTIME_METHODS=callMain -s \
-	NO_EXIT_RUNTIME=1 -Wno-unused-command-line-argument -Wno-experimental
+	-s EXPORTED_FUNCTIONS=_main -s EXPORTED_RUNTIME_METHODS=callMain \
+	-s NO_EXIT_RUNTIME=1  -s NO_DISABLE_EXCEPTION_CATCHING -Wno-unused-command-line-argument -Wno-experimental
 
 
 
@@ -69,7 +69,8 @@ clean:
 	docker rmi -f p3rmaw3b/ao || true
 
 build/aos/package.json: build
-	cd build; git submodule init; git submodule update --remote
+	cd build
+	# git submodule init; git submodule update --remote
 # libllama.a build/llama.cpp/llama-run.o
 build/aos/process/AOS.wasm: libtfhe.a  build/aos/package.json container 
 	docker run -v $(PWD)/build/aos/process:/src -v $(PWD)/build/tfhe:/tfhe p3rmaw3b/ao emcc-lua $(if $(DEBUG),-e DEBUG=TRUE)
@@ -98,15 +99,11 @@ libtfhe.a: container
 
 libOpenSSL: container
 	@echo "Building OpenSSL Library..."
+	# docker run -v $(PWD)build/openssl:/openssl p3rmaw3b/ao sh -c \
+    # "cd /openssl && CROSS_COMPILE='' emconfigure ./Configure no-asm no-shared no-async no-dso no-hw no-engine no-stdio no-tests no-ssl no-comp no-err no-ui no-ocsp no-psk no-srp no-ts no-rfc3779 no-srtp no-weak-ssl-ciphers no-ssl-trace no-ct no-deprecated no-apps linux-aarch64 --prefix=/usr/local/openssl-wasm"
 	# docker run -v $(PWD)/build/openssl:/openssl p3rmaw3b/ao sh -c \
-	# 	"cd /openssl && emconfigure ./Configure no-asm no-shared no-async no-dso no-hw no-engine linux-generic32 no-apps --prefix=/usr/local/openssl-wasm"
-	docker run -v $(PWD)/build/openssl:/openssl p3rmaw3b/ao sh -c \
-		"cd /openssl && emmake make"
-	docker run -v $(PWD)/build/openssl:/openssl p3rmaw3b/ao sh -c \
-		"mkdir -p /emsdk/upstream/emscripten/system/lib && mkdir -p /emsdk/upstream/emscripten/system/include/openssl &&   \
-		   cp /src/build/openssl/libcrypto.a /emsdk/upstream/emscripten/system/lib/ && cp /src/build/openssl/libssl.a /emsdk/upstream/emscripten/system/lib/ && \
-		   cp /src/build/openssl/include/openssl/*.h /emsdk/upstream/emscripten/system/include/openssl/"
-		   
+		# "cd /openssl && emmake make"
+
 ############ by GPT ###################
 
 

@@ -103,7 +103,10 @@ COPY container/src/sqlite3.h /opt/sqlite3.h
 COPY container/src/main.lua /opt/main.lua
 
 # Copy eoc myTest
-COPY container/src/tfhe++.hpp /opt/tfhe++.hpp
+# COPY container/src/tfhe++.hpp /opt/tfhe++.hpp
+# Copy the OpenSSL files to the container
+COPY container/lib/openssl/* /opt/openssl/
+COPY container/lib/libjwt.a /opt/libjwt.a
 
 # Copy fast Base64 files to the container
 COPY container/src/cbase64/b64enc.c /opt/b64enc.c

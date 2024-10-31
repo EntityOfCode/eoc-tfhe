@@ -12,6 +12,27 @@ include_directories(${GTEST_INCLUDE_DIRS})
 # Find nlohmann_json package
 # find_package(nlohmann_json REQUIRED)
 
+set(OPENSSL_INCLUDE_DIR "/opt/openssl/include")
+set(OPENSSL_LIB_DIR "/opt/openssl")
+set(JWT_INCLUDE_DIR "/tfhe/include/jwt")
+set(JWT_LIB_DIR "/opt/")
+
+# Include the OpenSSL and JWT headers
+include_directories(${OPENSSL_INCLUDE_DIR})
+include_directories(${JWT_INCLUDE_DIR})
+
+# Print OpenSSL version to verify paths
+execute_process(COMMAND openssl version
+                OUTPUT_VARIABLE OPENSSL_VERSION
+                OUTPUT_STRIP_TRAILING_WHITESPACE)
+message(STATUS "OpenSSL version: ${OPENSSL_VERSION}")
+
+# Print JWT version to verify paths (assuming jwt --version is a valid command)
+execute_process(COMMAND jwt --version
+                OUTPUT_VARIABLE JWT_VERSION
+                OUTPUT_STRIP_TRAILING_WHITESPACE)
+message(STATUS "JWT version: ${JWT_VERSION}")
+
 
 set(GOOGLETEST_SOURCES
         arithmetic_test.cpp
@@ -49,6 +70,7 @@ set(CPP_ITESTS
         test-long-run
         eocTest
         eocLweTest
+        eocJWT
         )
 
 set(C_ITESTS
@@ -80,7 +102,7 @@ foreach (FFT_PROCESSOR IN LISTS FFT_PROCESSORS)
     #we first compile the C++ tests
     foreach (CPP_ITEST ${CPP_ITESTS})
         add_executable(${CPP_ITEST}-${FFT_PROCESSOR} ${CPP_ITEST}.cpp ${TFHE_HEADERS})
-        target_link_libraries(${CPP_ITEST}-${FFT_PROCESSOR} ${RUNTIME_LIBS})
+        target_link_libraries(${CPP_ITEST}-${FFT_PROCESSOR} ${RUNTIME_LIBS} ${OPENSSL_LIB_DIR}/libssl.a ${OPENSSL_LIB_DIR}/libcrypto.a ${JWT_LIB_DIR}/libjwt.a)
     endforeach (CPP_ITEST)
 
     # #then the C tests

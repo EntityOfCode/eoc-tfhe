@@ -12,6 +12,7 @@ int32_t decryptInteger(char* base64Ciphertext, const char* base64SecretKey);
 const char* addCiphertexts(const char* base64_ciphertext1, const char* base64_ciphertext2, const char* base64_public_key);
 const char* subtractCiphertexts(const char* base64_ciphertext1, const char* base64_ciphertext2, const char* base64_public_key);
 void info(void);
+void testJWT();
 
 #ifdef __cplusplus
 }

@@ -5,6 +5,10 @@ function Tfhe.info()
     return Tfhe.backend.info();
 end
 
+function Tfhe.testJWT()
+    return Tfhe.backend.testJWT();
+end
+
 function Tfhe.generateSecretKey()
     -- io.stderr:write("Keys generation process started....\n")
     return Tfhe.backend.generateSecretKey()

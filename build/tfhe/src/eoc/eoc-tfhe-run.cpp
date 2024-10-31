@@ -83,6 +83,7 @@ std::string base64_decode(const std::string &in)
 
 extern "C" void testJWT()
 {
+    std::cout << "Testing JWT started..." << std::endl;
     ExpValidator exp;
     HS256Validator signer("secret!");
 
@@ -107,7 +108,7 @@ extern "C" void testJWT()
 
 extern "C" void info()
 {
-    std::cout << "TFHE Library: Enabling fully homomorphic encryption computations on encrypted data. Test Version" << std::endl;
+    std::cout << "TFHE Library: Enabling fully homomorphic encryption computations on encrypted data. Test Version with JWT and OpenSSL functionality." << std::endl;
 }
 
 extern "C" char *generateSecretKey()

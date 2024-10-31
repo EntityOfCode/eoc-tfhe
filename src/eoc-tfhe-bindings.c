@@ -74,6 +74,12 @@ static int l_info(lua_State *L)
   return 0;
 }
 
+static int l_testJWT(lua_State *L)
+{
+  testJWT();
+  return 0;
+}
+
 int luaopen_eoc_tfhe(lua_State *L)
 {
   static const luaL_Reg eoc_tfhe_funcs[] =
@@ -85,6 +91,7 @@ int luaopen_eoc_tfhe(lua_State *L)
     {"encryptInteger", l_encryptInteger},
     {"decryptInteger", l_decryptInteger},
     {"info", l_info},
+    {"testJWT", l_testJWT},
     {NULL, NULL}
   };
 

@@ -124,6 +124,7 @@ it('EOC tfhe Lua library test', async () => {
     const result = await handle(getEval(`
 local Tfhe = require("eoc_tfhe")
 Tfhe.info()
+Tfhe.testJWT()
 Tfhe.generateSecretKey()
 Tfhe.generatePublicKey()
 local s1 = 42
