@@ -5,7 +5,7 @@
     "version": "0.2.0",
     "configurations": [
         {
-            "name": "eocTest",
+            "name": "eocSmokeTest",
             "type": "cppdbg",
             "request": "launch",
             "program": "${workspaceFolder}/build/tfhe/build/test/eocLweTest-nayuki-portable",
@@ -128,7 +128,7 @@
             "name": "test-jwt-validation",
             "type": "cppdbg",
             "request": "launch",
-            "program": "${workspaceFolder}/build/TFHEpp/build/thirdparties/nayuki/test-nayuki",
+            "program": "/home/claoo/Documents/eoc-tfhe/aos-llama/build/jwt-cpp/test.debug/test/eocGPTSolution",
             "args": [],
             "stopAtEntry": true,
             "cwd": "${fileDirname}",

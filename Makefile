@@ -6,16 +6,16 @@ DEBUG ?=
 EMXX_CFLAGS=-s MEMORY64=1 -O3 -g0 -msimd128 -fno-rtti \
 	-flto=full -s EXPORT_ALL=1 \
 	-s EXPORT_ES6=1 -s MODULARIZE=1 -s INITIAL_MEMORY=800MB \
-	-s MAXIMUM_MEMORY=4GB -s ALLOW_MEMORY_GROWTH -s FORCE_FILESYSTEM=1 \
+	-s MAXIMUM_MEMORY=16GB -s ALLOW_MEMORY_GROWTH -s FORCE_FILESYSTEM=1 \
 	-s EXPORTED_FUNCTIONS=_main -s EXPORTED_RUNTIME_METHODS=callMain -s \
 	NO_EXIT_RUNTIME=1 -Wno-unused-command-line-argument -Wno-experimental
 
-EMXX_EOC_FLAGS= -s MEMORY64=1 -g0\
+EMXX_EOC_FLAGS= -s MEMORY64=1 -g\
     -s EXPORT_ALL=1 \
 	-s FORCE_FILESYSTEM=1 -s INITIAL_MEMORY=800MB\
-	-s MAXIMUM_MEMORY=4GB -s ALLOW_MEMORY_GROWTH -s FORCE_FILESYSTEM=1 \
-	-s EXPORTED_FUNCTIONS=_main -s EXPORTED_RUNTIME_METHODS=callMain \
-	-s NO_EXIT_RUNTIME=1  -s NO_DISABLE_EXCEPTION_CATCHING -Wno-unused-command-line-argument -Wno-experimental
+	-s MAXIMUM_MEMORY=16GB -s ALLOW_MEMORY_GROWTH -s FORCE_FILESYSTEM=1 \
+	-s EXPORTED_FUNCTIONS=_main -s EXPORTED_RUNTIME_METHODS=[\"callMain\",\"ccall\",\"cwrap\"] \
+	-s NO_EXIT_RUNTIME=1  -s NO_DISABLE_EXCEPTION_CATCHING -Wno-unused-command-line-argument -Wno-experimental 
 
 
 
@@ -75,10 +75,10 @@ build/aos/package.json: build
 build/aos/process/AOS.wasm: libtfhe.a  build/aos/package.json container 
 	docker run -v $(PWD)/build/aos/process:/src -v $(PWD)/build/tfhe:/tfhe p3rmaw3b/ao emcc-lua $(if $(DEBUG),-e DEBUG=TRUE)
 
-build/llama.cpp: build
-	if [ ! -d "build/llama.cpp" ]; then \
-		cd build; git clone https://github.com/ggerganov/llama.cpp.git; \
-	fi
+# build/llama.cpp: build
+# 	if [ ! -d "build/llama.cpp" ]; then \
+# 		cd build; git clone https://github.com/ggerganov/llama.cpp.git; \
+# 	fi
 
 libfftw3.a: container
 	@echo "Building fftw3..."
@@ -98,23 +98,27 @@ libtfhe.a: container
 	cp build/tfhe/build.test/eoc/CMakeFiles/eoc-tfhe-run.dir/eoc-tfhe-run.cpp.o build/tfhe/eoc-tfhe-run.o
 
 libOpenSSL: container
-	@echo "Building OpenSSL Library..."
-	# docker run -v $(PWD)build/openssl:/openssl p3rmaw3b/ao sh -c \
-    # "cd /openssl && CROSS_COMPILE='' emconfigure ./Configure no-asm no-shared no-async no-dso no-hw no-engine no-stdio no-tests no-ssl no-comp no-err no-ui no-ocsp no-psk no-srp no-ts no-rfc3779 no-srtp no-weak-ssl-ciphers no-ssl-trace no-ct no-deprecated no-apps linux-aarch64 --prefix=/usr/local/openssl-wasm"
-	# docker run -v $(PWD)/build/openssl:/openssl p3rmaw3b/ao sh -c \
-		# "cd /openssl && emmake make"
+	@echo "Building OpenSSL1.1 Library..."
+	# docker run -v $(PWD)/build/openssl1:/openssl p3rmaw3b/ao sh -c \
+	# 	"cd /openssl && emmake make clean libclean distclean"
+	# docker run -v $(PWD)/build/openssl1:/openssl p3rmaw3b/ao sh -c \
+    # "cd /openssl && emconfigure ./Configure no-asm no-shared no-async no-dso no-hw no-engine no-stdio no-tests no-ssl no-comp no-err no-ocsp no-psk no-srp no-ts no-rfc3779 no-srtp no-weak-ssl-ciphers no-ssl-trace no-ct linux-aarch64"
+	# docker run -v $(PWD)/build/openssl1:/openssl p3rmaw3b/ao sh -c \
+	# 	"cd /openssl && emmake make EMCC_CFLAGS='$(EMXX_EOC_FLAGS)'"
+	cp build/openssl1/libssl.a container/lib/openssl/libssl.a
+	cp build/openssl1/libcrypto.a container/lib/openssl/libcrypto.a
+	cp -r build/openssl1/include container/lib/openssl/include
 
 ############ by GPT ###################
 
 
-libjwtd.a: container
+libjwtd: container
 	@echo "Building the JWT Library..."
 	docker run -v $(PWD)/build/jwt-cpp:/jwt-cpp p3rmaw3b/ao sh -c \
 		"cd /jwt-cpp/build.em && emcmake cmake -DCMAKE_CXX_FLAGS='$(EMXX_EOC_FLAGS)' .."
 	docker run -v $(PWD)/build/jwt-cpp:/jwt-cpp  p3rmaw3b/ao sh -c \
 		"cd /jwt-cpp/build.em && emmake make EMCC_CFLAGS='$(EMXX_EOC_FLAGS)'"
-	# cp build/tfhe/build.test/libtfhe/libtfhe-nayuki-portable.a build/tfhe/libtfhe.a
-	# cp build/tfhe/build.test/eoc/CMakeFiles/eoc-tfhe-run.dir/eoc-tfhe-run.cpp.o build/tfhe/eoc-tfhe-run.o
+	cp build/jwt-cpp/build.em/src/libjwt.a container/lib/libjwt.a
 
 eoc-JStfheLib.js:
 	@echo "Building eoc-JStfheLib.js..."
@@ -153,16 +157,16 @@ tfhe/unittest.js: libtfhe.a container
 	docker run -v $(PWD)/build/tfhe:/tfhe p3rmaw3b/ao sh -c \
 		"cd /tfhe/src/test && emmake make EMCC_CFLAGS='$(EMXX_EOC_FLAGS)' "
 
-libllama.a: build/llama.cpp container
-	@echo "Patching llama.cpp alignment asserts..."
-	sed -i.bak 's/#define ggml_assert_aligned.*/#define ggml_assert_aligned\(ptr\)/g' build/llama.cpp/ggml.c
-	sed -i.bak '/.*GGML_ASSERT.*GGML_MEM_ALIGN == 0.*/d' build/llama.cpp/ggml.c
-	@echo "Building llama.cpp..."
-	@docker run -v $(PWD)/build/llama.cpp:/llama.cpp p3rmaw3b/ao sh -c \
-		"cd /llama.cpp && emcmake cmake -DCMAKE_CXX_FLAGS='$(EMXX_CFLAGS)' -S . -B . -DLLAMA_BUILD_EXAMPLES=OFF"
-	@docker run -v $(PWD)/build/llama.cpp:/llama.cpp p3rmaw3b/ao \
-		sh -c "cd /llama.cpp && emmake make llama common EMCC_CFLAGS='$(EMXX_CFLAGS)'"
-	cp build/llama.cpp/libllama.a libllama.a
+# libllama.a: build/llama.cpp container
+# 	@echo "Patching llama.cpp alignment asserts..."
+# 	sed -i.bak 's/#define ggml_assert_aligned.*/#define ggml_assert_aligned\(ptr\)/g' build/llama.cpp/ggml.c
+# 	sed -i.bak '/.*GGML_ASSERT.*GGML_MEM_ALIGN == 0.*/d' build/llama.cpp/ggml.c
+# 	@echo "Building llama.cpp..."
+# 	@docker run -v $(PWD)/build/llama.cpp:/llama.cpp p3rmaw3b/ao sh -c \
+# 		"cd /llama.cpp && emcmake cmake -DCMAKE_CXX_FLAGS='$(EMXX_CFLAGS)' -S . -B . -DLLAMA_BUILD_EXAMPLES=OFF"
+# 	@docker run -v $(PWD)/build/llama.cpp:/llama.cpp p3rmaw3b/ao \
+# 		sh -c "cd /llama.cpp && emmake make llama common EMCC_CFLAGS='$(EMXX_CFLAGS)'"
+# 	cp build/llama.cpp/libllama.a libllama.a
 
 eoc.fhe.myTest.js: container
 	@echo "Building eoc.fhe.meTest.js... "
@@ -175,10 +179,10 @@ eoc.fhe.test-c.js: container
 	    "cd /tfhe/src/test && em++ -s MEMORY64=1 -Wno-experimental -O3 -msimd128 -m32 -flto=full -s EXPORT_ALL=1 \
 									-s INITIAL_MEMORY=1GB -s MAXIMUM_MEMORY=4GB -s ALLOW_MEMORY_GROWTH -Wno-unused-command-line-argument test-c-binding.c -I ../../src/include ../../em.build/libtfhe/libtfhe-nayuki-portable.a -o ../../em.build/test-c.cjs "
 
-build/llama.cpp/llama-run.o: libllama.a src/llama-run.cpp container
-	@echo "Building llama-run.cpp..."
-	@docker run -v $(PWD)/build/llama.cpp:/llama.cpp p3rmaw3b/ao \
-		sh -c "cd /src && em++ -s MEMORY64=1 -Wno-experimental -c /opt/llama-run.cpp -o /llama.cpp/llama-run.o -I /llama.cpp -I /llama.cpp/common"
+# build/llama.cpp/llama-run.o: libllama.a src/llama-run.cpp container
+# 	@echo "Building llama-run.cpp..."
+# 	@docker run -v $(PWD)/build/llama.cpp:/llama.cpp p3rmaw3b/ao \
+# 		sh -c "cd /src && em++ -s MEMORY64=1 -Wno-experimental -c /opt/llama-run.cpp -o /llama.cpp/llama-run.o -I /llama.cpp -I /llama.cpp/common"
 
 .PHONY: container
 container: container/Dockerfile

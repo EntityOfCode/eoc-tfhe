@@ -15,7 +15,7 @@ var readyPromise = new Promise((resolve, reject) => {
  readyPromiseReject = reject;
 });
 
-[ "_malloc", "_memory", "___asyncjs__weavedrive_open", "___asyncjs__weavedrive_read", "_handle", "___indirect_function_table", "onRuntimeInitialized" ].forEach(prop => {
+[ "_malloc", "_memory", "___asyncjs__weavedrive_open", "___asyncjs__weavedrive_read", "_handle", "___indirect_function_table", "_main", "onRuntimeInitialized" ].forEach(prop => {
  if (!Object.getOwnPropertyDescriptor(readyPromise, prop)) {
   Object.defineProperty(readyPromise, prop, {
    get: () => abort("You are getting " + prop + " on the Promise object, instead of the instance. Use .then() to get called back with the instance, see the MODULARIZE docs in src/settings.js"),
@@ -301,6 +301,8 @@ var __ATPRERUN__ = [];
 
 var __ATINIT__ = [];
 
+var __ATMAIN__ = [];
+
 var __ATPOSTRUN__ = [];
 
 var runtimeInitialized = false;
@@ -323,6 +325,11 @@ function initRuntime() {
  FS.ignorePermissions = false;
  TTY.init();
  callRuntimeCallbacks(__ATINIT__);
+}
+
+function preMain() {
+ checkStackCookie();
+ callRuntimeCallbacks(__ATMAIN__);
 }
 
 function postRun() {
@@ -4719,18 +4726,6 @@ var _strftime_l = function(s, maxsize, format, tm, loc) {
  return BigInt(ret);
 };
 
-var wasmTableMirror = [];
-
-/** @type {WebAssembly.Table} */ var wasmTable;
-
-var runAndAbortIfError = func => {
- try {
-  return func();
- } catch (e) {
-  abort(e);
- }
-};
-
 var handleException = e => {
  if (e instanceof ExitStatus || e == "unwind") {
   return EXITSTATUS;
@@ -4742,6 +4737,18 @@ var handleException = e => {
   }
  }
  quit_(1, e);
+};
+
+var wasmTableMirror = [];
+
+/** @type {WebAssembly.Table} */ var wasmTable;
+
+var runAndAbortIfError = func => {
+ try {
+  return func();
+ } catch (e) {
+  abort(e);
+ }
 };
 
 var maybeExit = () => {
@@ -5128,9 +5135,19 @@ var wasmImports = {
  /** @export */ invoke_i: invoke_i,
  /** @export */ invoke_iii: invoke_iii,
  /** @export */ invoke_ij: invoke_ij,
+ /** @export */ invoke_ijdj: invoke_ijdj,
  /** @export */ invoke_iji: invoke_iji,
+ /** @export */ invoke_ijiij: invoke_ijiij,
+ /** @export */ invoke_ijj: invoke_ijj,
  /** @export */ invoke_ijji: invoke_ijji,
+ /** @export */ invoke_ijjij: invoke_ijjij,
+ /** @export */ invoke_ijjj: invoke_ijjj,
  /** @export */ invoke_ijjjj: invoke_ijjjj,
+ /** @export */ invoke_ijjjji: invoke_ijjjji,
+ /** @export */ invoke_ijjjjii: invoke_ijjjjii,
+ /** @export */ invoke_ijjjjijj: invoke_ijjjjijj,
+ /** @export */ invoke_ijjjjj: invoke_ijjjjj,
+ /** @export */ invoke_ijjjjjj: invoke_ijjjjjj,
  /** @export */ invoke_j: invoke_j,
  /** @export */ invoke_jj: invoke_jj,
  /** @export */ invoke_jji: invoke_jji,
@@ -5139,25 +5156,38 @@ var wasmImports = {
  /** @export */ invoke_jjiij: invoke_jjiij,
  /** @export */ invoke_jjiijj: invoke_jjiijj,
  /** @export */ invoke_jjij: invoke_jjij,
+ /** @export */ invoke_jjijj: invoke_jjijj,
+ /** @export */ invoke_jjijjiiijj: invoke_jjijjiiijj,
  /** @export */ invoke_jjj: invoke_jjj,
  /** @export */ invoke_jjji: invoke_jjji,
  /** @export */ invoke_jjjii: invoke_jjjii,
+ /** @export */ invoke_jjjij: invoke_jjjij,
+ /** @export */ invoke_jjjiji: invoke_jjjiji,
  /** @export */ invoke_jjjj: invoke_jjjj,
+ /** @export */ invoke_jjjji: invoke_jjjji,
+ /** @export */ invoke_jjjjiii: invoke_jjjjiii,
  /** @export */ invoke_jjjjj: invoke_jjjjj,
+ /** @export */ invoke_jjjjji: invoke_jjjjji,
+ /** @export */ invoke_jjjjjj: invoke_jjjjjj,
  /** @export */ invoke_jjjjjji: invoke_jjjjjji,
  /** @export */ invoke_jjjjjjj: invoke_jjjjjjj,
  /** @export */ invoke_v: invoke_v,
- /** @export */ invoke_vij: invoke_vij,
  /** @export */ invoke_vj: invoke_vj,
  /** @export */ invoke_vji: invoke_vji,
+ /** @export */ invoke_vjii: invoke_vjii,
  /** @export */ invoke_vjij: invoke_vjij,
+ /** @export */ invoke_vjijj: invoke_vjijj,
+ /** @export */ invoke_vjijji: invoke_vjijji,
  /** @export */ invoke_vjj: invoke_vjj,
  /** @export */ invoke_vjjd: invoke_vjjd,
  /** @export */ invoke_vjji: invoke_vjji,
+ /** @export */ invoke_vjjii: invoke_vjjii,
  /** @export */ invoke_vjjiiii: invoke_vjjiiii,
  /** @export */ invoke_vjjij: invoke_vjjij,
  /** @export */ invoke_vjjj: invoke_vjjj,
+ /** @export */ invoke_vjjji: invoke_vjjji,
  /** @export */ invoke_vjjjj: invoke_vjjjj,
+ /** @export */ invoke_vjjjji: invoke_vjjjji,
  /** @export */ invoke_vjjjjj: invoke_vjjjjj,
  /** @export */ llvm_eh_typeid_for: _llvm_eh_typeid_for,
  /** @export */ strftime: _strftime,
@@ -5172,7 +5202,7 @@ var _malloc = Module["_malloc"] = createExportWrapper("malloc", 1);
 
 var _handle = Module["_handle"] = createExportWrapper("handle", 2);
 
-var _main = createExportWrapper("main", 2);
+var _main = Module["_main"] = createExportWrapper("main", 2);
 
 var _free = createExportWrapper("free", 1);
 
@@ -5380,6 +5410,54 @@ var dynCall_ijiijj = Module["dynCall_ijiijj"] = createExportWrapper("dynCall_iji
 
 var dynCall_ijjijij = Module["dynCall_ijjijij"] = createExportWrapper("dynCall_ijjijij", 7);
 
+var dynCall_jjij = Module["dynCall_jjij"] = createExportWrapper("dynCall_jjij", 4);
+
+var dynCall_jjji = Module["dynCall_jjji"] = createExportWrapper("dynCall_jjji", 4);
+
+var dynCall_iijjj = Module["dynCall_iijjj"] = createExportWrapper("dynCall_iijjj", 5);
+
+var dynCall_ijjjjjjj = Module["dynCall_ijjjjjjj"] = createExportWrapper("dynCall_ijjjjjjj", 8);
+
+var dynCall_iijijjjjj = Module["dynCall_iijijjjjj"] = createExportWrapper("dynCall_iijijjjjj", 9);
+
+var dynCall_jjijjj = Module["dynCall_jjijjj"] = createExportWrapper("dynCall_jjijjj", 6);
+
+var dynCall_iijijij = Module["dynCall_iijijij"] = createExportWrapper("dynCall_iijijij", 7);
+
+var dynCall_jjijj = Module["dynCall_jjijj"] = createExportWrapper("dynCall_jjijj", 5);
+
+var dynCall_ijjijjji = Module["dynCall_ijjijjji"] = createExportWrapper("dynCall_ijjijjji", 8);
+
+var dynCall_vjjjjji = Module["dynCall_vjjjjji"] = createExportWrapper("dynCall_vjjjjji", 7);
+
+var dynCall_jjjijji = Module["dynCall_jjjijji"] = createExportWrapper("dynCall_jjjijji", 7);
+
+var dynCall_jjjijj = Module["dynCall_jjjijj"] = createExportWrapper("dynCall_jjjijj", 6);
+
+var dynCall_iijjji = Module["dynCall_iijjji"] = createExportWrapper("dynCall_iijjji", 6);
+
+var dynCall_ijjjjijj = Module["dynCall_ijjjjijj"] = createExportWrapper("dynCall_ijjjjijj", 8);
+
+var dynCall_jjjjjji = Module["dynCall_jjjjjji"] = createExportWrapper("dynCall_jjjjjji", 7);
+
+var dynCall_jjjjji = Module["dynCall_jjjjji"] = createExportWrapper("dynCall_jjjjji", 6);
+
+var dynCall_jjjij = Module["dynCall_jjjij"] = createExportWrapper("dynCall_jjjij", 5);
+
+var dynCall_jjjiji = Module["dynCall_jjjiji"] = createExportWrapper("dynCall_jjjiji", 6);
+
+var dynCall_jjijjiiijj = Module["dynCall_jjijjiiijj"] = createExportWrapper("dynCall_jjijjiiijj", 10);
+
+var dynCall_vjijji = Module["dynCall_vjijji"] = createExportWrapper("dynCall_vjijji", 6);
+
+var dynCall_ijjjjii = Module["dynCall_ijjjjii"] = createExportWrapper("dynCall_ijjjjii", 7);
+
+var dynCall_jjjjiii = Module["dynCall_jjjjiii"] = createExportWrapper("dynCall_jjjjiii", 7);
+
+var dynCall_jjjjjj = Module["dynCall_jjjjjj"] = createExportWrapper("dynCall_jjjjjj", 6);
+
+var dynCall_ijjjji = Module["dynCall_ijjjji"] = createExportWrapper("dynCall_ijjjji", 6);
+
 var dynCall_jjidd = Module["dynCall_jjidd"] = createExportWrapper("dynCall_jjidd", 5);
 
 var dynCall_jjiij = Module["dynCall_jjiij"] = createExportWrapper("dynCall_jjiij", 5);
@@ -5400,11 +5478,7 @@ var dynCall_jjjii = Module["dynCall_jjjii"] = createExportWrapper("dynCall_jjjii
 
 var dynCall_vjjiiii = Module["dynCall_vjjiiii"] = createExportWrapper("dynCall_vjjiiii", 7);
 
-var dynCall_jjjjjji = Module["dynCall_jjjjjji"] = createExportWrapper("dynCall_jjjjjji", 7);
-
-var dynCall_jjji = Module["dynCall_jjji"] = createExportWrapper("dynCall_jjji", 4);
-
-var dynCall_jjij = Module["dynCall_jjij"] = createExportWrapper("dynCall_jjij", 4);
+var dynCall_ijdj = Module["dynCall_ijdj"] = createExportWrapper("dynCall_ijdj", 4);
 
 var dynCall_ijdiiii = Module["dynCall_ijdiiii"] = createExportWrapper("dynCall_ijdiiii", 7);
 
@@ -5432,54 +5506,6 @@ var dynCall_vjjjiij = Module["dynCall_vjjjiij"] = createExportWrapper("dynCall_v
 
 var dynCall_vjjjjii = Module["dynCall_vjjjjii"] = createExportWrapper("dynCall_vjjjjii", 7);
 
-var dynCall_ijjjijj = Module["dynCall_ijjjijj"] = createExportWrapper("dynCall_ijjjijj", 7);
-
-var dynCall_vjjjijj = Module["dynCall_vjjjijj"] = createExportWrapper("dynCall_vjjjijj", 7);
-
-var dynCall_vjjjjji = Module["dynCall_vjjjjji"] = createExportWrapper("dynCall_vjjjjji", 7);
-
-var dynCall_jjijj = Module["dynCall_jjijj"] = createExportWrapper("dynCall_jjijj", 5);
-
-var dynCall_ijjjjjjj = Module["dynCall_ijjjjjjj"] = createExportWrapper("dynCall_ijjjjjjj", 8);
-
-var dynCall_ijjijjjj = Module["dynCall_ijjijjjj"] = createExportWrapper("dynCall_ijjijjjj", 8);
-
-var dynCall_jjjijj = Module["dynCall_jjjijj"] = createExportWrapper("dynCall_jjjijj", 6);
-
-var dynCall_jjjjji = Module["dynCall_jjjjji"] = createExportWrapper("dynCall_jjjjji", 6);
-
-var dynCall_iijjj = Module["dynCall_iijjj"] = createExportWrapper("dynCall_iijjj", 5);
-
-var dynCall_iijijjjjj = Module["dynCall_iijijjjjj"] = createExportWrapper("dynCall_iijijjjjj", 9);
-
-var dynCall_jjijjj = Module["dynCall_jjijjj"] = createExportWrapper("dynCall_jjijjj", 6);
-
-var dynCall_iijijij = Module["dynCall_iijijij"] = createExportWrapper("dynCall_iijijij", 7);
-
-var dynCall_ijjijjji = Module["dynCall_ijjijjji"] = createExportWrapper("dynCall_ijjijjji", 8);
-
-var dynCall_ijjijjjijj = Module["dynCall_ijjijjjijj"] = createExportWrapper("dynCall_ijjijjjijj", 10);
-
-var dynCall_ijjjjiiij = Module["dynCall_ijjjjiiij"] = createExportWrapper("dynCall_ijjjjiiij", 9);
-
-var dynCall_ijjjii = Module["dynCall_ijjjii"] = createExportWrapper("dynCall_ijjjii", 6);
-
-var dynCall_ijjjjiiijjj = Module["dynCall_ijjjjiiijjj"] = createExportWrapper("dynCall_ijjjjiiijjj", 11);
-
-var dynCall_iijjji = Module["dynCall_iijjji"] = createExportWrapper("dynCall_iijjji", 6);
-
-var dynCall_ijiijjj = Module["dynCall_ijiijjj"] = createExportWrapper("dynCall_ijiijjj", 7);
-
-var dynCall_ijjjiijj = Module["dynCall_ijjjiijj"] = createExportWrapper("dynCall_ijjjiijj", 8);
-
-var dynCall_ijijjjj = Module["dynCall_ijijjjj"] = createExportWrapper("dynCall_ijijjjj", 7);
-
-var dynCall_jjjijjijj = Module["dynCall_jjjijjijj"] = createExportWrapper("dynCall_jjjijjijj", 9);
-
-var dynCall_jjjjjj = Module["dynCall_jjjjjj"] = createExportWrapper("dynCall_jjjjjj", 6);
-
-var dynCall_ijjjjijj = Module["dynCall_ijjjjijj"] = createExportWrapper("dynCall_ijjjjijj", 8);
-
 var _asyncify_start_unwind = createExportWrapper("asyncify_start_unwind", 1);
 
 var _asyncify_stop_unwind = createExportWrapper("asyncify_stop_unwind", 0);
@@ -5488,9 +5514,9 @@ var _asyncify_start_rewind = createExportWrapper("asyncify_start_rewind", 1);
 
 var _asyncify_stop_rewind = createExportWrapper("asyncify_stop_rewind", 0);
 
-var ___start_em_js = Module["___start_em_js"] = 1076768;
+var ___start_em_js = Module["___start_em_js"] = 780384;
 
-var ___stop_em_js = Module["___stop_em_js"] = 1077194;
+var ___stop_em_js = Module["___stop_em_js"] = 780810;
 
 function invoke_vjj(index, a1, a2) {
  var sp = stackSave();
@@ -5549,10 +5575,123 @@ function invoke_jjj(index, a1, a2) {
  }
 }
 
-function invoke_vjjjj(index, a1, a2, a3, a4) {
+function invoke_ijjjj(index, a1, a2, a3, a4) {
  var sp = stackSave();
  try {
-  dynCall_vjjjj(Number(index), a1, a2, a3, a4);
+  return dynCall_ijjjj(Number(index), a1, a2, a3, a4);
+ } catch (e) {
+  stackRestore(sp);
+  if (e !== e + 0) throw e;
+  _setThrew(1, 0);
+ }
+}
+
+function invoke_vjjiiii(index, a1, a2, a3, a4, a5, a6) {
+ var sp = stackSave();
+ try {
+  dynCall_vjjiiii(Number(index), a1, a2, a3, a4, a5, a6);
+ } catch (e) {
+  stackRestore(sp);
+  if (e !== e + 0) throw e;
+  _setThrew(1, 0);
+ }
+}
+
+function invoke_vjji(index, a1, a2, a3) {
+ var sp = stackSave();
+ try {
+  dynCall_vjji(Number(index), a1, a2, a3);
+ } catch (e) {
+  stackRestore(sp);
+  if (e !== e + 0) throw e;
+  _setThrew(1, 0);
+ }
+}
+
+function invoke_ijj(index, a1, a2) {
+ var sp = stackSave();
+ try {
+  return dynCall_ijj(Number(index), a1, a2);
+ } catch (e) {
+  stackRestore(sp);
+  if (e !== e + 0) throw e;
+  _setThrew(1, 0);
+ }
+}
+
+function invoke_vjjij(index, a1, a2, a3, a4) {
+ var sp = stackSave();
+ try {
+  dynCall_vjjij(Number(index), a1, a2, a3, a4);
+ } catch (e) {
+  stackRestore(sp);
+  if (e !== e + 0) throw e;
+  _setThrew(1, 0);
+ }
+}
+
+function invoke_jj(index, a1) {
+ var sp = stackSave();
+ try {
+  return dynCall_jj(Number(index), a1);
+ } catch (e) {
+  stackRestore(sp);
+  if (e !== e + 0) throw e;
+  _setThrew(1, 0);
+  return 0n;
+ }
+}
+
+function invoke_vjij(index, a1, a2, a3) {
+ var sp = stackSave();
+ try {
+  dynCall_vjij(Number(index), a1, a2, a3);
+ } catch (e) {
+  stackRestore(sp);
+  if (e !== e + 0) throw e;
+  _setThrew(1, 0);
+ }
+}
+
+function invoke_ijjjjj(index, a1, a2, a3, a4, a5) {
+ var sp = stackSave();
+ try {
+  return dynCall_ijjjjj(Number(index), a1, a2, a3, a4, a5);
+ } catch (e) {
+  stackRestore(sp);
+  if (e !== e + 0) throw e;
+  _setThrew(1, 0);
+ }
+}
+
+function invoke_jjij(index, a1, a2, a3) {
+ var sp = stackSave();
+ try {
+  return dynCall_jjij(Number(index), a1, a2, a3);
+ } catch (e) {
+  stackRestore(sp);
+  if (e !== e + 0) throw e;
+  _setThrew(1, 0);
+  return 0n;
+ }
+}
+
+function invoke_jjjii(index, a1, a2, a3, a4) {
+ var sp = stackSave();
+ try {
+  return dynCall_jjjii(Number(index), a1, a2, a3, a4);
+ } catch (e) {
+  stackRestore(sp);
+  if (e !== e + 0) throw e;
+  _setThrew(1, 0);
+  return 0n;
+ }
+}
+
+function invoke_vjjji(index, a1, a2, a3, a4) {
+ var sp = stackSave();
+ try {
+  dynCall_vjjji(Number(index), a1, a2, a3, a4);
  } catch (e) {
   stackRestore(sp);
   if (e !== e + 0) throw e;
@@ -5571,27 +5710,14 @@ function invoke_v(index) {
  }
 }
 
-function invoke_j(index) {
+function invoke_ijjjjjj(index, a1, a2, a3, a4, a5, a6) {
  var sp = stackSave();
  try {
-  return dynCall_j(Number(index));
+  return dynCall_ijjjjjj(Number(index), a1, a2, a3, a4, a5, a6);
  } catch (e) {
   stackRestore(sp);
   if (e !== e + 0) throw e;
   _setThrew(1, 0);
-  return 0n;
- }
-}
-
-function invoke_jjjjj(index, a1, a2, a3, a4) {
- var sp = stackSave();
- try {
-  return dynCall_jjjjj(Number(index), a1, a2, a3, a4);
- } catch (e) {
-  stackRestore(sp);
-  if (e !== e + 0) throw e;
-  _setThrew(1, 0);
-  return 0n;
  }
 }
 
@@ -5607,6 +5733,53 @@ function invoke_jji(index, a1, a2) {
  }
 }
 
+function invoke_jjjji(index, a1, a2, a3, a4) {
+ var sp = stackSave();
+ try {
+  return dynCall_jjjji(Number(index), a1, a2, a3, a4);
+ } catch (e) {
+  stackRestore(sp);
+  if (e !== e + 0) throw e;
+  _setThrew(1, 0);
+  return 0n;
+ }
+}
+
+function invoke_j(index) {
+ var sp = stackSave();
+ try {
+  return dynCall_j(Number(index));
+ } catch (e) {
+  stackRestore(sp);
+  if (e !== e + 0) throw e;
+  _setThrew(1, 0);
+  return 0n;
+ }
+}
+
+function invoke_jjji(index, a1, a2, a3) {
+ var sp = stackSave();
+ try {
+  return dynCall_jjji(Number(index), a1, a2, a3);
+ } catch (e) {
+  stackRestore(sp);
+  if (e !== e + 0) throw e;
+  _setThrew(1, 0);
+  return 0n;
+ }
+}
+
+function invoke_vjjjjj(index, a1, a2, a3, a4, a5) {
+ var sp = stackSave();
+ try {
+  dynCall_vjjjjj(Number(index), a1, a2, a3, a4, a5);
+ } catch (e) {
+  stackRestore(sp);
+  if (e !== e + 0) throw e;
+  _setThrew(1, 0);
+ }
+}
+
 function invoke_ij(index, a1) {
  var sp = stackSave();
  try {
@@ -5618,10 +5791,54 @@ function invoke_ij(index, a1) {
  }
 }
 
-function invoke_jjjii(index, a1, a2, a3, a4) {
+function invoke_vjijj(index, a1, a2, a3, a4) {
  var sp = stackSave();
  try {
-  return dynCall_jjjii(Number(index), a1, a2, a3, a4);
+  dynCall_vjijj(Number(index), a1, a2, a3, a4);
+ } catch (e) {
+  stackRestore(sp);
+  if (e !== e + 0) throw e;
+  _setThrew(1, 0);
+ }
+}
+
+function invoke_djj(index, a1, a2) {
+ var sp = stackSave();
+ try {
+  return dynCall_djj(Number(index), a1, a2);
+ } catch (e) {
+  stackRestore(sp);
+  if (e !== e + 0) throw e;
+  _setThrew(1, 0);
+ }
+}
+
+function invoke_ijdj(index, a1, a2, a3) {
+ var sp = stackSave();
+ try {
+  return dynCall_ijdj(Number(index), a1, a2, a3);
+ } catch (e) {
+  stackRestore(sp);
+  if (e !== e + 0) throw e;
+  _setThrew(1, 0);
+ }
+}
+
+function invoke_iji(index, a1, a2) {
+ var sp = stackSave();
+ try {
+  return dynCall_iji(Number(index), a1, a2);
+ } catch (e) {
+  stackRestore(sp);
+  if (e !== e + 0) throw e;
+  _setThrew(1, 0);
+ }
+}
+
+function invoke_jjijj(index, a1, a2, a3, a4) {
+ var sp = stackSave();
+ try {
+  return dynCall_jjijj(Number(index), a1, a2, a3, a4);
  } catch (e) {
   stackRestore(sp);
   if (e !== e + 0) throw e;
@@ -5630,10 +5847,227 @@ function invoke_jjjii(index, a1, a2, a3, a4) {
  }
 }
 
-function invoke_vjjiiii(index, a1, a2, a3, a4, a5, a6) {
+function invoke_vjjjj(index, a1, a2, a3, a4) {
  var sp = stackSave();
  try {
-  dynCall_vjjiiii(Number(index), a1, a2, a3, a4, a5, a6);
+  dynCall_vjjjj(Number(index), a1, a2, a3, a4);
+ } catch (e) {
+  stackRestore(sp);
+  if (e !== e + 0) throw e;
+  _setThrew(1, 0);
+ }
+}
+
+function invoke_ijiij(index, a1, a2, a3, a4) {
+ var sp = stackSave();
+ try {
+  return dynCall_ijiij(Number(index), a1, a2, a3, a4);
+ } catch (e) {
+  stackRestore(sp);
+  if (e !== e + 0) throw e;
+  _setThrew(1, 0);
+ }
+}
+
+function invoke_vj(index, a1) {
+ var sp = stackSave();
+ try {
+  dynCall_vj(Number(index), a1);
+ } catch (e) {
+  stackRestore(sp);
+  if (e !== e + 0) throw e;
+  _setThrew(1, 0);
+ }
+}
+
+function invoke_jjjjj(index, a1, a2, a3, a4) {
+ var sp = stackSave();
+ try {
+  return dynCall_jjjjj(Number(index), a1, a2, a3, a4);
+ } catch (e) {
+  stackRestore(sp);
+  if (e !== e + 0) throw e;
+  _setThrew(1, 0);
+  return 0n;
+ }
+}
+
+function invoke_jjjjjji(index, a1, a2, a3, a4, a5, a6) {
+ var sp = stackSave();
+ try {
+  return dynCall_jjjjjji(Number(index), a1, a2, a3, a4, a5, a6);
+ } catch (e) {
+  stackRestore(sp);
+  if (e !== e + 0) throw e;
+  _setThrew(1, 0);
+  return 0n;
+ }
+}
+
+function invoke_ijjj(index, a1, a2, a3) {
+ var sp = stackSave();
+ try {
+  return dynCall_ijjj(Number(index), a1, a2, a3);
+ } catch (e) {
+  stackRestore(sp);
+  if (e !== e + 0) throw e;
+  _setThrew(1, 0);
+ }
+}
+
+function invoke_ijjij(index, a1, a2, a3, a4) {
+ var sp = stackSave();
+ try {
+  return dynCall_ijjij(Number(index), a1, a2, a3, a4);
+ } catch (e) {
+  stackRestore(sp);
+  if (e !== e + 0) throw e;
+  _setThrew(1, 0);
+ }
+}
+
+function invoke_vjjjji(index, a1, a2, a3, a4, a5) {
+ var sp = stackSave();
+ try {
+  dynCall_vjjjji(Number(index), a1, a2, a3, a4, a5);
+ } catch (e) {
+  stackRestore(sp);
+  if (e !== e + 0) throw e;
+  _setThrew(1, 0);
+ }
+}
+
+function invoke_ijjjjijj(index, a1, a2, a3, a4, a5, a6, a7) {
+ var sp = stackSave();
+ try {
+  return dynCall_ijjjjijj(Number(index), a1, a2, a3, a4, a5, a6, a7);
+ } catch (e) {
+  stackRestore(sp);
+  if (e !== e + 0) throw e;
+  _setThrew(1, 0);
+ }
+}
+
+function invoke_vjjii(index, a1, a2, a3, a4) {
+ var sp = stackSave();
+ try {
+  dynCall_vjjii(Number(index), a1, a2, a3, a4);
+ } catch (e) {
+  stackRestore(sp);
+  if (e !== e + 0) throw e;
+  _setThrew(1, 0);
+ }
+}
+
+function invoke_jjjij(index, a1, a2, a3, a4) {
+ var sp = stackSave();
+ try {
+  return dynCall_jjjij(Number(index), a1, a2, a3, a4);
+ } catch (e) {
+  stackRestore(sp);
+  if (e !== e + 0) throw e;
+  _setThrew(1, 0);
+  return 0n;
+ }
+}
+
+function invoke_jjjiji(index, a1, a2, a3, a4, a5) {
+ var sp = stackSave();
+ try {
+  return dynCall_jjjiji(Number(index), a1, a2, a3, a4, a5);
+ } catch (e) {
+  stackRestore(sp);
+  if (e !== e + 0) throw e;
+  _setThrew(1, 0);
+  return 0n;
+ }
+}
+
+function invoke_vjijji(index, a1, a2, a3, a4, a5) {
+ var sp = stackSave();
+ try {
+  dynCall_vjijji(Number(index), a1, a2, a3, a4, a5);
+ } catch (e) {
+  stackRestore(sp);
+  if (e !== e + 0) throw e;
+  _setThrew(1, 0);
+ }
+}
+
+function invoke_ijjjjii(index, a1, a2, a3, a4, a5, a6) {
+ var sp = stackSave();
+ try {
+  return dynCall_ijjjjii(Number(index), a1, a2, a3, a4, a5, a6);
+ } catch (e) {
+  stackRestore(sp);
+  if (e !== e + 0) throw e;
+  _setThrew(1, 0);
+ }
+}
+
+function invoke_jjjjiii(index, a1, a2, a3, a4, a5, a6) {
+ var sp = stackSave();
+ try {
+  return dynCall_jjjjiii(Number(index), a1, a2, a3, a4, a5, a6);
+ } catch (e) {
+  stackRestore(sp);
+  if (e !== e + 0) throw e;
+  _setThrew(1, 0);
+  return 0n;
+ }
+}
+
+function invoke_jjjjjj(index, a1, a2, a3, a4, a5) {
+ var sp = stackSave();
+ try {
+  return dynCall_jjjjjj(Number(index), a1, a2, a3, a4, a5);
+ } catch (e) {
+  stackRestore(sp);
+  if (e !== e + 0) throw e;
+  _setThrew(1, 0);
+  return 0n;
+ }
+}
+
+function invoke_vjii(index, a1, a2, a3) {
+ var sp = stackSave();
+ try {
+  dynCall_vjii(Number(index), a1, a2, a3);
+ } catch (e) {
+  stackRestore(sp);
+  if (e !== e + 0) throw e;
+  _setThrew(1, 0);
+ }
+}
+
+function invoke_jjijjiiijj(index, a1, a2, a3, a4, a5, a6, a7, a8, a9) {
+ var sp = stackSave();
+ try {
+  return dynCall_jjijjiiijj(Number(index), a1, a2, a3, a4, a5, a6, a7, a8, a9);
+ } catch (e) {
+  stackRestore(sp);
+  if (e !== e + 0) throw e;
+  _setThrew(1, 0);
+  return 0n;
+ }
+}
+
+function invoke_jjjjji(index, a1, a2, a3, a4, a5) {
+ var sp = stackSave();
+ try {
+  return dynCall_jjjjji(Number(index), a1, a2, a3, a4, a5);
+ } catch (e) {
+  stackRestore(sp);
+  if (e !== e + 0) throw e;
+  _setThrew(1, 0);
+  return 0n;
+ }
+}
+
+function invoke_ijjjji(index, a1, a2, a3, a4, a5) {
+ var sp = stackSave();
+ try {
+  return dynCall_ijjjji(Number(index), a1, a2, a3, a4, a5);
  } catch (e) {
   stackRestore(sp);
   if (e !== e + 0) throw e;
@@ -5650,17 +6084,6 @@ function invoke_jjidd(index, a1, a2, a3, a4) {
   if (e !== e + 0) throw e;
   _setThrew(1, 0);
   return 0n;
- }
-}
-
-function invoke_vij(index, a1, a2) {
- var sp = stackSave();
- try {
-  dynCall_vij(Number(index), a1, a2);
- } catch (e) {
-  stackRestore(sp);
-  if (e !== e + 0) throw e;
-  _setThrew(1, 0);
  }
 }
 
@@ -5688,29 +6111,6 @@ function invoke_jjiidd(index, a1, a2, a3, a4, a5) {
  }
 }
 
-function invoke_jj(index, a1) {
- var sp = stackSave();
- try {
-  return dynCall_jj(Number(index), a1);
- } catch (e) {
-  stackRestore(sp);
-  if (e !== e + 0) throw e;
-  _setThrew(1, 0);
-  return 0n;
- }
-}
-
-function invoke_vj(index, a1) {
- var sp = stackSave();
- try {
-  dynCall_vj(Number(index), a1);
- } catch (e) {
-  stackRestore(sp);
-  if (e !== e + 0) throw e;
-  _setThrew(1, 0);
- }
-}
-
 function invoke_jjiijj(index, a1, a2, a3, a4, a5) {
  var sp = stackSave();
  try {
@@ -5735,77 +6135,10 @@ function invoke_jjjjjjj(index, a1, a2, a3, a4, a5, a6) {
  }
 }
 
-function invoke_jjjjjji(index, a1, a2, a3, a4, a5, a6) {
- var sp = stackSave();
- try {
-  return dynCall_jjjjjji(Number(index), a1, a2, a3, a4, a5, a6);
- } catch (e) {
-  stackRestore(sp);
-  if (e !== e + 0) throw e;
-  _setThrew(1, 0);
-  return 0n;
- }
-}
-
-function invoke_iji(index, a1, a2) {
- var sp = stackSave();
- try {
-  return dynCall_iji(Number(index), a1, a2);
- } catch (e) {
-  stackRestore(sp);
-  if (e !== e + 0) throw e;
-  _setThrew(1, 0);
- }
-}
-
-function invoke_ijjjj(index, a1, a2, a3, a4) {
- var sp = stackSave();
- try {
-  return dynCall_ijjjj(Number(index), a1, a2, a3, a4);
- } catch (e) {
-  stackRestore(sp);
-  if (e !== e + 0) throw e;
-  _setThrew(1, 0);
- }
-}
-
-function invoke_vjjjjj(index, a1, a2, a3, a4, a5) {
- var sp = stackSave();
- try {
-  dynCall_vjjjjj(Number(index), a1, a2, a3, a4, a5);
- } catch (e) {
-  stackRestore(sp);
-  if (e !== e + 0) throw e;
-  _setThrew(1, 0);
- }
-}
-
 function invoke_vjjd(index, a1, a2, a3) {
  var sp = stackSave();
  try {
   dynCall_vjjd(Number(index), a1, a2, a3);
- } catch (e) {
-  stackRestore(sp);
-  if (e !== e + 0) throw e;
-  _setThrew(1, 0);
- }
-}
-
-function invoke_djj(index, a1, a2) {
- var sp = stackSave();
- try {
-  return dynCall_djj(Number(index), a1, a2);
- } catch (e) {
-  stackRestore(sp);
-  if (e !== e + 0) throw e;
-  _setThrew(1, 0);
- }
-}
-
-function invoke_vjji(index, a1, a2, a3) {
- var sp = stackSave();
- try {
-  dynCall_vjji(Number(index), a1, a2, a3);
  } catch (e) {
   stackRestore(sp);
   if (e !== e + 0) throw e;
@@ -5821,18 +6154,6 @@ function invoke_i(index) {
   stackRestore(sp);
   if (e !== e + 0) throw e;
   _setThrew(1, 0);
- }
-}
-
-function invoke_jjji(index, a1, a2, a3) {
- var sp = stackSave();
- try {
-  return dynCall_jjji(Number(index), a1, a2, a3);
- } catch (e) {
-  stackRestore(sp);
-  if (e !== e + 0) throw e;
-  _setThrew(1, 0);
-  return 0n;
  }
 }
 
@@ -5855,40 +6176,6 @@ function invoke_iii(index, a1, a2) {
   stackRestore(sp);
   if (e !== e + 0) throw e;
   _setThrew(1, 0);
- }
-}
-
-function invoke_vjjij(index, a1, a2, a3, a4) {
- var sp = stackSave();
- try {
-  dynCall_vjjij(Number(index), a1, a2, a3, a4);
- } catch (e) {
-  stackRestore(sp);
-  if (e !== e + 0) throw e;
-  _setThrew(1, 0);
- }
-}
-
-function invoke_vjij(index, a1, a2, a3) {
- var sp = stackSave();
- try {
-  dynCall_vjij(Number(index), a1, a2, a3);
- } catch (e) {
-  stackRestore(sp);
-  if (e !== e + 0) throw e;
-  _setThrew(1, 0);
- }
-}
-
-function invoke_jjij(index, a1, a2, a3) {
- var sp = stackSave();
- try {
-  return dynCall_jjij(Number(index), a1, a2, a3);
- } catch (e) {
-  stackRestore(sp);
-  if (e !== e + 0) throw e;
-  _setThrew(1, 0);
-  return 0n;
  }
 }
 
@@ -5963,6 +6250,8 @@ Module["FS_createLazyFile"] = FS.createLazyFile;
 
 Module["FS_createDevice"] = FS.createDevice;
 
+Module["ccall"] = ccall;
+
 Module["cwrap"] = cwrap;
 
 Module["FS_createPreloadedFile"] = FS.createPreloadedFile;
@@ -5975,7 +6264,7 @@ var missingLibrarySymbols = [ "writeI53ToI64", "writeI53ToI64Clamped", "writeI53
 
 missingLibrarySymbols.forEach(missingLibrarySymbol);
 
-var unexportedSymbols = [ "run", "addOnPreRun", "addOnInit", "addOnPreMain", "addOnExit", "addOnPostRun", "FS_createFolder", "FS_createLink", "FS_readFile", "out", "err", "callMain", "abort", "wasmMemory", "wasmExports", "writeStackCookie", "checkStackCookie", "readI53FromI64", "MAX_INT53", "MIN_INT53", "bigintToI53Checked", "stackSave", "stackRestore", "stackAlloc", "setTempRet0", "ptrToString", "zeroMemory", "exitJS", "getHeapMax", "growMemory", "ENV", "MONTH_DAYS_REGULAR", "MONTH_DAYS_LEAP", "MONTH_DAYS_REGULAR_CUMULATIVE", "MONTH_DAYS_LEAP_CUMULATIVE", "isLeapYear", "ydayFromDate", "arraySum", "addDays", "ERRNO_CODES", "ERRNO_MESSAGES", "DNS", "Protocols", "Sockets", "initRandomFill", "randomFill", "timers", "warnOnce", "readEmAsmArgsArray", "jstoi_s", "getExecutableName", "handleException", "keepRuntimeAlive", "runtimeKeepalivePush", "runtimeKeepalivePop", "callUserCallback", "maybeExit", "asyncLoad", "alignMemory", "mmapAlloc", "wasmTable", "noExitRuntime", "getCFunc", "ccall", "sigToWasmTypes", "freeTableIndexes", "functionsInTableMap", "setValue", "getValue", "PATH", "PATH_FS", "UTF8Decoder", "UTF8ArrayToString", "UTF8ToString", "stringToUTF8Array", "stringToUTF8", "lengthBytesUTF8", "intArrayFromString", "stringToAscii", "UTF16Decoder", "stringToUTF8OnStack", "writeArrayToMemory", "JSEvents", "specialHTMLTargets", "findCanvasEventTarget", "currentFullscreenStrategy", "restoreOldWindowedStyle", "UNWIND_CACHE", "ExitStatus", "getEnvStrings", "doReadv", "doWritev", "promiseMap", "uncaughtExceptionCount", "exceptionLast", "exceptionCaught", "ExceptionInfo", "findMatchingCatch", "Browser", "getPreloadedImageData__data", "wget", "SYSCALLS", "preloadPlugins", "FS_modeStringToFlags", "FS_getMode", "FS_stdin_getChar_buffer", "FS_stdin_getChar", "FS", "MEMFS", "TTY", "PIPEFS", "SOCKFS", "tempFixedLengthArray", "miniTempWebGLFloatBuffers", "miniTempWebGLIntBuffers", "GL", "AL", "GLUT", "EGL", "GLEW", "IDBStore", "runAndAbortIfError", "Asyncify", "Fibers", "SDL", "SDL_gfx", "allocateUTF8", "allocateUTF8OnStack" ];
+var unexportedSymbols = [ "run", "addOnPreRun", "addOnInit", "addOnPreMain", "addOnExit", "addOnPostRun", "FS_createFolder", "FS_createLink", "FS_readFile", "out", "err", "callMain", "abort", "wasmMemory", "wasmExports", "writeStackCookie", "checkStackCookie", "readI53FromI64", "MAX_INT53", "MIN_INT53", "bigintToI53Checked", "stackSave", "stackRestore", "stackAlloc", "setTempRet0", "ptrToString", "zeroMemory", "exitJS", "getHeapMax", "growMemory", "ENV", "MONTH_DAYS_REGULAR", "MONTH_DAYS_LEAP", "MONTH_DAYS_REGULAR_CUMULATIVE", "MONTH_DAYS_LEAP_CUMULATIVE", "isLeapYear", "ydayFromDate", "arraySum", "addDays", "ERRNO_CODES", "ERRNO_MESSAGES", "DNS", "Protocols", "Sockets", "initRandomFill", "randomFill", "timers", "warnOnce", "readEmAsmArgsArray", "jstoi_s", "getExecutableName", "handleException", "keepRuntimeAlive", "runtimeKeepalivePush", "runtimeKeepalivePop", "callUserCallback", "maybeExit", "asyncLoad", "alignMemory", "mmapAlloc", "wasmTable", "noExitRuntime", "getCFunc", "sigToWasmTypes", "freeTableIndexes", "functionsInTableMap", "setValue", "getValue", "PATH", "PATH_FS", "UTF8Decoder", "UTF8ArrayToString", "UTF8ToString", "stringToUTF8Array", "stringToUTF8", "lengthBytesUTF8", "intArrayFromString", "stringToAscii", "UTF16Decoder", "stringToUTF8OnStack", "writeArrayToMemory", "JSEvents", "specialHTMLTargets", "findCanvasEventTarget", "currentFullscreenStrategy", "restoreOldWindowedStyle", "UNWIND_CACHE", "ExitStatus", "getEnvStrings", "doReadv", "doWritev", "promiseMap", "uncaughtExceptionCount", "exceptionLast", "exceptionCaught", "ExceptionInfo", "findMatchingCatch", "Browser", "getPreloadedImageData__data", "wget", "SYSCALLS", "preloadPlugins", "FS_modeStringToFlags", "FS_getMode", "FS_stdin_getChar_buffer", "FS_stdin_getChar", "FS", "MEMFS", "TTY", "PIPEFS", "SOCKFS", "tempFixedLengthArray", "miniTempWebGLFloatBuffers", "miniTempWebGLIntBuffers", "GL", "AL", "GLUT", "EGL", "GLEW", "IDBStore", "runAndAbortIfError", "Asyncify", "Fibers", "SDL", "SDL_gfx", "allocateUTF8", "allocateUTF8OnStack" ];
 
 unexportedSymbols.forEach(unexportedRuntimeSymbol);
 
@@ -5985,6 +6274,21 @@ dependenciesFulfilled = function runCaller() {
  if (!calledRun) run();
  if (!calledRun) dependenciesFulfilled = runCaller;
 };
+
+function callMain() {
+ assert(runDependencies == 0, 'cannot call main when async dependencies remain! (listen on Module["onRuntimeInitialized"])');
+ assert(__ATPRERUN__.length == 0, "cannot call main when preRun functions remain to be called");
+ var entryFunction = _main;
+ var argc = 0;
+ var argv = 0;
+ try {
+  var ret = entryFunction(argc, BigInt(argv));
+  exitJS(ret, /* implicit = */ true);
+  return ret;
+ } catch (e) {
+  return handleException(e);
+ }
+}
 
 function stackCheckInit() {
  _emscripten_stack_init();
@@ -6006,9 +6310,10 @@ function run() {
   Module["calledRun"] = true;
   if (ABORT) return;
   initRuntime();
+  preMain();
   readyPromiseResolve(Module);
   if (Module["onRuntimeInitialized"]) Module["onRuntimeInitialized"]();
-  assert(!Module["_main"], 'compiled without a main, but one is present. if you added it from JS, use Module["onRuntimeInitialized"]');
+  if (shouldRunNow) callMain();
   postRun();
  }
  if (Module["setStatus"]) {
@@ -6058,6 +6363,10 @@ if (Module["preInit"]) {
   Module["preInit"].pop()();
  }
 }
+
+var shouldRunNow = true;
+
+if (Module["noInitialRun"]) shouldRunNow = false;
 
 run();
 

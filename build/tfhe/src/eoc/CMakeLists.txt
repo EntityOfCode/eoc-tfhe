@@ -1,4 +1,7 @@
 cmake_minimum_required(VERSION 3.0)
+set(CMAKE_CXX_STANDARD 11)
+# set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -Wno-deprecated-declarations")
+set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -s ASYNCIFY=1 -s ASYNCIFY_IMPORTS=['emscripten_asm_const_ptr']")
 
 # include_directories(/home/claoo/vcpkg/installed/x64-linux/include)
 

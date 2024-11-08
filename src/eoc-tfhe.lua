@@ -9,9 +9,9 @@ function Tfhe.testJWT()
     return Tfhe.backend.testJWT();
 end
 
-function Tfhe.generateSecretKey()
+function Tfhe.generateSecretKey(jwtToken, jwksBase64)
     -- io.stderr:write("Keys generation process started....\n")
-    return Tfhe.backend.generateSecretKey()
+    return Tfhe.backend.generateSecretKey(jwtToken, jwksBase64)
 end
 
 function Tfhe.generatePublicKey()
@@ -24,9 +24,9 @@ function Tfhe.encryptInteger(value, key)
     return Tfhe.backend.encryptInteger(value, key)
 end
 
-function Tfhe.decryptInteger(value, key)
+function Tfhe.decryptInteger(value, key, jwtToken, jwksBase64)
     -- io.stderr:write("Trying to decrypt" .. value .. "\n")
-    return Tfhe.backend.decryptInteger(value, key)
+    return Tfhe.backend.decryptInteger(value, key, jwtToken, jwksBase64)
 end
 
 function Tfhe.addCiphertexts(cipher1, cipher2, public_key)

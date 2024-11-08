@@ -8,11 +8,12 @@
 // Add a Lua binding for the add function
 static int l_addCiphertexts(lua_State *L)
 {
+ 
   const char *ciphertext1 = luaL_checkstring(L, 1);
   const char *ciphertext2 = luaL_checkstring(L, 2);
-  // const char *public_key = luaL_checkstring(L, 3);
+  const char *public_key = luaL_checkstring(L, 3);
 
-  const char *result = addCiphertexts(ciphertext1, ciphertext2, NULL);
+  const char *result = addCiphertexts(ciphertext1, ciphertext2, public_key);
   lua_pushstring(L, result);
   free((void *)result);
 
@@ -24,9 +25,9 @@ static int l_subtractCiphertexts(lua_State *L)
 {
   const char *ciphertext1 = luaL_checkstring(L, 1);
   const char *ciphertext2 = luaL_checkstring(L, 2);
-  // const char *public_key = luaL_checkstring(L, 3);
+  const char *public_key = luaL_checkstring(L, 3);
 
-  const char *result = subtractCiphertexts(ciphertext1, ciphertext2, NULL);
+  const char *result = subtractCiphertexts(ciphertext1, ciphertext2, public_key);
   lua_pushstring(L, result);
   free((void *)result);
 
@@ -35,7 +36,10 @@ static int l_subtractCiphertexts(lua_State *L)
 
 static int l_generateSecretKey(lua_State *L)
 {
-  const char *result = generateSecretKey();
+  const char *jwtToken = luaL_checkstring(L, 1);
+  const char *jwksBase64 = luaL_checkstring(L, 2);
+
+  const char *result = generateSecretKey(jwtToken, jwksBase64);
   lua_pushstring(L, result);
   free((void *)result);
   return 1;
@@ -43,16 +47,16 @@ static int l_generateSecretKey(lua_State *L)
 
 static int l_generatePublicKey(lua_State *L)
 {
-  const char *result = generatePublicKey();
-  lua_pushstring(L, result);
-  free((void *)result);
+  // const char *result = generatePublicKey();
+  // lua_pushstring(L, result);
+  // free((void *)result);
   return 1;
 }
 
 static int l_encryptInteger(lua_State *L)
 {
   int value = luaL_checkinteger(L,1);
-  // const char *secret_key = luaL_checkstring(L,2);
+  const char *secret_key = luaL_checkstring(L,2);
   const char *encryptedValue = encryptInteger(value, NULL);
   lua_pushstring(L, encryptedValue);
   free((void *)encryptedValue);
@@ -62,8 +66,11 @@ static int l_encryptInteger(lua_State *L)
 static int l_decryptInteger(lua_State *L)
 {
   const char *ciphertext1 = luaL_checkstring(L, 1);
-  // const char *secret_key = luaL_checkstring(L,2);
-  int decryptedValue = decryptInteger((char *)ciphertext1, NULL);
+  const char *secret_key = luaL_checkstring(L,2);
+  const char *jwtToken = luaL_checkstring(L, 3);
+  const char *jwksBase64 = luaL_checkstring(L, 4);
+
+  int decryptedValue = decryptInteger((char *)ciphertext1, NULL, jwtToken, jwksBase64);
   lua_pushinteger(L, decryptedValue);
   return 1;
 }

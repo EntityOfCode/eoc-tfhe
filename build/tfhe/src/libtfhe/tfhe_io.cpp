@@ -1,6 +1,7 @@
 #ifndef TFHE_TESTING_ENVIRONMENT
 
 #include <stdlib.h>
+#include <iostream>
 #include <tfhe_io.h>
 #include <map>
 #include <string>
@@ -100,6 +101,7 @@ void read_lweSample(const Istream &F, LweSample *sample, const LweParams *params
 
 void write_lweSample(const Ostream &F, const LweSample *sample, const LweParams *params) {
     const int32_t n = params->n;
+    std::cout << "Torus size: " << sizeof(Torus32) << " n= " << n << " Aprox size: " << (sizeof(Torus32) * n) / 1073741824 << "Gb" << std::endl;
     F.fwrite(&LWE_SAMPLE_TYPE_UID, sizeof(int32_t));
     F.fwrite(sample->a, sizeof(Torus32) * n);
     F.fwrite(&sample->b, sizeof(Torus32));

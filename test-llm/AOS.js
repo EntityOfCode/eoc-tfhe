@@ -5172,7 +5172,6 @@ var wasmImports = {
  /** @export */ invoke_jjjjjji: invoke_jjjjjji,
  /** @export */ invoke_jjjjjjj: invoke_jjjjjjj,
  /** @export */ invoke_v: invoke_v,
- /** @export */ invoke_vij: invoke_vij,
  /** @export */ invoke_vj: invoke_vj,
  /** @export */ invoke_vji: invoke_vji,
  /** @export */ invoke_vjii: invoke_vjii,
@@ -5515,9 +5514,9 @@ var _asyncify_start_rewind = createExportWrapper("asyncify_start_rewind", 1);
 
 var _asyncify_stop_rewind = createExportWrapper("asyncify_stop_rewind", 0);
 
-var ___start_em_js = Module["___start_em_js"] = 780624;
+var ___start_em_js = Module["___start_em_js"] = 780384;
 
-var ___stop_em_js = Module["___stop_em_js"] = 781050;
+var ___stop_em_js = Module["___stop_em_js"] = 780810;
 
 function invoke_vjj(index, a1, a2) {
  var sp = stackSave();
@@ -6085,17 +6084,6 @@ function invoke_jjidd(index, a1, a2, a3, a4) {
   if (e !== e + 0) throw e;
   _setThrew(1, 0);
   return 0n;
- }
-}
-
-function invoke_vij(index, a1, a2) {
- var sp = stackSave();
- try {
-  dynCall_vij(Number(index), a1, a2);
- } catch (e) {
-  stackRestore(sp);
-  if (e !== e + 0) throw e;
-  _setThrew(1, 0);
  }
 }
 
