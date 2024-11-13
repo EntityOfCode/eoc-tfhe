@@ -3,6 +3,10 @@ WALLET_LOC ?= key.json
 # Set to 1 to enable debugging
 DEBUG ?=
 
+OPENSSL_INCLUDE_DIRS=/opt/openssl/include
+OPENSSL_LIBRARY_DIRS=/opt/openssl
+OPENSSL_LIBRARIES=/opt/openssl/libssl.a /opt/openssl/libcrypto.a
+
 EMXX_CFLAGS=-s MEMORY64=1 -O3 -g0 -msimd128 -fno-rtti \
 	-flto=full -s EXPORT_ALL=1 \
 	-s EXPORT_ES6=1 -s MODULARIZE=1 -s INITIAL_MEMORY=800MB \
@@ -10,14 +14,15 @@ EMXX_CFLAGS=-s MEMORY64=1 -O3 -g0 -msimd128 -fno-rtti \
 	-s EXPORTED_FUNCTIONS=_main -s EXPORTED_RUNTIME_METHODS=callMain -s \
 	NO_EXIT_RUNTIME=1 -Wno-unused-command-line-argument -Wno-experimental
 
-EMXX_EOC_FLAGS= -s MEMORY64=1 -g\
-    -s EXPORT_ALL=1 \
+EMXX_EOC_FLAGS= -s MEMORY64=1 -g0 \
+    -s EXPORT_ALL=1 -s EXPORT_ES6=1 -s MODULARIZE=1 \
 	-s FORCE_FILESYSTEM=1 -s INITIAL_MEMORY=800MB\
 	-s MAXIMUM_MEMORY=16GB -s ALLOW_MEMORY_GROWTH -s FORCE_FILESYSTEM=1 \
 	-s EXPORTED_FUNCTIONS=_main -s EXPORTED_RUNTIME_METHODS=[\"callMain\",\"ccall\",\"cwrap\"] \
-	-s NO_EXIT_RUNTIME=1  -s NO_DISABLE_EXCEPTION_CATCHING -Wno-unused-command-line-argument -Wno-experimental 
+	-s NO_EXIT_RUNTIME=1 -Wno-unused-command-line-argument -Wno-experimental 
 
-
+CXXFLAGS += -I$(OPENSSL_INCLUDE_DIRS)
+LDFLAGS += -L$(OPENSSL_LIBRARY_DIRS) $(OPENSSL_LIBRARIES)
 
 ARCH=$(shell uname -m | sed -e 's/x86_64//' -e 's/aarch64/arm64/')
 
@@ -99,15 +104,15 @@ libtfhe.a: container
 
 libOpenSSL: container
 	@echo "Building OpenSSL1.1 Library..."
-	# docker run -v $(PWD)/build/openssl1:/openssl p3rmaw3b/ao sh -c \
+	# docker run -v $(PWD)/build/openssl:/openssl p3rmaw3b/ao sh -c \
 	# 	"cd /openssl && emmake make clean libclean distclean"
-	# docker run -v $(PWD)/build/openssl1:/openssl p3rmaw3b/ao sh -c \
+	# docker run -v $(PWD)/build/openssl:/openssl p3rmaw3b/ao sh -c \
     # "cd /openssl && emconfigure ./Configure no-asm no-shared no-async no-dso no-hw no-engine no-stdio no-tests no-ssl no-comp no-err no-ocsp no-psk no-srp no-ts no-rfc3779 no-srtp no-weak-ssl-ciphers no-ssl-trace no-ct linux-aarch64"
-	# docker run -v $(PWD)/build/openssl1:/openssl p3rmaw3b/ao sh -c \
+	# docker run -v $(PWD)/build/openssl:/openssl p3rmaw3b/ao sh -c \
 	# 	"cd /openssl && emmake make EMCC_CFLAGS='$(EMXX_EOC_FLAGS)'"
-	cp build/openssl1/libssl.a container/lib/openssl/libssl.a
-	cp build/openssl1/libcrypto.a container/lib/openssl/libcrypto.a
-	cp -r build/openssl1/include container/lib/openssl/include
+	cp build/openssl/libssl.a container/lib/openssl/libssl.a
+	cp build/openssl/libcrypto.a container/lib/openssl/libcrypto.a
+	cp -r build/openssl/include container/lib/openssl/include
 
 ############ by GPT ###################
 
@@ -115,10 +120,11 @@ libOpenSSL: container
 libjwtd: container
 	@echo "Building the JWT Library..."
 	docker run -v $(PWD)/build/jwt-cpp:/jwt-cpp p3rmaw3b/ao sh -c \
-		"cd /jwt-cpp/build.em && emcmake cmake -DCMAKE_CXX_FLAGS='$(EMXX_EOC_FLAGS)' .."
+		"cd /jwt-cpp/build.em && emcmake cmake -DCMAKE_CXX_FLAGS='$(EMXX_EOC_FLAGS)' -DOPENSSL_INCLUDE_DIRS=$(OPENSSL_INCLUDE_DIRS) -DOPENSSL_LIBRARY_DIRS=$(OPENSSL_LIBRARY_DIRS) -DOPENSSL_LIBRARIES='$(OPENSSL_LIBRARIES)' .."
 	docker run -v $(PWD)/build/jwt-cpp:/jwt-cpp  p3rmaw3b/ao sh -c \
 		"cd /jwt-cpp/build.em && emmake make EMCC_CFLAGS='$(EMXX_EOC_FLAGS)'"
 	cp build/jwt-cpp/build.em/src/libjwt.a container/lib/libjwt.a
+	cp -r build/jwt-cpp/include container/lib/jwt-cpp/include
 
 eoc-JStfheLib.js:
 	@echo "Building eoc-JStfheLib.js..."
@@ -145,10 +151,10 @@ libtfhe++.a: container
 		"cd /TFHEpp/build.test && emmake make EMCC_CFLAGS='$(EMXX_EOC_FLAGS)'"
 	cp build/TFHEpp/build.test/src/libtfhe++.a build/TFHEpp/libtfhe++.a
 
-# build/tfhe/src/eoc-tfhe-run.o: libtfhe.a container
+# tfhe-run: libtfhe.a container
 # 	@echo "Building build/tfhe/src/eoc-tfhe-run.o..."
 # 	@docker run -v $(PWD)/build/tfhe:/tfhe p3rmaw3b/ao \
-# 		sh -c "cd /opt && em++ -s MEMORY64=1 -Wno-experimental -c eoc-tfhe-run.cpp -o /tfhe/eoc-tfhe-run.o -I ../tfhe/src/libtfhe/cereal/include/cereal"
+# 		sh -c "cd /opt && em++ -s MEMORY64=1 -Wno-experimental -c eoc-tfhe-run.cpp -o /tfhe/eoc-tfhe-run.o -I ../tfhe/src/libtfhe/cereal/include/cereal -I /opt/jwt"
 
 tfhe/unittest.js: libtfhe.a container
 	@echo "Building eoc.fhe.unittest.js..."

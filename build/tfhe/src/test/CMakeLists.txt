@@ -14,8 +14,8 @@ include_directories(${GTEST_INCLUDE_DIRS})
 
 set(OPENSSL_INCLUDE_DIR "/opt/openssl/include")
 set(OPENSSL_LIB_DIR "/opt/openssl")
-set(JWT_INCLUDE_DIR "/tfhe/include/jwt")
-set(JWT_LIB_DIR "/opt/")
+set(JWT_INCLUDE_DIR "/opt/jwt")
+set(JWT_LIB_DIR "/opt/jwt")
 
 # Include the OpenSSL and JWT headers
 include_directories(${OPENSSL_INCLUDE_DIR})

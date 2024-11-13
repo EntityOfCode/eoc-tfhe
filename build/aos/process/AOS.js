@@ -15,7 +15,7 @@ var readyPromise = new Promise((resolve, reject) => {
  readyPromiseReject = reject;
 });
 
-[ "_malloc", "_memory", "___asyncjs__weavedrive_open", "___asyncjs__weavedrive_read", "_handle", "___indirect_function_table", "_main", "onRuntimeInitialized" ].forEach(prop => {
+[ "_malloc", "_memory", "___asyncjs__weavedrive_open", "___asyncjs__weavedrive_read", "_handle", "___indirect_function_table", "onRuntimeInitialized" ].forEach(prop => {
  if (!Object.getOwnPropertyDescriptor(readyPromise, prop)) {
   Object.defineProperty(readyPromise, prop, {
    get: () => abort("You are getting " + prop + " on the Promise object, instead of the instance. Use .then() to get called back with the instance, see the MODULARIZE docs in src/settings.js"),
@@ -301,8 +301,6 @@ var __ATPRERUN__ = [];
 
 var __ATINIT__ = [];
 
-var __ATMAIN__ = [];
-
 var __ATPOSTRUN__ = [];
 
 var runtimeInitialized = false;
@@ -325,11 +323,6 @@ function initRuntime() {
  FS.ignorePermissions = false;
  TTY.init();
  callRuntimeCallbacks(__ATINIT__);
-}
-
-function preMain() {
- checkStackCookie();
- callRuntimeCallbacks(__ATMAIN__);
 }
 
 function postRun() {
@@ -777,36 +770,6 @@ function ___assert_fail(condition, filename, line, func) {
  abort(`Assertion failed: ${UTF8ToString(condition)}, at: ` + [ filename ? UTF8ToString(filename) : "unknown filename", line, func ? UTF8ToString(func) : "unknown function" ]);
 }
 
-var exceptionCaught = [];
-
-var uncaughtExceptionCount = 0;
-
-var ___cxa_begin_catch = function(ptr) {
- ptr = bigintToI53Checked(ptr);
- var ret = (() => {
-  var info = new ExceptionInfo(ptr);
-  if (!info.get_caught()) {
-   info.set_caught(true);
-   uncaughtExceptionCount--;
-  }
-  info.set_rethrown(false);
-  exceptionCaught.push(info);
-  ___cxa_increment_exception_refcount(info.excPtr);
-  return info.get_exception_ptr();
- })();
- return BigInt(ret);
-};
-
-var exceptionLast = 0;
-
-var ___cxa_end_catch = () => {
- _setThrew(0, 0);
- assert(exceptionCaught.length > 0);
- var info = exceptionCaught.pop();
- ___cxa_decrement_exception_refcount(info.excPtr);
- exceptionLast = 0;
-};
-
 class ExceptionInfo {
  constructor(excPtr) {
   this.excPtr = excPtr;
@@ -860,66 +823,9 @@ class ExceptionInfo {
  }
 }
 
-function ___resumeException(ptr) {
- ptr = bigintToI53Checked(ptr);
- if (!exceptionLast) {
-  exceptionLast = ptr;
- }
- assert(false, "Exception thrown, but exception catching is not enabled. Compile with -sNO_DISABLE_EXCEPTION_CATCHING or -sEXCEPTION_CATCHING_ALLOWED=[..] to catch.");
-}
+var exceptionLast = 0;
 
-var setTempRet0 = val => __emscripten_tempret_set(val);
-
-var findMatchingCatch = args => {
- var thrown = exceptionLast;
- if (!thrown) {
-  setTempRet0(0);
-  return 0;
- }
- var info = new ExceptionInfo(thrown);
- info.set_adjusted_ptr(thrown);
- var thrownType = info.get_type();
- if (!thrownType) {
-  setTempRet0(0);
-  return thrown;
- }
- for (var arg in args) {
-  var caughtType = args[arg];
-  if (caughtType === 0 || caughtType === thrownType) {
-   break;
-  }
-  var adjusted_ptr_addr = info.ptr + 32;
-  if (___cxa_can_catch(caughtType, thrownType, adjusted_ptr_addr)) {
-   setTempRet0(caughtType);
-   return thrown;
-  }
- }
- setTempRet0(thrownType);
- return thrown;
-};
-
-var ___cxa_find_matching_catch_2 = () => BigInt(findMatchingCatch([]));
-
-var ___cxa_find_matching_catch_3 = arg0 => {
- arg0 = bigintToI53Checked(arg0);
- return BigInt(findMatchingCatch([ arg0 ]));
-};
-
-var ___cxa_rethrow = () => {
- var info = exceptionCaught.pop();
- if (!info) {
-  abort("no exception to throw");
- }
- var ptr = info.excPtr;
- if (!info.get_rethrown()) {
-  exceptionCaught.push(info);
-  info.set_rethrown(true);
-  info.set_caught(false);
-  uncaughtExceptionCount++;
- }
- exceptionLast = ptr;
- assert(false, "Exception thrown, but exception catching is not enabled. Compile with -sNO_DISABLE_EXCEPTION_CATCHING or -sEXCEPTION_CATCHING_ALLOWED=[..] to catch.");
-};
+var uncaughtExceptionCount = 0;
 
 function ___cxa_throw(ptr, type, destructor) {
  ptr = bigintToI53Checked(ptr);
@@ -4469,11 +4375,6 @@ function _fd_write(fd, iov, iovcnt, pnum) {
  }
 }
 
-function _llvm_eh_typeid_for(type) {
- type = bigintToI53Checked(type);
- return type;
-}
-
 var arraySum = (array, index) => {
  var sum = 0;
  for (var i = 0; i <= index; sum += array[i++]) {}
@@ -4726,6 +4627,18 @@ var _strftime_l = function(s, maxsize, format, tm, loc) {
  return BigInt(ret);
 };
 
+var wasmTableMirror = [];
+
+/** @type {WebAssembly.Table} */ var wasmTable;
+
+var runAndAbortIfError = func => {
+ try {
+  return func();
+ } catch (e) {
+  abort(e);
+ }
+};
+
 var handleException = e => {
  if (e instanceof ExitStatus || e == "unwind") {
   return EXITSTATUS;
@@ -4737,18 +4650,6 @@ var handleException = e => {
   }
  }
  quit_(1, e);
-};
-
-var wasmTableMirror = [];
-
-/** @type {WebAssembly.Table} */ var wasmTable;
-
-var runAndAbortIfError = func => {
- try {
-  return func();
- } catch (e) {
-  abort(e);
- }
 };
 
 var maybeExit = () => {
@@ -5079,13 +4980,7 @@ var wasmImports = {
  /** @export */ __assert_fail: ___assert_fail,
  /** @export */ __asyncjs__weavedrive_open: __asyncjs__weavedrive_open,
  /** @export */ __asyncjs__weavedrive_read: __asyncjs__weavedrive_read,
- /** @export */ __cxa_begin_catch: ___cxa_begin_catch,
- /** @export */ __cxa_end_catch: ___cxa_end_catch,
- /** @export */ __cxa_find_matching_catch_2: ___cxa_find_matching_catch_2,
- /** @export */ __cxa_find_matching_catch_3: ___cxa_find_matching_catch_3,
- /** @export */ __cxa_rethrow: ___cxa_rethrow,
  /** @export */ __cxa_throw: ___cxa_throw,
- /** @export */ __resumeException: ___resumeException,
  /** @export */ __syscall_chmod: ___syscall_chmod,
  /** @export */ __syscall_dup3: ___syscall_dup3,
  /** @export */ __syscall_faccessat: ___syscall_faccessat,
@@ -5131,65 +5026,7 @@ var wasmImports = {
  /** @export */ fd_seek: _fd_seek,
  /** @export */ fd_sync: _fd_sync,
  /** @export */ fd_write: _fd_write,
- /** @export */ invoke_djj: invoke_djj,
- /** @export */ invoke_i: invoke_i,
- /** @export */ invoke_iii: invoke_iii,
- /** @export */ invoke_ij: invoke_ij,
- /** @export */ invoke_ijdj: invoke_ijdj,
- /** @export */ invoke_iji: invoke_iji,
- /** @export */ invoke_ijiij: invoke_ijiij,
- /** @export */ invoke_ijj: invoke_ijj,
- /** @export */ invoke_ijji: invoke_ijji,
- /** @export */ invoke_ijjij: invoke_ijjij,
- /** @export */ invoke_ijjj: invoke_ijjj,
- /** @export */ invoke_ijjjj: invoke_ijjjj,
- /** @export */ invoke_ijjjji: invoke_ijjjji,
- /** @export */ invoke_ijjjjii: invoke_ijjjjii,
- /** @export */ invoke_ijjjjijj: invoke_ijjjjijj,
- /** @export */ invoke_ijjjjj: invoke_ijjjjj,
- /** @export */ invoke_ijjjjjj: invoke_ijjjjjj,
- /** @export */ invoke_j: invoke_j,
- /** @export */ invoke_jj: invoke_jj,
- /** @export */ invoke_jji: invoke_jji,
- /** @export */ invoke_jjidd: invoke_jjidd,
- /** @export */ invoke_jjiidd: invoke_jjiidd,
- /** @export */ invoke_jjiij: invoke_jjiij,
- /** @export */ invoke_jjiijj: invoke_jjiijj,
- /** @export */ invoke_jjij: invoke_jjij,
- /** @export */ invoke_jjijj: invoke_jjijj,
- /** @export */ invoke_jjijjiiijj: invoke_jjijjiiijj,
- /** @export */ invoke_jjj: invoke_jjj,
- /** @export */ invoke_jjji: invoke_jjji,
- /** @export */ invoke_jjjii: invoke_jjjii,
- /** @export */ invoke_jjjij: invoke_jjjij,
- /** @export */ invoke_jjjiji: invoke_jjjiji,
- /** @export */ invoke_jjjj: invoke_jjjj,
- /** @export */ invoke_jjjji: invoke_jjjji,
- /** @export */ invoke_jjjjiii: invoke_jjjjiii,
- /** @export */ invoke_jjjjj: invoke_jjjjj,
- /** @export */ invoke_jjjjji: invoke_jjjjji,
- /** @export */ invoke_jjjjjj: invoke_jjjjjj,
- /** @export */ invoke_jjjjjji: invoke_jjjjjji,
- /** @export */ invoke_jjjjjjj: invoke_jjjjjjj,
- /** @export */ invoke_v: invoke_v,
- /** @export */ invoke_vj: invoke_vj,
- /** @export */ invoke_vji: invoke_vji,
- /** @export */ invoke_vjii: invoke_vjii,
- /** @export */ invoke_vjij: invoke_vjij,
- /** @export */ invoke_vjijj: invoke_vjijj,
- /** @export */ invoke_vjijji: invoke_vjijji,
  /** @export */ invoke_vjj: invoke_vjj,
- /** @export */ invoke_vjjd: invoke_vjjd,
- /** @export */ invoke_vjji: invoke_vjji,
- /** @export */ invoke_vjjii: invoke_vjjii,
- /** @export */ invoke_vjjiiii: invoke_vjjiiii,
- /** @export */ invoke_vjjij: invoke_vjjij,
- /** @export */ invoke_vjjj: invoke_vjjj,
- /** @export */ invoke_vjjji: invoke_vjjji,
- /** @export */ invoke_vjjjj: invoke_vjjjj,
- /** @export */ invoke_vjjjji: invoke_vjjjji,
- /** @export */ invoke_vjjjjj: invoke_vjjjjj,
- /** @export */ llvm_eh_typeid_for: _llvm_eh_typeid_for,
  /** @export */ strftime: _strftime,
  /** @export */ strftime_l: _strftime_l
 };
@@ -5202,7 +5039,7 @@ var _malloc = Module["_malloc"] = createExportWrapper("malloc", 1);
 
 var _handle = Module["_handle"] = createExportWrapper("handle", 2);
 
-var _main = Module["_main"] = createExportWrapper("main", 2);
+var _main = createExportWrapper("main", 2);
 
 var _free = createExportWrapper("free", 1);
 
@@ -5220,8 +5057,6 @@ var _sbrk = createExportWrapper("sbrk", 1);
 
 var _setThrew = createExportWrapper("setThrew", 2);
 
-var __emscripten_tempret_set = createExportWrapper("_emscripten_tempret_set", 1);
-
 var _emscripten_stack_init = () => (_emscripten_stack_init = wasmExports["emscripten_stack_init"])();
 
 var _emscripten_stack_get_free = () => (_emscripten_stack_get_free = wasmExports["emscripten_stack_get_free"])();
@@ -5235,12 +5070,6 @@ var __emscripten_stack_restore = a0 => (__emscripten_stack_restore = wasmExports
 var __emscripten_stack_alloc = a0 => (__emscripten_stack_alloc = wasmExports["_emscripten_stack_alloc"])(a0);
 
 var _emscripten_stack_get_current = () => (_emscripten_stack_get_current = wasmExports["emscripten_stack_get_current"])();
-
-var ___cxa_decrement_exception_refcount = createExportWrapper("__cxa_decrement_exception_refcount", 1);
-
-var ___cxa_increment_exception_refcount = createExportWrapper("__cxa_increment_exception_refcount", 1);
-
-var ___cxa_can_catch = createExportWrapper("__cxa_can_catch", 3);
 
 var ___cxa_is_pointer_type = createExportWrapper("__cxa_is_pointer_type", 1);
 
@@ -5412,79 +5241,67 @@ var dynCall_ijjijij = Module["dynCall_ijjijij"] = createExportWrapper("dynCall_i
 
 var dynCall_jjij = Module["dynCall_jjij"] = createExportWrapper("dynCall_jjij", 4);
 
-var dynCall_jjji = Module["dynCall_jjji"] = createExportWrapper("dynCall_jjji", 4);
+var dynCall_jjijj = Module["dynCall_jjijj"] = createExportWrapper("dynCall_jjijj", 5);
 
-var dynCall_iijjj = Module["dynCall_iijjj"] = createExportWrapper("dynCall_iijjj", 5);
+var dynCall_ijjjjiiij = Module["dynCall_ijjjjiiij"] = createExportWrapper("dynCall_ijjjjiiij", 9);
 
-var dynCall_ijjjjjjj = Module["dynCall_ijjjjjjj"] = createExportWrapper("dynCall_ijjjjjjj", 8);
-
-var dynCall_iijijjjjj = Module["dynCall_iijijjjjj"] = createExportWrapper("dynCall_iijijjjjj", 9);
+var dynCall_ijjjii = Module["dynCall_ijjjii"] = createExportWrapper("dynCall_ijjjii", 6);
 
 var dynCall_jjijjj = Module["dynCall_jjijjj"] = createExportWrapper("dynCall_jjijjj", 6);
 
+var dynCall_ijjjjjjj = Module["dynCall_ijjjjjjj"] = createExportWrapper("dynCall_ijjjjjjj", 8);
+
+var dynCall_iijjj = Module["dynCall_iijjj"] = createExportWrapper("dynCall_iijjj", 5);
+
+var dynCall_iijijjjjj = Module["dynCall_iijijjjjj"] = createExportWrapper("dynCall_iijijjjjj", 9);
+
 var dynCall_iijijij = Module["dynCall_iijijij"] = createExportWrapper("dynCall_iijijij", 7);
-
-var dynCall_jjijj = Module["dynCall_jjijj"] = createExportWrapper("dynCall_jjijj", 5);
-
-var dynCall_ijjijjji = Module["dynCall_ijjijjji"] = createExportWrapper("dynCall_ijjijjji", 8);
-
-var dynCall_vjjjjji = Module["dynCall_vjjjjji"] = createExportWrapper("dynCall_vjjjjji", 7);
-
-var dynCall_jjjijji = Module["dynCall_jjjijji"] = createExportWrapper("dynCall_jjjijji", 7);
-
-var dynCall_jjjijj = Module["dynCall_jjjijj"] = createExportWrapper("dynCall_jjjijj", 6);
 
 var dynCall_iijjji = Module["dynCall_iijjji"] = createExportWrapper("dynCall_iijjji", 6);
 
-var dynCall_ijjjjijj = Module["dynCall_ijjjjijj"] = createExportWrapper("dynCall_ijjjjijj", 8);
+var dynCall_vjjjijj = Module["dynCall_vjjjijj"] = createExportWrapper("dynCall_vjjjijj", 7);
 
-var dynCall_jjjjjji = Module["dynCall_jjjjjji"] = createExportWrapper("dynCall_jjjjjji", 7);
+var dynCall_ijjjijj = Module["dynCall_ijjjijj"] = createExportWrapper("dynCall_ijjjijj", 7);
 
-var dynCall_jjjjji = Module["dynCall_jjjjji"] = createExportWrapper("dynCall_jjjjji", 6);
+var dynCall_ijjjjiiijjj = Module["dynCall_ijjjjiiijjj"] = createExportWrapper("dynCall_ijjjjiiijjj", 11);
 
-var dynCall_jjjij = Module["dynCall_jjjij"] = createExportWrapper("dynCall_jjjij", 5);
+var dynCall_ijjijjji = Module["dynCall_ijjijjji"] = createExportWrapper("dynCall_ijjijjji", 8);
 
-var dynCall_jjjiji = Module["dynCall_jjjiji"] = createExportWrapper("dynCall_jjjiji", 6);
+var dynCall_ijjijjjijj = Module["dynCall_ijjijjjijj"] = createExportWrapper("dynCall_ijjijjjijj", 10);
 
-var dynCall_jjijjiiijj = Module["dynCall_jjijjiiijj"] = createExportWrapper("dynCall_jjijjiiijj", 10);
+var dynCall_vjjjjji = Module["dynCall_vjjjjji"] = createExportWrapper("dynCall_vjjjjji", 7);
 
-var dynCall_vjijji = Module["dynCall_vjijji"] = createExportWrapper("dynCall_vjijji", 6);
-
-var dynCall_ijjjjii = Module["dynCall_ijjjjii"] = createExportWrapper("dynCall_ijjjjii", 7);
-
-var dynCall_jjjjiii = Module["dynCall_jjjjiii"] = createExportWrapper("dynCall_jjjjiii", 7);
-
-var dynCall_jjjjjj = Module["dynCall_jjjjjj"] = createExportWrapper("dynCall_jjjjjj", 6);
-
-var dynCall_ijjjji = Module["dynCall_ijjjji"] = createExportWrapper("dynCall_ijjjji", 6);
-
-var dynCall_jjidd = Module["dynCall_jjidd"] = createExportWrapper("dynCall_jjidd", 5);
-
-var dynCall_jjiij = Module["dynCall_jjiij"] = createExportWrapper("dynCall_jjiij", 5);
-
-var dynCall_jjiidd = Module["dynCall_jjiidd"] = createExportWrapper("dynCall_jjiidd", 6);
-
-var dynCall_jjiijj = Module["dynCall_jjiijj"] = createExportWrapper("dynCall_jjiijj", 6);
+var dynCall_ijjjjjjjj = Module["dynCall_ijjjjjjjj"] = createExportWrapper("dynCall_ijjjjjjjj", 9);
 
 var dynCall_jjjjjjj = Module["dynCall_jjjjjjj"] = createExportWrapper("dynCall_jjjjjjj", 7);
 
-var dynCall_vjjjjj = Module["dynCall_vjjjjj"] = createExportWrapper("dynCall_vjjjjj", 6);
+var dynCall_ijiijjj = Module["dynCall_ijiijjj"] = createExportWrapper("dynCall_ijiijjj", 7);
+
+var dynCall_ijjjiijj = Module["dynCall_ijjjiijj"] = createExportWrapper("dynCall_ijjjiijj", 8);
+
+var dynCall_ijijjjj = Module["dynCall_ijijjjj"] = createExportWrapper("dynCall_ijijjjj", 7);
+
+var dynCall_jjjijjijj = Module["dynCall_jjjijjijj"] = createExportWrapper("dynCall_jjjijjijj", 9);
+
+var dynCall_jjjijj = Module["dynCall_jjjijj"] = createExportWrapper("dynCall_jjjijj", 6);
+
+var dynCall_ijjjjijj = Module["dynCall_ijjjjijj"] = createExportWrapper("dynCall_ijjjjijj", 8);
+
+var dynCall_ijjijjjj = Module["dynCall_ijjijjjj"] = createExportWrapper("dynCall_ijjijjjj", 8);
+
+var dynCall_jjjjjj = Module["dynCall_jjjjjj"] = createExportWrapper("dynCall_jjjjjj", 6);
+
+var dynCall_jjji = Module["dynCall_jjji"] = createExportWrapper("dynCall_jjji", 4);
+
+var dynCall_jjjjji = Module["dynCall_jjjjji"] = createExportWrapper("dynCall_jjjjji", 6);
 
 var dynCall_djj = Module["dynCall_djj"] = createExportWrapper("dynCall_djj", 3);
 
 var dynCall_vjjd = Module["dynCall_vjjd"] = createExportWrapper("dynCall_vjjd", 4);
 
-var dynCall_jjjii = Module["dynCall_jjjii"] = createExportWrapper("dynCall_jjjii", 5);
-
-var dynCall_vjjiiii = Module["dynCall_vjjiiii"] = createExportWrapper("dynCall_vjjiiii", 7);
-
-var dynCall_ijdj = Module["dynCall_ijdj"] = createExportWrapper("dynCall_ijdj", 4);
-
 var dynCall_ijdiiii = Module["dynCall_ijdiiii"] = createExportWrapper("dynCall_ijdiiii", 7);
 
 var dynCall_vjjjii = Module["dynCall_vjjjii"] = createExportWrapper("dynCall_vjjjii", 6);
-
-var dynCall_ijjjjjjjj = Module["dynCall_ijjjjjjjj"] = createExportWrapper("dynCall_ijjjjjjjj", 9);
 
 var dynCall_jjjjii = Module["dynCall_jjjjii"] = createExportWrapper("dynCall_jjjjii", 6);
 
@@ -5514,664 +5331,14 @@ var _asyncify_start_rewind = createExportWrapper("asyncify_start_rewind", 1);
 
 var _asyncify_stop_rewind = createExportWrapper("asyncify_stop_rewind", 0);
 
-var ___start_em_js = Module["___start_em_js"] = 780368;
+var ___start_em_js = Module["___start_em_js"] = 1095520;
 
-var ___stop_em_js = Module["___stop_em_js"] = 780794;
+var ___stop_em_js = Module["___stop_em_js"] = 1095946;
 
 function invoke_vjj(index, a1, a2) {
  var sp = stackSave();
  try {
   dynCall_vjj(Number(index), a1, a2);
- } catch (e) {
-  stackRestore(sp);
-  if (e !== e + 0) throw e;
-  _setThrew(1, 0);
- }
-}
-
-function invoke_jjjj(index, a1, a2, a3) {
- var sp = stackSave();
- try {
-  return dynCall_jjjj(Number(index), a1, a2, a3);
- } catch (e) {
-  stackRestore(sp);
-  if (e !== e + 0) throw e;
-  _setThrew(1, 0);
-  return 0n;
- }
-}
-
-function invoke_vji(index, a1, a2) {
- var sp = stackSave();
- try {
-  dynCall_vji(Number(index), a1, a2);
- } catch (e) {
-  stackRestore(sp);
-  if (e !== e + 0) throw e;
-  _setThrew(1, 0);
- }
-}
-
-function invoke_vjjj(index, a1, a2, a3) {
- var sp = stackSave();
- try {
-  dynCall_vjjj(Number(index), a1, a2, a3);
- } catch (e) {
-  stackRestore(sp);
-  if (e !== e + 0) throw e;
-  _setThrew(1, 0);
- }
-}
-
-function invoke_jjj(index, a1, a2) {
- var sp = stackSave();
- try {
-  return dynCall_jjj(Number(index), a1, a2);
- } catch (e) {
-  stackRestore(sp);
-  if (e !== e + 0) throw e;
-  _setThrew(1, 0);
-  return 0n;
- }
-}
-
-function invoke_ijjjj(index, a1, a2, a3, a4) {
- var sp = stackSave();
- try {
-  return dynCall_ijjjj(Number(index), a1, a2, a3, a4);
- } catch (e) {
-  stackRestore(sp);
-  if (e !== e + 0) throw e;
-  _setThrew(1, 0);
- }
-}
-
-function invoke_vjjiiii(index, a1, a2, a3, a4, a5, a6) {
- var sp = stackSave();
- try {
-  dynCall_vjjiiii(Number(index), a1, a2, a3, a4, a5, a6);
- } catch (e) {
-  stackRestore(sp);
-  if (e !== e + 0) throw e;
-  _setThrew(1, 0);
- }
-}
-
-function invoke_vjji(index, a1, a2, a3) {
- var sp = stackSave();
- try {
-  dynCall_vjji(Number(index), a1, a2, a3);
- } catch (e) {
-  stackRestore(sp);
-  if (e !== e + 0) throw e;
-  _setThrew(1, 0);
- }
-}
-
-function invoke_ijj(index, a1, a2) {
- var sp = stackSave();
- try {
-  return dynCall_ijj(Number(index), a1, a2);
- } catch (e) {
-  stackRestore(sp);
-  if (e !== e + 0) throw e;
-  _setThrew(1, 0);
- }
-}
-
-function invoke_vjjij(index, a1, a2, a3, a4) {
- var sp = stackSave();
- try {
-  dynCall_vjjij(Number(index), a1, a2, a3, a4);
- } catch (e) {
-  stackRestore(sp);
-  if (e !== e + 0) throw e;
-  _setThrew(1, 0);
- }
-}
-
-function invoke_jj(index, a1) {
- var sp = stackSave();
- try {
-  return dynCall_jj(Number(index), a1);
- } catch (e) {
-  stackRestore(sp);
-  if (e !== e + 0) throw e;
-  _setThrew(1, 0);
-  return 0n;
- }
-}
-
-function invoke_vjij(index, a1, a2, a3) {
- var sp = stackSave();
- try {
-  dynCall_vjij(Number(index), a1, a2, a3);
- } catch (e) {
-  stackRestore(sp);
-  if (e !== e + 0) throw e;
-  _setThrew(1, 0);
- }
-}
-
-function invoke_ijjjjj(index, a1, a2, a3, a4, a5) {
- var sp = stackSave();
- try {
-  return dynCall_ijjjjj(Number(index), a1, a2, a3, a4, a5);
- } catch (e) {
-  stackRestore(sp);
-  if (e !== e + 0) throw e;
-  _setThrew(1, 0);
- }
-}
-
-function invoke_jjij(index, a1, a2, a3) {
- var sp = stackSave();
- try {
-  return dynCall_jjij(Number(index), a1, a2, a3);
- } catch (e) {
-  stackRestore(sp);
-  if (e !== e + 0) throw e;
-  _setThrew(1, 0);
-  return 0n;
- }
-}
-
-function invoke_jjjii(index, a1, a2, a3, a4) {
- var sp = stackSave();
- try {
-  return dynCall_jjjii(Number(index), a1, a2, a3, a4);
- } catch (e) {
-  stackRestore(sp);
-  if (e !== e + 0) throw e;
-  _setThrew(1, 0);
-  return 0n;
- }
-}
-
-function invoke_vjjji(index, a1, a2, a3, a4) {
- var sp = stackSave();
- try {
-  dynCall_vjjji(Number(index), a1, a2, a3, a4);
- } catch (e) {
-  stackRestore(sp);
-  if (e !== e + 0) throw e;
-  _setThrew(1, 0);
- }
-}
-
-function invoke_v(index) {
- var sp = stackSave();
- try {
-  dynCall_v(Number(index));
- } catch (e) {
-  stackRestore(sp);
-  if (e !== e + 0) throw e;
-  _setThrew(1, 0);
- }
-}
-
-function invoke_ijjjjjj(index, a1, a2, a3, a4, a5, a6) {
- var sp = stackSave();
- try {
-  return dynCall_ijjjjjj(Number(index), a1, a2, a3, a4, a5, a6);
- } catch (e) {
-  stackRestore(sp);
-  if (e !== e + 0) throw e;
-  _setThrew(1, 0);
- }
-}
-
-function invoke_jji(index, a1, a2) {
- var sp = stackSave();
- try {
-  return dynCall_jji(Number(index), a1, a2);
- } catch (e) {
-  stackRestore(sp);
-  if (e !== e + 0) throw e;
-  _setThrew(1, 0);
-  return 0n;
- }
-}
-
-function invoke_jjjji(index, a1, a2, a3, a4) {
- var sp = stackSave();
- try {
-  return dynCall_jjjji(Number(index), a1, a2, a3, a4);
- } catch (e) {
-  stackRestore(sp);
-  if (e !== e + 0) throw e;
-  _setThrew(1, 0);
-  return 0n;
- }
-}
-
-function invoke_j(index) {
- var sp = stackSave();
- try {
-  return dynCall_j(Number(index));
- } catch (e) {
-  stackRestore(sp);
-  if (e !== e + 0) throw e;
-  _setThrew(1, 0);
-  return 0n;
- }
-}
-
-function invoke_jjji(index, a1, a2, a3) {
- var sp = stackSave();
- try {
-  return dynCall_jjji(Number(index), a1, a2, a3);
- } catch (e) {
-  stackRestore(sp);
-  if (e !== e + 0) throw e;
-  _setThrew(1, 0);
-  return 0n;
- }
-}
-
-function invoke_vjjjjj(index, a1, a2, a3, a4, a5) {
- var sp = stackSave();
- try {
-  dynCall_vjjjjj(Number(index), a1, a2, a3, a4, a5);
- } catch (e) {
-  stackRestore(sp);
-  if (e !== e + 0) throw e;
-  _setThrew(1, 0);
- }
-}
-
-function invoke_ij(index, a1) {
- var sp = stackSave();
- try {
-  return dynCall_ij(Number(index), a1);
- } catch (e) {
-  stackRestore(sp);
-  if (e !== e + 0) throw e;
-  _setThrew(1, 0);
- }
-}
-
-function invoke_vjijj(index, a1, a2, a3, a4) {
- var sp = stackSave();
- try {
-  dynCall_vjijj(Number(index), a1, a2, a3, a4);
- } catch (e) {
-  stackRestore(sp);
-  if (e !== e + 0) throw e;
-  _setThrew(1, 0);
- }
-}
-
-function invoke_djj(index, a1, a2) {
- var sp = stackSave();
- try {
-  return dynCall_djj(Number(index), a1, a2);
- } catch (e) {
-  stackRestore(sp);
-  if (e !== e + 0) throw e;
-  _setThrew(1, 0);
- }
-}
-
-function invoke_ijdj(index, a1, a2, a3) {
- var sp = stackSave();
- try {
-  return dynCall_ijdj(Number(index), a1, a2, a3);
- } catch (e) {
-  stackRestore(sp);
-  if (e !== e + 0) throw e;
-  _setThrew(1, 0);
- }
-}
-
-function invoke_iji(index, a1, a2) {
- var sp = stackSave();
- try {
-  return dynCall_iji(Number(index), a1, a2);
- } catch (e) {
-  stackRestore(sp);
-  if (e !== e + 0) throw e;
-  _setThrew(1, 0);
- }
-}
-
-function invoke_jjijj(index, a1, a2, a3, a4) {
- var sp = stackSave();
- try {
-  return dynCall_jjijj(Number(index), a1, a2, a3, a4);
- } catch (e) {
-  stackRestore(sp);
-  if (e !== e + 0) throw e;
-  _setThrew(1, 0);
-  return 0n;
- }
-}
-
-function invoke_vjjjj(index, a1, a2, a3, a4) {
- var sp = stackSave();
- try {
-  dynCall_vjjjj(Number(index), a1, a2, a3, a4);
- } catch (e) {
-  stackRestore(sp);
-  if (e !== e + 0) throw e;
-  _setThrew(1, 0);
- }
-}
-
-function invoke_ijiij(index, a1, a2, a3, a4) {
- var sp = stackSave();
- try {
-  return dynCall_ijiij(Number(index), a1, a2, a3, a4);
- } catch (e) {
-  stackRestore(sp);
-  if (e !== e + 0) throw e;
-  _setThrew(1, 0);
- }
-}
-
-function invoke_vj(index, a1) {
- var sp = stackSave();
- try {
-  dynCall_vj(Number(index), a1);
- } catch (e) {
-  stackRestore(sp);
-  if (e !== e + 0) throw e;
-  _setThrew(1, 0);
- }
-}
-
-function invoke_jjjjj(index, a1, a2, a3, a4) {
- var sp = stackSave();
- try {
-  return dynCall_jjjjj(Number(index), a1, a2, a3, a4);
- } catch (e) {
-  stackRestore(sp);
-  if (e !== e + 0) throw e;
-  _setThrew(1, 0);
-  return 0n;
- }
-}
-
-function invoke_jjjjjji(index, a1, a2, a3, a4, a5, a6) {
- var sp = stackSave();
- try {
-  return dynCall_jjjjjji(Number(index), a1, a2, a3, a4, a5, a6);
- } catch (e) {
-  stackRestore(sp);
-  if (e !== e + 0) throw e;
-  _setThrew(1, 0);
-  return 0n;
- }
-}
-
-function invoke_ijjj(index, a1, a2, a3) {
- var sp = stackSave();
- try {
-  return dynCall_ijjj(Number(index), a1, a2, a3);
- } catch (e) {
-  stackRestore(sp);
-  if (e !== e + 0) throw e;
-  _setThrew(1, 0);
- }
-}
-
-function invoke_ijjij(index, a1, a2, a3, a4) {
- var sp = stackSave();
- try {
-  return dynCall_ijjij(Number(index), a1, a2, a3, a4);
- } catch (e) {
-  stackRestore(sp);
-  if (e !== e + 0) throw e;
-  _setThrew(1, 0);
- }
-}
-
-function invoke_vjjjji(index, a1, a2, a3, a4, a5) {
- var sp = stackSave();
- try {
-  dynCall_vjjjji(Number(index), a1, a2, a3, a4, a5);
- } catch (e) {
-  stackRestore(sp);
-  if (e !== e + 0) throw e;
-  _setThrew(1, 0);
- }
-}
-
-function invoke_ijjjjijj(index, a1, a2, a3, a4, a5, a6, a7) {
- var sp = stackSave();
- try {
-  return dynCall_ijjjjijj(Number(index), a1, a2, a3, a4, a5, a6, a7);
- } catch (e) {
-  stackRestore(sp);
-  if (e !== e + 0) throw e;
-  _setThrew(1, 0);
- }
-}
-
-function invoke_vjjii(index, a1, a2, a3, a4) {
- var sp = stackSave();
- try {
-  dynCall_vjjii(Number(index), a1, a2, a3, a4);
- } catch (e) {
-  stackRestore(sp);
-  if (e !== e + 0) throw e;
-  _setThrew(1, 0);
- }
-}
-
-function invoke_jjjij(index, a1, a2, a3, a4) {
- var sp = stackSave();
- try {
-  return dynCall_jjjij(Number(index), a1, a2, a3, a4);
- } catch (e) {
-  stackRestore(sp);
-  if (e !== e + 0) throw e;
-  _setThrew(1, 0);
-  return 0n;
- }
-}
-
-function invoke_jjjiji(index, a1, a2, a3, a4, a5) {
- var sp = stackSave();
- try {
-  return dynCall_jjjiji(Number(index), a1, a2, a3, a4, a5);
- } catch (e) {
-  stackRestore(sp);
-  if (e !== e + 0) throw e;
-  _setThrew(1, 0);
-  return 0n;
- }
-}
-
-function invoke_vjijji(index, a1, a2, a3, a4, a5) {
- var sp = stackSave();
- try {
-  dynCall_vjijji(Number(index), a1, a2, a3, a4, a5);
- } catch (e) {
-  stackRestore(sp);
-  if (e !== e + 0) throw e;
-  _setThrew(1, 0);
- }
-}
-
-function invoke_ijjjjii(index, a1, a2, a3, a4, a5, a6) {
- var sp = stackSave();
- try {
-  return dynCall_ijjjjii(Number(index), a1, a2, a3, a4, a5, a6);
- } catch (e) {
-  stackRestore(sp);
-  if (e !== e + 0) throw e;
-  _setThrew(1, 0);
- }
-}
-
-function invoke_jjjjiii(index, a1, a2, a3, a4, a5, a6) {
- var sp = stackSave();
- try {
-  return dynCall_jjjjiii(Number(index), a1, a2, a3, a4, a5, a6);
- } catch (e) {
-  stackRestore(sp);
-  if (e !== e + 0) throw e;
-  _setThrew(1, 0);
-  return 0n;
- }
-}
-
-function invoke_jjjjjj(index, a1, a2, a3, a4, a5) {
- var sp = stackSave();
- try {
-  return dynCall_jjjjjj(Number(index), a1, a2, a3, a4, a5);
- } catch (e) {
-  stackRestore(sp);
-  if (e !== e + 0) throw e;
-  _setThrew(1, 0);
-  return 0n;
- }
-}
-
-function invoke_vjii(index, a1, a2, a3) {
- var sp = stackSave();
- try {
-  dynCall_vjii(Number(index), a1, a2, a3);
- } catch (e) {
-  stackRestore(sp);
-  if (e !== e + 0) throw e;
-  _setThrew(1, 0);
- }
-}
-
-function invoke_jjijjiiijj(index, a1, a2, a3, a4, a5, a6, a7, a8, a9) {
- var sp = stackSave();
- try {
-  return dynCall_jjijjiiijj(Number(index), a1, a2, a3, a4, a5, a6, a7, a8, a9);
- } catch (e) {
-  stackRestore(sp);
-  if (e !== e + 0) throw e;
-  _setThrew(1, 0);
-  return 0n;
- }
-}
-
-function invoke_jjjjji(index, a1, a2, a3, a4, a5) {
- var sp = stackSave();
- try {
-  return dynCall_jjjjji(Number(index), a1, a2, a3, a4, a5);
- } catch (e) {
-  stackRestore(sp);
-  if (e !== e + 0) throw e;
-  _setThrew(1, 0);
-  return 0n;
- }
-}
-
-function invoke_ijjjji(index, a1, a2, a3, a4, a5) {
- var sp = stackSave();
- try {
-  return dynCall_ijjjji(Number(index), a1, a2, a3, a4, a5);
- } catch (e) {
-  stackRestore(sp);
-  if (e !== e + 0) throw e;
-  _setThrew(1, 0);
- }
-}
-
-function invoke_jjidd(index, a1, a2, a3, a4) {
- var sp = stackSave();
- try {
-  return dynCall_jjidd(Number(index), a1, a2, a3, a4);
- } catch (e) {
-  stackRestore(sp);
-  if (e !== e + 0) throw e;
-  _setThrew(1, 0);
-  return 0n;
- }
-}
-
-function invoke_jjiij(index, a1, a2, a3, a4) {
- var sp = stackSave();
- try {
-  return dynCall_jjiij(Number(index), a1, a2, a3, a4);
- } catch (e) {
-  stackRestore(sp);
-  if (e !== e + 0) throw e;
-  _setThrew(1, 0);
-  return 0n;
- }
-}
-
-function invoke_jjiidd(index, a1, a2, a3, a4, a5) {
- var sp = stackSave();
- try {
-  return dynCall_jjiidd(Number(index), a1, a2, a3, a4, a5);
- } catch (e) {
-  stackRestore(sp);
-  if (e !== e + 0) throw e;
-  _setThrew(1, 0);
-  return 0n;
- }
-}
-
-function invoke_jjiijj(index, a1, a2, a3, a4, a5) {
- var sp = stackSave();
- try {
-  return dynCall_jjiijj(Number(index), a1, a2, a3, a4, a5);
- } catch (e) {
-  stackRestore(sp);
-  if (e !== e + 0) throw e;
-  _setThrew(1, 0);
-  return 0n;
- }
-}
-
-function invoke_jjjjjjj(index, a1, a2, a3, a4, a5, a6) {
- var sp = stackSave();
- try {
-  return dynCall_jjjjjjj(Number(index), a1, a2, a3, a4, a5, a6);
- } catch (e) {
-  stackRestore(sp);
-  if (e !== e + 0) throw e;
-  _setThrew(1, 0);
-  return 0n;
- }
-}
-
-function invoke_vjjd(index, a1, a2, a3) {
- var sp = stackSave();
- try {
-  dynCall_vjjd(Number(index), a1, a2, a3);
- } catch (e) {
-  stackRestore(sp);
-  if (e !== e + 0) throw e;
-  _setThrew(1, 0);
- }
-}
-
-function invoke_i(index) {
- var sp = stackSave();
- try {
-  return dynCall_i(Number(index));
- } catch (e) {
-  stackRestore(sp);
-  if (e !== e + 0) throw e;
-  _setThrew(1, 0);
- }
-}
-
-function invoke_ijji(index, a1, a2, a3) {
- var sp = stackSave();
- try {
-  return dynCall_ijji(Number(index), a1, a2, a3);
- } catch (e) {
-  stackRestore(sp);
-  if (e !== e + 0) throw e;
-  _setThrew(1, 0);
- }
-}
-
-function invoke_iii(index, a1, a2) {
- var sp = stackSave();
- try {
-  return dynCall_iii(Number(index), a1, a2);
  } catch (e) {
   stackRestore(sp);
   if (e !== e + 0) throw e;
@@ -6199,9 +5366,6 @@ function applySignatureConversions(wasmExports) {
  var makeWrapper_p = f => function() {
   return Number(f());
  };
- var makeWrapper__ppp = f => function(a0, a1, a2) {
-  return f(BigInt(a0), BigInt(a1), BigInt(a2));
- };
  wasmExports["malloc"] = makeWrapper_pp(wasmExports["malloc"]);
  wasmExports["main"] = makeWrapper___PP(wasmExports["main"]);
  wasmExports["free"] = makeWrapper__p(wasmExports["free"]);
@@ -6214,9 +5378,6 @@ function applySignatureConversions(wasmExports) {
  wasmExports["_emscripten_stack_restore"] = makeWrapper__p(wasmExports["_emscripten_stack_restore"]);
  wasmExports["_emscripten_stack_alloc"] = makeWrapper_pp(wasmExports["_emscripten_stack_alloc"]);
  wasmExports["emscripten_stack_get_current"] = makeWrapper_p(wasmExports["emscripten_stack_get_current"]);
- wasmExports["__cxa_decrement_exception_refcount"] = makeWrapper__p(wasmExports["__cxa_decrement_exception_refcount"]);
- wasmExports["__cxa_increment_exception_refcount"] = makeWrapper__p(wasmExports["__cxa_increment_exception_refcount"]);
- wasmExports["__cxa_can_catch"] = makeWrapper__ppp(wasmExports["__cxa_can_catch"]);
  wasmExports["__cxa_is_pointer_type"] = makeWrapper__p(wasmExports["__cxa_is_pointer_type"]);
  wasmExports["asyncify_start_unwind"] = makeWrapper__p(wasmExports["asyncify_start_unwind"]);
  wasmExports["asyncify_start_rewind"] = makeWrapper__p(wasmExports["asyncify_start_rewind"]);
@@ -6250,8 +5411,6 @@ Module["FS_createLazyFile"] = FS.createLazyFile;
 
 Module["FS_createDevice"] = FS.createDevice;
 
-Module["ccall"] = ccall;
-
 Module["cwrap"] = cwrap;
 
 Module["FS_createPreloadedFile"] = FS.createPreloadedFile;
@@ -6260,11 +5419,11 @@ Module["FS_createDataFile"] = FS.createDataFile;
 
 Module["FS_unlink"] = FS.unlink;
 
-var missingLibrarySymbols = [ "writeI53ToI64", "writeI53ToI64Clamped", "writeI53ToI64Signaling", "writeI53ToU64Clamped", "writeI53ToU64Signaling", "readI53FromU64", "convertI32PairToI53", "convertI32PairToI53Checked", "convertU32PairToI53", "getTempRet0", "inetPton4", "inetNtop4", "inetPton6", "inetNtop6", "readSockaddr", "writeSockaddr", "emscriptenLog", "readEmAsmArgs", "jstoi_q", "listenOnce", "autoResumeAudioContext", "dynCallLegacy", "getDynCaller", "dynCall", "asmjsMangle", "HandleAllocator", "getNativeTypeSize", "STACK_SIZE", "STACK_ALIGN", "POINTER_SIZE", "ASSERTIONS", "uleb128Encode", "generateFuncType", "convertJsFunctionToWasm", "getEmptyTableSlot", "updateTableMap", "getFunctionAddress", "addFunction", "removeFunction", "reallyNegative", "unSign", "strLen", "reSign", "formatString", "intArrayToString", "AsciiToString", "UTF16ToString", "stringToUTF16", "lengthBytesUTF16", "UTF32ToString", "stringToUTF32", "lengthBytesUTF32", "stringToNewUTF8", "registerKeyEventCallback", "maybeCStringToJsString", "findEventTarget", "getBoundingClientRect", "fillMouseEventData", "registerMouseEventCallback", "registerWheelEventCallback", "registerUiEventCallback", "registerFocusEventCallback", "fillDeviceOrientationEventData", "registerDeviceOrientationEventCallback", "fillDeviceMotionEventData", "registerDeviceMotionEventCallback", "screenOrientation", "fillOrientationChangeEventData", "registerOrientationChangeEventCallback", "fillFullscreenChangeEventData", "registerFullscreenChangeEventCallback", "JSEvents_requestFullscreen", "JSEvents_resizeCanvasForFullscreen", "registerRestoreOldStyle", "hideEverythingExceptGivenElement", "restoreHiddenElements", "setLetterbox", "softFullscreenResizeWebGLRenderTarget", "doRequestFullscreen", "fillPointerlockChangeEventData", "registerPointerlockChangeEventCallback", "registerPointerlockErrorEventCallback", "requestPointerLock", "fillVisibilityChangeEventData", "registerVisibilityChangeEventCallback", "registerTouchEventCallback", "fillGamepadEventData", "registerGamepadEventCallback", "registerBeforeUnloadEventCallback", "fillBatteryEventData", "battery", "registerBatteryEventCallback", "setCanvasElementSize", "getCanvasElementSize", "jsStackTrace", "getCallstack", "convertPCtoSourceLocation", "checkWasiClock", "wasiRightsToMuslOFlags", "wasiOFlagsToMuslOFlags", "createDyncallWrapper", "safeSetTimeout", "setImmediateWrapped", "clearImmediateWrapped", "polyfillSetImmediate", "getPromise", "makePromise", "idsToPromises", "makePromiseCallback", "Browser_asyncPrepareDataCounter", "setMainLoop", "getSocketFromFD", "getSocketAddress", "FS_mkdirTree", "_setNetworkCallback", "heapObjectForWebGLType", "toTypedArrayIndex", "webgl_enable_ANGLE_instanced_arrays", "webgl_enable_OES_vertex_array_object", "webgl_enable_WEBGL_draw_buffers", "webgl_enable_WEBGL_multi_draw", "emscriptenWebGLGet", "computeUnpackAlignedImageSize", "colorChannelsInGlTextureFormat", "emscriptenWebGLGetTexPixelData", "emscriptenWebGLGetUniform", "webglGetUniformLocation", "webglPrepareUniformLocationsBeforeFirstUse", "webglGetLeftBracePos", "emscriptenWebGLGetVertexAttrib", "__glGetActiveAttribOrUniform", "writeGLArray", "registerWebGlEventCallback", "ALLOC_NORMAL", "ALLOC_STACK", "allocate", "writeStringToMemory", "writeAsciiToMemory", "setErrNo", "demangle", "stackTrace" ];
+var missingLibrarySymbols = [ "writeI53ToI64", "writeI53ToI64Clamped", "writeI53ToI64Signaling", "writeI53ToU64Clamped", "writeI53ToU64Signaling", "readI53FromU64", "convertI32PairToI53", "convertI32PairToI53Checked", "convertU32PairToI53", "getTempRet0", "setTempRet0", "inetPton4", "inetNtop4", "inetPton6", "inetNtop6", "readSockaddr", "writeSockaddr", "emscriptenLog", "readEmAsmArgs", "jstoi_q", "listenOnce", "autoResumeAudioContext", "dynCallLegacy", "getDynCaller", "dynCall", "asmjsMangle", "HandleAllocator", "getNativeTypeSize", "STACK_SIZE", "STACK_ALIGN", "POINTER_SIZE", "ASSERTIONS", "uleb128Encode", "generateFuncType", "convertJsFunctionToWasm", "getEmptyTableSlot", "updateTableMap", "getFunctionAddress", "addFunction", "removeFunction", "reallyNegative", "unSign", "strLen", "reSign", "formatString", "intArrayToString", "AsciiToString", "UTF16ToString", "stringToUTF16", "lengthBytesUTF16", "UTF32ToString", "stringToUTF32", "lengthBytesUTF32", "stringToNewUTF8", "registerKeyEventCallback", "maybeCStringToJsString", "findEventTarget", "getBoundingClientRect", "fillMouseEventData", "registerMouseEventCallback", "registerWheelEventCallback", "registerUiEventCallback", "registerFocusEventCallback", "fillDeviceOrientationEventData", "registerDeviceOrientationEventCallback", "fillDeviceMotionEventData", "registerDeviceMotionEventCallback", "screenOrientation", "fillOrientationChangeEventData", "registerOrientationChangeEventCallback", "fillFullscreenChangeEventData", "registerFullscreenChangeEventCallback", "JSEvents_requestFullscreen", "JSEvents_resizeCanvasForFullscreen", "registerRestoreOldStyle", "hideEverythingExceptGivenElement", "restoreHiddenElements", "setLetterbox", "softFullscreenResizeWebGLRenderTarget", "doRequestFullscreen", "fillPointerlockChangeEventData", "registerPointerlockChangeEventCallback", "registerPointerlockErrorEventCallback", "requestPointerLock", "fillVisibilityChangeEventData", "registerVisibilityChangeEventCallback", "registerTouchEventCallback", "fillGamepadEventData", "registerGamepadEventCallback", "registerBeforeUnloadEventCallback", "fillBatteryEventData", "battery", "registerBatteryEventCallback", "setCanvasElementSize", "getCanvasElementSize", "jsStackTrace", "getCallstack", "convertPCtoSourceLocation", "checkWasiClock", "wasiRightsToMuslOFlags", "wasiOFlagsToMuslOFlags", "createDyncallWrapper", "safeSetTimeout", "setImmediateWrapped", "clearImmediateWrapped", "polyfillSetImmediate", "getPromise", "makePromise", "idsToPromises", "makePromiseCallback", "findMatchingCatch", "Browser_asyncPrepareDataCounter", "setMainLoop", "getSocketFromFD", "getSocketAddress", "FS_mkdirTree", "_setNetworkCallback", "heapObjectForWebGLType", "toTypedArrayIndex", "webgl_enable_ANGLE_instanced_arrays", "webgl_enable_OES_vertex_array_object", "webgl_enable_WEBGL_draw_buffers", "webgl_enable_WEBGL_multi_draw", "emscriptenWebGLGet", "computeUnpackAlignedImageSize", "colorChannelsInGlTextureFormat", "emscriptenWebGLGetTexPixelData", "emscriptenWebGLGetUniform", "webglGetUniformLocation", "webglPrepareUniformLocationsBeforeFirstUse", "webglGetLeftBracePos", "emscriptenWebGLGetVertexAttrib", "__glGetActiveAttribOrUniform", "writeGLArray", "registerWebGlEventCallback", "ALLOC_NORMAL", "ALLOC_STACK", "allocate", "writeStringToMemory", "writeAsciiToMemory", "setErrNo", "demangle", "stackTrace" ];
 
 missingLibrarySymbols.forEach(missingLibrarySymbol);
 
-var unexportedSymbols = [ "run", "addOnPreRun", "addOnInit", "addOnPreMain", "addOnExit", "addOnPostRun", "FS_createFolder", "FS_createLink", "FS_readFile", "out", "err", "callMain", "abort", "wasmMemory", "wasmExports", "writeStackCookie", "checkStackCookie", "readI53FromI64", "MAX_INT53", "MIN_INT53", "bigintToI53Checked", "stackSave", "stackRestore", "stackAlloc", "setTempRet0", "ptrToString", "zeroMemory", "exitJS", "getHeapMax", "growMemory", "ENV", "MONTH_DAYS_REGULAR", "MONTH_DAYS_LEAP", "MONTH_DAYS_REGULAR_CUMULATIVE", "MONTH_DAYS_LEAP_CUMULATIVE", "isLeapYear", "ydayFromDate", "arraySum", "addDays", "ERRNO_CODES", "ERRNO_MESSAGES", "DNS", "Protocols", "Sockets", "initRandomFill", "randomFill", "timers", "warnOnce", "readEmAsmArgsArray", "jstoi_s", "getExecutableName", "handleException", "keepRuntimeAlive", "runtimeKeepalivePush", "runtimeKeepalivePop", "callUserCallback", "maybeExit", "asyncLoad", "alignMemory", "mmapAlloc", "wasmTable", "noExitRuntime", "getCFunc", "sigToWasmTypes", "freeTableIndexes", "functionsInTableMap", "setValue", "getValue", "PATH", "PATH_FS", "UTF8Decoder", "UTF8ArrayToString", "UTF8ToString", "stringToUTF8Array", "stringToUTF8", "lengthBytesUTF8", "intArrayFromString", "stringToAscii", "UTF16Decoder", "stringToUTF8OnStack", "writeArrayToMemory", "JSEvents", "specialHTMLTargets", "findCanvasEventTarget", "currentFullscreenStrategy", "restoreOldWindowedStyle", "UNWIND_CACHE", "ExitStatus", "getEnvStrings", "doReadv", "doWritev", "promiseMap", "uncaughtExceptionCount", "exceptionLast", "exceptionCaught", "ExceptionInfo", "findMatchingCatch", "Browser", "getPreloadedImageData__data", "wget", "SYSCALLS", "preloadPlugins", "FS_modeStringToFlags", "FS_getMode", "FS_stdin_getChar_buffer", "FS_stdin_getChar", "FS", "MEMFS", "TTY", "PIPEFS", "SOCKFS", "tempFixedLengthArray", "miniTempWebGLFloatBuffers", "miniTempWebGLIntBuffers", "GL", "AL", "GLUT", "EGL", "GLEW", "IDBStore", "runAndAbortIfError", "Asyncify", "Fibers", "SDL", "SDL_gfx", "allocateUTF8", "allocateUTF8OnStack" ];
+var unexportedSymbols = [ "run", "addOnPreRun", "addOnInit", "addOnPreMain", "addOnExit", "addOnPostRun", "FS_createFolder", "FS_createLink", "FS_readFile", "out", "err", "callMain", "abort", "wasmMemory", "wasmExports", "writeStackCookie", "checkStackCookie", "readI53FromI64", "MAX_INT53", "MIN_INT53", "bigintToI53Checked", "stackSave", "stackRestore", "stackAlloc", "ptrToString", "zeroMemory", "exitJS", "getHeapMax", "growMemory", "ENV", "MONTH_DAYS_REGULAR", "MONTH_DAYS_LEAP", "MONTH_DAYS_REGULAR_CUMULATIVE", "MONTH_DAYS_LEAP_CUMULATIVE", "isLeapYear", "ydayFromDate", "arraySum", "addDays", "ERRNO_CODES", "ERRNO_MESSAGES", "DNS", "Protocols", "Sockets", "initRandomFill", "randomFill", "timers", "warnOnce", "readEmAsmArgsArray", "jstoi_s", "getExecutableName", "handleException", "keepRuntimeAlive", "runtimeKeepalivePush", "runtimeKeepalivePop", "callUserCallback", "maybeExit", "asyncLoad", "alignMemory", "mmapAlloc", "wasmTable", "noExitRuntime", "getCFunc", "ccall", "sigToWasmTypes", "freeTableIndexes", "functionsInTableMap", "setValue", "getValue", "PATH", "PATH_FS", "UTF8Decoder", "UTF8ArrayToString", "UTF8ToString", "stringToUTF8Array", "stringToUTF8", "lengthBytesUTF8", "intArrayFromString", "stringToAscii", "UTF16Decoder", "stringToUTF8OnStack", "writeArrayToMemory", "JSEvents", "specialHTMLTargets", "findCanvasEventTarget", "currentFullscreenStrategy", "restoreOldWindowedStyle", "UNWIND_CACHE", "ExitStatus", "getEnvStrings", "doReadv", "doWritev", "promiseMap", "uncaughtExceptionCount", "exceptionLast", "exceptionCaught", "ExceptionInfo", "Browser", "getPreloadedImageData__data", "wget", "SYSCALLS", "preloadPlugins", "FS_modeStringToFlags", "FS_getMode", "FS_stdin_getChar_buffer", "FS_stdin_getChar", "FS", "MEMFS", "TTY", "PIPEFS", "SOCKFS", "tempFixedLengthArray", "miniTempWebGLFloatBuffers", "miniTempWebGLIntBuffers", "GL", "AL", "GLUT", "EGL", "GLEW", "IDBStore", "runAndAbortIfError", "Asyncify", "Fibers", "SDL", "SDL_gfx", "allocateUTF8", "allocateUTF8OnStack" ];
 
 unexportedSymbols.forEach(unexportedRuntimeSymbol);
 
@@ -6274,21 +5433,6 @@ dependenciesFulfilled = function runCaller() {
  if (!calledRun) run();
  if (!calledRun) dependenciesFulfilled = runCaller;
 };
-
-function callMain() {
- assert(runDependencies == 0, 'cannot call main when async dependencies remain! (listen on Module["onRuntimeInitialized"])');
- assert(__ATPRERUN__.length == 0, "cannot call main when preRun functions remain to be called");
- var entryFunction = _main;
- var argc = 0;
- var argv = 0;
- try {
-  var ret = entryFunction(argc, BigInt(argv));
-  exitJS(ret, /* implicit = */ true);
-  return ret;
- } catch (e) {
-  return handleException(e);
- }
-}
 
 function stackCheckInit() {
  _emscripten_stack_init();
@@ -6310,10 +5454,9 @@ function run() {
   Module["calledRun"] = true;
   if (ABORT) return;
   initRuntime();
-  preMain();
   readyPromiseResolve(Module);
   if (Module["onRuntimeInitialized"]) Module["onRuntimeInitialized"]();
-  if (shouldRunNow) callMain();
+  assert(!Module["_main"], 'compiled without a main, but one is present. if you added it from JS, use Module["onRuntimeInitialized"]');
   postRun();
  }
  if (Module["setStatus"]) {
@@ -6363,10 +5506,6 @@ if (Module["preInit"]) {
   Module["preInit"].pop()();
  }
 }
-
-var shouldRunNow = true;
-
-if (Module["noInitialRun"]) shouldRunNow = false;
 
 run();
 

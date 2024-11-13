@@ -1,7 +1,7 @@
 cmake_minimum_required(VERSION 3.0)
 set(CMAKE_CXX_STANDARD 11)
 # set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -Wno-deprecated-declarations")
-set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -s ASYNCIFY=1 -s ASYNCIFY_IMPORTS=['emscripten_asm_const_ptr']")
+# set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -s ASYNCIFY=1 -s ASYNCIFY_IMPORTS=['emscripten_asm_const_ptr']")
 
 # include_directories(/home/claoo/vcpkg/installed/x64-linux/include)
 
@@ -14,6 +14,8 @@ set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -s ASYNCIFY=1 -s ASYNCIFY_IMPORTS=['emsc
 set(CMAKE_ARCHIVE_OUTPUT_DIRECTORY ${CMAKE_SOURCE_DIR}/../)
 
 # include_directories(../libtfhe/cereal/include)
+include_directories(/opt/jwt)
+include_directories(/opt/openssl)
 
 set(SOURCES
         eoc-tfhe-run.cpp

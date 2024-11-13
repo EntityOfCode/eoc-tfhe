@@ -22,10 +22,6 @@
 #include <openssl/evp.h>
 #include <openssl/pem.h>
 #include <openssl/rsa.h>
-<<<<<<< Updated upstream
-#include <emscripten/emscripten.h>
-=======
->>>>>>> Stashed changes
 #include <stdexcept>
 
 using json = nlohmann::json;

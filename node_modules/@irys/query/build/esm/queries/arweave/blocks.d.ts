@@ -1,0 +1,13 @@
+import type { QueryInfo } from "../../types.js";
+import { block } from "./block.js";
+export type ArweaveBlocks = typeof block;
+export declare const blocksVars: ArweaveBlocksVars;
+export type ArweaveBlocksVars = {
+    ids?: string;
+    minHeight?: number;
+    maxHeight?: number;
+    pageSize?: number;
+    after?: string;
+    sort?: "ASC" | "DESC";
+};
+export declare const arweaveBlocksQuery: QueryInfo;
