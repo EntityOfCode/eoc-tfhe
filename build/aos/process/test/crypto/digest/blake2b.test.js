@@ -4,7 +4,7 @@ import AoLoader from '@permaweb/ao-loader';
 import fs from 'fs';
 
 const wasm = fs.readFileSync('./process.wasm');
-const options = { format: "wasm32-unknown-emscripten" }
+const options = { format: "wasm64-unknown-emscripten-draft_2024_02_15" }
 test('run sha3 hash successfully', async () => {
 	const results = [
 		'576701fd79a126f2c414ef94adf1117c88943700f312679d018c29c378b2c807a3412b4e8d51e191c48fb5f5f54bf1bca29a714dda166797b3baf9ead862ae1d',
@@ -36,6 +36,7 @@ test('run sha3 hash successfully', async () => {
 	`;
 	const msg = {
 		Target: 'AOS',
+		From: 'FOOBAR',
 		Owner: 'FOOBAR',
 		['Block-Height']: '1000',
 		Id: '1234xyxfoo',
@@ -45,6 +46,6 @@ test('run sha3 hash successfully', async () => {
 	};
 
 	const result = await handle(null, msg, env);
-	assert.equal(result.Output?.data.output, results.join(', '));
+	assert.equal(result.Output?.data, results.join(', '));
 	assert.ok(true);
 });

@@ -25,29 +25,36 @@ export function checkLoadArgs() {
 
 /**
  * @param {Module[]} project 
- * @returns {string}
+ * @returns {[string, Module[]]}
  */
 export function createExecutableFromProject(project) {
   const getModFnName = (name) => name.replace(/\./g, '_').replace(/^_/, '')
+  /** @type {Module[]} */
   const contents = []
 
   // filter out repeated modules with different import names
   // and construct the executable Lua code
   // (the main file content is handled separately)
-  for (let i = 0; i < project.length - 1; i++) {
+  for (let i = 0; i < project.length - 1; i++) {
     const mod = project[i]
 
     const existing = contents.find((m) => m.path === mod.path)
     const moduleContent = (!existing && `-- module: "${mod.name}"\nlocal function _loaded_mod_${getModFnName(mod.name)}()\n${mod.content}\nend\n`) || ''
     const requireMapper = `\n_G.package.loaded["${mod.name}"] = _loaded_mod_${getModFnName(existing?.name || mod.name)}()`
 
-    contents.push(moduleContent + requireMapper)
+    contents.push({
+      ...mod,
+      content: moduleContent + requireMapper
+    })
   }
 
   // finally, add the main file
-  contents.push(project[project.length - 1].content)
+  contents.push(project[project.length - 1])
 
-  return contents.reduce((acc, con) => acc + '\n\n' + con, '')
+  return [
+    contents.reduce((acc, con) => acc + '\n\n' + con.content, ''),
+    contents
+  ]
 }
 
 /**
@@ -85,7 +92,7 @@ export function createProjectStructure(mainFile) {
     // modules that were not read don't exist locally
     // aos assumes that these modules have already been
     // loaded into the process, or they're default modules
-    (mod) => mod.content !== undefined
+    (mod) => mod.content !== undefined
   )
 }
 
@@ -101,13 +108,16 @@ function exploreNodes(node, cwd) {
   // set content
   node.content = fs.readFileSync(node.path, 'utf-8')
 
-  const requirePattern = /(?<=(require( *)(\n*)(\()?( *)("|'))).*(?=("|'))/g
+  // Don't include requires that are commented (start with --)
+  const requirePattern = /(?<!^.*--.*)(?<=(require( *)(\n*)(\()?( *)("|'))).*(?=("|'))/gm
   const requiredModules = node.content.match(requirePattern)?.map(
-    (mod) => ({
-      name: mod,
-      path: path.join(cwd, mod.replace(/\./g, '/') + '.lua'),
-      content: undefined
-    })
+    (mod) => {
+      return {
+        name: mod,
+        path: path.join(cwd, mod.replace(/\./g, '/') + '.lua'),
+        content: undefined
+      }
+    }
   ) || []
 
   return requiredModules

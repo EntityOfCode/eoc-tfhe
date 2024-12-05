@@ -3,7 +3,7 @@ WALLET_LOC ?= key.json
 # Set to 1 to enable debugging
 DEBUG ?=
 
-OPENSSL_INCLUDE_DIRS=/opt/openssl/include
+OPENSSL_INCLUDE_DIRS=/opt/openssl
 OPENSSL_LIBRARY_DIRS=/opt/openssl
 OPENSSL_LIBRARIES=/opt/openssl/libssl.a /opt/openssl/libcrypto.a
 
@@ -18,8 +18,8 @@ EMXX_EOC_FLAGS= -s MEMORY64=1 -g0 \
     -s EXPORT_ALL=1 -s EXPORT_ES6=1 -s MODULARIZE=1 \
 	-s FORCE_FILESYSTEM=1 -s INITIAL_MEMORY=800MB\
 	-s MAXIMUM_MEMORY=16GB -s ALLOW_MEMORY_GROWTH -s FORCE_FILESYSTEM=1 \
-	-s EXPORTED_FUNCTIONS=_main -s EXPORTED_RUNTIME_METHODS=[\"callMain\",\"ccall\",\"cwrap\"] \
-	-s NO_EXIT_RUNTIME=1 -Wno-unused-command-line-argument -Wno-experimental 
+	-s EXPORTED_FUNCTIONS=_main -s EXPORTED_RUNTIME_METHODS=callMain \
+	-s NO_EXIT_RUNTIME=1 -Wno-unused-command-line-argument -Wno-experimental -Wno-deprecated-declarations
 
 CXXFLAGS += -I$(OPENSSL_INCLUDE_DIRS)
 LDFLAGS += -L$(OPENSSL_LIBRARY_DIRS) $(OPENSSL_LIBRARIES)
@@ -103,11 +103,12 @@ libtfhe.a: container
 	cp build/tfhe/build.test/eoc/CMakeFiles/eoc-tfhe-run.dir/eoc-tfhe-run.cpp.o build/tfhe/eoc-tfhe-run.o
 
 libOpenSSL: container
-	@echo "Building OpenSSL1.1 Library..."
+	@echo "Building OpenSSL3.5 Library..."
 	# docker run -v $(PWD)/build/openssl:/openssl p3rmaw3b/ao sh -c \
 	# 	"cd /openssl && emmake make clean libclean distclean"
 	# docker run -v $(PWD)/build/openssl:/openssl p3rmaw3b/ao sh -c \
-    # "cd /openssl && emconfigure ./Configure no-asm no-shared no-async no-dso no-hw no-engine no-stdio no-tests no-ssl no-comp no-err no-ocsp no-psk no-srp no-ts no-rfc3779 no-srtp no-weak-ssl-ciphers no-ssl-trace no-ct linux-aarch64"
+    # "cd /openssl && emconfigure ./Configure no-asm no-shared no-async no-dso no-hw no-engine no-stdio no-tests no-ssl \
+	# no-comp no-err no-ocsp no-psk no-srp no-ts no-rfc3779 no-srtp no-weak-ssl-ciphers no-ssl-trace no-ct linux-aarch64 CFLAGS='$(EMXX_EOC_FLAGS)'"
 	# docker run -v $(PWD)/build/openssl:/openssl p3rmaw3b/ao sh -c \
 	# 	"cd /openssl && emmake make EMCC_CFLAGS='$(EMXX_EOC_FLAGS)'"
 	cp build/openssl/libssl.a container/lib/openssl/libssl.a
@@ -123,8 +124,8 @@ libjwtd: container
 		"cd /jwt-cpp/build.em && emcmake cmake -DCMAKE_CXX_FLAGS='$(EMXX_EOC_FLAGS)' -DOPENSSL_INCLUDE_DIRS=$(OPENSSL_INCLUDE_DIRS) -DOPENSSL_LIBRARY_DIRS=$(OPENSSL_LIBRARY_DIRS) -DOPENSSL_LIBRARIES='$(OPENSSL_LIBRARIES)' .."
 	docker run -v $(PWD)/build/jwt-cpp:/jwt-cpp  p3rmaw3b/ao sh -c \
 		"cd /jwt-cpp/build.em && emmake make EMCC_CFLAGS='$(EMXX_EOC_FLAGS)'"
-	cp build/jwt-cpp/build.em/src/libjwt.a container/lib/libjwt.a
-	cp -r build/jwt-cpp/include container/lib/jwt-cpp/include
+	cp build/jwt-cpp/build.em/src/libjwt.a container/lib/jwt/libjwt.a
+	cp -r build/jwt-cpp/src/include container/lib/jwt/include
 
 eoc-JStfheLib.js:
 	@echo "Building eoc-JStfheLib.js..."

@@ -9,5 +9,7 @@ export function splash() {
     width: 80,
     whitespaceBreak: true,
   }))
-  console.log(chalk.green('Welcome to the ao Operating System.'))
+  console.log(chalk.green('Welcome to AOS: Your operating system for AO, the decentralized open access supercomputer.'))
+  console.log(chalk.gray('Type ".load-blueprint chat" to join the community chat and ask questions!'))
+
 }

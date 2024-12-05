@@ -6,6 +6,7 @@ import {
 import chalk from 'chalk'
 import path from 'path'
 import ora from 'ora'
+
 import fs from 'fs'
 
 export function load(line) {
@@ -17,7 +18,7 @@ export function load(line) {
       filePath = path.resolve(path.join(process.cwd(), fn))
     }
     if (!fs.existsSync(filePath)) {
-      throw Error(chalk.red('ERROR: file not found.'));
+      throw Error(chalk.red('ERROR (200): file not found.'));
     }
     console.log(chalk.green('Loading... ', fn))
 
@@ -28,10 +29,11 @@ export function load(line) {
     })
     spinner.start()
     spinner.suffixText = chalk.gray('Parsing project structure...')
-  
+
     const projectStructure = createProjectStructure(filePath)
 
-    line = createExecutableFromProject(projectStructure)
+    const [executable, modules] = createExecutableFromProject(projectStructure)
+    line = executable
     spinner.stop()
 
     if (projectStructure.length > 0) {
@@ -45,7 +47,7 @@ export function load(line) {
       }))))
     }
 
-    return line
+    return [line, modules]
   } else {
     throw Error(chalk.red('ERROR: .load function requires a *.lua file'))
   }

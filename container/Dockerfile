@@ -54,11 +54,11 @@ RUN cd /lua-${LUA_VERSION} && \
   make clean && \
   make generic CC='emcc -s WASM=1 -s MEMORY64=1 -s SUPPORT_LONGJMP=1' 
 
-  # Set up Emscripten environment
-RUN cd /emsdk && ./emsdk install latest && ./emsdk activate latest
-RUN echo "source /emsdk/emsdk_env.sh" >> ~/.bashrc
-# Add Emscripten binaries to PATH
-ENV PATH="/emsdk:/emsdk/node/16.20.0_64bit/bin:/emsdk/upstream/emscripten:/emsdk/upstream/bin:${PATH}"
+#   # Set up Emscripten environment
+# RUN cd /emsdk && ./emsdk install latest && ./emsdk activate latest
+# RUN echo "source /emsdk/emsdk_env.sh" >> ~/.bashrc
+# # Add Emscripten binaries to PATH
+# ENV PATH="/emsdk:/emsdk/node/16.20.0_64bit/bin:/emsdk/upstream/emscripten:/emsdk/upstream/bin:${PATH}"
 
 #############################
 ##### Install Commands ######

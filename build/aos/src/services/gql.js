@@ -26,7 +26,22 @@ function queryArweave(body) {
       'Content-Type': 'application/json'
     },
     body: JSON.stringify(body)
-  }).then(res => res.json())
+  })
+    .then(res => {
+      if (!res.ok) {
+        throw new Error(`(${res.status}) ${res.statusText} - GQL ERROR`)
+      }
+      return res
+    })
+    .then(result => {
+      if (result.data === null) {
+        throw new Error(`(${result.status}) ${result.statusText} - GQL ERROR`)
+      }
+      return result
+      
+    })
+    .then(res => res.json())
+
 
   )()
 }

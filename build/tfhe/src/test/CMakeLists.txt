@@ -12,7 +12,7 @@ include_directories(${GTEST_INCLUDE_DIRS})
 # Find nlohmann_json package
 # find_package(nlohmann_json REQUIRED)
 
-set(OPENSSL_INCLUDE_DIR "/opt/openssl/include")
+set(OPENSSL_INCLUDE_DIR "/opt/openssl")
 set(OPENSSL_LIB_DIR "/opt/openssl")
 set(JWT_INCLUDE_DIR "/opt/jwt")
 set(JWT_LIB_DIR "/opt/jwt")

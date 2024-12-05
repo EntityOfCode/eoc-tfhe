@@ -4,7 +4,7 @@ import AoLoader from '@permaweb/ao-loader';
 import fs from 'fs';
 
 const wasm = fs.readFileSync('./process.wasm');
-const options = { format: "wasm32-unknown-emscripten" }
+const options = { format: "wasm64-unknown-emscripten-draft_2024_02_15" }
 test('run hmac successfully', async () => {
 	const handle = await AoLoader(wasm, options);
 	const env = {
@@ -32,6 +32,7 @@ test('run hmac successfully', async () => {
 	`;
 	const msg = {
 		Target: 'AOS',
+		From: 'FOOBAR',
 		Owner: 'FOOBAR',
 		['Block-Height']: '1000',
 		Id: '1234xyxfoo',
@@ -41,6 +42,6 @@ test('run hmac successfully', async () => {
 	};
 
 	const result = await handle(null, msg, env);
-	assert.equal(result.Output?.data.output, results.join(', '));
+	assert.equal(result.Output?.data, results.join(', '));
 	assert.ok(true);
 });

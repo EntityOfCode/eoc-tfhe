@@ -4,7 +4,7 @@ import AoLoader from '@permaweb/ao-loader';
 import fs from 'fs';
 
 const wasm = fs.readFileSync('./process.wasm');
-const options = { format: "wasm32-unknown-emscripten" }
+const options = { format: "wasm64-unknown-emscripten-draft_2024_02_15" }
 test('run random generator successfully', async () => {
 	const handle = await AoLoader(wasm, options);
 	const env = {
@@ -23,6 +23,7 @@ test('run random generator successfully', async () => {
 	`;
 	const msg = {
 		Target: 'AOS',
+		From: 'FOOBAR',
 		Owner: 'FOOBAR',
 		['Block-Height']: '1000',
 		Id: '1234xyxfoo',
@@ -32,6 +33,6 @@ test('run random generator successfully', async () => {
 	};
 
 	const result = await handle(null, msg, env);
-	assert.equal(result.Output?.data.output, 532713800);
+	assert.equal(result.Output?.data, 532713800);
 	assert.ok(true);
 });
