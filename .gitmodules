@@ -1,3 +1,6 @@
 [submodule "AO"]
 	path = AO
 	url = https://github.com/PeterFarber/AO-Llama
+[submodule "fhe"]
+	path = fhe
+	url = https://github.com/tfhe/tfhe.git
