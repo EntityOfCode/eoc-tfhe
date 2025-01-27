@@ -1,0 +1,232 @@
+[
+{
+  "directory": "/llamacpp",
+  "command": "/emsdk/upstream/emscripten/emcc -DGGML_SCHED_MAX_COPIES=4 -DGGML_USE_LLAMAFILE -D_XOPEN_SOURCE=600 @CMakeFiles/ggml.dir/includes_C.rsp -O3 -DNDEBUG -Wshadow -Wstrict-prototypes -Wpointer-arith -Wmissing-prototypes -Werror=implicit-int -Werror=implicit-function-declaration -Wall -Wextra -Wpedantic -Wcast-qual -Wno-unused-function -Wunreachable-code-break -Wunreachable-code-return -Wdouble-promotion -std=gnu11 -o CMakeFiles/ggml.dir/ggml.c.o -c /llamacpp/ggml.c",
+  "file": "/llamacpp/ggml.c"
+},
+{
+  "directory": "/llamacpp",
+  "command": "/emsdk/upstream/emscripten/emcc -DGGML_SCHED_MAX_COPIES=4 -DGGML_USE_LLAMAFILE -D_XOPEN_SOURCE=600 @CMakeFiles/ggml.dir/includes_C.rsp -O3 -DNDEBUG -Wshadow -Wstrict-prototypes -Wpointer-arith -Wmissing-prototypes -Werror=implicit-int -Werror=implicit-function-declaration -Wall -Wextra -Wpedantic -Wcast-qual -Wno-unused-function -Wunreachable-code-break -Wunreachable-code-return -Wdouble-promotion -std=gnu11 -o CMakeFiles/ggml.dir/ggml-alloc.c.o -c /llamacpp/ggml-alloc.c",
+  "file": "/llamacpp/ggml-alloc.c"
+},
+{
+  "directory": "/llamacpp",
+  "command": "/emsdk/upstream/emscripten/emcc -DGGML_SCHED_MAX_COPIES=4 -DGGML_USE_LLAMAFILE -D_XOPEN_SOURCE=600 @CMakeFiles/ggml.dir/includes_C.rsp -O3 -DNDEBUG -Wshadow -Wstrict-prototypes -Wpointer-arith -Wmissing-prototypes -Werror=implicit-int -Werror=implicit-function-declaration -Wall -Wextra -Wpedantic -Wcast-qual -Wno-unused-function -Wunreachable-code-break -Wunreachable-code-return -Wdouble-promotion -std=gnu11 -o CMakeFiles/ggml.dir/ggml-backend.c.o -c /llamacpp/ggml-backend.c",
+  "file": "/llamacpp/ggml-backend.c"
+},
+{
+  "directory": "/llamacpp",
+  "command": "/emsdk/upstream/emscripten/emcc -DGGML_SCHED_MAX_COPIES=4 -DGGML_USE_LLAMAFILE -D_XOPEN_SOURCE=600 @CMakeFiles/ggml.dir/includes_C.rsp -O3 -DNDEBUG -Wshadow -Wstrict-prototypes -Wpointer-arith -Wmissing-prototypes -Werror=implicit-int -Werror=implicit-function-declaration -Wall -Wextra -Wpedantic -Wcast-qual -Wno-unused-function -Wunreachable-code-break -Wunreachable-code-return -Wdouble-promotion -std=gnu11 -o CMakeFiles/ggml.dir/ggml-quants.c.o -c /llamacpp/ggml-quants.c",
+  "file": "/llamacpp/ggml-quants.c"
+},
+{
+  "directory": "/llamacpp",
+  "command": "/emsdk/upstream/emscripten/em++ -DGGML_SCHED_MAX_COPIES=4 -DGGML_USE_LLAMAFILE -D_XOPEN_SOURCE=600 @CMakeFiles/ggml.dir/includes_CXX.rsp -s MEMORY64=1 -Wno-experimental -O3 -DNDEBUG -Wmissing-declarations -Wmissing-noreturn -Wall -Wextra -Wpedantic -Wcast-qual -Wno-unused-function -Wunreachable-code-break -Wunreachable-code-return -Wmissing-prototypes -Wextra-semi -std=gnu++11 -o CMakeFiles/ggml.dir/sgemm.cpp.o -c /llamacpp/sgemm.cpp",
+  "file": "/llamacpp/sgemm.cpp"
+},
+{
+  "directory": "/llamacpp",
+  "command": "/emsdk/upstream/emscripten/em++ -DGGML_SCHED_MAX_COPIES=4 -DGGML_USE_LLAMAFILE -D_XOPEN_SOURCE=600 @CMakeFiles/llama.dir/includes_CXX.rsp -s MEMORY64=1 -Wno-experimental -O3 -DNDEBUG -Wmissing-declarations -Wmissing-noreturn -Wall -Wextra -Wpedantic -Wcast-qual -Wno-unused-function -Wunreachable-code-break -Wunreachable-code-return -Wmissing-prototypes -Wextra-semi -std=gnu++11 -o CMakeFiles/llama.dir/llama.cpp.o -c /llamacpp/llama.cpp",
+  "file": "/llamacpp/llama.cpp"
+},
+{
+  "directory": "/llamacpp",
+  "command": "/emsdk/upstream/emscripten/em++ -DGGML_SCHED_MAX_COPIES=4 -DGGML_USE_LLAMAFILE -D_XOPEN_SOURCE=600 @CMakeFiles/llama.dir/includes_CXX.rsp -s MEMORY64=1 -Wno-experimental -O3 -DNDEBUG -Wmissing-declarations -Wmissing-noreturn -Wall -Wextra -Wpedantic -Wcast-qual -Wno-unused-function -Wunreachable-code-break -Wunreachable-code-return -Wmissing-prototypes -Wextra-semi -std=gnu++11 -o CMakeFiles/llama.dir/unicode.cpp.o -c /llamacpp/unicode.cpp",
+  "file": "/llamacpp/unicode.cpp"
+},
+{
+  "directory": "/llamacpp",
+  "command": "/emsdk/upstream/emscripten/em++ -DGGML_SCHED_MAX_COPIES=4 -DGGML_USE_LLAMAFILE -D_XOPEN_SOURCE=600 @CMakeFiles/llama.dir/includes_CXX.rsp -s MEMORY64=1 -Wno-experimental -O3 -DNDEBUG -Wmissing-declarations -Wmissing-noreturn -Wall -Wextra -Wpedantic -Wcast-qual -Wno-unused-function -Wunreachable-code-break -Wunreachable-code-return -Wmissing-prototypes -Wextra-semi -std=gnu++11 -o CMakeFiles/llama.dir/unicode-data.cpp.o -c /llamacpp/unicode-data.cpp",
+  "file": "/llamacpp/unicode-data.cpp"
+},
+{
+  "directory": "/llamacpp/common",
+  "command": "/emsdk/upstream/emscripten/em++ -DGGML_SCHED_MAX_COPIES=4 -DGGML_USE_LLAMAFILE -D_XOPEN_SOURCE=600  -s MEMORY64=1 -Wno-experimental -O3 -DNDEBUG -Wmissing-declarations -Wmissing-noreturn -Wall -Wextra -Wpedantic -Wcast-qual -Wno-unused-function -Wunreachable-code-break -Wunreachable-code-return -Wmissing-prototypes -Wextra-semi -std=gnu++11 -o CMakeFiles/build_info.dir/build-info.cpp.o -c /llamacpp/common/build-info.cpp",
+  "file": "/llamacpp/common/build-info.cpp"
+},
+{
+  "directory": "/llamacpp/common",
+  "command": "/emsdk/upstream/emscripten/em++ -DGGML_SCHED_MAX_COPIES=4 -DGGML_USE_LLAMAFILE -D_XOPEN_SOURCE=600 @CMakeFiles/common.dir/includes_CXX.rsp -s MEMORY64=1 -Wno-experimental -O3 -DNDEBUG -Wmissing-declarations -Wmissing-noreturn -Wall -Wextra -Wpedantic -Wcast-qual -Wno-unused-function -Wunreachable-code-break -Wunreachable-code-return -Wmissing-prototypes -Wextra-semi -std=gnu++11 -o CMakeFiles/common.dir/common.cpp.o -c /llamacpp/common/common.cpp",
+  "file": "/llamacpp/common/common.cpp"
+},
+{
+  "directory": "/llamacpp/common",
+  "command": "/emsdk/upstream/emscripten/em++ -DGGML_SCHED_MAX_COPIES=4 -DGGML_USE_LLAMAFILE -D_XOPEN_SOURCE=600 @CMakeFiles/common.dir/includes_CXX.rsp -s MEMORY64=1 -Wno-experimental -O3 -DNDEBUG -Wmissing-declarations -Wmissing-noreturn -Wall -Wextra -Wpedantic -Wcast-qual -Wno-unused-function -Wunreachable-code-break -Wunreachable-code-return -Wmissing-prototypes -Wextra-semi -std=gnu++11 -o CMakeFiles/common.dir/sampling.cpp.o -c /llamacpp/common/sampling.cpp",
+  "file": "/llamacpp/common/sampling.cpp"
+},
+{
+  "directory": "/llamacpp/common",
+  "command": "/emsdk/upstream/emscripten/em++ -DGGML_SCHED_MAX_COPIES=4 -DGGML_USE_LLAMAFILE -D_XOPEN_SOURCE=600 @CMakeFiles/common.dir/includes_CXX.rsp -s MEMORY64=1 -Wno-experimental -O3 -DNDEBUG -Wmissing-declarations -Wmissing-noreturn -Wall -Wextra -Wpedantic -Wcast-qual -Wno-unused-function -Wunreachable-code-break -Wunreachable-code-return -Wmissing-prototypes -Wextra-semi -std=gnu++11 -o CMakeFiles/common.dir/console.cpp.o -c /llamacpp/common/console.cpp",
+  "file": "/llamacpp/common/console.cpp"
+},
+{
+  "directory": "/llamacpp/common",
+  "command": "/emsdk/upstream/emscripten/em++ -DGGML_SCHED_MAX_COPIES=4 -DGGML_USE_LLAMAFILE -D_XOPEN_SOURCE=600 @CMakeFiles/common.dir/includes_CXX.rsp -s MEMORY64=1 -Wno-experimental -O3 -DNDEBUG -Wmissing-declarations -Wmissing-noreturn -Wall -Wextra -Wpedantic -Wcast-qual -Wno-unused-function -Wunreachable-code-break -Wunreachable-code-return -Wmissing-prototypes -Wextra-semi -std=gnu++11 -o CMakeFiles/common.dir/grammar-parser.cpp.o -c /llamacpp/common/grammar-parser.cpp",
+  "file": "/llamacpp/common/grammar-parser.cpp"
+},
+{
+  "directory": "/llamacpp/common",
+  "command": "/emsdk/upstream/emscripten/em++ -DGGML_SCHED_MAX_COPIES=4 -DGGML_USE_LLAMAFILE -D_XOPEN_SOURCE=600 @CMakeFiles/common.dir/includes_CXX.rsp -s MEMORY64=1 -Wno-experimental -O3 -DNDEBUG -Wmissing-declarations -Wmissing-noreturn -Wall -Wextra -Wpedantic -Wcast-qual -Wno-unused-function -Wunreachable-code-break -Wunreachable-code-return -Wmissing-prototypes -Wextra-semi -std=gnu++11 -o CMakeFiles/common.dir/json-schema-to-grammar.cpp.o -c /llamacpp/common/json-schema-to-grammar.cpp",
+  "file": "/llamacpp/common/json-schema-to-grammar.cpp"
+},
+{
+  "directory": "/llamacpp/common",
+  "command": "/emsdk/upstream/emscripten/em++ -DGGML_SCHED_MAX_COPIES=4 -DGGML_USE_LLAMAFILE -D_XOPEN_SOURCE=600 @CMakeFiles/common.dir/includes_CXX.rsp -s MEMORY64=1 -Wno-experimental -O3 -DNDEBUG -Wmissing-declarations -Wmissing-noreturn -Wall -Wextra -Wpedantic -Wcast-qual -Wno-unused-function -Wunreachable-code-break -Wunreachable-code-return -Wmissing-prototypes -Wextra-semi -std=gnu++11 -o CMakeFiles/common.dir/train.cpp.o -c /llamacpp/common/train.cpp",
+  "file": "/llamacpp/common/train.cpp"
+},
+{
+  "directory": "/llamacpp/common",
+  "command": "/emsdk/upstream/emscripten/em++ -DGGML_SCHED_MAX_COPIES=4 -DGGML_USE_LLAMAFILE -D_XOPEN_SOURCE=600 @CMakeFiles/common.dir/includes_CXX.rsp -s MEMORY64=1 -Wno-experimental -O3 -DNDEBUG -Wmissing-declarations -Wmissing-noreturn -Wall -Wextra -Wpedantic -Wcast-qual -Wno-unused-function -Wunreachable-code-break -Wunreachable-code-return -Wmissing-prototypes -Wextra-semi -std=gnu++11 -o CMakeFiles/common.dir/ngram-cache.cpp.o -c /llamacpp/common/ngram-cache.cpp",
+  "file": "/llamacpp/common/ngram-cache.cpp"
+},
+{
+  "directory": "/llamacpp/tests",
+  "command": "/emsdk/upstream/emscripten/em++ -DGGML_SCHED_MAX_COPIES=4 -DGGML_USE_LLAMAFILE -D_XOPEN_SOURCE=600 @CMakeFiles/test-tokenizer-0.dir/includes_CXX.rsp -s MEMORY64=1 -Wno-experimental -O3 -DNDEBUG -Wmissing-declarations -Wmissing-noreturn -Wall -Wextra -Wpedantic -Wcast-qual -Wno-unused-function -Wunreachable-code-break -Wunreachable-code-return -Wmissing-prototypes -Wextra-semi -std=gnu++11 -o CMakeFiles/test-tokenizer-0.dir/test-tokenizer-0.cpp.o -c /llamacpp/tests/test-tokenizer-0.cpp",
+  "file": "/llamacpp/tests/test-tokenizer-0.cpp"
+},
+{
+  "directory": "/llamacpp/tests",
+  "command": "/emsdk/upstream/emscripten/em++ -DGGML_SCHED_MAX_COPIES=4 -DGGML_USE_LLAMAFILE -D_XOPEN_SOURCE=600 @CMakeFiles/test-tokenizer-1-bpe.dir/includes_CXX.rsp -s MEMORY64=1 -Wno-experimental -O3 -DNDEBUG -Wmissing-declarations -Wmissing-noreturn -Wall -Wextra -Wpedantic -Wcast-qual -Wno-unused-function -Wunreachable-code-break -Wunreachable-code-return -Wmissing-prototypes -Wextra-semi -std=gnu++11 -o CMakeFiles/test-tokenizer-1-bpe.dir/test-tokenizer-1-bpe.cpp.o -c /llamacpp/tests/test-tokenizer-1-bpe.cpp",
+  "file": "/llamacpp/tests/test-tokenizer-1-bpe.cpp"
+},
+{
+  "directory": "/llamacpp/tests",
+  "command": "/emsdk/upstream/emscripten/em++ -DGGML_SCHED_MAX_COPIES=4 -DGGML_USE_LLAMAFILE -D_XOPEN_SOURCE=600 @CMakeFiles/test-tokenizer-1-spm.dir/includes_CXX.rsp -s MEMORY64=1 -Wno-experimental -O3 -DNDEBUG -Wmissing-declarations -Wmissing-noreturn -Wall -Wextra -Wpedantic -Wcast-qual -Wno-unused-function -Wunreachable-code-break -Wunreachable-code-return -Wmissing-prototypes -Wextra-semi -std=gnu++11 -o CMakeFiles/test-tokenizer-1-spm.dir/test-tokenizer-1-spm.cpp.o -c /llamacpp/tests/test-tokenizer-1-spm.cpp",
+  "file": "/llamacpp/tests/test-tokenizer-1-spm.cpp"
+},
+{
+  "directory": "/llamacpp/tests",
+  "command": "/emsdk/upstream/emscripten/em++ -DGGML_SCHED_MAX_COPIES=4 -DGGML_USE_LLAMAFILE -D_XOPEN_SOURCE=600 @CMakeFiles/test-quantize-fns.dir/includes_CXX.rsp -s MEMORY64=1 -Wno-experimental -O3 -DNDEBUG -Wmissing-declarations -Wmissing-noreturn -Wall -Wextra -Wpedantic -Wcast-qual -Wno-unused-function -Wunreachable-code-break -Wunreachable-code-return -Wmissing-prototypes -Wextra-semi -std=gnu++11 -o CMakeFiles/test-quantize-fns.dir/test-quantize-fns.cpp.o -c /llamacpp/tests/test-quantize-fns.cpp",
+  "file": "/llamacpp/tests/test-quantize-fns.cpp"
+},
+{
+  "directory": "/llamacpp/tests",
+  "command": "/emsdk/upstream/emscripten/em++ -DGGML_SCHED_MAX_COPIES=4 -DGGML_USE_LLAMAFILE -D_XOPEN_SOURCE=600 @CMakeFiles/test-quantize-fns.dir/includes_CXX.rsp -s MEMORY64=1 -Wno-experimental -O3 -DNDEBUG -Wmissing-declarations -Wmissing-noreturn -Wall -Wextra -Wpedantic -Wcast-qual -Wno-unused-function -Wunreachable-code-break -Wunreachable-code-return -Wmissing-prototypes -Wextra-semi -std=gnu++11 -o CMakeFiles/test-quantize-fns.dir/get-model.cpp.o -c /llamacpp/tests/get-model.cpp",
+  "file": "/llamacpp/tests/get-model.cpp"
+},
+{
+  "directory": "/llamacpp/tests",
+  "command": "/emsdk/upstream/emscripten/em++ -DGGML_SCHED_MAX_COPIES=4 -DGGML_USE_LLAMAFILE -D_XOPEN_SOURCE=600 @CMakeFiles/test-quantize-perf.dir/includes_CXX.rsp -s MEMORY64=1 -Wno-experimental -O3 -DNDEBUG -Wmissing-declarations -Wmissing-noreturn -Wall -Wextra -Wpedantic -Wcast-qual -Wno-unused-function -Wunreachable-code-break -Wunreachable-code-return -Wmissing-prototypes -Wextra-semi -std=gnu++11 -o CMakeFiles/test-quantize-perf.dir/test-quantize-perf.cpp.o -c /llamacpp/tests/test-quantize-perf.cpp",
+  "file": "/llamacpp/tests/test-quantize-perf.cpp"
+},
+{
+  "directory": "/llamacpp/tests",
+  "command": "/emsdk/upstream/emscripten/em++ -DGGML_SCHED_MAX_COPIES=4 -DGGML_USE_LLAMAFILE -D_XOPEN_SOURCE=600 @CMakeFiles/test-quantize-perf.dir/includes_CXX.rsp -s MEMORY64=1 -Wno-experimental -O3 -DNDEBUG -Wmissing-declarations -Wmissing-noreturn -Wall -Wextra -Wpedantic -Wcast-qual -Wno-unused-function -Wunreachable-code-break -Wunreachable-code-return -Wmissing-prototypes -Wextra-semi -std=gnu++11 -o CMakeFiles/test-quantize-perf.dir/get-model.cpp.o -c /llamacpp/tests/get-model.cpp",
+  "file": "/llamacpp/tests/get-model.cpp"
+},
+{
+  "directory": "/llamacpp/tests",
+  "command": "/emsdk/upstream/emscripten/em++ -DGGML_SCHED_MAX_COPIES=4 -DGGML_USE_LLAMAFILE -D_XOPEN_SOURCE=600 @CMakeFiles/test-sampling.dir/includes_CXX.rsp -s MEMORY64=1 -Wno-experimental -O3 -DNDEBUG -Wmissing-declarations -Wmissing-noreturn -Wall -Wextra -Wpedantic -Wcast-qual -Wno-unused-function -Wunreachable-code-break -Wunreachable-code-return -Wmissing-prototypes -Wextra-semi -std=gnu++11 -o CMakeFiles/test-sampling.dir/test-sampling.cpp.o -c /llamacpp/tests/test-sampling.cpp",
+  "file": "/llamacpp/tests/test-sampling.cpp"
+},
+{
+  "directory": "/llamacpp/tests",
+  "command": "/emsdk/upstream/emscripten/em++ -DGGML_SCHED_MAX_COPIES=4 -DGGML_USE_LLAMAFILE -D_XOPEN_SOURCE=600 @CMakeFiles/test-sampling.dir/includes_CXX.rsp -s MEMORY64=1 -Wno-experimental -O3 -DNDEBUG -Wmissing-declarations -Wmissing-noreturn -Wall -Wextra -Wpedantic -Wcast-qual -Wno-unused-function -Wunreachable-code-break -Wunreachable-code-return -Wmissing-prototypes -Wextra-semi -std=gnu++11 -o CMakeFiles/test-sampling.dir/get-model.cpp.o -c /llamacpp/tests/get-model.cpp",
+  "file": "/llamacpp/tests/get-model.cpp"
+},
+{
+  "directory": "/llamacpp/tests",
+  "command": "/emsdk/upstream/emscripten/em++ -DGGML_SCHED_MAX_COPIES=4 -DGGML_USE_LLAMAFILE -D_XOPEN_SOURCE=600 @CMakeFiles/test-chat-template.dir/includes_CXX.rsp -s MEMORY64=1 -Wno-experimental -O3 -DNDEBUG -Wmissing-declarations -Wmissing-noreturn -Wall -Wextra -Wpedantic -Wcast-qual -Wno-unused-function -Wunreachable-code-break -Wunreachable-code-return -Wmissing-prototypes -Wextra-semi -std=gnu++11 -o CMakeFiles/test-chat-template.dir/test-chat-template.cpp.o -c /llamacpp/tests/test-chat-template.cpp",
+  "file": "/llamacpp/tests/test-chat-template.cpp"
+},
+{
+  "directory": "/llamacpp/tests",
+  "command": "/emsdk/upstream/emscripten/em++ -DGGML_SCHED_MAX_COPIES=4 -DGGML_USE_LLAMAFILE -D_XOPEN_SOURCE=600 @CMakeFiles/test-chat-template.dir/includes_CXX.rsp -s MEMORY64=1 -Wno-experimental -O3 -DNDEBUG -Wmissing-declarations -Wmissing-noreturn -Wall -Wextra -Wpedantic -Wcast-qual -Wno-unused-function -Wunreachable-code-break -Wunreachable-code-return -Wmissing-prototypes -Wextra-semi -std=gnu++11 -o CMakeFiles/test-chat-template.dir/get-model.cpp.o -c /llamacpp/tests/get-model.cpp",
+  "file": "/llamacpp/tests/get-model.cpp"
+},
+{
+  "directory": "/llamacpp/tests",
+  "command": "/emsdk/upstream/emscripten/em++ -DGGML_SCHED_MAX_COPIES=4 -DGGML_USE_LLAMAFILE -D_XOPEN_SOURCE=600 @CMakeFiles/test-grammar-parser.dir/includes_CXX.rsp -s MEMORY64=1 -Wno-experimental -O3 -DNDEBUG -Wmissing-declarations -Wmissing-noreturn -Wall -Wextra -Wpedantic -Wcast-qual -Wno-unused-function -Wunreachable-code-break -Wunreachable-code-return -Wmissing-prototypes -Wextra-semi -std=gnu++11 -o CMakeFiles/test-grammar-parser.dir/test-grammar-parser.cpp.o -c /llamacpp/tests/test-grammar-parser.cpp",
+  "file": "/llamacpp/tests/test-grammar-parser.cpp"
+},
+{
+  "directory": "/llamacpp/tests",
+  "command": "/emsdk/upstream/emscripten/em++ -DGGML_SCHED_MAX_COPIES=4 -DGGML_USE_LLAMAFILE -D_XOPEN_SOURCE=600 @CMakeFiles/test-grammar-parser.dir/includes_CXX.rsp -s MEMORY64=1 -Wno-experimental -O3 -DNDEBUG -Wmissing-declarations -Wmissing-noreturn -Wall -Wextra -Wpedantic -Wcast-qual -Wno-unused-function -Wunreachable-code-break -Wunreachable-code-return -Wmissing-prototypes -Wextra-semi -std=gnu++11 -o CMakeFiles/test-grammar-parser.dir/get-model.cpp.o -c /llamacpp/tests/get-model.cpp",
+  "file": "/llamacpp/tests/get-model.cpp"
+},
+{
+  "directory": "/llamacpp/tests",
+  "command": "/emsdk/upstream/emscripten/em++ -DGGML_SCHED_MAX_COPIES=4 -DGGML_USE_LLAMAFILE -D_XOPEN_SOURCE=600 @CMakeFiles/test-llama-grammar.dir/includes_CXX.rsp -s MEMORY64=1 -Wno-experimental -O3 -DNDEBUG -Wmissing-declarations -Wmissing-noreturn -Wall -Wextra -Wpedantic -Wcast-qual -Wno-unused-function -Wunreachable-code-break -Wunreachable-code-return -Wmissing-prototypes -Wextra-semi -std=gnu++11 -o CMakeFiles/test-llama-grammar.dir/test-llama-grammar.cpp.o -c /llamacpp/tests/test-llama-grammar.cpp",
+  "file": "/llamacpp/tests/test-llama-grammar.cpp"
+},
+{
+  "directory": "/llamacpp/tests",
+  "command": "/emsdk/upstream/emscripten/em++ -DGGML_SCHED_MAX_COPIES=4 -DGGML_USE_LLAMAFILE -D_XOPEN_SOURCE=600 @CMakeFiles/test-llama-grammar.dir/includes_CXX.rsp -s MEMORY64=1 -Wno-experimental -O3 -DNDEBUG -Wmissing-declarations -Wmissing-noreturn -Wall -Wextra -Wpedantic -Wcast-qual -Wno-unused-function -Wunreachable-code-break -Wunreachable-code-return -Wmissing-prototypes -Wextra-semi -std=gnu++11 -o CMakeFiles/test-llama-grammar.dir/get-model.cpp.o -c /llamacpp/tests/get-model.cpp",
+  "file": "/llamacpp/tests/get-model.cpp"
+},
+{
+  "directory": "/llamacpp/tests",
+  "command": "/emsdk/upstream/emscripten/em++ -DGGML_SCHED_MAX_COPIES=4 -DGGML_USE_LLAMAFILE -D_XOPEN_SOURCE=600 @CMakeFiles/test-grammar-integration.dir/includes_CXX.rsp -s MEMORY64=1 -Wno-experimental -O3 -DNDEBUG -Wmissing-declarations -Wmissing-noreturn -Wall -Wextra -Wpedantic -Wcast-qual -Wno-unused-function -Wunreachable-code-break -Wunreachable-code-return -Wmissing-prototypes -Wextra-semi -std=gnu++11 -o CMakeFiles/test-grammar-integration.dir/test-grammar-integration.cpp.o -c /llamacpp/tests/test-grammar-integration.cpp",
+  "file": "/llamacpp/tests/test-grammar-integration.cpp"
+},
+{
+  "directory": "/llamacpp/tests",
+  "command": "/emsdk/upstream/emscripten/em++ -DGGML_SCHED_MAX_COPIES=4 -DGGML_USE_LLAMAFILE -D_XOPEN_SOURCE=600 @CMakeFiles/test-grammar-integration.dir/includes_CXX.rsp -s MEMORY64=1 -Wno-experimental -O3 -DNDEBUG -Wmissing-declarations -Wmissing-noreturn -Wall -Wextra -Wpedantic -Wcast-qual -Wno-unused-function -Wunreachable-code-break -Wunreachable-code-return -Wmissing-prototypes -Wextra-semi -std=gnu++11 -o CMakeFiles/test-grammar-integration.dir/get-model.cpp.o -c /llamacpp/tests/get-model.cpp",
+  "file": "/llamacpp/tests/get-model.cpp"
+},
+{
+  "directory": "/llamacpp/tests",
+  "command": "/emsdk/upstream/emscripten/em++ -DGGML_SCHED_MAX_COPIES=4 -DGGML_USE_LLAMAFILE -D_XOPEN_SOURCE=600 @CMakeFiles/test-grad0.dir/includes_CXX.rsp -s MEMORY64=1 -Wno-experimental -O3 -DNDEBUG -Wmissing-declarations -Wmissing-noreturn -Wall -Wextra -Wpedantic -Wcast-qual -Wno-unused-function -Wunreachable-code-break -Wunreachable-code-return -Wmissing-prototypes -Wextra-semi -std=gnu++11 -o CMakeFiles/test-grad0.dir/test-grad0.cpp.o -c /llamacpp/tests/test-grad0.cpp",
+  "file": "/llamacpp/tests/test-grad0.cpp"
+},
+{
+  "directory": "/llamacpp/tests",
+  "command": "/emsdk/upstream/emscripten/em++ -DGGML_SCHED_MAX_COPIES=4 -DGGML_USE_LLAMAFILE -D_XOPEN_SOURCE=600 @CMakeFiles/test-grad0.dir/includes_CXX.rsp -s MEMORY64=1 -Wno-experimental -O3 -DNDEBUG -Wmissing-declarations -Wmissing-noreturn -Wall -Wextra -Wpedantic -Wcast-qual -Wno-unused-function -Wunreachable-code-break -Wunreachable-code-return -Wmissing-prototypes -Wextra-semi -std=gnu++11 -o CMakeFiles/test-grad0.dir/get-model.cpp.o -c /llamacpp/tests/get-model.cpp",
+  "file": "/llamacpp/tests/get-model.cpp"
+},
+{
+  "directory": "/llamacpp/tests",
+  "command": "/emsdk/upstream/emscripten/em++ -DGGML_SCHED_MAX_COPIES=4 -DGGML_USE_LLAMAFILE -D_XOPEN_SOURCE=600 @CMakeFiles/test-backend-ops.dir/includes_CXX.rsp -s MEMORY64=1 -Wno-experimental -O3 -DNDEBUG -Wmissing-declarations -Wmissing-noreturn -Wall -Wextra -Wpedantic -Wcast-qual -Wno-unused-function -Wunreachable-code-break -Wunreachable-code-return -Wmissing-prototypes -Wextra-semi -std=gnu++11 -o CMakeFiles/test-backend-ops.dir/test-backend-ops.cpp.o -c /llamacpp/tests/test-backend-ops.cpp",
+  "file": "/llamacpp/tests/test-backend-ops.cpp"
+},
+{
+  "directory": "/llamacpp/tests",
+  "command": "/emsdk/upstream/emscripten/em++ -DGGML_SCHED_MAX_COPIES=4 -DGGML_USE_LLAMAFILE -D_XOPEN_SOURCE=600 @CMakeFiles/test-backend-ops.dir/includes_CXX.rsp -s MEMORY64=1 -Wno-experimental -O3 -DNDEBUG -Wmissing-declarations -Wmissing-noreturn -Wall -Wextra -Wpedantic -Wcast-qual -Wno-unused-function -Wunreachable-code-break -Wunreachable-code-return -Wmissing-prototypes -Wextra-semi -std=gnu++11 -o CMakeFiles/test-backend-ops.dir/get-model.cpp.o -c /llamacpp/tests/get-model.cpp",
+  "file": "/llamacpp/tests/get-model.cpp"
+},
+{
+  "directory": "/llamacpp/tests",
+  "command": "/emsdk/upstream/emscripten/em++ -DGGML_SCHED_MAX_COPIES=4 -DGGML_USE_LLAMAFILE -D_XOPEN_SOURCE=600 @CMakeFiles/test-rope.dir/includes_CXX.rsp -s MEMORY64=1 -Wno-experimental -O3 -DNDEBUG -Wmissing-declarations -Wmissing-noreturn -Wall -Wextra -Wpedantic -Wcast-qual -Wno-unused-function -Wunreachable-code-break -Wunreachable-code-return -Wmissing-prototypes -Wextra-semi -std=gnu++11 -o CMakeFiles/test-rope.dir/test-rope.cpp.o -c /llamacpp/tests/test-rope.cpp",
+  "file": "/llamacpp/tests/test-rope.cpp"
+},
+{
+  "directory": "/llamacpp/tests",
+  "command": "/emsdk/upstream/emscripten/em++ -DGGML_SCHED_MAX_COPIES=4 -DGGML_USE_LLAMAFILE -D_XOPEN_SOURCE=600 @CMakeFiles/test-rope.dir/includes_CXX.rsp -s MEMORY64=1 -Wno-experimental -O3 -DNDEBUG -Wmissing-declarations -Wmissing-noreturn -Wall -Wextra -Wpedantic -Wcast-qual -Wno-unused-function -Wunreachable-code-break -Wunreachable-code-return -Wmissing-prototypes -Wextra-semi -std=gnu++11 -o CMakeFiles/test-rope.dir/get-model.cpp.o -c /llamacpp/tests/get-model.cpp",
+  "file": "/llamacpp/tests/get-model.cpp"
+},
+{
+  "directory": "/llamacpp/tests",
+  "command": "/emsdk/upstream/emscripten/em++ -DGGML_SCHED_MAX_COPIES=4 -DGGML_USE_LLAMAFILE -D_XOPEN_SOURCE=600 @CMakeFiles/test-model-load-cancel.dir/includes_CXX.rsp -s MEMORY64=1 -Wno-experimental -O3 -DNDEBUG -Wmissing-declarations -Wmissing-noreturn -Wall -Wextra -Wpedantic -Wcast-qual -Wno-unused-function -Wunreachable-code-break -Wunreachable-code-return -Wmissing-prototypes -Wextra-semi -std=gnu++11 -o CMakeFiles/test-model-load-cancel.dir/test-model-load-cancel.cpp.o -c /llamacpp/tests/test-model-load-cancel.cpp",
+  "file": "/llamacpp/tests/test-model-load-cancel.cpp"
+},
+{
+  "directory": "/llamacpp/tests",
+  "command": "/emsdk/upstream/emscripten/em++ -DGGML_SCHED_MAX_COPIES=4 -DGGML_USE_LLAMAFILE -D_XOPEN_SOURCE=600 @CMakeFiles/test-model-load-cancel.dir/includes_CXX.rsp -s MEMORY64=1 -Wno-experimental -O3 -DNDEBUG -Wmissing-declarations -Wmissing-noreturn -Wall -Wextra -Wpedantic -Wcast-qual -Wno-unused-function -Wunreachable-code-break -Wunreachable-code-return -Wmissing-prototypes -Wextra-semi -std=gnu++11 -o CMakeFiles/test-model-load-cancel.dir/get-model.cpp.o -c /llamacpp/tests/get-model.cpp",
+  "file": "/llamacpp/tests/get-model.cpp"
+},
+{
+  "directory": "/llamacpp/tests",
+  "command": "/emsdk/upstream/emscripten/em++ -DGGML_SCHED_MAX_COPIES=4 -DGGML_USE_LLAMAFILE -D_XOPEN_SOURCE=600 @CMakeFiles/test-autorelease.dir/includes_CXX.rsp -s MEMORY64=1 -Wno-experimental -O3 -DNDEBUG -Wmissing-declarations -Wmissing-noreturn -Wall -Wextra -Wpedantic -Wcast-qual -Wno-unused-function -Wunreachable-code-break -Wunreachable-code-return -Wmissing-prototypes -Wextra-semi -std=gnu++11 -o CMakeFiles/test-autorelease.dir/test-autorelease.cpp.o -c /llamacpp/tests/test-autorelease.cpp",
+  "file": "/llamacpp/tests/test-autorelease.cpp"
+},
+{
+  "directory": "/llamacpp/tests",
+  "command": "/emsdk/upstream/emscripten/em++ -DGGML_SCHED_MAX_COPIES=4 -DGGML_USE_LLAMAFILE -D_XOPEN_SOURCE=600 @CMakeFiles/test-autorelease.dir/includes_CXX.rsp -s MEMORY64=1 -Wno-experimental -O3 -DNDEBUG -Wmissing-declarations -Wmissing-noreturn -Wall -Wextra -Wpedantic -Wcast-qual -Wno-unused-function -Wunreachable-code-break -Wunreachable-code-return -Wmissing-prototypes -Wextra-semi -std=gnu++11 -o CMakeFiles/test-autorelease.dir/get-model.cpp.o -c /llamacpp/tests/get-model.cpp",
+  "file": "/llamacpp/tests/get-model.cpp"
+},
+{
+  "directory": "/llamacpp/tests",
+  "command": "/emsdk/upstream/emscripten/em++ -DGGML_SCHED_MAX_COPIES=4 -DGGML_USE_LLAMAFILE -D_XOPEN_SOURCE=600 @CMakeFiles/test-json-schema-to-grammar.dir/includes_CXX.rsp -s MEMORY64=1 -Wno-experimental -O3 -DNDEBUG -Wmissing-declarations -Wmissing-noreturn -Wall -Wextra -Wpedantic -Wcast-qual -Wno-unused-function -Wunreachable-code-break -Wunreachable-code-return -Wmissing-prototypes -Wextra-semi -std=gnu++11 -o CMakeFiles/test-json-schema-to-grammar.dir/test-json-schema-to-grammar.cpp.o -c /llamacpp/tests/test-json-schema-to-grammar.cpp",
+  "file": "/llamacpp/tests/test-json-schema-to-grammar.cpp"
+},
+{
+  "directory": "/llamacpp/tests",
+  "command": "/emsdk/upstream/emscripten/em++ -DGGML_SCHED_MAX_COPIES=4 -DGGML_USE_LLAMAFILE -D_XOPEN_SOURCE=600 @CMakeFiles/test-json-schema-to-grammar.dir/includes_CXX.rsp -s MEMORY64=1 -Wno-experimental -O3 -DNDEBUG -Wmissing-declarations -Wmissing-noreturn -Wall -Wextra -Wpedantic -Wcast-qual -Wno-unused-function -Wunreachable-code-break -Wunreachable-code-return -Wmissing-prototypes -Wextra-semi -std=gnu++11 -o CMakeFiles/test-json-schema-to-grammar.dir/get-model.cpp.o -c /llamacpp/tests/get-model.cpp",
+  "file": "/llamacpp/tests/get-model.cpp"
+},
+{
+  "directory": "/llamacpp/tests",
+  "command": "/emsdk/upstream/emscripten/emcc -DGGML_SCHED_MAX_COPIES=4 -DGGML_USE_LLAMAFILE -D_XOPEN_SOURCE=600 @CMakeFiles/test-c.dir/includes_C.rsp -O3 -DNDEBUG -Wshadow -Wstrict-prototypes -Wpointer-arith -Wmissing-prototypes -Werror=implicit-int -Werror=implicit-function-declaration -Wall -Wextra -Wpedantic -Wcast-qual -Wno-unused-function -Wunreachable-code-break -Wunreachable-code-return -Wdouble-promotion -std=gnu11 -o CMakeFiles/test-c.dir/test-c.c.o -c /llamacpp/tests/test-c.c",
+  "file": "/llamacpp/tests/test-c.c"
+}
+]

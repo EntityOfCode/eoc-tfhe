@@ -1,0 +1,2 @@
+/emsdk/upstream/emscripten/emar qc libggml_static.a CMakeFiles/ggml.dir/ggml.c.o CMakeFiles/ggml.dir/ggml-alloc.c.o CMakeFiles/ggml.dir/ggml-backend.c.o CMakeFiles/ggml.dir/ggml-quants.c.o CMakeFiles/ggml.dir/sgemm.cpp.o
+/emsdk/upstream/emscripten/emranlib libggml_static.a

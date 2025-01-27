@@ -1,0 +1,38 @@
+The target system is: Emscripten - 1 - x86
+The host system is: Linux - 6.8.0-49-generic - x86_64
+Performing C SOURCE FILE Test CMAKE_HAVE_LIBC_PTHREAD succeeded with the following output:
+Change Dir: /llamacpp/CMakeFiles/CMakeTmp
+
+Run Build Command(s):/usr/bin/gmake -f Makefile cmTC_fa953/fast && /usr/bin/gmake  -f CMakeFiles/cmTC_fa953.dir/build.make CMakeFiles/cmTC_fa953.dir/build
+gmake[1]: Entering directory '/llamacpp/CMakeFiles/CMakeTmp'
+Building C object CMakeFiles/cmTC_fa953.dir/src.c.o
+/emsdk/upstream/emscripten/emcc -DCMAKE_HAVE_LIBC_PTHREAD  -std=gnu11 -MD -MT CMakeFiles/cmTC_fa953.dir/src.c.o -MF CMakeFiles/cmTC_fa953.dir/src.c.o.d -o CMakeFiles/cmTC_fa953.dir/src.c.o -c /llamacpp/CMakeFiles/CMakeTmp/src.c
+Linking C executable cmTC_fa953.js
+/usr/bin/cmake -E cmake_link_script CMakeFiles/cmTC_fa953.dir/link.txt --verbose=1
+/emsdk/upstream/emscripten/emcc @CMakeFiles/cmTC_fa953.dir/objects1.rsp -o cmTC_fa953.js 
+cache:INFO: generating system asset: symbol_lists/dfbc1ff34674fb7b964f4fef50a5f0b4830c79e9.json... (this will be cached in "/emsdk/upstream/emscripten/cache/symbol_lists/dfbc1ff34674fb7b964f4fef50a5f0b4830c79e9.json" for subsequent builds)
+cache:INFO:  - ok
+gmake[1]: Leaving directory '/llamacpp/CMakeFiles/CMakeTmp'
+
+
+Source file was:
+#include <pthread.h>
+
+static void* test_func(void* data)
+{
+  return data;
+}
+
+int main(void)
+{
+  pthread_t thread;
+  pthread_create(&thread, NULL, test_func, NULL);
+  pthread_detach(thread);
+  pthread_cancel(thread);
+  pthread_join(thread, NULL);
+  pthread_atfork(NULL, NULL, NULL);
+  pthread_exit(NULL);
+
+  return 0;
+}
+
