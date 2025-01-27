@@ -2,6 +2,7 @@
 #include <iostream>
 #include "tfhe.h"
 #include "tfhe_garbage_collector.h"
+#include "eocnoiser.h"
 
 using namespace std;
 
@@ -96,12 +97,12 @@ EXPORT void delete_gate_bootstrapping_parameters(TFheGateBootstrappingParameterS
 /** generate a gate bootstrapping secret key */
 EXPORT TFheGateBootstrappingSecretKeySet *
 new_random_gate_bootstrapping_secret_keyset(const TFheGateBootstrappingParameterSet *params) {
-    LweKey *lwe_key = new_LweKey(params->in_out_params);
+    LweKey *lwe_key = new_LweKey(params->in_out_params);//TODO: change with new_random_lwe_key(add noise)
     lweKeyGen(lwe_key);
-    TGswKey *tgsw_key = new_TGswKey(params->tgsw_params);
+    TGswKey *tgsw_key = new_TGswKey(params->tgsw_params);//TODO: change with new_random_tgsw_key(add noise)
     tGswKeyGen(tgsw_key);
     LweBootstrappingKey *bk = new_LweBootstrappingKey(params->ks_t, params->ks_basebit, params->in_out_params,
-                                                      params->tgsw_params);
+                                                      params->tgsw_params);//TODO: change with new_random_lweBootstrappingKey(add noise)
     tfhe_createLweBootstrappingKey(bk, lwe_key, tgsw_key);
     LweBootstrappingKeyFFT *bkFFT = new_LweBootstrappingKeyFFT(bk);
     return new TFheGateBootstrappingSecretKeySet(params, bk, bkFFT, lwe_key, tgsw_key);

@@ -330,6 +330,10 @@ extern "C" const char *generateSecretKey(const char *jwtToken, const char *jwksB
     {
         std::cout << "Generating secret key started..." << std::endl;
         clock_t start = clock();
+        uint32_t seed = lrand48();
+        srand(seed);
+        std::cout << "Generating noise..." << std::endl;
+        tfhe_random_generator_setSeed(&seed, 1);
 
         TFheGateBootstrappingParameterSet *params = new_default_gate_bootstrapping_parameters(minimum_lambda);
         // unique_ptr<TFheGateBootstrappingSecretKeySet> sk_fake(new_random_gate_bootstrapping_secret_keyset(params));
