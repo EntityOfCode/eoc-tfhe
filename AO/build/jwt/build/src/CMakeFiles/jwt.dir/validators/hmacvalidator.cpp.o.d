@@ -1,7 +1,7 @@
 src/CMakeFiles/jwt.dir/validators/hmacvalidator.cpp.o: \
   /modules/jwt/src/validators/hmacvalidator.cpp \
-  /modules/jwt/src/include/jwt/hmacvalidator.h \
-  /modules/jwt/src/include/jwt/messagevalidator.h \
+  /modules/tfhe/src/include/jwt/hmacvalidator.h \
+  /modules/tfhe/src/include/jwt/messagevalidator.h \
   /emsdk/upstream/emscripten/cache/sysroot/include/c++/v1/stdint.h \
   /emsdk/upstream/emscripten/cache/sysroot/include/c++/v1/__config \
   /emsdk/upstream/emscripten/cache/sysroot/include/c++/v1/__config_site \
@@ -700,8 +700,8 @@ src/CMakeFiles/jwt.dir/validators/hmacvalidator.cpp.o: \
   /emsdk/upstream/emscripten/cache/sysroot/include/c++/v1/__bit/byteswap.h \
   /emsdk/upstream/emscripten/cache/sysroot/include/c++/v1/__bit/endian.h \
   /emsdk/upstream/emscripten/cache/sysroot/include/c++/v1/__bit/has_single_bit.h \
-  /modules/jwt/src/include/jwt/allocators.h \
-  /modules/jwt/src/include/jwt/json.hpp \
+  /modules/tfhe/src/include/jwt/allocators.h \
+  /modules/tfhe/src/include/jwt/json.hpp \
   /emsdk/upstream/emscripten/cache/sysroot/include/c++/v1/cassert \
   /emsdk/upstream/emscripten/cache/sysroot/include/assert.h \
   /emsdk/upstream/emscripten/cache/sysroot/include/c++/v1/ciso646 \
@@ -838,7 +838,7 @@ src/CMakeFiles/jwt.dir/validators/hmacvalidator.cpp.o: \
   /emsdk/upstream/emscripten/cache/sysroot/include/c++/v1/__format/formatter_tuple.h \
   /emsdk/upstream/emscripten/cache/sysroot/include/c++/v1/print \
   /emsdk/upstream/emscripten/cache/sysroot/include/unistd.h \
-  /modules/jwt/src/include/jwt/jwt_error.h \
+  /modules/tfhe/src/include/jwt/jwt_error.h \
   /modules/tfhe/src/include/openssl/hmac.h \
   /modules/tfhe/src/include/openssl/macros.h \
   /modules/tfhe/src/include/openssl/opensslconf.h \

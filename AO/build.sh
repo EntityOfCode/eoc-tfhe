@@ -59,14 +59,14 @@ sudo docker run -v ${TFHE_CPP_DIR}:/tfhe ${AO_IMAGE} sh -c \
 	"cd /tfhe/build && emcmake cmake -DCMAKE_CXX_FLAGS='${EMXX_CFLAGS}' ../src"
 
 # echo "Cleaning openssl make..."
-sudo docker run -v ${OPENSSL_CPP_DIR}:/openssl ${AO_IMAGE} sh -c \
-	"cd /openssl && emmake make clean libclean distclean"
+# sudo docker run -v ${OPENSSL_CPP_DIR}:/openssl ${AO_IMAGE} sh -c \
+# 	"cd /openssl && emmake make clean libclean distclean"
 
 # echo "Building openssl cmake..."
 sudo docker run -v ${OPENSSL_CPP_DIR}:/openssl ${AO_IMAGE} sh -c \
-	"cd /openssl && emconfigure ./Configure no-asm no-shared no-async \
-	    no-dso no-hw no-engine no-stdio no-tests no-ssl no-comp no-err \
-		no-ocsp no-psk no-srp no-ts no-rfc3779 no-srtp no-weak-ssl-ciphers no-ssl-trace no-ct linux-aarch64"
+	# "cd /openssl && emconfigure ./Configure no-asm no-shared no-async \
+	#     no-dso no-hw no-engine no-stdio no-tests no-ssl no-comp no-err \
+	# 	no-ocsp no-psk no-srp no-ts no-rfc3779 no-srtp no-weak-ssl-ciphers no-ssl-trace no-ct linux-aarch64"
 
 
 # echo "Building jwt cmake..."

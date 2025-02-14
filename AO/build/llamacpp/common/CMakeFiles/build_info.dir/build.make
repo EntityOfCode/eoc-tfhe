@@ -70,7 +70,6 @@ include common/CMakeFiles/build_info.dir/progress.make
 include common/CMakeFiles/build_info.dir/flags.make
 
 common/build-info.cpp: common/build-info.cpp.in
-common/build-info.cpp: .git/index
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --blue --bold --progress-dir=/llamacpp/CMakeFiles --progress-num=$(CMAKE_PROGRESS_1) "Generating build details from Git"
 	/usr/bin/cmake -DMSVC= -DCMAKE_C_COMPILER_VERSION=19.0.0 -DCMAKE_C_COMPILER_ID=Clang -DCMAKE_VS_PLATFORM_NAME= -DCMAKE_C_COMPILER=/emsdk/upstream/emscripten/emcc -P /llamacpp/common/../scripts/gen-build-info-cpp.cmake
 

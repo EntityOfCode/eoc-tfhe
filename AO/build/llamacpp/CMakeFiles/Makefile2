@@ -1011,8 +1011,8 @@ common/CMakeFiles/build_info.dir/clean:
 # Target rules for target common/CMakeFiles/common.dir
 
 # All Build rule for target.
-common/CMakeFiles/common.dir/all: CMakeFiles/llama.dir/all
 common/CMakeFiles/common.dir/all: CMakeFiles/ggml.dir/all
+common/CMakeFiles/common.dir/all: CMakeFiles/llama.dir/all
 common/CMakeFiles/common.dir/all: common/CMakeFiles/build_info.dir/all
 	$(MAKE) $(MAKESILENT) -f common/CMakeFiles/common.dir/build.make common/CMakeFiles/common.dir/depend
 	$(MAKE) $(MAKESILENT) -f common/CMakeFiles/common.dir/build.make common/CMakeFiles/common.dir/build
@@ -1039,8 +1039,8 @@ common/CMakeFiles/common.dir/clean:
 # Target rules for target tests/CMakeFiles/test-tokenizer-0.dir
 
 # All Build rule for target.
-tests/CMakeFiles/test-tokenizer-0.dir/all: CMakeFiles/llama.dir/all
 tests/CMakeFiles/test-tokenizer-0.dir/all: CMakeFiles/ggml.dir/all
+tests/CMakeFiles/test-tokenizer-0.dir/all: CMakeFiles/llama.dir/all
 tests/CMakeFiles/test-tokenizer-0.dir/all: common/CMakeFiles/build_info.dir/all
 tests/CMakeFiles/test-tokenizer-0.dir/all: common/CMakeFiles/common.dir/all
 	$(MAKE) $(MAKESILENT) -f tests/CMakeFiles/test-tokenizer-0.dir/build.make tests/CMakeFiles/test-tokenizer-0.dir/depend
@@ -1068,8 +1068,8 @@ tests/CMakeFiles/test-tokenizer-0.dir/clean:
 # Target rules for target tests/CMakeFiles/test-tokenizer-1-bpe.dir
 
 # All Build rule for target.
-tests/CMakeFiles/test-tokenizer-1-bpe.dir/all: CMakeFiles/llama.dir/all
 tests/CMakeFiles/test-tokenizer-1-bpe.dir/all: CMakeFiles/ggml.dir/all
+tests/CMakeFiles/test-tokenizer-1-bpe.dir/all: CMakeFiles/llama.dir/all
 tests/CMakeFiles/test-tokenizer-1-bpe.dir/all: common/CMakeFiles/build_info.dir/all
 tests/CMakeFiles/test-tokenizer-1-bpe.dir/all: common/CMakeFiles/common.dir/all
 	$(MAKE) $(MAKESILENT) -f tests/CMakeFiles/test-tokenizer-1-bpe.dir/build.make tests/CMakeFiles/test-tokenizer-1-bpe.dir/depend
@@ -1097,8 +1097,8 @@ tests/CMakeFiles/test-tokenizer-1-bpe.dir/clean:
 # Target rules for target tests/CMakeFiles/test-tokenizer-1-spm.dir
 
 # All Build rule for target.
-tests/CMakeFiles/test-tokenizer-1-spm.dir/all: CMakeFiles/llama.dir/all
 tests/CMakeFiles/test-tokenizer-1-spm.dir/all: CMakeFiles/ggml.dir/all
+tests/CMakeFiles/test-tokenizer-1-spm.dir/all: CMakeFiles/llama.dir/all
 tests/CMakeFiles/test-tokenizer-1-spm.dir/all: common/CMakeFiles/build_info.dir/all
 tests/CMakeFiles/test-tokenizer-1-spm.dir/all: common/CMakeFiles/common.dir/all
 	$(MAKE) $(MAKESILENT) -f tests/CMakeFiles/test-tokenizer-1-spm.dir/build.make tests/CMakeFiles/test-tokenizer-1-spm.dir/depend
@@ -1126,8 +1126,8 @@ tests/CMakeFiles/test-tokenizer-1-spm.dir/clean:
 # Target rules for target tests/CMakeFiles/test-quantize-fns.dir
 
 # All Build rule for target.
-tests/CMakeFiles/test-quantize-fns.dir/all: CMakeFiles/llama.dir/all
 tests/CMakeFiles/test-quantize-fns.dir/all: CMakeFiles/ggml.dir/all
+tests/CMakeFiles/test-quantize-fns.dir/all: CMakeFiles/llama.dir/all
 tests/CMakeFiles/test-quantize-fns.dir/all: common/CMakeFiles/build_info.dir/all
 tests/CMakeFiles/test-quantize-fns.dir/all: common/CMakeFiles/common.dir/all
 	$(MAKE) $(MAKESILENT) -f tests/CMakeFiles/test-quantize-fns.dir/build.make tests/CMakeFiles/test-quantize-fns.dir/depend
@@ -1155,8 +1155,8 @@ tests/CMakeFiles/test-quantize-fns.dir/clean:
 # Target rules for target tests/CMakeFiles/test-quantize-perf.dir
 
 # All Build rule for target.
-tests/CMakeFiles/test-quantize-perf.dir/all: CMakeFiles/llama.dir/all
 tests/CMakeFiles/test-quantize-perf.dir/all: CMakeFiles/ggml.dir/all
+tests/CMakeFiles/test-quantize-perf.dir/all: CMakeFiles/llama.dir/all
 tests/CMakeFiles/test-quantize-perf.dir/all: common/CMakeFiles/build_info.dir/all
 tests/CMakeFiles/test-quantize-perf.dir/all: common/CMakeFiles/common.dir/all
 	$(MAKE) $(MAKESILENT) -f tests/CMakeFiles/test-quantize-perf.dir/build.make tests/CMakeFiles/test-quantize-perf.dir/depend
@@ -1184,8 +1184,8 @@ tests/CMakeFiles/test-quantize-perf.dir/clean:
 # Target rules for target tests/CMakeFiles/test-sampling.dir
 
 # All Build rule for target.
-tests/CMakeFiles/test-sampling.dir/all: CMakeFiles/llama.dir/all
 tests/CMakeFiles/test-sampling.dir/all: CMakeFiles/ggml.dir/all
+tests/CMakeFiles/test-sampling.dir/all: CMakeFiles/llama.dir/all
 tests/CMakeFiles/test-sampling.dir/all: common/CMakeFiles/build_info.dir/all
 tests/CMakeFiles/test-sampling.dir/all: common/CMakeFiles/common.dir/all
 	$(MAKE) $(MAKESILENT) -f tests/CMakeFiles/test-sampling.dir/build.make tests/CMakeFiles/test-sampling.dir/depend
@@ -1213,8 +1213,8 @@ tests/CMakeFiles/test-sampling.dir/clean:
 # Target rules for target tests/CMakeFiles/test-chat-template.dir
 
 # All Build rule for target.
-tests/CMakeFiles/test-chat-template.dir/all: CMakeFiles/llama.dir/all
 tests/CMakeFiles/test-chat-template.dir/all: CMakeFiles/ggml.dir/all
+tests/CMakeFiles/test-chat-template.dir/all: CMakeFiles/llama.dir/all
 tests/CMakeFiles/test-chat-template.dir/all: common/CMakeFiles/build_info.dir/all
 tests/CMakeFiles/test-chat-template.dir/all: common/CMakeFiles/common.dir/all
 	$(MAKE) $(MAKESILENT) -f tests/CMakeFiles/test-chat-template.dir/build.make tests/CMakeFiles/test-chat-template.dir/depend
@@ -1242,8 +1242,8 @@ tests/CMakeFiles/test-chat-template.dir/clean:
 # Target rules for target tests/CMakeFiles/test-grammar-parser.dir
 
 # All Build rule for target.
-tests/CMakeFiles/test-grammar-parser.dir/all: CMakeFiles/llama.dir/all
 tests/CMakeFiles/test-grammar-parser.dir/all: CMakeFiles/ggml.dir/all
+tests/CMakeFiles/test-grammar-parser.dir/all: CMakeFiles/llama.dir/all
 tests/CMakeFiles/test-grammar-parser.dir/all: common/CMakeFiles/build_info.dir/all
 tests/CMakeFiles/test-grammar-parser.dir/all: common/CMakeFiles/common.dir/all
 	$(MAKE) $(MAKESILENT) -f tests/CMakeFiles/test-grammar-parser.dir/build.make tests/CMakeFiles/test-grammar-parser.dir/depend
@@ -1271,8 +1271,8 @@ tests/CMakeFiles/test-grammar-parser.dir/clean:
 # Target rules for target tests/CMakeFiles/test-llama-grammar.dir
 
 # All Build rule for target.
-tests/CMakeFiles/test-llama-grammar.dir/all: CMakeFiles/llama.dir/all
 tests/CMakeFiles/test-llama-grammar.dir/all: CMakeFiles/ggml.dir/all
+tests/CMakeFiles/test-llama-grammar.dir/all: CMakeFiles/llama.dir/all
 tests/CMakeFiles/test-llama-grammar.dir/all: common/CMakeFiles/build_info.dir/all
 tests/CMakeFiles/test-llama-grammar.dir/all: common/CMakeFiles/common.dir/all
 	$(MAKE) $(MAKESILENT) -f tests/CMakeFiles/test-llama-grammar.dir/build.make tests/CMakeFiles/test-llama-grammar.dir/depend
@@ -1300,8 +1300,8 @@ tests/CMakeFiles/test-llama-grammar.dir/clean:
 # Target rules for target tests/CMakeFiles/test-grammar-integration.dir
 
 # All Build rule for target.
-tests/CMakeFiles/test-grammar-integration.dir/all: CMakeFiles/llama.dir/all
 tests/CMakeFiles/test-grammar-integration.dir/all: CMakeFiles/ggml.dir/all
+tests/CMakeFiles/test-grammar-integration.dir/all: CMakeFiles/llama.dir/all
 tests/CMakeFiles/test-grammar-integration.dir/all: common/CMakeFiles/build_info.dir/all
 tests/CMakeFiles/test-grammar-integration.dir/all: common/CMakeFiles/common.dir/all
 	$(MAKE) $(MAKESILENT) -f tests/CMakeFiles/test-grammar-integration.dir/build.make tests/CMakeFiles/test-grammar-integration.dir/depend
@@ -1329,8 +1329,8 @@ tests/CMakeFiles/test-grammar-integration.dir/clean:
 # Target rules for target tests/CMakeFiles/test-grad0.dir
 
 # All Build rule for target.
-tests/CMakeFiles/test-grad0.dir/all: CMakeFiles/llama.dir/all
 tests/CMakeFiles/test-grad0.dir/all: CMakeFiles/ggml.dir/all
+tests/CMakeFiles/test-grad0.dir/all: CMakeFiles/llama.dir/all
 tests/CMakeFiles/test-grad0.dir/all: common/CMakeFiles/build_info.dir/all
 tests/CMakeFiles/test-grad0.dir/all: common/CMakeFiles/common.dir/all
 	$(MAKE) $(MAKESILENT) -f tests/CMakeFiles/test-grad0.dir/build.make tests/CMakeFiles/test-grad0.dir/depend
@@ -1358,8 +1358,8 @@ tests/CMakeFiles/test-grad0.dir/clean:
 # Target rules for target tests/CMakeFiles/test-backend-ops.dir
 
 # All Build rule for target.
-tests/CMakeFiles/test-backend-ops.dir/all: CMakeFiles/llama.dir/all
 tests/CMakeFiles/test-backend-ops.dir/all: CMakeFiles/ggml.dir/all
+tests/CMakeFiles/test-backend-ops.dir/all: CMakeFiles/llama.dir/all
 tests/CMakeFiles/test-backend-ops.dir/all: common/CMakeFiles/build_info.dir/all
 tests/CMakeFiles/test-backend-ops.dir/all: common/CMakeFiles/common.dir/all
 	$(MAKE) $(MAKESILENT) -f tests/CMakeFiles/test-backend-ops.dir/build.make tests/CMakeFiles/test-backend-ops.dir/depend
@@ -1387,8 +1387,8 @@ tests/CMakeFiles/test-backend-ops.dir/clean:
 # Target rules for target tests/CMakeFiles/test-rope.dir
 
 # All Build rule for target.
-tests/CMakeFiles/test-rope.dir/all: CMakeFiles/llama.dir/all
 tests/CMakeFiles/test-rope.dir/all: CMakeFiles/ggml.dir/all
+tests/CMakeFiles/test-rope.dir/all: CMakeFiles/llama.dir/all
 tests/CMakeFiles/test-rope.dir/all: common/CMakeFiles/build_info.dir/all
 tests/CMakeFiles/test-rope.dir/all: common/CMakeFiles/common.dir/all
 	$(MAKE) $(MAKESILENT) -f tests/CMakeFiles/test-rope.dir/build.make tests/CMakeFiles/test-rope.dir/depend
@@ -1416,8 +1416,8 @@ tests/CMakeFiles/test-rope.dir/clean:
 # Target rules for target tests/CMakeFiles/test-model-load-cancel.dir
 
 # All Build rule for target.
-tests/CMakeFiles/test-model-load-cancel.dir/all: CMakeFiles/llama.dir/all
 tests/CMakeFiles/test-model-load-cancel.dir/all: CMakeFiles/ggml.dir/all
+tests/CMakeFiles/test-model-load-cancel.dir/all: CMakeFiles/llama.dir/all
 tests/CMakeFiles/test-model-load-cancel.dir/all: common/CMakeFiles/build_info.dir/all
 tests/CMakeFiles/test-model-load-cancel.dir/all: common/CMakeFiles/common.dir/all
 	$(MAKE) $(MAKESILENT) -f tests/CMakeFiles/test-model-load-cancel.dir/build.make tests/CMakeFiles/test-model-load-cancel.dir/depend
@@ -1445,8 +1445,8 @@ tests/CMakeFiles/test-model-load-cancel.dir/clean:
 # Target rules for target tests/CMakeFiles/test-autorelease.dir
 
 # All Build rule for target.
-tests/CMakeFiles/test-autorelease.dir/all: CMakeFiles/llama.dir/all
 tests/CMakeFiles/test-autorelease.dir/all: CMakeFiles/ggml.dir/all
+tests/CMakeFiles/test-autorelease.dir/all: CMakeFiles/llama.dir/all
 tests/CMakeFiles/test-autorelease.dir/all: common/CMakeFiles/build_info.dir/all
 tests/CMakeFiles/test-autorelease.dir/all: common/CMakeFiles/common.dir/all
 	$(MAKE) $(MAKESILENT) -f tests/CMakeFiles/test-autorelease.dir/build.make tests/CMakeFiles/test-autorelease.dir/depend
@@ -1474,8 +1474,8 @@ tests/CMakeFiles/test-autorelease.dir/clean:
 # Target rules for target tests/CMakeFiles/test-json-schema-to-grammar.dir
 
 # All Build rule for target.
-tests/CMakeFiles/test-json-schema-to-grammar.dir/all: CMakeFiles/llama.dir/all
 tests/CMakeFiles/test-json-schema-to-grammar.dir/all: CMakeFiles/ggml.dir/all
+tests/CMakeFiles/test-json-schema-to-grammar.dir/all: CMakeFiles/llama.dir/all
 tests/CMakeFiles/test-json-schema-to-grammar.dir/all: common/CMakeFiles/build_info.dir/all
 tests/CMakeFiles/test-json-schema-to-grammar.dir/all: common/CMakeFiles/common.dir/all
 	$(MAKE) $(MAKESILENT) -f tests/CMakeFiles/test-json-schema-to-grammar.dir/build.make tests/CMakeFiles/test-json-schema-to-grammar.dir/depend
@@ -1503,8 +1503,8 @@ tests/CMakeFiles/test-json-schema-to-grammar.dir/clean:
 # Target rules for target tests/CMakeFiles/test-c.dir
 
 # All Build rule for target.
-tests/CMakeFiles/test-c.dir/all: CMakeFiles/llama.dir/all
 tests/CMakeFiles/test-c.dir/all: CMakeFiles/ggml.dir/all
+tests/CMakeFiles/test-c.dir/all: CMakeFiles/llama.dir/all
 	$(MAKE) $(MAKESILENT) -f tests/CMakeFiles/test-c.dir/build.make tests/CMakeFiles/test-c.dir/depend
 	$(MAKE) $(MAKESILENT) -f tests/CMakeFiles/test-c.dir/build.make tests/CMakeFiles/test-c.dir/build
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --progress-dir=/llamacpp/CMakeFiles --progress-num=27,28 "Built target test-c"

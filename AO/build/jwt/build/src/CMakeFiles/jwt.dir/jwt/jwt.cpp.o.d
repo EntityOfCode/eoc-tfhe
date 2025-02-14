@@ -1,5 +1,5 @@
 src/CMakeFiles/jwt.dir/jwt/jwt.cpp.o: /modules/jwt/src/jwt/jwt.cpp \
-  /modules/jwt/src/include/jwt/jwt.h \
+  /modules/tfhe/src/include/jwt/jwt.h \
   /emsdk/upstream/emscripten/cache/sysroot/include/c++/v1/stddef.h \
   /emsdk/upstream/emscripten/cache/sysroot/include/c++/v1/__config \
   /emsdk/upstream/emscripten/cache/sysroot/include/c++/v1/__config_site \
@@ -698,8 +698,8 @@ src/CMakeFiles/jwt.dir/jwt/jwt.cpp.o: /modules/jwt/src/jwt/jwt.cpp \
   /emsdk/upstream/emscripten/cache/sysroot/include/c++/v1/__bit/byteswap.h \
   /emsdk/upstream/emscripten/cache/sysroot/include/c++/v1/__bit/endian.h \
   /emsdk/upstream/emscripten/cache/sysroot/include/c++/v1/__bit/has_single_bit.h \
-  /modules/jwt/src/include/jwt/claimvalidator.h \
-  /modules/jwt/src/include/jwt/json.hpp \
+  /modules/tfhe/src/include/jwt/claimvalidator.h \
+  /modules/tfhe/src/include/jwt/json.hpp \
   /emsdk/upstream/emscripten/cache/sysroot/include/c++/v1/cassert \
   /emsdk/upstream/emscripten/cache/sysroot/include/assert.h \
   /emsdk/upstream/emscripten/cache/sysroot/include/c++/v1/ciso646 \
@@ -836,7 +836,7 @@ src/CMakeFiles/jwt.dir/jwt/jwt.cpp.o: /modules/jwt/src/jwt/jwt.cpp \
   /emsdk/upstream/emscripten/cache/sysroot/include/c++/v1/__format/formatter_tuple.h \
   /emsdk/upstream/emscripten/cache/sysroot/include/c++/v1/print \
   /emsdk/upstream/emscripten/cache/sysroot/include/unistd.h \
-  /modules/jwt/src/include/jwt/jwt_error.h \
-  /modules/jwt/src/include/jwt/messagevalidator.h \
-  /modules/jwt/src/include/jwt/allocators.h \
+  /modules/tfhe/src/include/jwt/jwt_error.h \
+  /modules/tfhe/src/include/jwt/messagevalidator.h \
+  /modules/tfhe/src/include/jwt/allocators.h \
   /modules/tfhe/src/include/private/base64.h

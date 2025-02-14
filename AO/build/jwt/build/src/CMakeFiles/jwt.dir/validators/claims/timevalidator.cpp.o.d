@@ -1,8 +1,8 @@
 src/CMakeFiles/jwt.dir/validators/claims/timevalidator.cpp.o: \
   /modules/jwt/src/validators/claims/timevalidator.cpp \
-  /modules/jwt/src/include/jwt/timevalidator.h \
-  /modules/jwt/src/include/jwt/claimvalidator.h \
-  /modules/jwt/src/include/jwt/json.hpp \
+  /modules/tfhe/src/include/jwt/timevalidator.h \
+  /modules/tfhe/src/include/jwt/claimvalidator.h \
+  /modules/tfhe/src/include/jwt/json.hpp \
   /emsdk/upstream/emscripten/cache/sysroot/include/c++/v1/algorithm \
   /emsdk/upstream/emscripten/cache/sysroot/include/c++/v1/__assert \
   /emsdk/upstream/emscripten/cache/sysroot/include/c++/v1/__assertion_handler \
@@ -837,6 +837,6 @@ src/CMakeFiles/jwt.dir/validators/claims/timevalidator.cpp.o: \
   /emsdk/upstream/emscripten/cache/sysroot/include/c++/v1/__format/formatter_tuple.h \
   /emsdk/upstream/emscripten/cache/sysroot/include/c++/v1/print \
   /emsdk/upstream/emscripten/cache/sysroot/include/unistd.h \
-  /modules/jwt/src/include/jwt/jwt_error.h \
+  /modules/tfhe/src/include/jwt/jwt_error.h \
   /modules/tfhe/src/include/private/clock.h \
   /emsdk/upstream/emscripten/cache/sysroot/include/c++/v1/sstream

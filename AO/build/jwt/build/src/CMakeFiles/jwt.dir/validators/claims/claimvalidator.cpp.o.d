@@ -1,7 +1,7 @@
 src/CMakeFiles/jwt.dir/validators/claims/claimvalidator.cpp.o: \
   /modules/jwt/src/validators/claims/claimvalidator.cpp \
-  /modules/jwt/src/include/jwt/claimvalidator.h \
-  /modules/jwt/src/include/jwt/json.hpp \
+  /modules/tfhe/src/include/jwt/claimvalidator.h \
+  /modules/tfhe/src/include/jwt/json.hpp \
   /emsdk/upstream/emscripten/cache/sysroot/include/c++/v1/algorithm \
   /emsdk/upstream/emscripten/cache/sysroot/include/c++/v1/__assert \
   /emsdk/upstream/emscripten/cache/sysroot/include/c++/v1/__assertion_handler \
@@ -836,6 +836,6 @@ src/CMakeFiles/jwt.dir/validators/claims/claimvalidator.cpp.o: \
   /emsdk/upstream/emscripten/cache/sysroot/include/c++/v1/__format/formatter_tuple.h \
   /emsdk/upstream/emscripten/cache/sysroot/include/c++/v1/print \
   /emsdk/upstream/emscripten/cache/sysroot/include/unistd.h \
-  /modules/jwt/src/include/jwt/jwt_error.h \
+  /modules/tfhe/src/include/jwt/jwt_error.h \
   /emsdk/upstream/emscripten/cache/sysroot/include/c++/v1/iostream \
   /emsdk/upstream/emscripten/cache/sysroot/include/c++/v1/sstream
