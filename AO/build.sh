@@ -43,60 +43,60 @@ if [ ! -d "${JWT_CPP_DIR}" ]; then \
 fi
 cd ..
 
-# sudo rm -rf ${JWT_CPP_DIR}/build
-# sudo mkdir -p ${JWT_CPP_DIR}/build
+sudo rm -rf ${JWT_CPP_DIR}/build
+sudo mkdir -p ${JWT_CPP_DIR}/build
 
 # Patch llama.cpp to remove alignment asserts
 sed -i.bak 's/#define ggml_assert_aligned.*/#define ggml_assert_aligned\(ptr\)/g' ${LLAMA_CPP_DIR}/ggml.c
 sed -i.bak '/.*GGML_ASSERT.*GGML_MEM_ALIGN == 0.*/d' ${LLAMA_CPP_DIR}/ggml.c
 
 # Build llama.cpp into a static library with emscripten
-# sudo docker run -v ${LLAMA_CPP_DIR}:/llamacpp ${AO_IMAGE} sh -c \
-# 		"cd /llamacpp && emcmake cmake -DCMAKE_CXX_FLAGS='${EMXX_CFLAGS}' -S . -B . -DLLAMA_BUILD_EXAMPLES=OFF"
+sudo docker run -v ${LLAMA_CPP_DIR}:/llamacpp ${AO_IMAGE} sh -c \
+		"cd /llamacpp && emcmake cmake -DCMAKE_CXX_FLAGS='${EMXX_CFLAGS}' -S . -B . -DLLAMA_BUILD_EXAMPLES=OFF"
 
 # echo "Building tfhe cmake..."
-# sudo docker run -v ${TFHE_CPP_DIR}:/tfhe ${AO_IMAGE} sh -c \
-# 	"cd /tfhe/build && emcmake cmake -DCMAKE_CXX_FLAGS='${EMXX_CFLAGS}' ../src"
+sudo docker run -v ${TFHE_CPP_DIR}:/tfhe ${AO_IMAGE} sh -c \
+	"cd /tfhe/build && emcmake cmake -DCMAKE_CXX_FLAGS='${EMXX_CFLAGS}' ../src"
 
 # echo "Cleaning openssl make..."
-# sudo docker run -v ${OPENSSL_CPP_DIR}:/openssl ${AO_IMAGE} sh -c \
-# 	"cd /openssl && emmake make clean libclean distclean"
+sudo docker run -v ${OPENSSL_CPP_DIR}:/openssl ${AO_IMAGE} sh -c \
+	"cd /openssl && emmake make clean libclean distclean"
 
 # echo "Building openssl cmake..."
-# sudo docker run -v ${OPENSSL_CPP_DIR}:/openssl ${AO_IMAGE} sh -c \
-# 	"cd /openssl && emconfigure ./Configure no-asm no-shared no-async \
-# 	    no-dso no-hw no-engine no-stdio no-tests no-ssl no-comp no-err \
-# 		no-ocsp no-psk no-srp no-ts no-rfc3779 no-srtp no-weak-ssl-ciphers no-ssl-trace no-ct linux-aarch64"
+sudo docker run -v ${OPENSSL_CPP_DIR}:/openssl ${AO_IMAGE} sh -c \
+	"cd /openssl && emconfigure ./Configure no-asm no-shared no-async \
+	    no-dso no-hw no-engine no-stdio no-tests no-ssl no-comp no-err \
+		no-ocsp no-psk no-srp no-ts no-rfc3779 no-srtp no-weak-ssl-ciphers no-ssl-trace no-ct linux-aarch64"
 
 
 # echo "Building jwt cmake..."
-# sudo docker run -v ${CPP_MODULES_DIR}:/modules ${AO_IMAGE} sh -c \
-# 		"cd /modules/jwt/build && emcmake cmake -DCMAKE_CXX_FLAGS='${EMXX_CFLAGS}' \
-# 			-DOPENSSL_INCLUDE_DIRS='${OPENSSL_INCLUDE_DIRS}' -DOPENSSL_LIBRARY_DIRS='${OPENSSL_LIBRARY_DIRS}' -DOPENSSL_LIBRARIES='${OPENSSL_LIBRARIES}' .."
+sudo docker run -v ${CPP_MODULES_DIR}:/modules ${AO_IMAGE} sh -c \
+		"cd /modules/jwt/build && emcmake cmake -DCMAKE_CXX_FLAGS='${EMXX_CFLAGS}' \
+			-DOPENSSL_INCLUDE_DIRS='${OPENSSL_INCLUDE_DIRS}' -DOPENSSL_LIBRARY_DIRS='${OPENSSL_LIBRARY_DIRS}' -DOPENSSL_LIBRARIES='${OPENSSL_LIBRARIES}' .."
 
-# sudo docker run -v ${LLAMA_CPP_DIR}:/llamacpp ${AO_IMAGE} sh -c \
-# 	"cd /llamacpp && emmake make llama common EMCC_CFLAGS='${EMXX_CFLAGS}'" 
+sudo docker run -v ${LLAMA_CPP_DIR}:/llamacpp ${AO_IMAGE} sh -c \
+	"cd /llamacpp && emmake make llama common EMCC_CFLAGS='${EMXX_CFLAGS}'" 
 
 # echo "Building tfhe make..."
-# sudo docker run -v ${TFHE_CPP_DIR}:/tfhe ${AO_IMAGE} sh -c \
-# 		"cd /tfhe/build && emmake make EMCC_CFLAGS='${EMXX_CFLAGS}'"
+sudo docker run -v ${TFHE_CPP_DIR}:/tfhe ${AO_IMAGE} sh -c \
+		"cd /tfhe/build && emmake make EMCC_CFLAGS='${EMXX_CFLAGS}'"
 
 # echo "Building openssl make..."
-# sudo docker run -v ${OPENSSL_CPP_DIR}:/openssl ${AO_IMAGE} sh -c \
-# 	"cd /openssl && emmake make EMCC_CFLAGS='-s MEMORY64=1 -Wno-experimental'"
+sudo docker run -v ${OPENSSL_CPP_DIR}:/openssl ${AO_IMAGE} sh -c \
+	"cd /openssl && emmake make EMCC_CFLAGS='-s MEMORY64=1 -Wno-experimental'"
 		
-# cp ${TFHE_CPP_DIR}/build/libtfhe/libtfhe-nayuki-portable.a ${TFHE_CPP_DIR}/src/include/libtfhe.a
-# cp ${OPENSSL_CPP_DIR}/libcrypto.a ${TFHE_CPP_DIR}/src/include/libcrypto.a		
-# cp ${OPENSSL_CPP_DIR}/libssl.a ${TFHE_CPP_DIR}/src/include/libssl.a
-# cp ${OPENSSL_CPP_DIR}/include ${TFHE_CPP_DIR}/src/include/
+cp ${TFHE_CPP_DIR}/build/libtfhe/libtfhe-nayuki-portable.a ${TFHE_CPP_DIR}/src/include/libtfhe.a
+cp ${OPENSSL_CPP_DIR}/libcrypto.a ${TFHE_CPP_DIR}/src/include/libcrypto.a		
+cp ${OPENSSL_CPP_DIR}/libssl.a ${TFHE_CPP_DIR}/src/include/libssl.a
+cp ${OPENSSL_CPP_DIR}/include ${TFHE_CPP_DIR}/src/include/
 
 # echo "Building jwt make..."
-# sudo docker run -v ${CPP_MODULES_DIR}:/modules ${AO_IMAGE} sh -c \
-# 		"cd /modules/jwt/build && emmake make EMCC_CFLAGS='${EMXX_CFLAGS}'"
+sudo docker run -v ${CPP_MODULES_DIR}:/modules ${AO_IMAGE} sh -c \
+		"cd /modules/jwt/build && emmake make EMCC_CFLAGS='${EMXX_CFLAGS}'"
 
-# cp ${JWT_CPP_DIR}/build/src/libjwt.a ${TFHE_CPP_DIR}/src/include/libjwt.a
-# cp ${JWT_CPP_DIR}/src/include/jwt ${TFHE_CPP_DIR}/src/include/jwt
-# cp ${JWT_CPP_DIR}/src/include/private ${TFHE_CPP_DIR}/src/include/private
+cp ${JWT_CPP_DIR}/build/src/libjwt.a ${TFHE_CPP_DIR}/src/include/libjwt.a
+cp ${JWT_CPP_DIR}/src/include/jwt ${TFHE_CPP_DIR}/src/include/jwt
+cp ${JWT_CPP_DIR}/src/include/private ${TFHE_CPP_DIR}/src/include/private
 
 sudo docker run -v ${LLAMA_CPP_DIR}:/llamacpp  -v ${AO_LLAMA_DIR}:/ao-llama ${AO_IMAGE} sh -c \
 		"cd /ao-llama && ./build.sh"
