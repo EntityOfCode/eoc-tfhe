@@ -141,7 +141,7 @@ cp ${AO_TFHE_DIR}/libaotfhe.so $LIBS_DIR/ao-fhe/libaotfhe.so
 cp ${AO_TFHE_DIR}/tfhe.lua  ${PROCESS_DIR}/tfhe.lua
 
 # Remove .so files
-# rm -rf ${AO_LLAMA_DIR}/*.so
+rm -rf ${AO_LLAMA_DIR}/*.so
 
 # Copy config.yml to the process directory
 cp ${SCRIPT_DIR}/config.yml ${PROCESS_DIR}/config.yml
