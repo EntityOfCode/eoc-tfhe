@@ -77,15 +77,10 @@ sudo docker run -v ${CPP_MODULES_DIR}:/modules ${AO_IMAGE} sh -c \
 sudo docker run -v ${LLAMA_CPP_DIR}:/llamacpp ${AO_IMAGE} sh -c \
 	"cd /llamacpp && emmake make llama common EMCC_CFLAGS='${EMXX_CFLAGS}'" 
 
-# echo "Building tfhe make..."
-sudo docker run -v ${TFHE_CPP_DIR}:/tfhe ${AO_IMAGE} sh -c \
-		"cd /tfhe/build && emmake make EMCC_CFLAGS='${EMXX_CFLAGS}'"
-
 # echo "Building openssl make..."
 sudo docker run -v ${OPENSSL_CPP_DIR}:/openssl ${AO_IMAGE} sh -c \
 	"cd /openssl && emmake make EMCC_CFLAGS='-s MEMORY64=1 -Wno-experimental'"
 		
-cp ${TFHE_CPP_DIR}/build/libtfhe/libtfhe-nayuki-portable.a ${TFHE_CPP_DIR}/src/include/libtfhe.a
 cp ${OPENSSL_CPP_DIR}/libcrypto.a ${TFHE_CPP_DIR}/src/include/libcrypto.a		
 cp ${OPENSSL_CPP_DIR}/libssl.a ${TFHE_CPP_DIR}/src/include/libssl.a
 cp ${OPENSSL_CPP_DIR}/include ${TFHE_CPP_DIR}/src/include/
@@ -97,6 +92,12 @@ sudo docker run -v ${CPP_MODULES_DIR}:/modules ${AO_IMAGE} sh -c \
 cp ${JWT_CPP_DIR}/build/src/libjwt.a ${TFHE_CPP_DIR}/src/include/libjwt.a
 cp ${JWT_CPP_DIR}/src/include/jwt ${TFHE_CPP_DIR}/src/include/jwt
 cp ${JWT_CPP_DIR}/src/include/private ${TFHE_CPP_DIR}/src/include/private
+
+# echo "Building tfhe make..."
+sudo docker run -v ${TFHE_CPP_DIR}:/tfhe ${AO_IMAGE} sh -c \
+		"cd /tfhe/build && emmake make EMCC_CFLAGS='${EMXX_CFLAGS}'"
+
+cp ${TFHE_CPP_DIR}/build/libtfhe/libtfhe-nayuki-portable.a ${TFHE_CPP_DIR}/src/include/libtfhe.a
 
 sudo docker run -v ${LLAMA_CPP_DIR}:/llamacpp  -v ${AO_LLAMA_DIR}:/ao-llama ${AO_IMAGE} sh -c \
 		"cd /ao-llama && ./build.sh"

@@ -2,7 +2,6 @@
 #include <iostream>
 #include "tfhe.h"
 #include "tfhe_garbage_collector.h"
-#include "eocnoiser.h"
 
 using namespace std;
 
