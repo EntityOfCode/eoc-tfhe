@@ -15294,3 +15294,547 @@ gmake: *** [Makefile:127: cmTC_56bc6/fast] Error 2
 
 
 
+Detecting C OpenMP failed with the following output:
+Change Dir: /llamacpp/CMakeFiles/CMakeTmp
+
+Run Build Command(s):/usr/bin/gmake -f Makefile cmTC_aa43f/fast && /usr/bin/gmake  -f CMakeFiles/cmTC_aa43f.dir/build.make CMakeFiles/cmTC_aa43f.dir/build
+gmake[1]: Entering directory '/llamacpp/CMakeFiles/CMakeTmp'
+Building C object CMakeFiles/cmTC_aa43f.dir/OpenMPTryFlag.c.o
+/emsdk/upstream/emscripten/emcc   -fopenmp=libomp -v -std=gnu11 -MD -MT CMakeFiles/cmTC_aa43f.dir/OpenMPTryFlag.c.o -MF CMakeFiles/cmTC_aa43f.dir/OpenMPTryFlag.c.o.d -o CMakeFiles/cmTC_aa43f.dir/OpenMPTryFlag.c.o -c /llamacpp/CMakeFiles/FindOpenMP/OpenMPTryFlag.c
+ /emsdk/upstream/bin/clang -target wasm32-unknown-emscripten -fignore-exceptions -mllvm -combiner-global-alias-analysis=false -mllvm -enable-emscripten-sjlj -mllvm -disable-lsr --sysroot=/emsdk/upstream/emscripten/cache/sysroot -DEMSCRIPTEN -Werror=implicit-function-declaration -Xclang -iwithsysroot/include/fakesdl -Xclang -iwithsysroot/include/compat -fopenmp=libomp -v -std=gnu11 -MD -MT CMakeFiles/cmTC_aa43f.dir/OpenMPTryFlag.c.o -MF CMakeFiles/cmTC_aa43f.dir/OpenMPTryFlag.c.o.d -c /llamacpp/CMakeFiles/FindOpenMP/OpenMPTryFlag.c -o CMakeFiles/cmTC_aa43f.dir/OpenMPTryFlag.c.o
+clang version 19.0.0git (https:/github.com/llvm/llvm-project df762a1643bb5b0b3c907611d118c82d4b68a39d)
+Target: wasm32-unknown-emscripten
+Thread model: posix
+InstalledDir: /emsdk/upstream/bin
+ (in-process)
+ "/emsdk/upstream/bin/clang-19" -cc1 -triple wasm32-unknown-emscripten -emit-obj -disable-free -clear-ast-before-backend -disable-llvm-verifier -discard-value-names -main-file-name OpenMPTryFlag.c -mrelocation-model static -mframe-pointer=none -ffp-contract=on -fno-rounding-math -mconstructor-aliases -target-cpu generic -fvisibility=hidden -debugger-tuning=gdb -fdebug-compilation-dir=/llamacpp/CMakeFiles/CMakeTmp -v -fcoverage-compilation-dir=/llamacpp/CMakeFiles/CMakeTmp -resource-dir /emsdk/upstream/lib/clang/19 -dependency-file CMakeFiles/cmTC_aa43f.dir/OpenMPTryFlag.c.o.d -MT CMakeFiles/cmTC_aa43f.dir/OpenMPTryFlag.c.o -sys-header-deps -D EMSCRIPTEN -isysroot /emsdk/upstream/emscripten/cache/sysroot -internal-isystem /emsdk/upstream/lib/clang/19/include -internal-isystem /emsdk/upstream/emscripten/cache/sysroot/include/wasm32-emscripten -internal-isystem /emsdk/upstream/emscripten/cache/sysroot/include -Werror=implicit-function-declaration -std=gnu11 -ferror-limit 19 -fopenmp -fgnuc-version=4.2.1 -fskip-odr-check-in-gmf -fignore-exceptions -iwithsysroot/include/fakesdl -iwithsysroot/include/compat -mllvm -combiner-global-alias-analysis=false -mllvm -enable-emscripten-sjlj -mllvm -disable-lsr -o CMakeFiles/cmTC_aa43f.dir/OpenMPTryFlag.c.o -x c /llamacpp/CMakeFiles/FindOpenMP/OpenMPTryFlag.c
+clang -cc1 version 19.0.0git based upon LLVM 19.0.0git default target x86_64-unknown-linux-gnu
+ignoring nonexistent directory "/emsdk/upstream/emscripten/cache/sysroot/include/wasm32-emscripten"
+#include "..." search starts here:
+#include <...> search starts here:
+ /emsdk/upstream/emscripten/cache/sysroot/include/fakesdl
+ /emsdk/upstream/emscripten/cache/sysroot/include/compat
+ /emsdk/upstream/lib/clang/19/include
+ /emsdk/upstream/emscripten/cache/sysroot/include
+End of search list.
+/llamacpp/CMakeFiles/FindOpenMP/OpenMPTryFlag.c:2:10: fatal error: 'omp.h' file not found
+    2 | #include <omp.h>
+      |          ^~~~~~~
+1 error generated.
+gmake[1]: *** [CMakeFiles/cmTC_aa43f.dir/build.make:79: CMakeFiles/cmTC_aa43f.dir/OpenMPTryFlag.c.o] Error 1
+gmake[1]: Leaving directory '/llamacpp/CMakeFiles/CMakeTmp'
+gmake: *** [Makefile:127: cmTC_aa43f/fast] Error 2
+
+
+
+Detecting C OpenMP failed with the following output:
+Change Dir: /llamacpp/CMakeFiles/CMakeTmp
+
+Run Build Command(s):/usr/bin/gmake -f Makefile cmTC_4fffb/fast && /usr/bin/gmake  -f CMakeFiles/cmTC_4fffb.dir/build.make CMakeFiles/cmTC_4fffb.dir/build
+gmake[1]: Entering directory '/llamacpp/CMakeFiles/CMakeTmp'
+Building C object CMakeFiles/cmTC_4fffb.dir/OpenMPTryFlag.c.o
+/emsdk/upstream/emscripten/emcc   -fopenmp=libiomp5 -v -std=gnu11 -MD -MT CMakeFiles/cmTC_4fffb.dir/OpenMPTryFlag.c.o -MF CMakeFiles/cmTC_4fffb.dir/OpenMPTryFlag.c.o.d -o CMakeFiles/cmTC_4fffb.dir/OpenMPTryFlag.c.o -c /llamacpp/CMakeFiles/FindOpenMP/OpenMPTryFlag.c
+ /emsdk/upstream/bin/clang -target wasm32-unknown-emscripten -fignore-exceptions -mllvm -combiner-global-alias-analysis=false -mllvm -enable-emscripten-sjlj -mllvm -disable-lsr --sysroot=/emsdk/upstream/emscripten/cache/sysroot -DEMSCRIPTEN -Werror=implicit-function-declaration -Xclang -iwithsysroot/include/fakesdl -Xclang -iwithsysroot/include/compat -fopenmp=libiomp5 -v -std=gnu11 -MD -MT CMakeFiles/cmTC_4fffb.dir/OpenMPTryFlag.c.o -MF CMakeFiles/cmTC_4fffb.dir/OpenMPTryFlag.c.o.d -c /llamacpp/CMakeFiles/FindOpenMP/OpenMPTryFlag.c -o CMakeFiles/cmTC_4fffb.dir/OpenMPTryFlag.c.o
+clang version 19.0.0git (https:/github.com/llvm/llvm-project df762a1643bb5b0b3c907611d118c82d4b68a39d)
+Target: wasm32-unknown-emscripten
+Thread model: posix
+InstalledDir: /emsdk/upstream/bin
+ (in-process)
+ "/emsdk/upstream/bin/clang-19" -cc1 -triple wasm32-unknown-emscripten -emit-obj -disable-free -clear-ast-before-backend -disable-llvm-verifier -discard-value-names -main-file-name OpenMPTryFlag.c -mrelocation-model static -mframe-pointer=none -ffp-contract=on -fno-rounding-math -mconstructor-aliases -target-cpu generic -fvisibility=hidden -debugger-tuning=gdb -fdebug-compilation-dir=/llamacpp/CMakeFiles/CMakeTmp -v -fcoverage-compilation-dir=/llamacpp/CMakeFiles/CMakeTmp -resource-dir /emsdk/upstream/lib/clang/19 -dependency-file CMakeFiles/cmTC_4fffb.dir/OpenMPTryFlag.c.o.d -MT CMakeFiles/cmTC_4fffb.dir/OpenMPTryFlag.c.o -sys-header-deps -D EMSCRIPTEN -isysroot /emsdk/upstream/emscripten/cache/sysroot -internal-isystem /emsdk/upstream/lib/clang/19/include -internal-isystem /emsdk/upstream/emscripten/cache/sysroot/include/wasm32-emscripten -internal-isystem /emsdk/upstream/emscripten/cache/sysroot/include -Werror=implicit-function-declaration -std=gnu11 -ferror-limit 19 -fopenmp -fgnuc-version=4.2.1 -fskip-odr-check-in-gmf -fignore-exceptions -iwithsysroot/include/fakesdl -iwithsysroot/include/compat -mllvm -combiner-global-alias-analysis=false -mllvm -enable-emscripten-sjlj -mllvm -disable-lsr -o CMakeFiles/cmTC_4fffb.dir/OpenMPTryFlag.c.o -x c /llamacpp/CMakeFiles/FindOpenMP/OpenMPTryFlag.c
+clang -cc1 version 19.0.0git based upon LLVM 19.0.0git default target x86_64-unknown-linux-gnu
+ignoring nonexistent directory "/emsdk/upstream/emscripten/cache/sysroot/include/wasm32-emscripten"
+#include "..." search starts here:
+#include <...> search starts here:
+ /emsdk/upstream/emscripten/cache/sysroot/include/fakesdl
+ /emsdk/upstream/emscripten/cache/sysroot/include/compat
+ /emsdk/upstream/lib/clang/19/include
+ /emsdk/upstream/emscripten/cache/sysroot/include
+End of search list.
+/llamacpp/CMakeFiles/FindOpenMP/OpenMPTryFlag.c:2:10: fatal error: 'omp.h' file not found
+    2 | #include <omp.h>
+      |          ^~~~~~~
+1 error generated.
+gmake[1]: *** [CMakeFiles/cmTC_4fffb.dir/build.make:79: CMakeFiles/cmTC_4fffb.dir/OpenMPTryFlag.c.o] Error 1
+gmake[1]: Leaving directory '/llamacpp/CMakeFiles/CMakeTmp'
+gmake: *** [Makefile:127: cmTC_4fffb/fast] Error 2
+
+
+
+Detecting C OpenMP failed with the following output:
+Change Dir: /llamacpp/CMakeFiles/CMakeTmp
+
+Run Build Command(s):/usr/bin/gmake -f Makefile cmTC_6e1af/fast && /usr/bin/gmake  -f CMakeFiles/cmTC_6e1af.dir/build.make CMakeFiles/cmTC_6e1af.dir/build
+gmake[1]: Entering directory '/llamacpp/CMakeFiles/CMakeTmp'
+Building C object CMakeFiles/cmTC_6e1af.dir/OpenMPTryFlag.c.o
+/emsdk/upstream/emscripten/emcc   -fopenmp -v -std=gnu11 -MD -MT CMakeFiles/cmTC_6e1af.dir/OpenMPTryFlag.c.o -MF CMakeFiles/cmTC_6e1af.dir/OpenMPTryFlag.c.o.d -o CMakeFiles/cmTC_6e1af.dir/OpenMPTryFlag.c.o -c /llamacpp/CMakeFiles/FindOpenMP/OpenMPTryFlag.c
+ /emsdk/upstream/bin/clang -target wasm32-unknown-emscripten -fignore-exceptions -mllvm -combiner-global-alias-analysis=false -mllvm -enable-emscripten-sjlj -mllvm -disable-lsr --sysroot=/emsdk/upstream/emscripten/cache/sysroot -DEMSCRIPTEN -Werror=implicit-function-declaration -Xclang -iwithsysroot/include/fakesdl -Xclang -iwithsysroot/include/compat -fopenmp -v -std=gnu11 -MD -MT CMakeFiles/cmTC_6e1af.dir/OpenMPTryFlag.c.o -MF CMakeFiles/cmTC_6e1af.dir/OpenMPTryFlag.c.o.d -c /llamacpp/CMakeFiles/FindOpenMP/OpenMPTryFlag.c -o CMakeFiles/cmTC_6e1af.dir/OpenMPTryFlag.c.o
+clang version 19.0.0git (https:/github.com/llvm/llvm-project df762a1643bb5b0b3c907611d118c82d4b68a39d)
+Target: wasm32-unknown-emscripten
+Thread model: posix
+InstalledDir: /emsdk/upstream/bin
+ (in-process)
+ "/emsdk/upstream/bin/clang-19" -cc1 -triple wasm32-unknown-emscripten -emit-obj -disable-free -clear-ast-before-backend -disable-llvm-verifier -discard-value-names -main-file-name OpenMPTryFlag.c -mrelocation-model static -mframe-pointer=none -ffp-contract=on -fno-rounding-math -mconstructor-aliases -target-cpu generic -fvisibility=hidden -debugger-tuning=gdb -fdebug-compilation-dir=/llamacpp/CMakeFiles/CMakeTmp -v -fcoverage-compilation-dir=/llamacpp/CMakeFiles/CMakeTmp -resource-dir /emsdk/upstream/lib/clang/19 -dependency-file CMakeFiles/cmTC_6e1af.dir/OpenMPTryFlag.c.o.d -MT CMakeFiles/cmTC_6e1af.dir/OpenMPTryFlag.c.o -sys-header-deps -D EMSCRIPTEN -isysroot /emsdk/upstream/emscripten/cache/sysroot -internal-isystem /emsdk/upstream/lib/clang/19/include -internal-isystem /emsdk/upstream/emscripten/cache/sysroot/include/wasm32-emscripten -internal-isystem /emsdk/upstream/emscripten/cache/sysroot/include -Werror=implicit-function-declaration -std=gnu11 -ferror-limit 19 -fopenmp -fgnuc-version=4.2.1 -fskip-odr-check-in-gmf -fignore-exceptions -iwithsysroot/include/fakesdl -iwithsysroot/include/compat -mllvm -combiner-global-alias-analysis=false -mllvm -enable-emscripten-sjlj -mllvm -disable-lsr -o CMakeFiles/cmTC_6e1af.dir/OpenMPTryFlag.c.o -x c /llamacpp/CMakeFiles/FindOpenMP/OpenMPTryFlag.c
+clang -cc1 version 19.0.0git based upon LLVM 19.0.0git default target x86_64-unknown-linux-gnu
+ignoring nonexistent directory "/emsdk/upstream/emscripten/cache/sysroot/include/wasm32-emscripten"
+#include "..." search starts here:
+#include <...> search starts here:
+ /emsdk/upstream/emscripten/cache/sysroot/include/fakesdl
+ /emsdk/upstream/emscripten/cache/sysroot/include/compat
+ /emsdk/upstream/lib/clang/19/include
+ /emsdk/upstream/emscripten/cache/sysroot/include
+End of search list.
+/llamacpp/CMakeFiles/FindOpenMP/OpenMPTryFlag.c:2:10: fatal error: 'omp.h' file not found
+    2 | #include <omp.h>
+      |          ^~~~~~~
+1 error generated.
+gmake[1]: *** [CMakeFiles/cmTC_6e1af.dir/build.make:79: CMakeFiles/cmTC_6e1af.dir/OpenMPTryFlag.c.o] Error 1
+gmake[1]: Leaving directory '/llamacpp/CMakeFiles/CMakeTmp'
+gmake: *** [Makefile:127: cmTC_6e1af/fast] Error 2
+
+
+
+Detecting C OpenMP failed with the following output:
+Change Dir: /llamacpp/CMakeFiles/CMakeTmp
+
+Run Build Command(s):/usr/bin/gmake -f Makefile cmTC_81e13/fast && /usr/bin/gmake  -f CMakeFiles/cmTC_81e13.dir/build.make CMakeFiles/cmTC_81e13.dir/build
+gmake[1]: Entering directory '/llamacpp/CMakeFiles/CMakeTmp'
+Building C object CMakeFiles/cmTC_81e13.dir/OpenMPTryFlag.c.o
+/emsdk/upstream/emscripten/emcc   -Xclang -fopenmp -v -std=gnu11 -MD -MT CMakeFiles/cmTC_81e13.dir/OpenMPTryFlag.c.o -MF CMakeFiles/cmTC_81e13.dir/OpenMPTryFlag.c.o.d -o CMakeFiles/cmTC_81e13.dir/OpenMPTryFlag.c.o -c /llamacpp/CMakeFiles/FindOpenMP/OpenMPTryFlag.c
+ /emsdk/upstream/bin/clang -target wasm32-unknown-emscripten -fignore-exceptions -mllvm -combiner-global-alias-analysis=false -mllvm -enable-emscripten-sjlj -mllvm -disable-lsr --sysroot=/emsdk/upstream/emscripten/cache/sysroot -DEMSCRIPTEN -Werror=implicit-function-declaration -Xclang -iwithsysroot/include/fakesdl -Xclang -iwithsysroot/include/compat -Xclang -fopenmp -v -std=gnu11 -MD -MT CMakeFiles/cmTC_81e13.dir/OpenMPTryFlag.c.o -MF CMakeFiles/cmTC_81e13.dir/OpenMPTryFlag.c.o.d -c /llamacpp/CMakeFiles/FindOpenMP/OpenMPTryFlag.c -o CMakeFiles/cmTC_81e13.dir/OpenMPTryFlag.c.o
+clang version 19.0.0git (https:/github.com/llvm/llvm-project df762a1643bb5b0b3c907611d118c82d4b68a39d)
+Target: wasm32-unknown-emscripten
+Thread model: posix
+InstalledDir: /emsdk/upstream/bin
+ (in-process)
+ "/emsdk/upstream/bin/clang-19" -cc1 -triple wasm32-unknown-emscripten -emit-obj -disable-free -clear-ast-before-backend -disable-llvm-verifier -discard-value-names -main-file-name OpenMPTryFlag.c -mrelocation-model static -mframe-pointer=none -ffp-contract=on -fno-rounding-math -mconstructor-aliases -target-cpu generic -fvisibility=hidden -debugger-tuning=gdb -fdebug-compilation-dir=/llamacpp/CMakeFiles/CMakeTmp -v -fcoverage-compilation-dir=/llamacpp/CMakeFiles/CMakeTmp -resource-dir /emsdk/upstream/lib/clang/19 -dependency-file CMakeFiles/cmTC_81e13.dir/OpenMPTryFlag.c.o.d -MT CMakeFiles/cmTC_81e13.dir/OpenMPTryFlag.c.o -sys-header-deps -D EMSCRIPTEN -isysroot /emsdk/upstream/emscripten/cache/sysroot -internal-isystem /emsdk/upstream/lib/clang/19/include -internal-isystem /emsdk/upstream/emscripten/cache/sysroot/include/wasm32-emscripten -internal-isystem /emsdk/upstream/emscripten/cache/sysroot/include -Werror=implicit-function-declaration -std=gnu11 -ferror-limit 19 -fgnuc-version=4.2.1 -fskip-odr-check-in-gmf -fignore-exceptions -iwithsysroot/include/fakesdl -iwithsysroot/include/compat -fopenmp -mllvm -combiner-global-alias-analysis=false -mllvm -enable-emscripten-sjlj -mllvm -disable-lsr -o CMakeFiles/cmTC_81e13.dir/OpenMPTryFlag.c.o -x c /llamacpp/CMakeFiles/FindOpenMP/OpenMPTryFlag.c
+clang -cc1 version 19.0.0git based upon LLVM 19.0.0git default target x86_64-unknown-linux-gnu
+ignoring nonexistent directory "/emsdk/upstream/emscripten/cache/sysroot/include/wasm32-emscripten"
+#include "..." search starts here:
+#include <...> search starts here:
+ /emsdk/upstream/emscripten/cache/sysroot/include/fakesdl
+ /emsdk/upstream/emscripten/cache/sysroot/include/compat
+ /emsdk/upstream/lib/clang/19/include
+ /emsdk/upstream/emscripten/cache/sysroot/include
+End of search list.
+/llamacpp/CMakeFiles/FindOpenMP/OpenMPTryFlag.c:2:10: fatal error: 'omp.h' file not found
+    2 | #include <omp.h>
+      |          ^~~~~~~
+1 error generated.
+gmake[1]: *** [CMakeFiles/cmTC_81e13.dir/build.make:79: CMakeFiles/cmTC_81e13.dir/OpenMPTryFlag.c.o] Error 1
+gmake[1]: Leaving directory '/llamacpp/CMakeFiles/CMakeTmp'
+gmake: *** [Makefile:127: cmTC_81e13/fast] Error 2
+
+
+
+Detecting CXX OpenMP failed with the following output:
+Change Dir: /llamacpp/CMakeFiles/CMakeTmp
+
+Run Build Command(s):/usr/bin/gmake -f Makefile cmTC_6185a/fast && /usr/bin/gmake  -f CMakeFiles/cmTC_6185a.dir/build.make CMakeFiles/cmTC_6185a.dir/build
+gmake[1]: Entering directory '/llamacpp/CMakeFiles/CMakeTmp'
+Building CXX object CMakeFiles/cmTC_6185a.dir/OpenMPTryFlag.cpp.o
+/emsdk/upstream/emscripten/em++   -s MEMORY64=1 -Wno-experimental -fopenmp=libomp -v -std=gnu++11 -MD -MT CMakeFiles/cmTC_6185a.dir/OpenMPTryFlag.cpp.o -MF CMakeFiles/cmTC_6185a.dir/OpenMPTryFlag.cpp.o.d -o CMakeFiles/cmTC_6185a.dir/OpenMPTryFlag.cpp.o -c /llamacpp/CMakeFiles/FindOpenMP/OpenMPTryFlag.cpp
+ "/emsdk/upstream/bin/clang++" -target wasm64-unknown-emscripten -fignore-exceptions -mllvm -combiner-global-alias-analysis=false -mllvm -enable-emscripten-sjlj -mllvm -disable-lsr --sysroot=/emsdk/upstream/emscripten/cache/sysroot -DEMSCRIPTEN -Xclang -iwithsysroot/include/fakesdl -Xclang -iwithsysroot/include/compat -fopenmp=libomp -v -std=gnu++11 -MD -MT CMakeFiles/cmTC_6185a.dir/OpenMPTryFlag.cpp.o -MF CMakeFiles/cmTC_6185a.dir/OpenMPTryFlag.cpp.o.d -c /llamacpp/CMakeFiles/FindOpenMP/OpenMPTryFlag.cpp -o CMakeFiles/cmTC_6185a.dir/OpenMPTryFlag.cpp.o
+clang version 19.0.0git (https:/github.com/llvm/llvm-project df762a1643bb5b0b3c907611d118c82d4b68a39d)
+Target: wasm64-unknown-emscripten
+Thread model: posix
+InstalledDir: /emsdk/upstream/bin
+ (in-process)
+ "/emsdk/upstream/bin/clang-19" -cc1 -triple wasm64-unknown-emscripten -emit-obj -disable-free -clear-ast-before-backend -disable-llvm-verifier -discard-value-names -main-file-name OpenMPTryFlag.cpp -mrelocation-model static -mframe-pointer=none -ffp-contract=on -fno-rounding-math -mconstructor-aliases -target-cpu generic -fvisibility=hidden -debugger-tuning=gdb -fdebug-compilation-dir=/llamacpp/CMakeFiles/CMakeTmp -v -fcoverage-compilation-dir=/llamacpp/CMakeFiles/CMakeTmp -resource-dir /emsdk/upstream/lib/clang/19 -dependency-file CMakeFiles/cmTC_6185a.dir/OpenMPTryFlag.cpp.o.d -MT CMakeFiles/cmTC_6185a.dir/OpenMPTryFlag.cpp.o -sys-header-deps -D EMSCRIPTEN -isysroot /emsdk/upstream/emscripten/cache/sysroot -internal-isystem /emsdk/upstream/emscripten/cache/sysroot/include/wasm64-emscripten/c++/v1 -internal-isystem /emsdk/upstream/emscripten/cache/sysroot/include/c++/v1 -internal-isystem /emsdk/upstream/lib/clang/19/include -internal-isystem /emsdk/upstream/emscripten/cache/sysroot/include/wasm64-emscripten -internal-isystem /emsdk/upstream/emscripten/cache/sysroot/include -std=gnu++11 -fdeprecated-macro -ferror-limit 19 -fopenmp -fgnuc-version=4.2.1 -fskip-odr-check-in-gmf -fcxx-exceptions -fignore-exceptions -fexceptions -iwithsysroot/include/fakesdl -iwithsysroot/include/compat -mllvm -combiner-global-alias-analysis=false -mllvm -enable-emscripten-sjlj -mllvm -disable-lsr -o CMakeFiles/cmTC_6185a.dir/OpenMPTryFlag.cpp.o -x c++ /llamacpp/CMakeFiles/FindOpenMP/OpenMPTryFlag.cpp
+clang -cc1 version 19.0.0git based upon LLVM 19.0.0git default target x86_64-unknown-linux-gnu
+ignoring nonexistent directory "/emsdk/upstream/emscripten/cache/sysroot/include/wasm64-emscripten/c++/v1"
+ignoring nonexistent directory "/emsdk/upstream/emscripten/cache/sysroot/include/wasm64-emscripten"
+#include "..." search starts here:
+#include <...> search starts here:
+ /emsdk/upstream/emscripten/cache/sysroot/include/fakesdl
+ /emsdk/upstream/emscripten/cache/sysroot/include/compat
+ /emsdk/upstream/emscripten/cache/sysroot/include/c++/v1
+ /emsdk/upstream/lib/clang/19/include
+ /emsdk/upstream/emscripten/cache/sysroot/include
+End of search list.
+/llamacpp/CMakeFiles/FindOpenMP/OpenMPTryFlag.cpp:2:10: fatal error: 'omp.h' file not found
+    2 | #include <omp.h>
+      |          ^~~~~~~
+1 error generated.
+gmake[1]: *** [CMakeFiles/cmTC_6185a.dir/build.make:79: CMakeFiles/cmTC_6185a.dir/OpenMPTryFlag.cpp.o] Error 1
+gmake[1]: Leaving directory '/llamacpp/CMakeFiles/CMakeTmp'
+gmake: *** [Makefile:127: cmTC_6185a/fast] Error 2
+
+
+
+Detecting CXX OpenMP failed with the following output:
+Change Dir: /llamacpp/CMakeFiles/CMakeTmp
+
+Run Build Command(s):/usr/bin/gmake -f Makefile cmTC_02299/fast && /usr/bin/gmake  -f CMakeFiles/cmTC_02299.dir/build.make CMakeFiles/cmTC_02299.dir/build
+gmake[1]: Entering directory '/llamacpp/CMakeFiles/CMakeTmp'
+Building CXX object CMakeFiles/cmTC_02299.dir/OpenMPTryFlag.cpp.o
+/emsdk/upstream/emscripten/em++   -s MEMORY64=1 -Wno-experimental -fopenmp=libiomp5 -v -std=gnu++11 -MD -MT CMakeFiles/cmTC_02299.dir/OpenMPTryFlag.cpp.o -MF CMakeFiles/cmTC_02299.dir/OpenMPTryFlag.cpp.o.d -o CMakeFiles/cmTC_02299.dir/OpenMPTryFlag.cpp.o -c /llamacpp/CMakeFiles/FindOpenMP/OpenMPTryFlag.cpp
+ "/emsdk/upstream/bin/clang++" -target wasm64-unknown-emscripten -fignore-exceptions -mllvm -combiner-global-alias-analysis=false -mllvm -enable-emscripten-sjlj -mllvm -disable-lsr --sysroot=/emsdk/upstream/emscripten/cache/sysroot -DEMSCRIPTEN -Xclang -iwithsysroot/include/fakesdl -Xclang -iwithsysroot/include/compat -fopenmp=libiomp5 -v -std=gnu++11 -MD -MT CMakeFiles/cmTC_02299.dir/OpenMPTryFlag.cpp.o -MF CMakeFiles/cmTC_02299.dir/OpenMPTryFlag.cpp.o.d -c /llamacpp/CMakeFiles/FindOpenMP/OpenMPTryFlag.cpp -o CMakeFiles/cmTC_02299.dir/OpenMPTryFlag.cpp.o
+clang version 19.0.0git (https:/github.com/llvm/llvm-project df762a1643bb5b0b3c907611d118c82d4b68a39d)
+Target: wasm64-unknown-emscripten
+Thread model: posix
+InstalledDir: /emsdk/upstream/bin
+ (in-process)
+ "/emsdk/upstream/bin/clang-19" -cc1 -triple wasm64-unknown-emscripten -emit-obj -disable-free -clear-ast-before-backend -disable-llvm-verifier -discard-value-names -main-file-name OpenMPTryFlag.cpp -mrelocation-model static -mframe-pointer=none -ffp-contract=on -fno-rounding-math -mconstructor-aliases -target-cpu generic -fvisibility=hidden -debugger-tuning=gdb -fdebug-compilation-dir=/llamacpp/CMakeFiles/CMakeTmp -v -fcoverage-compilation-dir=/llamacpp/CMakeFiles/CMakeTmp -resource-dir /emsdk/upstream/lib/clang/19 -dependency-file CMakeFiles/cmTC_02299.dir/OpenMPTryFlag.cpp.o.d -MT CMakeFiles/cmTC_02299.dir/OpenMPTryFlag.cpp.o -sys-header-deps -D EMSCRIPTEN -isysroot /emsdk/upstream/emscripten/cache/sysroot -internal-isystem /emsdk/upstream/emscripten/cache/sysroot/include/wasm64-emscripten/c++/v1 -internal-isystem /emsdk/upstream/emscripten/cache/sysroot/include/c++/v1 -internal-isystem /emsdk/upstream/lib/clang/19/include -internal-isystem /emsdk/upstream/emscripten/cache/sysroot/include/wasm64-emscripten -internal-isystem /emsdk/upstream/emscripten/cache/sysroot/include -std=gnu++11 -fdeprecated-macro -ferror-limit 19 -fopenmp -fgnuc-version=4.2.1 -fskip-odr-check-in-gmf -fcxx-exceptions -fignore-exceptions -fexceptions -iwithsysroot/include/fakesdl -iwithsysroot/include/compat -mllvm -combiner-global-alias-analysis=false -mllvm -enable-emscripten-sjlj -mllvm -disable-lsr -o CMakeFiles/cmTC_02299.dir/OpenMPTryFlag.cpp.o -x c++ /llamacpp/CMakeFiles/FindOpenMP/OpenMPTryFlag.cpp
+clang -cc1 version 19.0.0git based upon LLVM 19.0.0git default target x86_64-unknown-linux-gnu
+ignoring nonexistent directory "/emsdk/upstream/emscripten/cache/sysroot/include/wasm64-emscripten/c++/v1"
+ignoring nonexistent directory "/emsdk/upstream/emscripten/cache/sysroot/include/wasm64-emscripten"
+#include "..." search starts here:
+#include <...> search starts here:
+ /emsdk/upstream/emscripten/cache/sysroot/include/fakesdl
+ /emsdk/upstream/emscripten/cache/sysroot/include/compat
+ /emsdk/upstream/emscripten/cache/sysroot/include/c++/v1
+ /emsdk/upstream/lib/clang/19/include
+ /emsdk/upstream/emscripten/cache/sysroot/include
+End of search list.
+/llamacpp/CMakeFiles/FindOpenMP/OpenMPTryFlag.cpp:2:10: fatal error: 'omp.h' file not found
+    2 | #include <omp.h>
+      |          ^~~~~~~
+1 error generated.
+gmake[1]: *** [CMakeFiles/cmTC_02299.dir/build.make:79: CMakeFiles/cmTC_02299.dir/OpenMPTryFlag.cpp.o] Error 1
+gmake[1]: Leaving directory '/llamacpp/CMakeFiles/CMakeTmp'
+gmake: *** [Makefile:127: cmTC_02299/fast] Error 2
+
+
+
+Detecting CXX OpenMP failed with the following output:
+Change Dir: /llamacpp/CMakeFiles/CMakeTmp
+
+Run Build Command(s):/usr/bin/gmake -f Makefile cmTC_b828d/fast && /usr/bin/gmake  -f CMakeFiles/cmTC_b828d.dir/build.make CMakeFiles/cmTC_b828d.dir/build
+gmake[1]: Entering directory '/llamacpp/CMakeFiles/CMakeTmp'
+Building CXX object CMakeFiles/cmTC_b828d.dir/OpenMPTryFlag.cpp.o
+/emsdk/upstream/emscripten/em++   -s MEMORY64=1 -Wno-experimental -fopenmp -v -std=gnu++11 -MD -MT CMakeFiles/cmTC_b828d.dir/OpenMPTryFlag.cpp.o -MF CMakeFiles/cmTC_b828d.dir/OpenMPTryFlag.cpp.o.d -o CMakeFiles/cmTC_b828d.dir/OpenMPTryFlag.cpp.o -c /llamacpp/CMakeFiles/FindOpenMP/OpenMPTryFlag.cpp
+ "/emsdk/upstream/bin/clang++" -target wasm64-unknown-emscripten -fignore-exceptions -mllvm -combiner-global-alias-analysis=false -mllvm -enable-emscripten-sjlj -mllvm -disable-lsr --sysroot=/emsdk/upstream/emscripten/cache/sysroot -DEMSCRIPTEN -Xclang -iwithsysroot/include/fakesdl -Xclang -iwithsysroot/include/compat -fopenmp -v -std=gnu++11 -MD -MT CMakeFiles/cmTC_b828d.dir/OpenMPTryFlag.cpp.o -MF CMakeFiles/cmTC_b828d.dir/OpenMPTryFlag.cpp.o.d -c /llamacpp/CMakeFiles/FindOpenMP/OpenMPTryFlag.cpp -o CMakeFiles/cmTC_b828d.dir/OpenMPTryFlag.cpp.o
+clang version 19.0.0git (https:/github.com/llvm/llvm-project df762a1643bb5b0b3c907611d118c82d4b68a39d)
+Target: wasm64-unknown-emscripten
+Thread model: posix
+InstalledDir: /emsdk/upstream/bin
+ (in-process)
+ "/emsdk/upstream/bin/clang-19" -cc1 -triple wasm64-unknown-emscripten -emit-obj -disable-free -clear-ast-before-backend -disable-llvm-verifier -discard-value-names -main-file-name OpenMPTryFlag.cpp -mrelocation-model static -mframe-pointer=none -ffp-contract=on -fno-rounding-math -mconstructor-aliases -target-cpu generic -fvisibility=hidden -debugger-tuning=gdb -fdebug-compilation-dir=/llamacpp/CMakeFiles/CMakeTmp -v -fcoverage-compilation-dir=/llamacpp/CMakeFiles/CMakeTmp -resource-dir /emsdk/upstream/lib/clang/19 -dependency-file CMakeFiles/cmTC_b828d.dir/OpenMPTryFlag.cpp.o.d -MT CMakeFiles/cmTC_b828d.dir/OpenMPTryFlag.cpp.o -sys-header-deps -D EMSCRIPTEN -isysroot /emsdk/upstream/emscripten/cache/sysroot -internal-isystem /emsdk/upstream/emscripten/cache/sysroot/include/wasm64-emscripten/c++/v1 -internal-isystem /emsdk/upstream/emscripten/cache/sysroot/include/c++/v1 -internal-isystem /emsdk/upstream/lib/clang/19/include -internal-isystem /emsdk/upstream/emscripten/cache/sysroot/include/wasm64-emscripten -internal-isystem /emsdk/upstream/emscripten/cache/sysroot/include -std=gnu++11 -fdeprecated-macro -ferror-limit 19 -fopenmp -fgnuc-version=4.2.1 -fskip-odr-check-in-gmf -fcxx-exceptions -fignore-exceptions -fexceptions -iwithsysroot/include/fakesdl -iwithsysroot/include/compat -mllvm -combiner-global-alias-analysis=false -mllvm -enable-emscripten-sjlj -mllvm -disable-lsr -o CMakeFiles/cmTC_b828d.dir/OpenMPTryFlag.cpp.o -x c++ /llamacpp/CMakeFiles/FindOpenMP/OpenMPTryFlag.cpp
+clang -cc1 version 19.0.0git based upon LLVM 19.0.0git default target x86_64-unknown-linux-gnu
+ignoring nonexistent directory "/emsdk/upstream/emscripten/cache/sysroot/include/wasm64-emscripten/c++/v1"
+ignoring nonexistent directory "/emsdk/upstream/emscripten/cache/sysroot/include/wasm64-emscripten"
+#include "..." search starts here:
+#include <...> search starts here:
+ /emsdk/upstream/emscripten/cache/sysroot/include/fakesdl
+ /emsdk/upstream/emscripten/cache/sysroot/include/compat
+ /emsdk/upstream/emscripten/cache/sysroot/include/c++/v1
+ /emsdk/upstream/lib/clang/19/include
+ /emsdk/upstream/emscripten/cache/sysroot/include
+End of search list.
+/llamacpp/CMakeFiles/FindOpenMP/OpenMPTryFlag.cpp:2:10: fatal error: 'omp.h' file not found
+    2 | #include <omp.h>
+      |          ^~~~~~~
+1 error generated.
+gmake[1]: *** [CMakeFiles/cmTC_b828d.dir/build.make:79: CMakeFiles/cmTC_b828d.dir/OpenMPTryFlag.cpp.o] Error 1
+gmake[1]: Leaving directory '/llamacpp/CMakeFiles/CMakeTmp'
+gmake: *** [Makefile:127: cmTC_b828d/fast] Error 2
+
+
+
+Detecting CXX OpenMP failed with the following output:
+Change Dir: /llamacpp/CMakeFiles/CMakeTmp
+
+Run Build Command(s):/usr/bin/gmake -f Makefile cmTC_82fe2/fast && /usr/bin/gmake  -f CMakeFiles/cmTC_82fe2.dir/build.make CMakeFiles/cmTC_82fe2.dir/build
+gmake[1]: Entering directory '/llamacpp/CMakeFiles/CMakeTmp'
+Building CXX object CMakeFiles/cmTC_82fe2.dir/OpenMPTryFlag.cpp.o
+/emsdk/upstream/emscripten/em++   -s MEMORY64=1 -Wno-experimental -Xclang -fopenmp -v -std=gnu++11 -MD -MT CMakeFiles/cmTC_82fe2.dir/OpenMPTryFlag.cpp.o -MF CMakeFiles/cmTC_82fe2.dir/OpenMPTryFlag.cpp.o.d -o CMakeFiles/cmTC_82fe2.dir/OpenMPTryFlag.cpp.o -c /llamacpp/CMakeFiles/FindOpenMP/OpenMPTryFlag.cpp
+ "/emsdk/upstream/bin/clang++" -target wasm64-unknown-emscripten -fignore-exceptions -mllvm -combiner-global-alias-analysis=false -mllvm -enable-emscripten-sjlj -mllvm -disable-lsr --sysroot=/emsdk/upstream/emscripten/cache/sysroot -DEMSCRIPTEN -Xclang -iwithsysroot/include/fakesdl -Xclang -iwithsysroot/include/compat -Xclang -fopenmp -v -std=gnu++11 -MD -MT CMakeFiles/cmTC_82fe2.dir/OpenMPTryFlag.cpp.o -MF CMakeFiles/cmTC_82fe2.dir/OpenMPTryFlag.cpp.o.d -c /llamacpp/CMakeFiles/FindOpenMP/OpenMPTryFlag.cpp -o CMakeFiles/cmTC_82fe2.dir/OpenMPTryFlag.cpp.o
+clang version 19.0.0git (https:/github.com/llvm/llvm-project df762a1643bb5b0b3c907611d118c82d4b68a39d)
+Target: wasm64-unknown-emscripten
+Thread model: posix
+InstalledDir: /emsdk/upstream/bin
+ (in-process)
+ "/emsdk/upstream/bin/clang-19" -cc1 -triple wasm64-unknown-emscripten -emit-obj -disable-free -clear-ast-before-backend -disable-llvm-verifier -discard-value-names -main-file-name OpenMPTryFlag.cpp -mrelocation-model static -mframe-pointer=none -ffp-contract=on -fno-rounding-math -mconstructor-aliases -target-cpu generic -fvisibility=hidden -debugger-tuning=gdb -fdebug-compilation-dir=/llamacpp/CMakeFiles/CMakeTmp -v -fcoverage-compilation-dir=/llamacpp/CMakeFiles/CMakeTmp -resource-dir /emsdk/upstream/lib/clang/19 -dependency-file CMakeFiles/cmTC_82fe2.dir/OpenMPTryFlag.cpp.o.d -MT CMakeFiles/cmTC_82fe2.dir/OpenMPTryFlag.cpp.o -sys-header-deps -D EMSCRIPTEN -isysroot /emsdk/upstream/emscripten/cache/sysroot -internal-isystem /emsdk/upstream/emscripten/cache/sysroot/include/wasm64-emscripten/c++/v1 -internal-isystem /emsdk/upstream/emscripten/cache/sysroot/include/c++/v1 -internal-isystem /emsdk/upstream/lib/clang/19/include -internal-isystem /emsdk/upstream/emscripten/cache/sysroot/include/wasm64-emscripten -internal-isystem /emsdk/upstream/emscripten/cache/sysroot/include -std=gnu++11 -fdeprecated-macro -ferror-limit 19 -fgnuc-version=4.2.1 -fskip-odr-check-in-gmf -fcxx-exceptions -fignore-exceptions -fexceptions -iwithsysroot/include/fakesdl -iwithsysroot/include/compat -fopenmp -mllvm -combiner-global-alias-analysis=false -mllvm -enable-emscripten-sjlj -mllvm -disable-lsr -o CMakeFiles/cmTC_82fe2.dir/OpenMPTryFlag.cpp.o -x c++ /llamacpp/CMakeFiles/FindOpenMP/OpenMPTryFlag.cpp
+clang -cc1 version 19.0.0git based upon LLVM 19.0.0git default target x86_64-unknown-linux-gnu
+ignoring nonexistent directory "/emsdk/upstream/emscripten/cache/sysroot/include/wasm64-emscripten/c++/v1"
+ignoring nonexistent directory "/emsdk/upstream/emscripten/cache/sysroot/include/wasm64-emscripten"
+#include "..." search starts here:
+#include <...> search starts here:
+ /emsdk/upstream/emscripten/cache/sysroot/include/fakesdl
+ /emsdk/upstream/emscripten/cache/sysroot/include/compat
+ /emsdk/upstream/emscripten/cache/sysroot/include/c++/v1
+ /emsdk/upstream/lib/clang/19/include
+ /emsdk/upstream/emscripten/cache/sysroot/include
+End of search list.
+/llamacpp/CMakeFiles/FindOpenMP/OpenMPTryFlag.cpp:2:10: fatal error: 'omp.h' file not found
+    2 | #include <omp.h>
+      |          ^~~~~~~
+1 error generated.
+gmake[1]: *** [CMakeFiles/cmTC_82fe2.dir/build.make:79: CMakeFiles/cmTC_82fe2.dir/OpenMPTryFlag.cpp.o] Error 1
+gmake[1]: Leaving directory '/llamacpp/CMakeFiles/CMakeTmp'
+gmake: *** [Makefile:127: cmTC_82fe2/fast] Error 2
+
+
+
+Detecting C OpenMP failed with the following output:
+Change Dir: /llamacpp/CMakeFiles/CMakeTmp
+
+Run Build Command(s):/usr/bin/gmake -f Makefile cmTC_a3807/fast && /usr/bin/gmake  -f CMakeFiles/cmTC_a3807.dir/build.make CMakeFiles/cmTC_a3807.dir/build
+gmake[1]: Entering directory '/llamacpp/CMakeFiles/CMakeTmp'
+Building C object CMakeFiles/cmTC_a3807.dir/OpenMPTryFlag.c.o
+/emsdk/upstream/emscripten/emcc   -fopenmp=libomp -v -std=gnu11 -MD -MT CMakeFiles/cmTC_a3807.dir/OpenMPTryFlag.c.o -MF CMakeFiles/cmTC_a3807.dir/OpenMPTryFlag.c.o.d -o CMakeFiles/cmTC_a3807.dir/OpenMPTryFlag.c.o -c /llamacpp/CMakeFiles/FindOpenMP/OpenMPTryFlag.c
+ /emsdk/upstream/bin/clang -target wasm32-unknown-emscripten -fignore-exceptions -mllvm -combiner-global-alias-analysis=false -mllvm -enable-emscripten-sjlj -mllvm -disable-lsr --sysroot=/emsdk/upstream/emscripten/cache/sysroot -DEMSCRIPTEN -Werror=implicit-function-declaration -Xclang -iwithsysroot/include/fakesdl -Xclang -iwithsysroot/include/compat -fopenmp=libomp -v -std=gnu11 -MD -MT CMakeFiles/cmTC_a3807.dir/OpenMPTryFlag.c.o -MF CMakeFiles/cmTC_a3807.dir/OpenMPTryFlag.c.o.d -c /llamacpp/CMakeFiles/FindOpenMP/OpenMPTryFlag.c -o CMakeFiles/cmTC_a3807.dir/OpenMPTryFlag.c.o
+clang version 19.0.0git (https:/github.com/llvm/llvm-project df762a1643bb5b0b3c907611d118c82d4b68a39d)
+Target: wasm32-unknown-emscripten
+Thread model: posix
+InstalledDir: /emsdk/upstream/bin
+ (in-process)
+ "/emsdk/upstream/bin/clang-19" -cc1 -triple wasm32-unknown-emscripten -emit-obj -disable-free -clear-ast-before-backend -disable-llvm-verifier -discard-value-names -main-file-name OpenMPTryFlag.c -mrelocation-model static -mframe-pointer=none -ffp-contract=on -fno-rounding-math -mconstructor-aliases -target-cpu generic -fvisibility=hidden -debugger-tuning=gdb -fdebug-compilation-dir=/llamacpp/CMakeFiles/CMakeTmp -v -fcoverage-compilation-dir=/llamacpp/CMakeFiles/CMakeTmp -resource-dir /emsdk/upstream/lib/clang/19 -dependency-file CMakeFiles/cmTC_a3807.dir/OpenMPTryFlag.c.o.d -MT CMakeFiles/cmTC_a3807.dir/OpenMPTryFlag.c.o -sys-header-deps -D EMSCRIPTEN -isysroot /emsdk/upstream/emscripten/cache/sysroot -internal-isystem /emsdk/upstream/lib/clang/19/include -internal-isystem /emsdk/upstream/emscripten/cache/sysroot/include/wasm32-emscripten -internal-isystem /emsdk/upstream/emscripten/cache/sysroot/include -Werror=implicit-function-declaration -std=gnu11 -ferror-limit 19 -fopenmp -fgnuc-version=4.2.1 -fskip-odr-check-in-gmf -fignore-exceptions -iwithsysroot/include/fakesdl -iwithsysroot/include/compat -mllvm -combiner-global-alias-analysis=false -mllvm -enable-emscripten-sjlj -mllvm -disable-lsr -o CMakeFiles/cmTC_a3807.dir/OpenMPTryFlag.c.o -x c /llamacpp/CMakeFiles/FindOpenMP/OpenMPTryFlag.c
+clang -cc1 version 19.0.0git based upon LLVM 19.0.0git default target x86_64-unknown-linux-gnu
+ignoring nonexistent directory "/emsdk/upstream/emscripten/cache/sysroot/include/wasm32-emscripten"
+#include "..." search starts here:
+#include <...> search starts here:
+ /emsdk/upstream/emscripten/cache/sysroot/include/fakesdl
+ /emsdk/upstream/emscripten/cache/sysroot/include/compat
+ /emsdk/upstream/lib/clang/19/include
+ /emsdk/upstream/emscripten/cache/sysroot/include
+End of search list.
+/llamacpp/CMakeFiles/FindOpenMP/OpenMPTryFlag.c:2:10: fatal error: 'omp.h' file not found
+    2 | #include <omp.h>
+      |          ^~~~~~~
+1 error generated.
+gmake[1]: *** [CMakeFiles/cmTC_a3807.dir/build.make:79: CMakeFiles/cmTC_a3807.dir/OpenMPTryFlag.c.o] Error 1
+gmake[1]: Leaving directory '/llamacpp/CMakeFiles/CMakeTmp'
+gmake: *** [Makefile:127: cmTC_a3807/fast] Error 2
+
+
+
+Detecting C OpenMP failed with the following output:
+Change Dir: /llamacpp/CMakeFiles/CMakeTmp
+
+Run Build Command(s):/usr/bin/gmake -f Makefile cmTC_ebbfa/fast && /usr/bin/gmake  -f CMakeFiles/cmTC_ebbfa.dir/build.make CMakeFiles/cmTC_ebbfa.dir/build
+gmake[1]: Entering directory '/llamacpp/CMakeFiles/CMakeTmp'
+Building C object CMakeFiles/cmTC_ebbfa.dir/OpenMPTryFlag.c.o
+/emsdk/upstream/emscripten/emcc   -fopenmp=libiomp5 -v -std=gnu11 -MD -MT CMakeFiles/cmTC_ebbfa.dir/OpenMPTryFlag.c.o -MF CMakeFiles/cmTC_ebbfa.dir/OpenMPTryFlag.c.o.d -o CMakeFiles/cmTC_ebbfa.dir/OpenMPTryFlag.c.o -c /llamacpp/CMakeFiles/FindOpenMP/OpenMPTryFlag.c
+ /emsdk/upstream/bin/clang -target wasm32-unknown-emscripten -fignore-exceptions -mllvm -combiner-global-alias-analysis=false -mllvm -enable-emscripten-sjlj -mllvm -disable-lsr --sysroot=/emsdk/upstream/emscripten/cache/sysroot -DEMSCRIPTEN -Werror=implicit-function-declaration -Xclang -iwithsysroot/include/fakesdl -Xclang -iwithsysroot/include/compat -fopenmp=libiomp5 -v -std=gnu11 -MD -MT CMakeFiles/cmTC_ebbfa.dir/OpenMPTryFlag.c.o -MF CMakeFiles/cmTC_ebbfa.dir/OpenMPTryFlag.c.o.d -c /llamacpp/CMakeFiles/FindOpenMP/OpenMPTryFlag.c -o CMakeFiles/cmTC_ebbfa.dir/OpenMPTryFlag.c.o
+clang version 19.0.0git (https:/github.com/llvm/llvm-project df762a1643bb5b0b3c907611d118c82d4b68a39d)
+Target: wasm32-unknown-emscripten
+Thread model: posix
+InstalledDir: /emsdk/upstream/bin
+ (in-process)
+ "/emsdk/upstream/bin/clang-19" -cc1 -triple wasm32-unknown-emscripten -emit-obj -disable-free -clear-ast-before-backend -disable-llvm-verifier -discard-value-names -main-file-name OpenMPTryFlag.c -mrelocation-model static -mframe-pointer=none -ffp-contract=on -fno-rounding-math -mconstructor-aliases -target-cpu generic -fvisibility=hidden -debugger-tuning=gdb -fdebug-compilation-dir=/llamacpp/CMakeFiles/CMakeTmp -v -fcoverage-compilation-dir=/llamacpp/CMakeFiles/CMakeTmp -resource-dir /emsdk/upstream/lib/clang/19 -dependency-file CMakeFiles/cmTC_ebbfa.dir/OpenMPTryFlag.c.o.d -MT CMakeFiles/cmTC_ebbfa.dir/OpenMPTryFlag.c.o -sys-header-deps -D EMSCRIPTEN -isysroot /emsdk/upstream/emscripten/cache/sysroot -internal-isystem /emsdk/upstream/lib/clang/19/include -internal-isystem /emsdk/upstream/emscripten/cache/sysroot/include/wasm32-emscripten -internal-isystem /emsdk/upstream/emscripten/cache/sysroot/include -Werror=implicit-function-declaration -std=gnu11 -ferror-limit 19 -fopenmp -fgnuc-version=4.2.1 -fskip-odr-check-in-gmf -fignore-exceptions -iwithsysroot/include/fakesdl -iwithsysroot/include/compat -mllvm -combiner-global-alias-analysis=false -mllvm -enable-emscripten-sjlj -mllvm -disable-lsr -o CMakeFiles/cmTC_ebbfa.dir/OpenMPTryFlag.c.o -x c /llamacpp/CMakeFiles/FindOpenMP/OpenMPTryFlag.c
+clang -cc1 version 19.0.0git based upon LLVM 19.0.0git default target x86_64-unknown-linux-gnu
+ignoring nonexistent directory "/emsdk/upstream/emscripten/cache/sysroot/include/wasm32-emscripten"
+#include "..." search starts here:
+#include <...> search starts here:
+ /emsdk/upstream/emscripten/cache/sysroot/include/fakesdl
+ /emsdk/upstream/emscripten/cache/sysroot/include/compat
+ /emsdk/upstream/lib/clang/19/include
+ /emsdk/upstream/emscripten/cache/sysroot/include
+End of search list.
+/llamacpp/CMakeFiles/FindOpenMP/OpenMPTryFlag.c:2:10: fatal error: 'omp.h' file not found
+    2 | #include <omp.h>
+      |          ^~~~~~~
+1 error generated.
+gmake[1]: *** [CMakeFiles/cmTC_ebbfa.dir/build.make:79: CMakeFiles/cmTC_ebbfa.dir/OpenMPTryFlag.c.o] Error 1
+gmake[1]: Leaving directory '/llamacpp/CMakeFiles/CMakeTmp'
+gmake: *** [Makefile:127: cmTC_ebbfa/fast] Error 2
+
+
+
+Detecting C OpenMP failed with the following output:
+Change Dir: /llamacpp/CMakeFiles/CMakeTmp
+
+Run Build Command(s):/usr/bin/gmake -f Makefile cmTC_c9881/fast && /usr/bin/gmake  -f CMakeFiles/cmTC_c9881.dir/build.make CMakeFiles/cmTC_c9881.dir/build
+gmake[1]: Entering directory '/llamacpp/CMakeFiles/CMakeTmp'
+Building C object CMakeFiles/cmTC_c9881.dir/OpenMPTryFlag.c.o
+/emsdk/upstream/emscripten/emcc   -fopenmp -v -std=gnu11 -MD -MT CMakeFiles/cmTC_c9881.dir/OpenMPTryFlag.c.o -MF CMakeFiles/cmTC_c9881.dir/OpenMPTryFlag.c.o.d -o CMakeFiles/cmTC_c9881.dir/OpenMPTryFlag.c.o -c /llamacpp/CMakeFiles/FindOpenMP/OpenMPTryFlag.c
+ /emsdk/upstream/bin/clang -target wasm32-unknown-emscripten -fignore-exceptions -mllvm -combiner-global-alias-analysis=false -mllvm -enable-emscripten-sjlj -mllvm -disable-lsr --sysroot=/emsdk/upstream/emscripten/cache/sysroot -DEMSCRIPTEN -Werror=implicit-function-declaration -Xclang -iwithsysroot/include/fakesdl -Xclang -iwithsysroot/include/compat -fopenmp -v -std=gnu11 -MD -MT CMakeFiles/cmTC_c9881.dir/OpenMPTryFlag.c.o -MF CMakeFiles/cmTC_c9881.dir/OpenMPTryFlag.c.o.d -c /llamacpp/CMakeFiles/FindOpenMP/OpenMPTryFlag.c -o CMakeFiles/cmTC_c9881.dir/OpenMPTryFlag.c.o
+clang version 19.0.0git (https:/github.com/llvm/llvm-project df762a1643bb5b0b3c907611d118c82d4b68a39d)
+Target: wasm32-unknown-emscripten
+Thread model: posix
+InstalledDir: /emsdk/upstream/bin
+ (in-process)
+ "/emsdk/upstream/bin/clang-19" -cc1 -triple wasm32-unknown-emscripten -emit-obj -disable-free -clear-ast-before-backend -disable-llvm-verifier -discard-value-names -main-file-name OpenMPTryFlag.c -mrelocation-model static -mframe-pointer=none -ffp-contract=on -fno-rounding-math -mconstructor-aliases -target-cpu generic -fvisibility=hidden -debugger-tuning=gdb -fdebug-compilation-dir=/llamacpp/CMakeFiles/CMakeTmp -v -fcoverage-compilation-dir=/llamacpp/CMakeFiles/CMakeTmp -resource-dir /emsdk/upstream/lib/clang/19 -dependency-file CMakeFiles/cmTC_c9881.dir/OpenMPTryFlag.c.o.d -MT CMakeFiles/cmTC_c9881.dir/OpenMPTryFlag.c.o -sys-header-deps -D EMSCRIPTEN -isysroot /emsdk/upstream/emscripten/cache/sysroot -internal-isystem /emsdk/upstream/lib/clang/19/include -internal-isystem /emsdk/upstream/emscripten/cache/sysroot/include/wasm32-emscripten -internal-isystem /emsdk/upstream/emscripten/cache/sysroot/include -Werror=implicit-function-declaration -std=gnu11 -ferror-limit 19 -fopenmp -fgnuc-version=4.2.1 -fskip-odr-check-in-gmf -fignore-exceptions -iwithsysroot/include/fakesdl -iwithsysroot/include/compat -mllvm -combiner-global-alias-analysis=false -mllvm -enable-emscripten-sjlj -mllvm -disable-lsr -o CMakeFiles/cmTC_c9881.dir/OpenMPTryFlag.c.o -x c /llamacpp/CMakeFiles/FindOpenMP/OpenMPTryFlag.c
+clang -cc1 version 19.0.0git based upon LLVM 19.0.0git default target x86_64-unknown-linux-gnu
+ignoring nonexistent directory "/emsdk/upstream/emscripten/cache/sysroot/include/wasm32-emscripten"
+#include "..." search starts here:
+#include <...> search starts here:
+ /emsdk/upstream/emscripten/cache/sysroot/include/fakesdl
+ /emsdk/upstream/emscripten/cache/sysroot/include/compat
+ /emsdk/upstream/lib/clang/19/include
+ /emsdk/upstream/emscripten/cache/sysroot/include
+End of search list.
+/llamacpp/CMakeFiles/FindOpenMP/OpenMPTryFlag.c:2:10: fatal error: 'omp.h' file not found
+    2 | #include <omp.h>
+      |          ^~~~~~~
+1 error generated.
+gmake[1]: *** [CMakeFiles/cmTC_c9881.dir/build.make:79: CMakeFiles/cmTC_c9881.dir/OpenMPTryFlag.c.o] Error 1
+gmake[1]: Leaving directory '/llamacpp/CMakeFiles/CMakeTmp'
+gmake: *** [Makefile:127: cmTC_c9881/fast] Error 2
+
+
+
+Detecting C OpenMP failed with the following output:
+Change Dir: /llamacpp/CMakeFiles/CMakeTmp
+
+Run Build Command(s):/usr/bin/gmake -f Makefile cmTC_9144e/fast && /usr/bin/gmake  -f CMakeFiles/cmTC_9144e.dir/build.make CMakeFiles/cmTC_9144e.dir/build
+gmake[1]: Entering directory '/llamacpp/CMakeFiles/CMakeTmp'
+Building C object CMakeFiles/cmTC_9144e.dir/OpenMPTryFlag.c.o
+/emsdk/upstream/emscripten/emcc   -Xclang -fopenmp -v -std=gnu11 -MD -MT CMakeFiles/cmTC_9144e.dir/OpenMPTryFlag.c.o -MF CMakeFiles/cmTC_9144e.dir/OpenMPTryFlag.c.o.d -o CMakeFiles/cmTC_9144e.dir/OpenMPTryFlag.c.o -c /llamacpp/CMakeFiles/FindOpenMP/OpenMPTryFlag.c
+ /emsdk/upstream/bin/clang -target wasm32-unknown-emscripten -fignore-exceptions -mllvm -combiner-global-alias-analysis=false -mllvm -enable-emscripten-sjlj -mllvm -disable-lsr --sysroot=/emsdk/upstream/emscripten/cache/sysroot -DEMSCRIPTEN -Werror=implicit-function-declaration -Xclang -iwithsysroot/include/fakesdl -Xclang -iwithsysroot/include/compat -Xclang -fopenmp -v -std=gnu11 -MD -MT CMakeFiles/cmTC_9144e.dir/OpenMPTryFlag.c.o -MF CMakeFiles/cmTC_9144e.dir/OpenMPTryFlag.c.o.d -c /llamacpp/CMakeFiles/FindOpenMP/OpenMPTryFlag.c -o CMakeFiles/cmTC_9144e.dir/OpenMPTryFlag.c.o
+clang version 19.0.0git (https:/github.com/llvm/llvm-project df762a1643bb5b0b3c907611d118c82d4b68a39d)
+Target: wasm32-unknown-emscripten
+Thread model: posix
+InstalledDir: /emsdk/upstream/bin
+ (in-process)
+ "/emsdk/upstream/bin/clang-19" -cc1 -triple wasm32-unknown-emscripten -emit-obj -disable-free -clear-ast-before-backend -disable-llvm-verifier -discard-value-names -main-file-name OpenMPTryFlag.c -mrelocation-model static -mframe-pointer=none -ffp-contract=on -fno-rounding-math -mconstructor-aliases -target-cpu generic -fvisibility=hidden -debugger-tuning=gdb -fdebug-compilation-dir=/llamacpp/CMakeFiles/CMakeTmp -v -fcoverage-compilation-dir=/llamacpp/CMakeFiles/CMakeTmp -resource-dir /emsdk/upstream/lib/clang/19 -dependency-file CMakeFiles/cmTC_9144e.dir/OpenMPTryFlag.c.o.d -MT CMakeFiles/cmTC_9144e.dir/OpenMPTryFlag.c.o -sys-header-deps -D EMSCRIPTEN -isysroot /emsdk/upstream/emscripten/cache/sysroot -internal-isystem /emsdk/upstream/lib/clang/19/include -internal-isystem /emsdk/upstream/emscripten/cache/sysroot/include/wasm32-emscripten -internal-isystem /emsdk/upstream/emscripten/cache/sysroot/include -Werror=implicit-function-declaration -std=gnu11 -ferror-limit 19 -fgnuc-version=4.2.1 -fskip-odr-check-in-gmf -fignore-exceptions -iwithsysroot/include/fakesdl -iwithsysroot/include/compat -fopenmp -mllvm -combiner-global-alias-analysis=false -mllvm -enable-emscripten-sjlj -mllvm -disable-lsr -o CMakeFiles/cmTC_9144e.dir/OpenMPTryFlag.c.o -x c /llamacpp/CMakeFiles/FindOpenMP/OpenMPTryFlag.c
+clang -cc1 version 19.0.0git based upon LLVM 19.0.0git default target x86_64-unknown-linux-gnu
+ignoring nonexistent directory "/emsdk/upstream/emscripten/cache/sysroot/include/wasm32-emscripten"
+#include "..." search starts here:
+#include <...> search starts here:
+ /emsdk/upstream/emscripten/cache/sysroot/include/fakesdl
+ /emsdk/upstream/emscripten/cache/sysroot/include/compat
+ /emsdk/upstream/lib/clang/19/include
+ /emsdk/upstream/emscripten/cache/sysroot/include
+End of search list.
+/llamacpp/CMakeFiles/FindOpenMP/OpenMPTryFlag.c:2:10: fatal error: 'omp.h' file not found
+    2 | #include <omp.h>
+      |          ^~~~~~~
+1 error generated.
+gmake[1]: *** [CMakeFiles/cmTC_9144e.dir/build.make:79: CMakeFiles/cmTC_9144e.dir/OpenMPTryFlag.c.o] Error 1
+gmake[1]: Leaving directory '/llamacpp/CMakeFiles/CMakeTmp'
+gmake: *** [Makefile:127: cmTC_9144e/fast] Error 2
+
+
+
+Detecting CXX OpenMP failed with the following output:
+Change Dir: /llamacpp/CMakeFiles/CMakeTmp
+
+Run Build Command(s):/usr/bin/gmake -f Makefile cmTC_7f7e9/fast && /usr/bin/gmake  -f CMakeFiles/cmTC_7f7e9.dir/build.make CMakeFiles/cmTC_7f7e9.dir/build
+gmake[1]: Entering directory '/llamacpp/CMakeFiles/CMakeTmp'
+Building CXX object CMakeFiles/cmTC_7f7e9.dir/OpenMPTryFlag.cpp.o
+/emsdk/upstream/emscripten/em++   -s MEMORY64=1 -Wno-experimental -fopenmp=libomp -v -std=gnu++11 -MD -MT CMakeFiles/cmTC_7f7e9.dir/OpenMPTryFlag.cpp.o -MF CMakeFiles/cmTC_7f7e9.dir/OpenMPTryFlag.cpp.o.d -o CMakeFiles/cmTC_7f7e9.dir/OpenMPTryFlag.cpp.o -c /llamacpp/CMakeFiles/FindOpenMP/OpenMPTryFlag.cpp
+ "/emsdk/upstream/bin/clang++" -target wasm64-unknown-emscripten -fignore-exceptions -mllvm -combiner-global-alias-analysis=false -mllvm -enable-emscripten-sjlj -mllvm -disable-lsr --sysroot=/emsdk/upstream/emscripten/cache/sysroot -DEMSCRIPTEN -Xclang -iwithsysroot/include/fakesdl -Xclang -iwithsysroot/include/compat -fopenmp=libomp -v -std=gnu++11 -MD -MT CMakeFiles/cmTC_7f7e9.dir/OpenMPTryFlag.cpp.o -MF CMakeFiles/cmTC_7f7e9.dir/OpenMPTryFlag.cpp.o.d -c /llamacpp/CMakeFiles/FindOpenMP/OpenMPTryFlag.cpp -o CMakeFiles/cmTC_7f7e9.dir/OpenMPTryFlag.cpp.o
+clang version 19.0.0git (https:/github.com/llvm/llvm-project df762a1643bb5b0b3c907611d118c82d4b68a39d)
+Target: wasm64-unknown-emscripten
+Thread model: posix
+InstalledDir: /emsdk/upstream/bin
+ (in-process)
+ "/emsdk/upstream/bin/clang-19" -cc1 -triple wasm64-unknown-emscripten -emit-obj -disable-free -clear-ast-before-backend -disable-llvm-verifier -discard-value-names -main-file-name OpenMPTryFlag.cpp -mrelocation-model static -mframe-pointer=none -ffp-contract=on -fno-rounding-math -mconstructor-aliases -target-cpu generic -fvisibility=hidden -debugger-tuning=gdb -fdebug-compilation-dir=/llamacpp/CMakeFiles/CMakeTmp -v -fcoverage-compilation-dir=/llamacpp/CMakeFiles/CMakeTmp -resource-dir /emsdk/upstream/lib/clang/19 -dependency-file CMakeFiles/cmTC_7f7e9.dir/OpenMPTryFlag.cpp.o.d -MT CMakeFiles/cmTC_7f7e9.dir/OpenMPTryFlag.cpp.o -sys-header-deps -D EMSCRIPTEN -isysroot /emsdk/upstream/emscripten/cache/sysroot -internal-isystem /emsdk/upstream/emscripten/cache/sysroot/include/wasm64-emscripten/c++/v1 -internal-isystem /emsdk/upstream/emscripten/cache/sysroot/include/c++/v1 -internal-isystem /emsdk/upstream/lib/clang/19/include -internal-isystem /emsdk/upstream/emscripten/cache/sysroot/include/wasm64-emscripten -internal-isystem /emsdk/upstream/emscripten/cache/sysroot/include -std=gnu++11 -fdeprecated-macro -ferror-limit 19 -fopenmp -fgnuc-version=4.2.1 -fskip-odr-check-in-gmf -fcxx-exceptions -fignore-exceptions -fexceptions -iwithsysroot/include/fakesdl -iwithsysroot/include/compat -mllvm -combiner-global-alias-analysis=false -mllvm -enable-emscripten-sjlj -mllvm -disable-lsr -o CMakeFiles/cmTC_7f7e9.dir/OpenMPTryFlag.cpp.o -x c++ /llamacpp/CMakeFiles/FindOpenMP/OpenMPTryFlag.cpp
+clang -cc1 version 19.0.0git based upon LLVM 19.0.0git default target x86_64-unknown-linux-gnu
+ignoring nonexistent directory "/emsdk/upstream/emscripten/cache/sysroot/include/wasm64-emscripten/c++/v1"
+ignoring nonexistent directory "/emsdk/upstream/emscripten/cache/sysroot/include/wasm64-emscripten"
+#include "..." search starts here:
+#include <...> search starts here:
+ /emsdk/upstream/emscripten/cache/sysroot/include/fakesdl
+ /emsdk/upstream/emscripten/cache/sysroot/include/compat
+ /emsdk/upstream/emscripten/cache/sysroot/include/c++/v1
+ /emsdk/upstream/lib/clang/19/include
+ /emsdk/upstream/emscripten/cache/sysroot/include
+End of search list.
+/llamacpp/CMakeFiles/FindOpenMP/OpenMPTryFlag.cpp:2:10: fatal error: 'omp.h' file not found
+    2 | #include <omp.h>
+      |          ^~~~~~~
+1 error generated.
+gmake[1]: *** [CMakeFiles/cmTC_7f7e9.dir/build.make:79: CMakeFiles/cmTC_7f7e9.dir/OpenMPTryFlag.cpp.o] Error 1
+gmake[1]: Leaving directory '/llamacpp/CMakeFiles/CMakeTmp'
+gmake: *** [Makefile:127: cmTC_7f7e9/fast] Error 2
+
+
+
+Detecting CXX OpenMP failed with the following output:
+Change Dir: /llamacpp/CMakeFiles/CMakeTmp
+
+Run Build Command(s):/usr/bin/gmake -f Makefile cmTC_14007/fast && /usr/bin/gmake  -f CMakeFiles/cmTC_14007.dir/build.make CMakeFiles/cmTC_14007.dir/build
+gmake[1]: Entering directory '/llamacpp/CMakeFiles/CMakeTmp'
+Building CXX object CMakeFiles/cmTC_14007.dir/OpenMPTryFlag.cpp.o
+/emsdk/upstream/emscripten/em++   -s MEMORY64=1 -Wno-experimental -fopenmp=libiomp5 -v -std=gnu++11 -MD -MT CMakeFiles/cmTC_14007.dir/OpenMPTryFlag.cpp.o -MF CMakeFiles/cmTC_14007.dir/OpenMPTryFlag.cpp.o.d -o CMakeFiles/cmTC_14007.dir/OpenMPTryFlag.cpp.o -c /llamacpp/CMakeFiles/FindOpenMP/OpenMPTryFlag.cpp
+ "/emsdk/upstream/bin/clang++" -target wasm64-unknown-emscripten -fignore-exceptions -mllvm -combiner-global-alias-analysis=false -mllvm -enable-emscripten-sjlj -mllvm -disable-lsr --sysroot=/emsdk/upstream/emscripten/cache/sysroot -DEMSCRIPTEN -Xclang -iwithsysroot/include/fakesdl -Xclang -iwithsysroot/include/compat -fopenmp=libiomp5 -v -std=gnu++11 -MD -MT CMakeFiles/cmTC_14007.dir/OpenMPTryFlag.cpp.o -MF CMakeFiles/cmTC_14007.dir/OpenMPTryFlag.cpp.o.d -c /llamacpp/CMakeFiles/FindOpenMP/OpenMPTryFlag.cpp -o CMakeFiles/cmTC_14007.dir/OpenMPTryFlag.cpp.o
+clang version 19.0.0git (https:/github.com/llvm/llvm-project df762a1643bb5b0b3c907611d118c82d4b68a39d)
+Target: wasm64-unknown-emscripten
+Thread model: posix
+InstalledDir: /emsdk/upstream/bin
+ (in-process)
+ "/emsdk/upstream/bin/clang-19" -cc1 -triple wasm64-unknown-emscripten -emit-obj -disable-free -clear-ast-before-backend -disable-llvm-verifier -discard-value-names -main-file-name OpenMPTryFlag.cpp -mrelocation-model static -mframe-pointer=none -ffp-contract=on -fno-rounding-math -mconstructor-aliases -target-cpu generic -fvisibility=hidden -debugger-tuning=gdb -fdebug-compilation-dir=/llamacpp/CMakeFiles/CMakeTmp -v -fcoverage-compilation-dir=/llamacpp/CMakeFiles/CMakeTmp -resource-dir /emsdk/upstream/lib/clang/19 -dependency-file CMakeFiles/cmTC_14007.dir/OpenMPTryFlag.cpp.o.d -MT CMakeFiles/cmTC_14007.dir/OpenMPTryFlag.cpp.o -sys-header-deps -D EMSCRIPTEN -isysroot /emsdk/upstream/emscripten/cache/sysroot -internal-isystem /emsdk/upstream/emscripten/cache/sysroot/include/wasm64-emscripten/c++/v1 -internal-isystem /emsdk/upstream/emscripten/cache/sysroot/include/c++/v1 -internal-isystem /emsdk/upstream/lib/clang/19/include -internal-isystem /emsdk/upstream/emscripten/cache/sysroot/include/wasm64-emscripten -internal-isystem /emsdk/upstream/emscripten/cache/sysroot/include -std=gnu++11 -fdeprecated-macro -ferror-limit 19 -fopenmp -fgnuc-version=4.2.1 -fskip-odr-check-in-gmf -fcxx-exceptions -fignore-exceptions -fexceptions -iwithsysroot/include/fakesdl -iwithsysroot/include/compat -mllvm -combiner-global-alias-analysis=false -mllvm -enable-emscripten-sjlj -mllvm -disable-lsr -o CMakeFiles/cmTC_14007.dir/OpenMPTryFlag.cpp.o -x c++ /llamacpp/CMakeFiles/FindOpenMP/OpenMPTryFlag.cpp
+clang -cc1 version 19.0.0git based upon LLVM 19.0.0git default target x86_64-unknown-linux-gnu
+ignoring nonexistent directory "/emsdk/upstream/emscripten/cache/sysroot/include/wasm64-emscripten/c++/v1"
+ignoring nonexistent directory "/emsdk/upstream/emscripten/cache/sysroot/include/wasm64-emscripten"
+#include "..." search starts here:
+#include <...> search starts here:
+ /emsdk/upstream/emscripten/cache/sysroot/include/fakesdl
+ /emsdk/upstream/emscripten/cache/sysroot/include/compat
+ /emsdk/upstream/emscripten/cache/sysroot/include/c++/v1
+ /emsdk/upstream/lib/clang/19/include
+ /emsdk/upstream/emscripten/cache/sysroot/include
+End of search list.
+/llamacpp/CMakeFiles/FindOpenMP/OpenMPTryFlag.cpp:2:10: fatal error: 'omp.h' file not found
+    2 | #include <omp.h>
+      |          ^~~~~~~
+1 error generated.
+gmake[1]: *** [CMakeFiles/cmTC_14007.dir/build.make:79: CMakeFiles/cmTC_14007.dir/OpenMPTryFlag.cpp.o] Error 1
+gmake[1]: Leaving directory '/llamacpp/CMakeFiles/CMakeTmp'
+gmake: *** [Makefile:127: cmTC_14007/fast] Error 2
+
+
+
+Detecting CXX OpenMP failed with the following output:
+Change Dir: /llamacpp/CMakeFiles/CMakeTmp
+
+Run Build Command(s):/usr/bin/gmake -f Makefile cmTC_29d99/fast && /usr/bin/gmake  -f CMakeFiles/cmTC_29d99.dir/build.make CMakeFiles/cmTC_29d99.dir/build
+gmake[1]: Entering directory '/llamacpp/CMakeFiles/CMakeTmp'
+Building CXX object CMakeFiles/cmTC_29d99.dir/OpenMPTryFlag.cpp.o
+/emsdk/upstream/emscripten/em++   -s MEMORY64=1 -Wno-experimental -fopenmp -v -std=gnu++11 -MD -MT CMakeFiles/cmTC_29d99.dir/OpenMPTryFlag.cpp.o -MF CMakeFiles/cmTC_29d99.dir/OpenMPTryFlag.cpp.o.d -o CMakeFiles/cmTC_29d99.dir/OpenMPTryFlag.cpp.o -c /llamacpp/CMakeFiles/FindOpenMP/OpenMPTryFlag.cpp
+ "/emsdk/upstream/bin/clang++" -target wasm64-unknown-emscripten -fignore-exceptions -mllvm -combiner-global-alias-analysis=false -mllvm -enable-emscripten-sjlj -mllvm -disable-lsr --sysroot=/emsdk/upstream/emscripten/cache/sysroot -DEMSCRIPTEN -Xclang -iwithsysroot/include/fakesdl -Xclang -iwithsysroot/include/compat -fopenmp -v -std=gnu++11 -MD -MT CMakeFiles/cmTC_29d99.dir/OpenMPTryFlag.cpp.o -MF CMakeFiles/cmTC_29d99.dir/OpenMPTryFlag.cpp.o.d -c /llamacpp/CMakeFiles/FindOpenMP/OpenMPTryFlag.cpp -o CMakeFiles/cmTC_29d99.dir/OpenMPTryFlag.cpp.o
+clang version 19.0.0git (https:/github.com/llvm/llvm-project df762a1643bb5b0b3c907611d118c82d4b68a39d)
+Target: wasm64-unknown-emscripten
+Thread model: posix
+InstalledDir: /emsdk/upstream/bin
+ (in-process)
+ "/emsdk/upstream/bin/clang-19" -cc1 -triple wasm64-unknown-emscripten -emit-obj -disable-free -clear-ast-before-backend -disable-llvm-verifier -discard-value-names -main-file-name OpenMPTryFlag.cpp -mrelocation-model static -mframe-pointer=none -ffp-contract=on -fno-rounding-math -mconstructor-aliases -target-cpu generic -fvisibility=hidden -debugger-tuning=gdb -fdebug-compilation-dir=/llamacpp/CMakeFiles/CMakeTmp -v -fcoverage-compilation-dir=/llamacpp/CMakeFiles/CMakeTmp -resource-dir /emsdk/upstream/lib/clang/19 -dependency-file CMakeFiles/cmTC_29d99.dir/OpenMPTryFlag.cpp.o.d -MT CMakeFiles/cmTC_29d99.dir/OpenMPTryFlag.cpp.o -sys-header-deps -D EMSCRIPTEN -isysroot /emsdk/upstream/emscripten/cache/sysroot -internal-isystem /emsdk/upstream/emscripten/cache/sysroot/include/wasm64-emscripten/c++/v1 -internal-isystem /emsdk/upstream/emscripten/cache/sysroot/include/c++/v1 -internal-isystem /emsdk/upstream/lib/clang/19/include -internal-isystem /emsdk/upstream/emscripten/cache/sysroot/include/wasm64-emscripten -internal-isystem /emsdk/upstream/emscripten/cache/sysroot/include -std=gnu++11 -fdeprecated-macro -ferror-limit 19 -fopenmp -fgnuc-version=4.2.1 -fskip-odr-check-in-gmf -fcxx-exceptions -fignore-exceptions -fexceptions -iwithsysroot/include/fakesdl -iwithsysroot/include/compat -mllvm -combiner-global-alias-analysis=false -mllvm -enable-emscripten-sjlj -mllvm -disable-lsr -o CMakeFiles/cmTC_29d99.dir/OpenMPTryFlag.cpp.o -x c++ /llamacpp/CMakeFiles/FindOpenMP/OpenMPTryFlag.cpp
+clang -cc1 version 19.0.0git based upon LLVM 19.0.0git default target x86_64-unknown-linux-gnu
+ignoring nonexistent directory "/emsdk/upstream/emscripten/cache/sysroot/include/wasm64-emscripten/c++/v1"
+ignoring nonexistent directory "/emsdk/upstream/emscripten/cache/sysroot/include/wasm64-emscripten"
+#include "..." search starts here:
+#include <...> search starts here:
+ /emsdk/upstream/emscripten/cache/sysroot/include/fakesdl
+ /emsdk/upstream/emscripten/cache/sysroot/include/compat
+ /emsdk/upstream/emscripten/cache/sysroot/include/c++/v1
+ /emsdk/upstream/lib/clang/19/include
+ /emsdk/upstream/emscripten/cache/sysroot/include
+End of search list.
+/llamacpp/CMakeFiles/FindOpenMP/OpenMPTryFlag.cpp:2:10: fatal error: 'omp.h' file not found
+    2 | #include <omp.h>
+      |          ^~~~~~~
+1 error generated.
+gmake[1]: *** [CMakeFiles/cmTC_29d99.dir/build.make:79: CMakeFiles/cmTC_29d99.dir/OpenMPTryFlag.cpp.o] Error 1
+gmake[1]: Leaving directory '/llamacpp/CMakeFiles/CMakeTmp'
+gmake: *** [Makefile:127: cmTC_29d99/fast] Error 2
+
+
+
+Detecting CXX OpenMP failed with the following output:
+Change Dir: /llamacpp/CMakeFiles/CMakeTmp
+
+Run Build Command(s):/usr/bin/gmake -f Makefile cmTC_d5f56/fast && /usr/bin/gmake  -f CMakeFiles/cmTC_d5f56.dir/build.make CMakeFiles/cmTC_d5f56.dir/build
+gmake[1]: Entering directory '/llamacpp/CMakeFiles/CMakeTmp'
+Building CXX object CMakeFiles/cmTC_d5f56.dir/OpenMPTryFlag.cpp.o
+/emsdk/upstream/emscripten/em++   -s MEMORY64=1 -Wno-experimental -Xclang -fopenmp -v -std=gnu++11 -MD -MT CMakeFiles/cmTC_d5f56.dir/OpenMPTryFlag.cpp.o -MF CMakeFiles/cmTC_d5f56.dir/OpenMPTryFlag.cpp.o.d -o CMakeFiles/cmTC_d5f56.dir/OpenMPTryFlag.cpp.o -c /llamacpp/CMakeFiles/FindOpenMP/OpenMPTryFlag.cpp
+ "/emsdk/upstream/bin/clang++" -target wasm64-unknown-emscripten -fignore-exceptions -mllvm -combiner-global-alias-analysis=false -mllvm -enable-emscripten-sjlj -mllvm -disable-lsr --sysroot=/emsdk/upstream/emscripten/cache/sysroot -DEMSCRIPTEN -Xclang -iwithsysroot/include/fakesdl -Xclang -iwithsysroot/include/compat -Xclang -fopenmp -v -std=gnu++11 -MD -MT CMakeFiles/cmTC_d5f56.dir/OpenMPTryFlag.cpp.o -MF CMakeFiles/cmTC_d5f56.dir/OpenMPTryFlag.cpp.o.d -c /llamacpp/CMakeFiles/FindOpenMP/OpenMPTryFlag.cpp -o CMakeFiles/cmTC_d5f56.dir/OpenMPTryFlag.cpp.o
+clang version 19.0.0git (https:/github.com/llvm/llvm-project df762a1643bb5b0b3c907611d118c82d4b68a39d)
+Target: wasm64-unknown-emscripten
+Thread model: posix
+InstalledDir: /emsdk/upstream/bin
+ (in-process)
+ "/emsdk/upstream/bin/clang-19" -cc1 -triple wasm64-unknown-emscripten -emit-obj -disable-free -clear-ast-before-backend -disable-llvm-verifier -discard-value-names -main-file-name OpenMPTryFlag.cpp -mrelocation-model static -mframe-pointer=none -ffp-contract=on -fno-rounding-math -mconstructor-aliases -target-cpu generic -fvisibility=hidden -debugger-tuning=gdb -fdebug-compilation-dir=/llamacpp/CMakeFiles/CMakeTmp -v -fcoverage-compilation-dir=/llamacpp/CMakeFiles/CMakeTmp -resource-dir /emsdk/upstream/lib/clang/19 -dependency-file CMakeFiles/cmTC_d5f56.dir/OpenMPTryFlag.cpp.o.d -MT CMakeFiles/cmTC_d5f56.dir/OpenMPTryFlag.cpp.o -sys-header-deps -D EMSCRIPTEN -isysroot /emsdk/upstream/emscripten/cache/sysroot -internal-isystem /emsdk/upstream/emscripten/cache/sysroot/include/wasm64-emscripten/c++/v1 -internal-isystem /emsdk/upstream/emscripten/cache/sysroot/include/c++/v1 -internal-isystem /emsdk/upstream/lib/clang/19/include -internal-isystem /emsdk/upstream/emscripten/cache/sysroot/include/wasm64-emscripten -internal-isystem /emsdk/upstream/emscripten/cache/sysroot/include -std=gnu++11 -fdeprecated-macro -ferror-limit 19 -fgnuc-version=4.2.1 -fskip-odr-check-in-gmf -fcxx-exceptions -fignore-exceptions -fexceptions -iwithsysroot/include/fakesdl -iwithsysroot/include/compat -fopenmp -mllvm -combiner-global-alias-analysis=false -mllvm -enable-emscripten-sjlj -mllvm -disable-lsr -o CMakeFiles/cmTC_d5f56.dir/OpenMPTryFlag.cpp.o -x c++ /llamacpp/CMakeFiles/FindOpenMP/OpenMPTryFlag.cpp
+clang -cc1 version 19.0.0git based upon LLVM 19.0.0git default target x86_64-unknown-linux-gnu
+ignoring nonexistent directory "/emsdk/upstream/emscripten/cache/sysroot/include/wasm64-emscripten/c++/v1"
+ignoring nonexistent directory "/emsdk/upstream/emscripten/cache/sysroot/include/wasm64-emscripten"
+#include "..." search starts here:
+#include <...> search starts here:
+ /emsdk/upstream/emscripten/cache/sysroot/include/fakesdl
+ /emsdk/upstream/emscripten/cache/sysroot/include/compat
+ /emsdk/upstream/emscripten/cache/sysroot/include/c++/v1
+ /emsdk/upstream/lib/clang/19/include
+ /emsdk/upstream/emscripten/cache/sysroot/include
+End of search list.
+/llamacpp/CMakeFiles/FindOpenMP/OpenMPTryFlag.cpp:2:10: fatal error: 'omp.h' file not found
+    2 | #include <omp.h>
+      |          ^~~~~~~
+1 error generated.
+gmake[1]: *** [CMakeFiles/cmTC_d5f56.dir/build.make:79: CMakeFiles/cmTC_d5f56.dir/OpenMPTryFlag.cpp.o] Error 1
+gmake[1]: Leaving directory '/llamacpp/CMakeFiles/CMakeTmp'
+gmake: *** [Makefile:127: cmTC_d5f56/fast] Error 2
+
+
+

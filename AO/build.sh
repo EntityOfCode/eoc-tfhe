@@ -69,7 +69,7 @@ sudo docker run -v ${OPENSSL_CPP_DIR}:/openssl ${AO_IMAGE} sh -c \
 		no-ocsp no-psk no-srp no-ts no-rfc3779 no-srtp no-weak-ssl-ciphers no-ssl-trace no-ct linux-aarch64"
 
 echo "Patching openssl makefile..."
-sed -i.bak '2233,2235s/\$(CROSS_COMPILE)//;2247s/\$(CROSS_COMPILE)//;2249s/\$(CROSS_COMPILE)//' ${OPENSSL_CPP_DIR}/Makefile
+sed -i.bak 's|CROSS_COMPILE=/emsdk/upstream/emscripten/em|CROSS_COMPILE=|' ${OPENSSL_CPP_DIR}/Makefile
 # echo "Building jwt cmake..."
 sudo docker run -v ${CPP_MODULES_DIR}:/modules ${AO_IMAGE} sh -c \
 		"cd /modules/jwt/build && emcmake cmake -DCMAKE_CXX_FLAGS='${EMXX_CFLAGS}' \
