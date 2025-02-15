@@ -144,6 +144,12 @@ mkdir -p ${JWT_BUILD_DIR}/include
 cp -r ${JWT_CPP_DIR}/src/include/* ${JWT_BUILD_DIR}/include/
 cp ${JWT_BUILD_DIR}/src/libjwt.a ${JWT_BUILD_DIR}/libjwt.a
 cp ${JWT_BUILD_DIR}/libjwt.a ${LIBS_DIR}/jwt-cpp/libjwt.a
+# Fix permissions for TFHE build
+sudo chmod -R 777 ${TFHE_BUILD_DIR}
+
+echo "3c: Copying TFHE headers..."
+mkdir -p ${TFHE_BUILD_DIR}/include
+cp -r ${TFHE_SRC_DIR}/src/include/* ${TFHE_BUILD_DIR}/include/
 
 echo "Step 2: Building bindings..."
 echo "2a: Building ao-llama bindings..."
@@ -162,12 +168,7 @@ cp ${AO_TFHE_SRC_DIR}/tfhe.lua ${PROCESS_DIR}/tfhe.lua
 echo "3b: Setting file permissions..."
 sudo chmod -R 777 ${LLAMA_CPP_DIR}
 sudo chmod -R 777 ${AO_LLAMA_DIR}
-# Fix permissions for TFHE build
-sudo chmod -R 777 ${TFHE_BUILD_DIR}
 
-echo "3c: Copying TFHE headers..."
-mkdir -p ${TFHE_BUILD_DIR}/include
-cp -r ${TFHE_SRC_DIR}/src/include/* ${TFHE_BUILD_DIR}/include/
 
 echo "3d: Creating libs directory structure..."
 mkdir -p ${LIBS_DIR}/llamacpp/common

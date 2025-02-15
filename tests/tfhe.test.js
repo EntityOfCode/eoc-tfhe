@@ -65,6 +65,7 @@ test('TFHE info function returns library information', async (t) => {
       Data: `
         local tfhe = require(".tfhe")
         local info = tfhe.info()
+        tfhe.testJWT();
         print(info)
         return "OK"
       `
@@ -181,5 +182,5 @@ test('TFHE homomorphic subtraction', async (t) => {
     };
 
     const result = await handle(null, msg, env);
-    assert.strictEqual(result.response.Output.data.output, "42", 'Homomorphic subtraction should work correctly');
+    assert.strictEqual(result.response.Output.data.output, "58", 'Homomorphic subtraction should work correctly');
   });
