@@ -1,3 +1,6 @@
 [submodule "AO-Llama"]
 	path = AO-Llama
 	url = https://github.com/EntityOfCode/AO-Llama.git
+[submodule "libs/tfhe"]
+	path = libs/tfhe
+	url = https://github.com/tfhe/tfhe.git
