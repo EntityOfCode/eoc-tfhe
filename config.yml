@@ -1,0 +1,37 @@
+# Build Configuration
+
+# Memory settings
+stack_size: 1048576000
+initial_memory: 1258291200
+maximum_memory: 10485760000
+target: 64
+keep_js: true
+
+# Build settings
+build:
+  # Emscripten flags
+  emxx_flags: "-sMEMORY64=1 -O3 -msimd128 -fno-rtti -Wno-experimental"
+  
+  # Docker image
+  docker_image: "p3rmaw3b/ao:0.1.4"
+
+# TFHE library settings
+tfhe:
+  # FFT Processor settings
+  fft_processors:
+    nayuki_portable: true  # Only portable processor for WASM
+    nayuki_avx: false      # Disabled for WASM
+    spqlios_avx: false     # Disabled for WASM
+    spqlios_fma: false     # Disabled for WASM
+  
+  # Build options
+  options:
+    enable_tests: false
+    enable_examples: false
+    build_type: "Release"
+
+# Output paths
+paths:
+  build_dir: "build/tfhe"
+  lib_dir: "libs/tfhe"
+  include_dir: "include/tfhe"
