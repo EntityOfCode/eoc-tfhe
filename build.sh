@@ -16,9 +16,9 @@ EMXX_CFLAGS="-sMEMORY64=1 -O3 -msimd128 -fno-rtti -Wno-experimental"
 # Initialize and update TFHE submodule
 git submodule update --init --recursive
 
-# Clean previous build
+# Clean previous build artifacts, but keep source
 rm -rf ${TFHE_BUILD_DIR}
-rm -rf libs
+rm -rf ${SCRIPT_DIR}/libs/build
 
 # Create necessary directories
 mkdir -p ${TFHE_BUILD_DIR}
