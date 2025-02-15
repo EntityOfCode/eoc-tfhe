@@ -1,15 +1,11 @@
 #!/bin/bash
 SCRIPT_DIR=$( cd -- "$( dirname -- "${BASH_SOURCE[0]}" )" &> /dev/null && pwd )
 
-# AO-Llama directories (using existing structure)
+# AO-Llama directories
 LLAMA_CPP_DIR="${SCRIPT_DIR}/AO-Llama/build/llamacpp"
 AO_LLAMA_DIR="${SCRIPT_DIR}/AO-Llama/build/ao-llama"
 PROCESS_DIR="${SCRIPT_DIR}/AO-Llama/aos/process"
 LIBS_DIR="${PROCESS_DIR}/libs"
-
-# TFHE directories (following same pattern)
-TFHE_BUILD_DIR="${SCRIPT_DIR}/build/tfhe"
-AO_TFHE_DIR="${SCRIPT_DIR}/build/ao-tfhe"
 
 # Docker image from config.yml
 AO_IMAGE="p3rmaw3b/ao:0.1.4"
@@ -18,8 +14,9 @@ AO_IMAGE="p3rmaw3b/ao:0.1.4"
 EMXX_CFLAGS="-sMEMORY64=1 -O3 -msimd128 -fno-rtti -Wno-experimental"
 
 # Clean up previous builds
-rm -rf ${LLAMA_CPP_DIR}
+# rm -rf ${LLAMA_CPP_DIR}
 rm -rf ${LIBS_DIR}
+
 
 # Clone llama.cpp if it doesn't exist
 if [ ! -d "${LLAMA_CPP_DIR}" ]; then
@@ -33,13 +30,18 @@ fi
 sed -i.bak 's/#define ggml_assert_aligned.*/#define ggml_assert_aligned\(ptr\)/g' ${LLAMA_CPP_DIR}/ggml.c
 sed -i.bak '/.*GGML_ASSERT.*GGML_MEM_ALIGN == 0.*/d' ${LLAMA_CPP_DIR}/ggml.c
 
-# Build llama.cpp into a static library with emscripten
+# Step 1: Build llama.cpp with cmake
+echo "Step 1a: Building llama.cpp with cmake..."
 sudo docker run -v ${LLAMA_CPP_DIR}:/llamacpp ${AO_IMAGE} sh -c \
     "cd /llamacpp && emcmake cmake -DCMAKE_CXX_FLAGS='${EMXX_CFLAGS}' -S . -B . -DLLAMA_BUILD_EXAMPLES=OFF"
 
+# Step 2: Build llama.cpp libraries
+echo "Step 1b: Building llama.cpp libraries..."
 sudo docker run -v ${LLAMA_CPP_DIR}:/llamacpp ${AO_IMAGE} sh -c \
-    "cd /llamacpp && emmake make llama common EMCC_CFLAGS='${EMXX_CFLAGS}' -j 8"
+    "cd /llamacpp && emmake make llama common EMCC_CFLAGS='${EMXX_CFLAGS}'"
 
+# Step 3: Build ao-llama bindings
+echo "Step 2: Building ao-llama bindings..."
 sudo docker run -v ${LLAMA_CPP_DIR}:/llamacpp -v ${AO_LLAMA_DIR}:/ao-llama ${AO_IMAGE} sh -c \
     "cd /ao-llama && ./build.sh"
 
@@ -52,6 +54,7 @@ mkdir -p ${LIBS_DIR}/llamacpp/common
 mkdir -p ${LIBS_DIR}/ao-llama
 
 # Copy llama.cpp libraries
+echo "Step 3: Copying llama libraries..."
 cp ${LLAMA_CPP_DIR}/libllama.a ${LIBS_DIR}/llamacpp/libllama.a
 cp ${LLAMA_CPP_DIR}/common/libcommon.a ${LIBS_DIR}/llamacpp/common/libcommon.a
 
@@ -70,6 +73,7 @@ docker run -e DEBUG=1 --platform linux/amd64 -v ./:/src ${AO_IMAGE} ao-build-mod
 # Copy the process module to AO-Llama tests directory
 cp ${PROCESS_DIR}/process.wasm ${SCRIPT_DIR}/AO-Llama/tests/process.wasm
 if [ -f "${PROCESS_DIR}/process.js" ]; then
+    echo "Copy process.js to tests..."
     cp ${PROCESS_DIR}/process.js ${SCRIPT_DIR}/AO-Llama/tests/process.js
 fi
 
