@@ -1,7 +1,12 @@
 #!/bin/bash
 SCRIPT_DIR=$( cd -- "$( dirname -- "${BASH_SOURCE[0]}" )" &> /dev/null && pwd )
 
-# AO-Llama directories
+# Source directories
+TFHE_SRC_DIR="${SCRIPT_DIR}/libs/tfhe"
+AO_TFHE_SRC_DIR="${SCRIPT_DIR}/ao-tfhe"
+
+# Build directories
+TFHE_BUILD_DIR="${SCRIPT_DIR}/build/tfhe"
 LLAMA_CPP_DIR="${SCRIPT_DIR}/AO-Llama/build/llamacpp"
 AO_LLAMA_DIR="${SCRIPT_DIR}/AO-Llama/build/ao-llama"
 PROCESS_DIR="${SCRIPT_DIR}/AO-Llama/aos/process"
@@ -16,7 +21,16 @@ EMXX_CFLAGS="-sMEMORY64=1 -O3 -msimd128 -fno-rtti -Wno-experimental"
 # Clean up previous builds
 # rm -rf ${LLAMA_CPP_DIR}
 rm -rf ${LIBS_DIR}
+rm -rf ${TFHE_BUILD_DIR}
 
+# Create necessary directories
+mkdir -p ${LIBS_DIR}/tfhe
+mkdir -p ${LIBS_DIR}/ao-tfhe
+mkdir -p ${TFHE_BUILD_DIR}
+
+# Patch TFHE CMakeLists.txt to remove -march=native and change library type to STATIC
+sed -i.bak 's/-march=native//g' ${TFHE_SRC_DIR}/src/CMakeLists.txt
+sed -i.bak 's/SHARED/STATIC/g' ${TFHE_SRC_DIR}/src/libtfhe/CMakeLists.txt
 
 # Clone llama.cpp if it doesn't exist
 if [ ! -d "${LLAMA_CPP_DIR}" ]; then
@@ -35,10 +49,27 @@ echo "Step 1a: Building llama.cpp with cmake..."
 sudo docker run -v ${LLAMA_CPP_DIR}:/llamacpp ${AO_IMAGE} sh -c \
     "cd /llamacpp && emcmake cmake -DCMAKE_CXX_FLAGS='${EMXX_CFLAGS}' -S . -B . -DLLAMA_BUILD_EXAMPLES=OFF"
 
+# Build TFHE into a static library with emscripten
+echo "Step 1a: Building TFHE library with cmake..."
+sudo docker run -v ${TFHE_BUILD_DIR}:/tfhe-build -v ${TFHE_SRC_DIR}:/tfhe-src ${AO_IMAGE} sh -c \
+    "cd /tfhe-build && emcmake cmake /tfhe-src/src \
+    -DCMAKE_CXX_FLAGS='${EMXX_CFLAGS}' \
+    -DENABLE_TESTS=OFF \
+    -DENABLE_EXAMPLES=OFF \
+    -DENABLE_NAYUKI_PORTABLE=ON \
+    -DENABLE_NAYUKI_AVX=OFF \
+    -DENABLE_SPQLIOS_AVX=OFF \
+    -DENABLE_SPQLIOS_FMA=OFF \
+    -DCMAKE_BUILD_TYPE=Release"
+
 # Step 2: Build llama.cpp libraries
 echo "Step 1b: Building llama.cpp libraries..."
 sudo docker run -v ${LLAMA_CPP_DIR}:/llamacpp ${AO_IMAGE} sh -c \
     "cd /llamacpp && emmake make llama common EMCC_CFLAGS='${EMXX_CFLAGS}'"
+
+echo "Step 1b: Building TFHE library..."
+sudo docker run -v ${TFHE_BUILD_DIR}:/tfhe-build -v ${TFHE_SRC_DIR}:/tfhe-src ${AO_IMAGE} sh -c \
+    "cd /tfhe-build && emmake make EMCC_CFLAGS='${EMXX_CFLAGS}'"
 
 # Step 3: Build ao-llama bindings
 echo "Step 2: Building ao-llama bindings..."
@@ -48,6 +79,12 @@ sudo docker run -v ${LLAMA_CPP_DIR}:/llamacpp -v ${AO_LLAMA_DIR}:/ao-llama ${AO_
 # Fix permissions
 sudo chmod -R 777 ${LLAMA_CPP_DIR}
 sudo chmod -R 777 ${AO_LLAMA_DIR}
+# Fix permissions for TFHE build
+sudo chmod -R 777 ${TFHE_BUILD_DIR}
+
+# Copy TFHE headers to build directory
+mkdir -p ${TFHE_BUILD_DIR}/include
+cp -r ${TFHE_SRC_DIR}/src/include/* ${TFHE_BUILD_DIR}/include/
 
 # Create libs directory structure
 mkdir -p ${LIBS_DIR}/llamacpp/common
@@ -57,6 +94,9 @@ mkdir -p ${LIBS_DIR}/ao-llama
 echo "Step 3: Copying llama libraries..."
 cp ${LLAMA_CPP_DIR}/libllama.a ${LIBS_DIR}/llamacpp/libllama.a
 cp ${LLAMA_CPP_DIR}/common/libcommon.a ${LIBS_DIR}/llamacpp/common/libcommon.a
+
+# Copy TFHE library
+cp ${TFHE_BUILD_DIR}/libtfhe/libtfhe-nayuki-portable.a ${LIBS_DIR}/tfhe/libtfhe.a
 
 # Copy ao-llama libraries and Lua file
 cp ${AO_LLAMA_DIR}/libaollama.so ${LIBS_DIR}/ao-llama/libaollama.so
