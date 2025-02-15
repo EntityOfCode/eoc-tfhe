@@ -4,9 +4,12 @@ SCRIPT_DIR=$( cd -- "$( dirname -- "${BASH_SOURCE[0]}" )" &> /dev/null && pwd )
 # Source directories
 TFHE_SRC_DIR="${SCRIPT_DIR}/libs/tfhe"
 AO_TFHE_SRC_DIR="${SCRIPT_DIR}/ao-tfhe"
+OPENSSL_SRC_DIR="${SCRIPT_DIR}/libs/openssl"
+JWT_CPP_DIR="${SCRIPT_DIR}/libs/jwt-cpp"
 
 # Build directories
 TFHE_BUILD_DIR="${SCRIPT_DIR}/build/tfhe"
+JWT_BUILD_DIR="${SCRIPT_DIR}/build/jwt-cpp"
 LLAMA_CPP_DIR="${SCRIPT_DIR}/AO-Llama/build/llamacpp"
 AO_LLAMA_DIR="${SCRIPT_DIR}/AO-Llama/build/ao-llama"
 PROCESS_DIR="${SCRIPT_DIR}/AO-Llama/aos/process"
@@ -34,6 +37,9 @@ echo "Creating necessary directories..."
 mkdir -p ${LIBS_DIR}/tfhe
 mkdir -p ${LIBS_DIR}/ao-tfhe
 mkdir -p ${TFHE_BUILD_DIR}
+mkdir -p ${JWT_BUILD_DIR}
+mkdir -p ${LIBS_DIR}/openssl
+mkdir -p ${LIBS_DIR}/jwt-cpp
 
 echo "Patching TFHE CMakeLists.txt..."
 # Remove -march=native and change library type to STATIC
@@ -53,6 +59,28 @@ sed -i.bak 's/#define ggml_assert_aligned.*/#define ggml_assert_aligned\(ptr\)/g
 sed -i.bak '/.*GGML_ASSERT.*GGML_MEM_ALIGN == 0.*/d' ${LLAMA_CPP_DIR}/ggml.c
 
 echo "Step 1: Building libraries..."
+echo "1b: Configuring openssl library with cmake..."
+# echo "Cleaning openssl make..."
+sudo docker run -v ${OPENSSL_SRC_DIR}:/openssl ${AO_IMAGE} sh -c \
+	"cd /openssl && emmake make clean libclean distclean"
+
+# echo "Building openssl cmake..."
+sudo docker run -v ${OPENSSL_SRC_DIR}:/openssl ${AO_IMAGE} sh -c \
+	"cd /openssl && emconfigure ./Configure no-asm no-shared no-async \
+	    no-dso no-hw no-engine no-stdio no-tests no-ssl no-comp no-err \
+		no-ocsp no-psk no-srp no-ts no-rfc3779 no-srtp no-weak-ssl-ciphers no-ssl-trace no-ct linux-aarch64"
+
+echo "Patching openssl makefile..."
+sed -i.bak 's|CROSS_COMPILE=/emsdk/upstream/emscripten/em|CROSS_COMPILE=|' ${OPENSSL_SRC_DIR}/Makefile
+
+# echo "Building openssl make..."
+sudo docker run -v ${OPENSSL_SRC_DIR}:/openssl ${AO_IMAGE} sh -c \
+	"cd /openssl && emmake make EMCC_CFLAGS='-s MEMORY64=1 -Wno-experimental'"
+		
+cp ${OPENSSL_SRC_DIR}/libcrypto.a ${LIBS_DIR}/openssl/libcrypto.a		
+cp ${OPENSSL_SRC_DIR}/libssl.a ${LIBS_DIR}/openssl/libssl.a
+# cp ${OPENSSL_SRC_DIR}/include ${TFHE_CPP_DIR}/src/include/
+
 echo "1a: Configuring llama.cpp with cmake..."
 sudo docker run -v ${LLAMA_CPP_DIR}:/llamacpp ${AO_IMAGE} sh -c \
     "cd /llamacpp && emcmake cmake -DCMAKE_CXX_FLAGS='${EMXX_CFLAGS}' -S . -B . -DLLAMA_BUILD_EXAMPLES=OFF"
@@ -76,6 +104,36 @@ sudo docker run -v ${LLAMA_CPP_DIR}:/llamacpp ${AO_IMAGE} sh -c \
 echo "1d: Building TFHE library..."
 sudo docker run -v ${TFHE_BUILD_DIR}:/tfhe-build -v ${TFHE_SRC_DIR}:/tfhe-src ${AO_IMAGE} sh -c \
     "cd /tfhe-build && emmake make EMCC_CFLAGS='${EMXX_CFLAGS}'"
+
+echo "1e: Configuring jwt-cpp library with cmake..."
+sudo docker run -v ${JWT_BUILD_DIR}:/jwt-build -v ${JWT_CPP_DIR}:/jwt-src -v ${OPENSSL_SRC_DIR}:/openssl ${AO_IMAGE} sh -c \
+    "if [ ! -d /openssl/include ]; then \
+        echo 'Error: OpenSSL include directory not found at /openssl/include' >&2; \
+        exit 1; \
+    fi && \
+    if [ ! -f /openssl/libcrypto.a ] || [ ! -f /openssl/libssl.a ]; then \
+        echo 'Error: OpenSSL libraries (libcrypto.a, libssl.a) not found in /openssl' >&2; \
+        exit 1; \
+    fi && \
+    cd /jwt-build && emcmake cmake /jwt-src \
+    -DCMAKE_CXX_FLAGS='${EMXX_CFLAGS}' \
+    -DENABLE_DOC=OFF \
+    -DENABLE_TESTS=OFF \
+    -DBUILD_SHARED_LIBS=OFF \
+    -DOPENSSL_INCLUDE_DIRS=/openssl/include \
+    -DOPENSSL_LIBRARY_DIRS=/openssl \
+    -DOPENSSL_LIBRARIES='libcrypto.a;libssl.a' \
+    -DCMAKE_BUILD_TYPE=Release"
+
+echo "1f: Building jwt-cpp library..."
+sudo docker run -v ${JWT_BUILD_DIR}:/jwt-build -v ${JWT_CPP_DIR}:/jwt-src ${AO_IMAGE} sh -c \
+    "cd /jwt-build && emmake make EMCC_CFLAGS='${EMXX_CFLAGS}'"
+
+# Fix permissions for JWT build
+sudo chmod -R 777 ${JWT_BUILD_DIR}
+
+# Copy JWT library
+cp ${JWT_BUILD_DIR}/libjwt.a ${LIBS_DIR}/jwt-cpp/libjwt.a
 
 echo "Step 2: Building bindings..."
 echo "2a: Building ao-llama bindings..."
