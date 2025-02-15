@@ -4,3 +4,6 @@
 [submodule "libs/tfhe"]
 	path = libs/tfhe
 	url = https://github.com/tfhe/tfhe.git
+[submodule "libs/openssl"]
+	path = libs/openssl
+	url = https://github.com/openssl/openssl.git
