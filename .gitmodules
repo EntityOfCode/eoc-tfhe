@@ -1,0 +1,3 @@
+[submodule "AO-Llama"]
+	path = AO-Llama
+	url = https://github.com/EntityOfCode/AO-Llama.git

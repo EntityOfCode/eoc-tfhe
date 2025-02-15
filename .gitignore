@@ -1,0 +1,22 @@
+# Build artifacts
+build/
+libs/
+
+# Node modules
+node_modules/
+
+# OS files
+.DS_Store
+Thumbs.db
+
+# IDE files
+.vscode/
+.idea/
+*.swp
+*.swo
+
+# Compiled files
+*.wasm
+*.so
+*.a
+*.o
