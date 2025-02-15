@@ -86,10 +86,12 @@ sudo docker run -v ${LLAMA_CPP_DIR}:/llamacpp -v ${AO_LLAMA_DIR}:/ao-llama -v ${
 # Build ao-tfhe bindings
 AO_TFHE_DIR="${SCRIPT_DIR}/build/ao-tfhe"
 mkdir -p ${AO_TFHE_DIR}
-cp ${SCRIPT_DIR}/ao-tfhe/build.sh ${AO_TFHE_DIR}/
-chmod +x ${AO_TFHE_DIR}/build.sh
 
-sudo docker run -v ${AO_TFHE_DIR}:/ao-tfhe -v ${SCRIPT_DIR}/ao-tfhe:/ao-tfhe-src ${AO_IMAGE} sh -c \
+sudo docker run \
+    -v ${LIBS_DIR}:/src/libs \
+    -v ${AO_TFHE_DIR}:/ao-tfhe \
+    -v ${SCRIPT_DIR}/ao-tfhe:/ao-tfhe-src \
+    ${AO_IMAGE} sh -c \
     "cp -r /ao-tfhe-src/* /ao-tfhe/ && cd /ao-tfhe && ./build.sh"
 
 # Fix permissions
