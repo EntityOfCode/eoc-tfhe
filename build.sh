@@ -13,6 +13,9 @@ AO_IMAGE="p3rmaw3b/ao:0.1.4"
 # Emscripten flags from config.yml
 EMXX_CFLAGS="-sMEMORY64=1 -O3 -msimd128 -fno-rtti -Wno-experimental"
 
+# Initialize and update TFHE submodule
+git submodule update --init --recursive
+
 # Clean previous build
 rm -rf ${TFHE_BUILD_DIR}
 rm -rf libs
