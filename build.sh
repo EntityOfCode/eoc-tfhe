@@ -47,12 +47,11 @@ sudo docker run -v ${TFHE_BUILD_DIR}:/tfhe-build -v ${SCRIPT_DIR}/libs/tfhe:/tfh
 sudo chmod -R 777 ${TFHE_BUILD_DIR}
 
 # Copy TFHE library to the libs directory
-cp ${TFHE_BUILD_DIR}/libtfhe.a $LIBS_DIR/tfhe/libtfhe.a
+cp ${TFHE_BUILD_DIR}/libtfhe/libtfhe-nayuki-portable.a $LIBS_DIR/tfhe/libtfhe.a
 
 # Copy TFHE headers
 mkdir -p $LIBS_DIR/tfhe/include
-cp -r ${SCRIPT_DIR}/libs/tfhe/src/libtfhe/include/* $LIBS_DIR/tfhe/include/
-cp -r ${TFHE_BUILD_DIR}/include/* $LIBS_DIR/tfhe/include/
+cp -r ${SCRIPT_DIR}/libs/tfhe/src/include/* $LIBS_DIR/tfhe/include/
 
 # Copy $LIBS_DIR to ${SCRIPT_DIR}/libs
 cp -r $LIBS_DIR ${SCRIPT_DIR}/libs
