@@ -9,6 +9,7 @@ JWT_CPP_DIR="${SCRIPT_DIR}/libs/jwt-cpp"
 
 # Build directories
 TFHE_BUILD_DIR="${SCRIPT_DIR}/build/tfhe"
+OPENSSL_BUILD_DIR="${SCRIPT_DIR}/build/openssl"
 JWT_BUILD_DIR="${SCRIPT_DIR}/build/jwt-cpp"
 LLAMA_CPP_DIR="${SCRIPT_DIR}/AO-Llama/build/llamacpp"
 AO_LLAMA_DIR="${SCRIPT_DIR}/AO-Llama/build/ao-llama"
@@ -40,6 +41,7 @@ mkdir -p ${TFHE_BUILD_DIR}
 mkdir -p ${JWT_BUILD_DIR}
 mkdir -p ${LIBS_DIR}/openssl
 mkdir -p ${LIBS_DIR}/jwt-cpp
+mkdir -p ${OPENSSL_BUILD_DIR}/include
 
 echo "Patching TFHE CMakeLists.txt..."
 # Remove -march=native and change library type to STATIC
@@ -77,9 +79,14 @@ sed -i.bak 's|CROSS_COMPILE=/emsdk/upstream/emscripten/em|CROSS_COMPILE=|' ${OPE
 sudo docker run -v ${OPENSSL_SRC_DIR}:/openssl ${AO_IMAGE} sh -c \
 	"cd /openssl && emmake make EMCC_CFLAGS='-s MEMORY64=1 -Wno-experimental'"
 		
-cp ${OPENSSL_SRC_DIR}/libcrypto.a ${LIBS_DIR}/openssl/libcrypto.a		
-cp ${OPENSSL_SRC_DIR}/libssl.a ${LIBS_DIR}/openssl/libssl.a
-# cp ${OPENSSL_SRC_DIR}/include ${TFHE_CPP_DIR}/src/include/
+# Copy OpenSSL libraries and includes to build directory
+cp ${OPENSSL_SRC_DIR}/libcrypto.a ${OPENSSL_BUILD_DIR}/libcrypto.a		
+cp ${OPENSSL_SRC_DIR}/libssl.a ${OPENSSL_BUILD_DIR}/libssl.a
+cp -r ${OPENSSL_SRC_DIR}/include/* ${OPENSSL_BUILD_DIR}/include/
+
+# Copy OpenSSL libraries to libs directory for process module
+cp ${OPENSSL_BUILD_DIR}/libcrypto.a ${LIBS_DIR}/openssl/libcrypto.a		
+cp ${OPENSSL_BUILD_DIR}/libssl.a ${LIBS_DIR}/openssl/libssl.a
 
 echo "1a: Configuring llama.cpp with cmake..."
 sudo docker run -v ${LLAMA_CPP_DIR}:/llamacpp ${AO_IMAGE} sh -c \
@@ -132,8 +139,11 @@ sudo docker run -v ${JWT_BUILD_DIR}:/jwt-build -v ${JWT_CPP_DIR}:/jwt-src -v ${O
 # Fix permissions for JWT build
 sudo chmod -R 777 ${JWT_BUILD_DIR}
 
-# Copy JWT library
-cp ${JWT_BUILD_DIR}/src/libjwt.a ${LIBS_DIR}/jwt-cpp/libjwt.a
+# Copy JWT library and includes
+mkdir -p ${JWT_BUILD_DIR}/include
+cp -r ${JWT_CPP_DIR}/src/include/* ${JWT_BUILD_DIR}/include/
+cp ${JWT_BUILD_DIR}/src/libjwt.a ${JWT_BUILD_DIR}/libjwt.a
+cp ${JWT_BUILD_DIR}/libjwt.a ${LIBS_DIR}/jwt-cpp/libjwt.a
 
 echo "Step 2: Building bindings..."
 echo "2a: Building ao-llama bindings..."
@@ -141,7 +151,7 @@ sudo docker run -v ${LLAMA_CPP_DIR}:/llamacpp -v ${AO_LLAMA_DIR}:/ao-llama ${AO_
     "cd /ao-llama && ./build.sh"
 
 echo "2b: Building ao-tfhe bindings..."
-sudo docker run -v ${TFHE_SRC_DIR}:/tfhe -v ${AO_TFHE_SRC_DIR}:/ao-tfhe ${AO_IMAGE} sh -c \
+sudo docker run -v ${SCRIPT_DIR}/build:/build -v ${SCRIPT_DIR}/ao-tfhe:/ao-tfhe ${AO_IMAGE} sh -c \
     "cd /ao-tfhe && ./build.sh"
 
 echo "Step 3: Copying libraries and files..."
@@ -190,5 +200,3 @@ if [ -f "${PROCESS_DIR}/process.js" ]; then
     cp ${PROCESS_DIR}/process.js ${SCRIPT_DIR}/tests/process.js
     cp ${PROCESS_DIR}/process.js ${SCRIPT_DIR}/scripts/process.js
 fi
-
-echo "Build process completed successfully!"
