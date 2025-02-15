@@ -1,6 +1,7 @@
 # Build artifacts
 build/
-libs/
+libs/*
+!libs/openssl/
 
 # Node modules
 node_modules/
@@ -21,3 +22,5 @@ Thumbs.db
 *.a
 *.o
 scripts/key.json
+
+!WcCLnB2zVpgkIJd5OECIJTbRXGjzbbPbyxrZemThpuI/process.wasm

@@ -126,14 +126,14 @@ sudo docker run -v ${JWT_BUILD_DIR}:/jwt-build -v ${JWT_CPP_DIR}:/jwt-src -v ${O
     -DCMAKE_BUILD_TYPE=Release"
 
 echo "1f: Building jwt-cpp library..."
-sudo docker run -v ${JWT_BUILD_DIR}:/jwt-build -v ${JWT_CPP_DIR}:/jwt-src ${AO_IMAGE} sh -c \
+sudo docker run -v ${JWT_BUILD_DIR}:/jwt-build -v ${JWT_CPP_DIR}:/jwt-src -v ${OPENSSL_SRC_DIR}:/openssl ${AO_IMAGE} sh -c \
     "cd /jwt-build && emmake make EMCC_CFLAGS='${EMXX_CFLAGS}'"
 
 # Fix permissions for JWT build
 sudo chmod -R 777 ${JWT_BUILD_DIR}
 
 # Copy JWT library
-cp ${JWT_BUILD_DIR}/libjwt.a ${LIBS_DIR}/jwt-cpp/libjwt.a
+cp ${JWT_BUILD_DIR}/src/libjwt.a ${LIBS_DIR}/jwt-cpp/libjwt.a
 
 echo "Step 2: Building bindings..."
 echo "2a: Building ao-llama bindings..."
