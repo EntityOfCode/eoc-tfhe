@@ -27,7 +27,7 @@ mkdir -p $LIBS_DIR/tfhe
 
 # Build TFHE into a static library with emscripten
 sudo docker run -v ${TFHE_BUILD_DIR}:/tfhe-build -v ${SCRIPT_DIR}/libs/tfhe:/tfhe-src ${AO_IMAGE} sh -c \
-    "cd /tfhe-build && emcmake cmake /tfhe-src \
+    "cd /tfhe-build && emcmake cmake /tfhe-src/src \
     -DCMAKE_CXX_FLAGS='${EMXX_CFLAGS}' \
     -DENABLE_TESTS=OFF \
     -DENABLE_EXAMPLES=OFF \
@@ -48,7 +48,7 @@ cp ${TFHE_BUILD_DIR}/libtfhe.a $LIBS_DIR/tfhe/libtfhe.a
 
 # Copy TFHE headers
 mkdir -p $LIBS_DIR/tfhe/include
-cp -r ${SCRIPT_DIR}/libs/tfhe/src/include/* $LIBS_DIR/tfhe/include/
+cp -r ${SCRIPT_DIR}/libs/tfhe/src/libtfhe/include/* $LIBS_DIR/tfhe/include/
 cp -r ${TFHE_BUILD_DIR}/include/* $LIBS_DIR/tfhe/include/
 
 # Copy $LIBS_DIR to ${SCRIPT_DIR}/libs
