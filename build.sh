@@ -74,16 +74,23 @@ sudo docker run -v ${LLAMA_CPP_DIR}:/llamacpp ${AO_IMAGE} sh -c \
 sudo docker run -v ${LLAMA_CPP_DIR}:/llamacpp ${AO_IMAGE} sh -c \
     "cd /llamacpp && emmake make llama common EMCC_CFLAGS='${EMXX_CFLAGS}' -j 8"
 
-# Build ao-llama bindings
+# Copy build scripts to build directories
 mkdir -p ${AO_LLAMA_DIR}
-sudo docker run -v ${LLAMA_CPP_DIR}:/llamacpp -v ${AO_LLAMA_DIR}:/ao-llama ${AO_IMAGE} sh -c \
-    "cd /ao-llama && ./build.sh"
+cp ${SCRIPT_DIR}/AO-Llama/build/ao-llama/build.sh ${AO_LLAMA_DIR}/
+chmod +x ${AO_LLAMA_DIR}/build.sh
+
+# Build ao-llama bindings
+sudo docker run -v ${LLAMA_CPP_DIR}:/llamacpp -v ${AO_LLAMA_DIR}:/ao-llama -v ${SCRIPT_DIR}/AO-Llama/build/ao-llama:/ao-llama-src ${AO_IMAGE} sh -c \
+    "cp -r /ao-llama-src/* /ao-llama/ && cd /ao-llama && ./build.sh"
 
 # Build ao-tfhe bindings
 AO_TFHE_DIR="${SCRIPT_DIR}/build/ao-tfhe"
 mkdir -p ${AO_TFHE_DIR}
+cp ${SCRIPT_DIR}/ao-tfhe/build.sh ${AO_TFHE_DIR}/
+chmod +x ${AO_TFHE_DIR}/build.sh
+
 sudo docker run -v ${AO_TFHE_DIR}:/ao-tfhe -v ${SCRIPT_DIR}/ao-tfhe:/ao-tfhe-src ${AO_IMAGE} sh -c \
-    "cd /ao-tfhe && ./build.sh"
+    "cp -r /ao-tfhe-src/* /ao-tfhe/ && cd /ao-tfhe && ./build.sh"
 
 # Fix permissions
 sudo chmod -R 777 ${AO_TFHE_DIR}
@@ -103,7 +110,7 @@ cp ${LLAMA_CPP_DIR}/common/libcommon.a $LIBS_DIR/llamacpp/common/libcommon.a
 mkdir -p $LIBS_DIR/ao-llama
 cp ${AO_LLAMA_DIR}/libaollama.so $LIBS_DIR/ao-llama/libaollama.so
 cp ${AO_LLAMA_DIR}/libaostream.so $LIBS_DIR/ao-llama/libaostream.so
-cp ${AO_LLAMA_DIR}/Llama.lua ${PROCESS_DIR}/Llama.lua
+cp ${SCRIPT_DIR}/AO-Llama/build/ao-llama/Llama.lua ${PROCESS_DIR}/Llama.lua
 
 # Copy ao-tfhe libraries and Lua interface
 mkdir -p $LIBS_DIR/ao-tfhe
