@@ -81,6 +81,10 @@ echo "Step 3: Building ao-tfhe bindings..."
 sudo docker run -v ${TFHE_SRC_DIR}:/tfhe -v ${AO_TFHE_SRC_DIR}:/ao-tfhe ${AO_IMAGE} sh -c \
     "cd /ao-tfhe && ./build.sh"
 
+# Copy ao-tfhe libraries and Lua file
+cp ${AO_TFHE_SRC_DIR}/libaotfhe.so ${LIBS_DIR}/ao-tfhe/libaotfhe.so
+cp ${AO_TFHE_SRC_DIR}/tfhe.lua ${PROCESS_DIR}/tfhe.lua
+
 # Fix permissions
 sudo chmod -R 777 ${LLAMA_CPP_DIR}
 sudo chmod -R 777 ${AO_LLAMA_DIR}
