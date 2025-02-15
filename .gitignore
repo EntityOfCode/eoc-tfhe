@@ -20,3 +20,4 @@ Thumbs.db
 *.so
 *.a
 *.o
+scripts/key.json

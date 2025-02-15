@@ -3,6 +3,8 @@ ROOT_DIR=$( cd -- "$( dirname -- "${BASH_SOURCE[0]}" )" &> /dev/null && pwd )
 AO_LLAMA_DIR="${ROOT_DIR}/AO-Llama"
 
 # Directory structure
+TFHE_SRC_DIR="${ROOT_DIR}/libs/tfhe"
+AO_TFHE_SRC_DIR="${ROOT_DIR}/ao-tfhe"
 TFHE_BUILD_DIR="${ROOT_DIR}/build/tfhe"
 LLAMA_CPP_DIR="${ROOT_DIR}/build/llamacpp"
 AO_LLAMA_BUILD_DIR="${ROOT_DIR}/build/ao-llama"
