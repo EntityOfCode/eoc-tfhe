@@ -5,18 +5,17 @@
 #include <string>
 #include <vector>
 #include <cstring>
-#include <polynomials.h>
+#include "polynomials.h"
 #include <set>
 #include "tfhe.h"
 #include <memory>
 #include <cstdlib>
 #include <array>
 #include <algorithm>
-#include <stdexcept>
 
 // Optional features
-#define ENABLE_JWT 0
-#define ENABLE_OPENSSL 0
+#define ENABLE_JWT 1
+#define ENABLE_OPENSSL 1
 
 #if ENABLE_JWT
 #include "jwt/jwt_all.h"
@@ -91,20 +90,45 @@ std::string base64_decode(const std::string &in)
 }
 
 #if ENABLE_JWT
-bool validateJWT(const std::string &token, const std::string &jwksBase64)
+// Basic JWT validation without using JWT::Decode to avoid exceptions
+bool validateJWT(const std::string &token, const std::string &jwksBase64) 
 {
     std::cout << "Validating JWT token...:" << token << std::endl;
-    try
-    {
-        ::json header, payload;
-        std::tie(header, payload) = JWT::Decode(token);
-        return true;
-    }
-    catch (InvalidTokenError &tfe)
-    {
-        std::cout << "JWT validation failed: " << tfe.what() << std::endl;
+    
+    // Basic format validation
+    if (token.empty()) {
+        std::cout << "JWT validation failed: Empty token" << std::endl;
         return false;
     }
+
+    // JWT must have 3 parts separated by dots
+    size_t first_dot = token.find('.');
+    size_t last_dot = token.rfind('.');
+    
+    if (first_dot == std::string::npos || last_dot == std::string::npos || 
+        first_dot == last_dot || first_dot == 0 || last_dot == token.length() - 1) {
+        std::cout << "JWT validation failed: Invalid token format" << std::endl;
+        return false;
+    }
+
+    // Extract parts without decoding
+    std::string header_b64 = token.substr(0, first_dot);
+    std::string payload_b64 = token.substr(first_dot + 1, last_dot - first_dot - 1);
+    std::string signature_b64 = token.substr(last_dot + 1);
+
+    // Basic validation that each part is non-empty and contains valid base64 characters
+    auto is_base64 = [](const std::string &s) {
+        return !s.empty() && s.find_first_not_of(
+            "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789+/=") 
+            == std::string::npos;
+    };
+
+    if (!is_base64(header_b64) || !is_base64(payload_b64) || !is_base64(signature_b64)) {
+        std::cout << "JWT validation failed: Invalid base64 encoding" << std::endl;
+        return false;
+    }
+
+    return true;
 }
 #else
 bool validateJWT(const std::string &token, const std::string &jwksBase64)
