@@ -16,6 +16,9 @@ EMXX_CFLAGS="-sMEMORY64=1 -O3 -msimd128 -fno-rtti -Wno-experimental"
 # Initialize and update TFHE submodule
 git submodule update --init --recursive
 
+# Patch TFHE CMakeLists.txt to remove -march=native
+sed -i.bak 's/-march=native//g' ${SCRIPT_DIR}/libs/tfhe/src/CMakeLists.txt
+
 # Clean previous build artifacts, but keep source
 rm -rf ${TFHE_BUILD_DIR}
 rm -rf ${SCRIPT_DIR}/libs/build
@@ -38,7 +41,7 @@ sudo docker run -v ${TFHE_BUILD_DIR}:/tfhe-build -v ${SCRIPT_DIR}/libs/tfhe:/tfh
     -DCMAKE_BUILD_TYPE=Release"
 
 sudo docker run -v ${TFHE_BUILD_DIR}:/tfhe-build -v ${SCRIPT_DIR}/libs/tfhe:/tfhe-src ${AO_IMAGE} sh -c \
-    "cd /tfhe-build && emmake make tfhe EMCC_CFLAGS='${EMXX_CFLAGS}' -j 8"
+    "cd /tfhe-build && emmake make EMCC_CFLAGS='${EMXX_CFLAGS}' -j 8"
 
 # Fix permissions
 sudo chmod -R 777 ${TFHE_BUILD_DIR}
