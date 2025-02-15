@@ -1,9 +1,11 @@
 #!/bin/bash
 SCRIPT_DIR=$( cd -- "$( dirname -- "${BASH_SOURCE[0]}" )" &> /dev/null && pwd )
 
-# Directory structure from config.yml
+# Directory structure
 TFHE_BUILD_DIR="${SCRIPT_DIR}/build/tfhe"
 TFHE_LIB_DIR="${SCRIPT_DIR}/libs/tfhe"
+LLAMA_CPP_DIR="${SCRIPT_DIR}/build/llamacpp"
+AO_LLAMA_DIR="${SCRIPT_DIR}/build/ao-llama"
 PROCESS_DIR="${SCRIPT_DIR}/aos/process"
 LIBS_DIR="${PROCESS_DIR}/libs"
 
@@ -13,8 +15,20 @@ AO_IMAGE="p3rmaw3b/ao:0.1.4"
 # Emscripten flags from config.yml
 EMXX_CFLAGS="-sMEMORY64=1 -O3 -msimd128 -fno-rtti -Wno-experimental"
 
-# Initialize and update TFHE submodule
+# Initialize and update submodules
 git submodule update --init --recursive
+
+# Clone llama.cpp if it doesn't exist
+if [ ! -d "${LLAMA_CPP_DIR}" ]; then
+    git clone https://github.com/ggerganov/llama.cpp.git ${LLAMA_CPP_DIR}
+    cd ${LLAMA_CPP_DIR}
+    git checkout tags/b3233 -b b3233
+    cd ${SCRIPT_DIR}
+fi
+
+# Patch llama.cpp to remove alignment asserts
+sed -i.bak 's/#define ggml_assert_aligned.*/#define ggml_assert_aligned\(ptr\)/g' ${LLAMA_CPP_DIR}/ggml.c
+sed -i.bak '/.*GGML_ASSERT.*GGML_MEM_ALIGN == 0.*/d' ${LLAMA_CPP_DIR}/ggml.c
 
 # Patch TFHE CMakeLists.txt to remove -march=native
 sed -i.bak 's/-march=native//g' ${SCRIPT_DIR}/libs/tfhe/src/CMakeLists.txt
@@ -53,17 +67,45 @@ cp ${TFHE_BUILD_DIR}/libtfhe/libtfhe-nayuki-portable.a $LIBS_DIR/tfhe/libtfhe.a
 mkdir -p $LIBS_DIR/tfhe/include
 cp -r ${SCRIPT_DIR}/libs/tfhe/src/include/* $LIBS_DIR/tfhe/include/
 
+# Build llama.cpp
+sudo docker run -v ${LLAMA_CPP_DIR}:/llamacpp ${AO_IMAGE} sh -c \
+    "cd /llamacpp && emcmake cmake -DCMAKE_CXX_FLAGS='${EMXX_CFLAGS}' -S . -B . -DLLAMA_BUILD_EXAMPLES=OFF"
+
+sudo docker run -v ${LLAMA_CPP_DIR}:/llamacpp ${AO_IMAGE} sh -c \
+    "cd /llamacpp && emmake make llama common EMCC_CFLAGS='${EMXX_CFLAGS}' -j 8"
+
+# Build ao-llama bindings
+mkdir -p ${AO_LLAMA_DIR}
+sudo docker run -v ${LLAMA_CPP_DIR}:/llamacpp -v ${AO_LLAMA_DIR}:/ao-llama ${AO_IMAGE} sh -c \
+    "cd /ao-llama && ./build.sh"
+
 # Build ao-tfhe bindings
 AO_TFHE_DIR="${SCRIPT_DIR}/build/ao-tfhe"
 mkdir -p ${AO_TFHE_DIR}
-
 sudo docker run -v ${AO_TFHE_DIR}:/ao-tfhe -v ${SCRIPT_DIR}/ao-tfhe:/ao-tfhe-src ${AO_IMAGE} sh -c \
     "cd /ao-tfhe && ./build.sh"
 
 # Fix permissions
 sudo chmod -R 777 ${AO_TFHE_DIR}
 
-# Copy ao-tfhe to the libs directory
+# Fix permissions for all build directories
+sudo chmod -R 777 ${TFHE_BUILD_DIR}
+sudo chmod -R 777 ${LLAMA_CPP_DIR}
+sudo chmod -R 777 ${AO_LLAMA_DIR}
+sudo chmod -R 777 ${AO_TFHE_DIR}
+
+# Copy llama.cpp libraries
+mkdir -p $LIBS_DIR/llamacpp/common
+cp ${LLAMA_CPP_DIR}/libllama.a $LIBS_DIR/llamacpp/libllama.a
+cp ${LLAMA_CPP_DIR}/common/libcommon.a $LIBS_DIR/llamacpp/common/libcommon.a
+
+# Copy ao-llama libraries and Lua interface
+mkdir -p $LIBS_DIR/ao-llama
+cp ${AO_LLAMA_DIR}/libaollama.so $LIBS_DIR/ao-llama/libaollama.so
+cp ${AO_LLAMA_DIR}/libaostream.so $LIBS_DIR/ao-llama/libaostream.so
+cp ${AO_LLAMA_DIR}/Llama.lua ${PROCESS_DIR}/Llama.lua
+
+# Copy ao-tfhe libraries and Lua interface
 mkdir -p $LIBS_DIR/ao-tfhe
 cp ${AO_TFHE_DIR}/libaotfhe.so $LIBS_DIR/ao-tfhe/libaotfhe.so
 cp ${SCRIPT_DIR}/ao-tfhe/tfhe.lua ${PROCESS_DIR}/tfhe.lua
