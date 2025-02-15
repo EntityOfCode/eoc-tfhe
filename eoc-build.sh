@@ -76,6 +76,11 @@ echo "Step 2: Building ao-llama bindings..."
 sudo docker run -v ${LLAMA_CPP_DIR}:/llamacpp -v ${AO_LLAMA_DIR}:/ao-llama ${AO_IMAGE} sh -c \
     "cd /ao-llama && ./build.sh"
 
+# Step 4: Build ao-tfhe bindings
+echo "Step 3: Building ao-tfhe bindings..."
+sudo docker run -v ${TFHE_SRC_DIR}:/tfhe -v ${AO_TFHE_SRC_DIR}:/ao-tfhe ${AO_IMAGE} sh -c \
+    "cd /ao-tfhe && ./build.sh"
+
 # Fix permissions
 sudo chmod -R 777 ${LLAMA_CPP_DIR}
 sudo chmod -R 777 ${AO_LLAMA_DIR}
