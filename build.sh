@@ -89,7 +89,7 @@ AO_TFHE_DIR="${SCRIPT_DIR}/build/ao-tfhe"
 mkdir -p ${AO_TFHE_DIR}
 
 sudo docker run \
-    -v ${LIBS_DIR}:/src/libs \
+    -v ${TFHE_BUILD_DIR}:/tfhe-build \
     -v ${AO_TFHE_DIR}:/ao-tfhe \
     -v ${SCRIPT_DIR}/ao-tfhe:/ao-tfhe-src \
     ${AO_IMAGE} sh -c \
