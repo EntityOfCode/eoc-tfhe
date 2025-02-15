@@ -4,14 +4,12 @@ SCRIPT_DIR=$( cd -- "$( dirname -- "${BASH_SOURCE[0]}" )" &> /dev/null && pwd )
 # AO-Llama directories (using existing structure)
 LLAMA_CPP_DIR="${SCRIPT_DIR}/AO-Llama/build/llamacpp"
 AO_LLAMA_DIR="${SCRIPT_DIR}/AO-Llama/build/ao-llama"
+PROCESS_DIR="${SCRIPT_DIR}/AO-Llama/aos/process"
+LIBS_DIR="${PROCESS_DIR}/libs"
 
 # TFHE directories (following same pattern)
 TFHE_BUILD_DIR="${SCRIPT_DIR}/build/tfhe"
 AO_TFHE_DIR="${SCRIPT_DIR}/build/ao-tfhe"
-
-# Process and libs directories (common for all libraries)
-PROCESS_DIR="${SCRIPT_DIR}/aos/process"
-LIBS_DIR="${PROCESS_DIR}/libs"
 
 # Docker image from config.yml
 AO_IMAGE="p3rmaw3b/ao:0.1.4"
@@ -69,15 +67,10 @@ cp ${SCRIPT_DIR}/config.yml ${PROCESS_DIR}/config.yml
 cd ${PROCESS_DIR}
 docker run -e DEBUG=1 --platform linux/amd64 -v ./:/src ${AO_IMAGE} ao-build-module
 
-# Create tests directory if it doesn't exist
-mkdir -p ${SCRIPT_DIR}/tests
-
-# Copy the process module to the tests directory
-cp ${PROCESS_DIR}/process.wasm ${SCRIPT_DIR}/tests/process.wasm
-
-# Copy process.js if it exists
+# Copy the process module to AO-Llama tests directory
+cp ${PROCESS_DIR}/process.wasm ${SCRIPT_DIR}/AO-Llama/tests/process.wasm
 if [ -f "${PROCESS_DIR}/process.js" ]; then
-    cp ${PROCESS_DIR}/process.js ${SCRIPT_DIR}/tests/process.js
+    cp ${PROCESS_DIR}/process.js ${SCRIPT_DIR}/AO-Llama/tests/process.js
 fi
 
 echo "Build completed successfully!"
