@@ -53,6 +53,21 @@ cp ${TFHE_BUILD_DIR}/libtfhe/libtfhe-nayuki-portable.a $LIBS_DIR/tfhe/libtfhe.a
 mkdir -p $LIBS_DIR/tfhe/include
 cp -r ${SCRIPT_DIR}/libs/tfhe/src/include/* $LIBS_DIR/tfhe/include/
 
+# Build ao-tfhe bindings
+AO_TFHE_DIR="${SCRIPT_DIR}/build/ao-tfhe"
+mkdir -p ${AO_TFHE_DIR}
+
+sudo docker run -v ${AO_TFHE_DIR}:/ao-tfhe -v ${SCRIPT_DIR}/ao-tfhe:/ao-tfhe-src ${AO_IMAGE} sh -c \
+    "cd /ao-tfhe && ./build.sh"
+
+# Fix permissions
+sudo chmod -R 777 ${AO_TFHE_DIR}
+
+# Copy ao-tfhe to the libs directory
+mkdir -p $LIBS_DIR/ao-tfhe
+cp ${AO_TFHE_DIR}/libaotfhe.so $LIBS_DIR/ao-tfhe/libaotfhe.so
+cp ${SCRIPT_DIR}/ao-tfhe/tfhe.lua ${PROCESS_DIR}/tfhe.lua
+
 # Copy $LIBS_DIR to ${SCRIPT_DIR}/libs
 cp -r $LIBS_DIR ${SCRIPT_DIR}/libs
 
@@ -61,4 +76,14 @@ if [ -d "${PROCESS_DIR}" ]; then
     cp ${SCRIPT_DIR}/config.yml ${PROCESS_DIR}/config.yml
 fi
 
-echo "TFHE build completed. Library and headers copied to libs/tfhe/"
+# Build the process module
+cd ${PROCESS_DIR} 
+docker run -e DEBUG=1 --platform linux/amd64 -v ./:/src ${AO_IMAGE} ao-build-module
+
+# Copy the process module to the tests directory
+cp ${PROCESS_DIR}/process.wasm ${SCRIPT_DIR}/tests/process.wasm
+if [ -f "${PROCESS_DIR}/process.js" ]; then
+    cp ${PROCESS_DIR}/process.js ${SCRIPT_DIR}/tests/process.js
+fi
+
+echo "Build completed. Libraries and modules copied to appropriate locations."
