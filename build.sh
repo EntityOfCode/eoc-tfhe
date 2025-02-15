@@ -60,12 +60,13 @@ sudo docker run -v ${TFHE_BUILD_DIR}:/tfhe-build -v ${SCRIPT_DIR}/libs/tfhe:/tfh
 # Fix permissions
 sudo chmod -R 777 ${TFHE_BUILD_DIR}
 
-# Copy TFHE library to the libs directory
-cp ${TFHE_BUILD_DIR}/libtfhe/libtfhe-nayuki-portable.a $LIBS_DIR/tfhe/libtfhe.a
+# Copy TFHE library to process/libs
+mkdir -p ${PROCESS_DIR}/libs/tfhe
+cp ${TFHE_BUILD_DIR}/libtfhe/libtfhe-nayuki-portable.a ${PROCESS_DIR}/libs/tfhe/libtfhe.a
 
-# Copy TFHE headers
-mkdir -p $LIBS_DIR/tfhe/include
-cp -r ${SCRIPT_DIR}/libs/tfhe/src/include/* $LIBS_DIR/tfhe/include/
+# Copy TFHE headers to build directory for compilation
+mkdir -p ${TFHE_BUILD_DIR}/include
+cp -r ${SCRIPT_DIR}/libs/tfhe/src/include/* ${TFHE_BUILD_DIR}/include/
 
 # Build llama.cpp
 sudo docker run -v ${LLAMA_CPP_DIR}:/llamacpp ${AO_IMAGE} sh -c \
@@ -108,19 +109,16 @@ mkdir -p $LIBS_DIR/llamacpp/common
 cp ${LLAMA_CPP_DIR}/libllama.a $LIBS_DIR/llamacpp/libllama.a
 cp ${LLAMA_CPP_DIR}/common/libcommon.a $LIBS_DIR/llamacpp/common/libcommon.a
 
-# Copy ao-llama libraries and Lua interface
-mkdir -p $LIBS_DIR/ao-llama
-cp ${AO_LLAMA_DIR}/libaollama.so $LIBS_DIR/ao-llama/libaollama.so
-cp ${AO_LLAMA_DIR}/libaostream.so $LIBS_DIR/ao-llama/libaostream.so
+# Copy ao-llama libraries and Lua interface to process
+mkdir -p ${PROCESS_DIR}/libs/ao-llama
+cp ${AO_LLAMA_DIR}/libaollama.so ${PROCESS_DIR}/libs/ao-llama/libaollama.so
+cp ${AO_LLAMA_DIR}/libaostream.so ${PROCESS_DIR}/libs/ao-llama/libaostream.so
 cp ${SCRIPT_DIR}/AO-Llama/build/ao-llama/Llama.lua ${PROCESS_DIR}/Llama.lua
 
-# Copy ao-tfhe libraries and Lua interface
-mkdir -p $LIBS_DIR/ao-tfhe
-cp ${AO_TFHE_DIR}/libaotfhe.so $LIBS_DIR/ao-tfhe/libaotfhe.so
+# Copy ao-tfhe libraries and Lua interface to process
+mkdir -p ${PROCESS_DIR}/libs/ao-tfhe
+cp ${AO_TFHE_DIR}/libaotfhe.so ${PROCESS_DIR}/libs/ao-tfhe/libaotfhe.so
 cp ${SCRIPT_DIR}/ao-tfhe/tfhe.lua ${PROCESS_DIR}/tfhe.lua
-
-# Copy $LIBS_DIR to ${SCRIPT_DIR}/libs
-cp -r $LIBS_DIR ${SCRIPT_DIR}/libs
 
 # Copy config.yml to the process directory if needed
 if [ -d "${PROCESS_DIR}" ]; then
