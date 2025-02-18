@@ -1,6 +1,6 @@
 # EOC-TFHE Project
 
-This repository provides a WebAssembly-based Fully Homomorphic Encryption (FHE) module for the AO blockchain ecosystem. It combines TFHE (Fast Fully Homomorphic Encryption) with secure authentication using JWT, enabling privacy-preserving computations on encrypted data.
+This repository provides a WebAssembly-based Fully Homomorphic Encryption (FHE) module for the AO blockchain ecosystem - legacynet. It combines TFHE (Fast Fully Homomorphic Encryption) with secure authentication using JWT, enabling privacy-preserving computations on encrypted data.
 
 ## Features
 
